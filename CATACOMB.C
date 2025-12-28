@@ -1,4 +1,8 @@
-/* The Catacomb Source Code
+/* Reconstructed Dangerous Dave in Copyright Infringement Source Code
+ * Copyright (C) 2025 Frenkel Smeijers
+ *
+ * The code in this file is primarily based on:
+ * The Catacomb Source Code
  * Copyright (C) 1993-2014 Flat Rock Software
  *
  * This program is free software; you can redistribute it and/or modify
@@ -236,6 +240,18 @@ char demowin [5][16] = {
   {17,'S','P','A','C','E',' ','T','O',' ','S','T','A','R','T',18},
   {17,'F','1',' ','T','O',' ','G','E','T',' ','H','E','L','P',18},
   {19,20,20,20,20,20,20,20,20,20,20,20,20,20,20,21} };
+
+void sub_0_239 (void)
+{
+asm {
+db 0E8h, 15h, 1Bh, 83h
+db 3Eh, 0C2h, 94h, 00h, 74h, 07h, 83h, 3Eh, 0C2h, 94h, 03h, 75h, 09h, 0E8h, 63h, 05h
+db 0E8h, 3Dh, 00h, 0E8h, 5Dh, 05h, 83h, 3Eh, 0C2h, 94h, 01h, 75h, 10h, 0B8h, 0Dh, 00h
+db 50h, 33h, 0C0h, 50h, 33h, 0C0h, 50h, 0E8h, 0DDh, 57h, 83h, 0C4h, 06h, 83h, 3Eh, 0C2h
+db 94h, 02h, 75h, 10h, 0B8h, 0Fh, 00h, 50h, 33h, 0C0h, 50h, 33h, 0C0h, 50h, 0E8h, 0C6h
+db 57h, 83h, 0C4h, 06h, 83h, 3Eh, 0C2h, 94h, 03h, 75h, 03h, 0E8h, 0B3h, 38h
+}
+}
 
 void refresh (void)
 {
