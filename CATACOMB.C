@@ -835,6 +835,20 @@ db 0E5h
 }
 
 
+//void sub_0_1953(void)
+void main(void)
+{
+asm {
+db 0C7h, 06h, 0E0h, 0ADh, 01h, 00h, 0C7h, 06h, 62h, 0C3h
+db 01h, 00h, 0C7h, 06h, 0E6h, 0ADh, 00h, 00h, 0C7h, 06h, 84h, 0AEh, 01h, 00h, 0C7h, 06h
+db 5Eh, 0C3h, 00h, 00h, 0C7h, 06h, 46h, 0Ch, 9Dh, 04h, 0E8h, 3Dh, 24h, 0C7h, 06h, 0Eh
+db 0Ch, 19h, 00h, 0C7h, 06h, 20h, 82h, 20h, 00h, 0E8h, 0F2h, 0E9h, 0C7h, 06h, 0C8h, 94h
+db 40h, 1Dh, 0E8h, 64h, 0ECh, 0E8h, 5Fh, 3Ah, 0E8h, 91h, 0FCh, 83h, 3Eh, 0C2h, 94h, 02h
+db 75h, 03h, 0E8h, 0A3h, 0EBh, 0E8h, 76h, 0EDh, 0EBh, 0E8h
+}
+}
+
+
 void refresh (void)
 {
   int x,y,basex,basey;
@@ -1753,7 +1767,7 @@ static	char			*EntryParmStrings[] = {"detour",0};
 /*			   */
 /*=========================*/
 
-void main (void)
+void delmemain (void)
 {
 	boolean LaunchedFromShell = false;
 
