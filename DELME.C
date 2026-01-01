@@ -13,3 +13,11 @@ void dofkeys(void)
 void repaintscreen(void)
 {
 }
+
+void loadgrfiles(void)
+{
+}
+
+void refresh(void)
+{
+}
