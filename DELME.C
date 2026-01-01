@@ -21,3 +21,7 @@ void loadgrfiles(void)
 void refresh(void)
 {
 }
+
+void EGAmove(void)
+{
+}
