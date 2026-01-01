@@ -324,27 +324,31 @@ db 00h, 50h, 0E8h, 0A4h, 2Eh, 59h, 59h, 0B8h, 0F9h, 03h, 50h, 0E8h, 0A3h, 2Fh, 5
 db 3Eh, 2Fh, 50h, 0E8h, 39h, 63h, 59h, 0A2h, 68h, 0C3h, 80h, 3Eh, 68h, 0C3h, 59h, 75h
 db 08h, 0B8h, 05h, 04h, 50h, 0E8h, 0FDh, 39h, 59h, 0EBh, 02h, 0EBh, 03h, 0E8h, 0C9h, 0FDh
 db 5Fh, 5Eh
-}
-}
+
+db 5Dh, 0C3h
+//}
+//}
 
 
-// 0x0001
-// 0x003B
-// 0x003C
-// 0x003D
-// 0x0043
-// 0x0044
-// 0x0437
-// 0x03CD
-// 0x03D6
-// 0x03E2
-// 0x041A
-// 0x0437
+db 01h, 00h
+db 3Bh, 00h
+db 3Ch, 00h
+db 3Dh, 00h
+db 43h, 00h
+db 44h, 00h
+db 37h, 04h
+db 0CDh, 03h
+db 0D6h, 03h
+db 0E2h, 03h
+db 1Ah, 04h
+db 37h, 04h
 
 
-void sub_0_48C(void)
-{
-asm {
+//void sub_0_48C(void)
+//{
+//asm {
+db 55h, 8Bh, 0ECh
+
 db 0B8h
 db 15h, 00h, 50h, 0B8h, 24h, 00h, 50h, 0E8h, 4Fh, 2Eh, 59h, 59h, 0B8h, 06h, 04h, 50h
 db 0E8h, 4Eh, 2Fh, 59h, 0E8h, 0E9h, 2Eh
@@ -715,22 +719,26 @@ db 01h, 00h, 0EBh, 20h, 8Bh, 1Eh, 0D0h, 7Fh, 83h, 7Fh, 28h, 00h, 74h, 0Eh, 0E8h,
 db 0F7h, 0Bh, 0C0h, 74h, 07h, 8Bh, 1Eh, 0D0h, 7Fh, 0FFh, 57h, 2Ch, 0FFh, 46h, 0FEh, 83h
 db 06h, 0D0h, 7Fh, 32h, 8Bh, 46h, 0FEh, 3Bh, 06h, 22h, 82h, 7Ch, 0D7h, 5Fh, 5Eh, 8Bh
 db 0E5h
-}
-}
+
+db 5Dh, 0C3h
+//}
+//}
 
 
-// 0x106C
-// 0x106C
-// 0x106C
-// 0x108E
-// 0x107C
-// 0x107C
-// 0x107C
+db 6Ch, 10h
+db 6Ch, 10h
+db 6Ch, 10h
+db 8Eh, 10h
+db 7Ch, 10h
+db 7Ch, 10h
+db 7Ch, 10h
 
 
-void sub_0_1491(void)
-{
-asm {
+//void sub_0_1491(void)
+//{
+//asm {
+db 55h, 8Bh, 0ECh
+
 db 8Bh, 46h, 04h, 99h, 01h, 06h, 0E2h, 0ADh, 11h, 16h, 0E4h, 0ADh
 db 0A1h, 0E4h, 0ADh, 8Bh, 16h, 0E2h, 0ADh, 81h, 0C2h, 0F0h, 0D8h, 15h, 0FFh, 0FFh, 3Bh, 06h
 db 0C0h, 94h, 7Ch, 17h, 75h, 06h, 3Bh, 16h, 0BEh, 94h, 72h, 0Fh, 81h, 06h, 0BEh, 94h
