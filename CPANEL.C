@@ -82,6 +82,8 @@ void controlpanel (void);
 
 //=========================================================================
 
+int sx,sy,leftedge;
+
 ////////////////
 //
 // calibratejoy
@@ -346,6 +348,10 @@ void calibratekeys (void)
 
 //=========================================================================
 
+
+boolean	_cgaok, _egaok, _vgaok;
+
+
 ////////////////////
 //
 // getconfig
@@ -464,6 +470,9 @@ void drawpanel (void)
 }
 
 //=========================================================================
+
+int screencenterx = 19,screencentery = 11;
+grtype grmode;
 
 ////////////////
 //
@@ -603,6 +612,9 @@ void controlpanel (void)
 
 
 //==========================================================================
+
+void far *lastparalloc;	// global variable of the EXACT (not paralign)
+				// last block, so it can be freed right
 
 /*
 ===================
