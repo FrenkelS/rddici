@@ -1,3 +1,7 @@
+; Reconstructed Dangerous Dave in Copyright Infringement Source Code
+; Copyright (C) 2026 Frenkel Smeijers
+;
+; The code in this file is primarily based on:
 ; The Catacomb Source Code
 ; Copyright (C) 1993-2014 Flat Rock Software
 ;
@@ -122,25 +126,44 @@ CGAylookup dw    0,8192,  80,8272, 160,8352, 240,8432, 320,8512, 400,8592, 480,8
     dw 7280,15472,7360,15552,7440,15632,7520,15712,7600,15792,7680,15872,7760,15952
     dw 7840,16032,7920,16112
 
-EGAylookup dw    0,  40,  80, 120, 160, 200, 240, 280, 320, 360, 400, 440, 480, 520
-    dw  560, 600, 640, 680, 720, 760, 800, 840, 880, 920, 960,1000,1040,1080
-    dw 1120,1160,1200,1240,1280,1320,1360,1400,1440,1480,1520,1560,1600,1640
-    dw 1680,1720,1760,1800,1840,1880,1920,1960,2000,2040,2080,2120,2160,2200
-    dw 2240,2280,2320,2360,2400,2440,2480,2520,2560,2600,2640,2680,2720,2760
-    dw 2800,2840,2880,2920,2960,3000,3040,3080,3120,3160,3200,3240,3280,3320
-    dw 3360,3400,3440,3480,3520,3560,3600,3640,3680,3720,3760,3800,3840,3880
-    dw 3920,3960,4000,4040,4080,4120,4160,4200,4240,4280,4320,4360,4400,4440
-    dw 4480,4520,4560,4600,4640,4680,4720,4760,4800,4840,4880,4920,4960,5000
-    dw 5040,5080,5120,5160,5200,5240,5280,5320,5360,5400,5440,5480,5520,5560
-    dw 5600,5640,5680,5720,5760,5800,5840,5880,5920,5960,6000,6040,6080,6120
-    dw 6160,6200,6240,6280,6320,6360,6400,6440,6480,6520,6560,6600,6640,6680
-    dw 6720,6760,6800,6840,6880,6920,6960,7000,7040,7080,7120,7160,7200,7240
-    dw 7280,7320,7360,7400,7440,7480,7520,7560,7600,7640,7680,7720,7760,7800
-    dw 7840,7880,7920,7960,8000,8040,8080,8120,8160,8200,8240,8280,8320,8360
-    dw 8400,8440,8480,8520,8560,8600,8640,8680,8720,8760,8800,8840,8880,8920
-    dw 8960,9000,9040,9080,9120,9160,9200,9240,9280,9320,9360,9400,9440,9480
-    dw 9520,9560,9600,9640,9680,9720,9760,9800,9840,9880,9920,9960,10000,10040
-    dw 10080,10120,10160,10200
+EGAylookup dw    0,  48,  96, 144, 192, 240, 288, 336, 384, 432, 480, 528, 576, 624
+    dw  672, 720, 768, 816, 864, 912, 960,1008,1056,1104,1152,1200,1248,1296
+    dw 1344,1392,1440,1488,1536,1584,1632,1680,1728,1776,1824,1872,1920,1968
+    dw 2016,2064,2112,2160,2208,2256,2304,2352,2400,2448,2496,2544,2592,2640
+    dw 2688,2736,2784,2832,2880,2928,2976,3024,3072,3120,3168,3216,3264,3312
+    dw 3360,3408,3456,3504,3552,3600,3648,3696,3744,3792,3840,3888,3936,3984
+    dw 4032,4080,4128,4176,4224,4272,4320,4368,4416,4464,4512,4560,4608,4656
+    dw 4704,4752,4800,4848,4896,4944,4992,5040,5088,5136,5184,5232,5280,5328
+    dw 5376,5424,5472,5520,5568,5616,5664,5712,5760,5808,5856,5904,5952,6000
+    dw 6048,6096,6144,6192,6240,6288,6336,6384,6432,6480,6528,6576,6624,6672
+    dw 6720,6768,6816,6864,6912,6960,7008,7056,7104,7152,7200,7248,7296,7344
+    dw 7392,7440,7488,7536,7584,7632,7680,7728,7776,7824,7872,7920,7968,8016
+    dw 8064,8112,8160,8208,8256,8304,8352,8400,8448,8496,8544,8592,8640,8688
+    dw 8736,8784,8832,8880,8928,8976,9024,9072,9120,9168,9216,9264,9312,9360
+    dw 9408,9456,9504,9552,9600,9648,9696,9744,9792,9840,9888,9936,9984,10032
+    dw 10080,10128,10176,10224,10272,10320,10368,10416,10464,10512,10560,10608,10656,10704
+    dw 10752,10800,10848,10896,10944,10992,11040,11088,11136,11184,11232,11280,11328,11376
+    dw 11424,11472,11520,11568,11616,11664,11712,11760,11808,11856,11904,11952,12000,12048
+    dw 12096,12144,12192,12240
+
+byte_0_50EA db 0
+db 30h
+db 30h
+db 30h
+db 60h
+db 30h
+db 90h
+db 30h
+db 0C0h
+db 30h
+db 0F0h
+db 30h
+db 20h
+db 31h
+db 50h
+db 31h
+db   0
+db   0
 
 VGAylookup dw    0, 320, 640, 960,1280,1600,1920,2240,2560,2880,3200,3520,3840,4160
     dw 4480,4800,5120,5440,5760,6080,6400,6720,7040,7360,7680,8000,8320,8640
@@ -158,400 +181,61 @@ VGAylookup dw    0, 320, 640, 960,1280,1600,1920,2240,2560,2880,3200,3520,3840,4
     dw -7296,-6976,-6656,-6336,-6016,-5696,-5376,-5056,-4736,-4416,-4096,-3776,-3456,-3136
     dw -2816,-2496,-2176,-1856
 
-
-;=======================================================================
-
-;========
-;
-; StartupSound
-;
-; Sets up the new INT 8 ISR and various internal pointers.
-; Assumes that the calling program has pointer SOUNDDATA to something
-; meaningful...
-;
-;========
-
-PROC StartupSound
-	PUBLIC	StartupSound
-
-	test	[_dontplay],0ffffh
-	je	@@dowork
-	ret
-@@dowork:
-	test	[SPKactive],0FFFFh	;see if library is active
-	jne	@@started		;library was allready started
-
-@@start:
-	call	NEAR PTR StopSound	;make sure nothing is playing
-
-	mov	ax,3508h	;call bios to get int 8
-	int	21h
-	mov	[WORD oldint8],bx
-	mov	ax,es
-	mov	[WORD oldint8+2],ax
-
-	mov	ax,1
-	mov	[extraints],al		;the timer is still going at the
-	mov	[intcount],al		;normal rate now
-
-	push	ds
-
-	push	cs
-	pop	ds
-	lea	dx,[UpdateSPKR]
-	mov	ax,2508h	;call bios to set int 8
-	int	21h
-
-	pop	ds
-
-	inc	[SPKactive]	;sound routines are now active
-
-@@started:
-	mov	ax,1
-	mov	[soundmode],ax ;set soundmode to SPKR
-	ret
-
-ENDP
-
-;=======================================================================
-
-;========
-;
-; ShutdownSound
-;
-;========
-
-PROC	ShutdownSound
-	PUBLIC ShutdownSound
-
-	test	[_dontplay],0ffffh
-	je	@@dowork
-	ret
-@@dowork:
-	mov	al,36h		;tell the timer chip we are going to
-	out	43h,al		;change the speed of timer 0
-	mov	al,0		;system expects 0000 for rate
-	out	40h,al		;low
-	out	40h,al		;high
-
-	mov	ax,[SPKactive]
-	cmp	ax,0
-	je	@@done		;sound library wasn't started...
-
-	push	ds
-
-	mov	dx,[WORD Oldint8]
-	mov	ax,[WORD Oldint8+2]
-	mov	ds,ax
-	mov	ax,2508h	;call bios to set int 8
-	int	21h
-
-	pop	ds
-
-	mov	[SPKactive],0	;sound routines are now inactive
-
-	in	al,61h		;get peripheral (speaker) port value
-	and	al,11111101b	;turn speaker off
-	out	61h,al
-
-@@done:
-	ret
-
-ENDP
-
-;=========================================================================
-
-;===========
-;
-; PlaySound (soundnum)
-;
-; If the sound's priority is >= the current priority, SoundPtr, SndPriority,
-; and the timer speed are changed
-;
-;===========
-
-PROC	PlaySound playnum:WORD
-	PUBLIC PlaySound
-
-	test	[_dontplay],0ffffh
-	je	@@dowork
-	ret
-@@dowork:
-	mov	ax,[playnum]	;index into the sound headers
-	push	si
-
-	mov	si,ax
-	shl	si,1
-	shl	si,1
-	shl	si,1
-	shl	si,1
-
-	mov	ax,[WORD SoundData+2]
-	mov	es,ax		;point es: to the spkr file
-
-	mov	al,[es:si+snd_Priority]	;priority table (one byte each)
-	cmp	al,[SndPriority]
-	jb	@@playdone	;current sound has higher priority
-	mov	[SndPriority],al
-	mov	ax,[es:si+snd_Start]	;offset in .SPK file
-	mov	[SndPtr],ax	;store it in the sound playing table
-
-	mov	bl,[es:si+snd_samples]	;samples / regular timer tick (1-255)
-	mov	[extraints],bl	;an OldInt8 will be called after this
-	mov	[intcount],bl	;many UpdateSPKR times have been called
-
-	cmp	bl,1		;sample rate of 0 or 1 = 0000 for timer
-	ja	@@oktodiv
-	xor	bx,bx
-	jmp	@@settimer
-
-@@oktodiv:
-	xor	bh,bh
-	xor	ax,ax
-	mov	dx,1
-	div	bx		;$10000 / samples = timer rate
-
-	mov	bx,ax
-	mov	[sndspeed],bx	;save off the timer rate
-
-@@settimer:
-	mov	al,36h		;tell the timer chip we are going to
-	out	43h,al		;change the speed of timer 0
-
-	mov	al,bl		;low byte of sample rate
-	out	40h,al
-	mov	al,bh		;high byte of sample rate
-	out	40h,al
-
-@@playdone:
-	pop	si
-	ret
-
-ENDP
-
-
-;======================================================================
-
-;===========
-;
-; StopSound
-;
-;===========
-
-PROC	StopSound
-	PUBLIC	StopSound
-
-	test	[_dontplay],0ffffh
-	je	@@dowork
-	ret
-@@dowork:
-	xor	ax,ax		;set to 0
-	mov	[SndPtr],ax
-	mov	[SndPriority],al
-	mov	[sndspeed],ax
-
-	in	al,61h		;get peripheral (speaker) port value
-	and	al,11111101b	;turn speaker off
-	out	61h,al
-
-	mov	al,36h		;tell the timer chip we are going to
-	out	43h,al		;change the speed of timer 0
-
-	mov	al,0		;back to normal clock speed
-	out	40h,al
-	out	40h,al
-
-	inc	al
-	mov	[extraints],al  ;one bios int / int8
-	mov	[intcount],al
-
-	ret
-ENDP
-
-;======================================================================
-
-;===========
-;
-; PauseSound
-;
-;===========
-
-PROC	PauseSound
-	PUBLIC	PauseSound
-
-	test	[_dontplay],0ffffh
-	je	@@dowork
-	ret
-@@dowork:
-	mov	ax,[SndPtr]	;save off the current values
-	mov	[pausesndptr],ax
-	mov	al,[SndPriority]
-	mov	[pausepriority],al
-	mov	al,[extraints]
-	mov	[pauseextraints],al
-	mov	al,[intcount]
-	mov	[pauseintcount],al
-	mov	ax,[sndspeed]
-	mov	[pausespeed],ax
-	call	StopSound
-	ret
-ENDP
-
-;======================================================================
-
-;===========
-;
-; ContinueSound
-;
-;===========
-
-PROC	ContinueSound
-	PUBLIC	ContinueSound
-
-	test	[_dontplay],0ffffh
-	je	@@dowork
-	ret
-@@dowork:
-	mov	ax,[pausesndptr]
-	mov	[SndPtr],ax	;restore the old values
-	mov	al,[pausepriority]
-	mov	[SndPriority],al
-	mov	al,[pauseextraints]
-	mov	[extraints],al
-	mov	al,[pauseintcount]
-	mov	[intcount],al
-
-	mov	bx,[pausespeed]
-
-	mov	al,36h		;tell the timer chip we are going to
-	out	43h,al		;change the speed of timer 0
-
-	mov	al,bl		;low byte of sample rate
-	out	40h,al
-	mov	al,bh		;high byte of sample rate
-	out	40h,al
-
-
-	ret
-ENDP
-
-;======================================================================
-
-;========
-;
-; WaitendSound
-; Just waits around until the current sound stops playing
-;
-;========
-
-PROC	WaitEndSound
-	PUBLIC WaitEndSound
-
-	test	[_dontplay],0ffffh
-	je	@@dowork
-	ret
-@@dowork:
-	pushf
-	call FAR PTR UpdateSPKR	;in case a sound was just started and hasn't
-				;been hit by an INT yet
-@@wait:
-	mov	ax,[sndptr]
-	cmp	ax,0		;when the ptr is 0, nothing is on
-	jne	@@wait
-
-	ret
-
-ENDP
-
-;=========================================================================
-
-;========
-;
-; UpdateSPKR
-; only called by interrupt $8!
-;
-;=========
-
-PROC	UpdateSPKR FAR
-
-	push	ax
-	push	bx
-	push	cx
-	push	si
-	push	ds
-	push	es
-
-	mov	ax,_DATA
-	mov	ds,ax		;ds to this data segment
-	mov	ax,[WORD SoundData+2]
-	mov	es,ax		;es to sound file
-
-	mov	al,20h
-	out	20h,al		;we got the interrupt here
-
-	dec	[intcount]	;see if it is time for a BIOS int 8...
-	jne	@@dosounds
-
-	mov	al,[extraints]
-	mov	[intcount],al	;reset interrupt counter
-
-	pushf			;so the IRET from bios returns right
-	call	[OldInt8]	;call the old BIOS timer routine
-
-@@dosounds:
-;
-; play the speaker
-;
-	mov	si,[SndPtr]
-	cmp	si,0
-	je	@@nosound	;nothing playing
-
-	mov	bx,[es:si]
-	inc	[SndPtr]
-	inc	[SndPtr]
-
-	cmp	bx,0
-	je	@@nosound	;a zero frequency is no sound, but don't stop
-
-	cmp	bx,-1		;a -1 frequency is end of sound
-	jne	@@playfreq
-
-	call	StopSound
-	jmp	@@doneplay
-
-@@nosound:
-	in	al,61h		;get peripheral (speaker) port value
-	and	al,11111100b	;turn speaker off
-	out	61h,al
-	jmp	@@doneplay
-
-@@playfreq:
-	test	[soundmode],0FFh	;if soundon=0, don't play anything
-	je	@@nosound
-
-	mov	al,10110110b	;write to channel 2 (speaker) timer
-	out	43h,al
-	mov	al,bl
-	out	42h,al		;low byte
-	mov	al,bh
-	out	42h,al		;high byte
-
-	in	al,61h		;get peripheral (speaker) port value
-	or	al,00000011b	;turn speaker on to timer
-	out	61h,al
-
-@@doneplay:
-	pop	es
-	pop	ds
-	pop	si
-	pop	cx
-	pop	bx
-	pop	ax
-
-	iret
-
-
-ENDP
+sub_0_528C:
+db 0F7h, 06h, 0E6h, 10h
+db 0FFh, 0FFh, 74h, 01h, 0C3h, 0F7h, 06h, 0CCh, 10h, 0FFh, 0FFh, 75h, 2Ah, 0E8h, 0CDh, 00h
+db 0B8h, 08h, 35h, 0CDh, 21h, 89h, 1Eh, 0D4h, 10h, 8Ch, 0C0h, 0A3h, 0D6h, 10h, 0B8h, 01h
+db 00h, 0A2h, 0D8h, 10h, 0A2h, 0D9h, 10h, 1Eh, 0Eh, 1Fh, 0BAh, 0Fh, 54h, 0B8h, 08h, 25h
+db 0CDh, 21h, 1Fh, 0FFh, 06h, 0CCh, 10h, 0B8h, 01h, 00h, 0A3h, 0D2h, 10h, 0C3h
+
+sub_0_52CE:
+db 0F7h, 06h
+db 0E6h, 10h, 0FFh, 0FFh, 74h, 01h, 0C3h, 0B0h, 36h, 0E6h, 43h, 0B0h, 00h, 0E6h, 40h, 0E6h
+db 40h, 0A1h, 0CCh, 10h, 3Dh, 00h, 00h, 74h, 1Ch, 1Eh, 8Bh, 16h, 0D4h, 10h, 0A1h, 0D6h
+db 10h, 8Eh, 0D8h, 0B8h, 08h, 25h, 0CDh, 21h, 1Fh, 0C7h, 06h, 0CCh, 10h, 00h, 00h, 0E4h
+db 61h, 24h, 0FDh, 0E6h, 61h, 0C3h
+
+sub_0_5306:
+db 55h, 8Bh, 0ECh, 0F7h, 06h, 0E6h, 10h, 0FFh, 0FFh, 74h
+db 02h, 5Dh, 0C3h, 8Bh, 46h, 04h, 56h, 8Bh, 0F0h, 0D1h, 0E6h, 0D1h, 0E6h, 0D1h, 0E6h, 0D1h
+db 0E6h, 0A1h, 0D0h, 10h, 8Eh, 0C0h, 26h, 8Ah, 44h, 02h, 3Ah, 06h, 0DEh, 10h, 72h, 3Ah
+db 0A2h, 0DEh, 10h, 26h, 8Bh, 04h, 0A3h, 0DCh, 10h, 26h, 8Ah, 5Ch, 03h, 88h, 1Eh, 0D8h
+db 10h, 88h, 1Eh, 0D9h, 10h, 80h, 0FBh, 01h, 77h, 05h, 33h, 0DBh, 0EBh, 10h, 90h, 32h
+db 0FFh, 33h, 0C0h, 0BAh, 01h, 00h, 0F7h, 0F3h, 8Bh, 0D8h, 89h, 1Eh, 0DAh, 10h, 0B0h, 36h
+db 0E6h, 43h, 8Ah, 0C3h, 0E6h, 40h, 8Ah, 0C7h, 0E6h, 40h, 5Eh, 5Dh, 0C3h
+
+sub_0_536D:
+db 0F7h, 06h, 0E6h
+db 10h, 0FFh, 0FFh, 74h, 01h, 0C3h, 33h, 0C0h, 0A3h, 0DCh, 10h, 0A2h, 0DEh, 10h, 0A3h, 0DAh
+db 10h, 0E4h, 61h, 24h, 0FDh, 0E6h, 61h, 0B0h, 36h, 0E6h, 43h, 0B0h, 00h, 0E6h, 40h, 0E6h
+db 40h, 0FEh, 0C0h, 0A2h, 0D8h, 10h, 0A2h, 0D9h, 10h, 0C3h
+
+sub_0_539A:
+db 0F7h, 06h, 0E6h, 10h, 0FFh, 0FFh
+db 74h, 01h, 0C3h, 0A1h, 0DCh, 10h, 0A3h, 0DFh, 10h, 0A0h, 0DEh, 10h, 0A2h, 0E1h, 10h, 0A0h
+db 0D8h, 10h, 0A2h, 0E2h, 10h, 0A0h, 0D9h, 10h, 0A2h, 0E3h, 10h, 0A1h, 0DAh, 10h, 0A3h, 0E4h
+db 10h, 0E8h, 0A9h, 0FFh, 0C3h
+
+sub_0_53C5:
+db 0F7h, 06h, 0E6h, 10h, 0FFh, 0FFh, 74h, 01h, 0C3h, 0A1h, 0DFh
+db 10h, 0A3h, 0DCh, 10h, 0A0h, 0E1h, 10h, 0A2h, 0DEh, 10h, 0A0h, 0E2h, 10h, 0A2h, 0D8h, 10h
+db 0A0h, 0E3h, 10h, 0A2h, 0D9h, 10h, 8Bh, 1Eh, 0E4h, 10h, 0B0h, 36h, 0E6h, 43h, 8Ah, 0C3h
+db 0E6h, 40h, 8Ah, 0C7h, 0E6h, 40h, 0C3h
+
+sub_0_53F7:
+db 0F7h, 06h, 0E6h, 10h, 0FFh, 0FFh, 74h, 01h, 0C3h
+db 9Ch, 0Eh, 0E8h, 0Ah, 00h, 90h, 0A1h, 0DCh, 10h, 3Dh, 00h, 00h, 75h, 0F8h, 0C3h
+
+sub_0_540F:
+db 50h
+db 53h, 51h, 56h, 1Eh, 06h, 0B8h, 89h, 07h, 8Eh, 0D8h, 0A1h, 0D0h, 10h, 8Eh, 0C0h, 0B0h
+db 20h, 0E6h, 20h, 0FEh, 0Eh, 0D9h, 10h, 75h, 0Bh, 0A0h, 0D8h, 10h, 0A2h, 0D9h, 10h, 9Ch
+db 0FFh, 1Eh, 0D4h, 10h, 8Bh, 36h, 0DCh, 10h, 83h, 0FEh, 00h, 74h, 1Bh, 26h, 8Bh, 1Ch
+db 0FFh, 06h, 0DCh, 10h, 0FFh, 06h, 0DCh, 10h, 83h, 0FBh, 00h, 74h, 0Bh, 83h, 0FBh, 0FFh
+db 75h, 0Fh, 0E8h, 18h, 0FFh, 0EBh, 24h, 90h, 0E4h, 61h, 24h, 0FCh, 0E6h, 61h, 0EBh, 1Bh
+db 90h, 0F7h, 06h, 0D2h, 10h, 0FFh, 00h, 74h, 0EFh, 0B0h, 0B6h, 0E6h, 43h, 8Ah, 0C3h, 0E6h
+db 42h, 8Ah, 0C7h, 0E6h, 42h, 0E4h, 61h, 0Ch, 03h, 0E6h, 61h, 07h, 1Fh, 5Eh, 59h, 5Bh
+db 58h, 0CFh
 
 ;==========================================================================
 
@@ -593,207 +277,34 @@ baseRndArray	dw	1,1,2,3,5,8,13,21,54,75,129,204
 
 	CODESEG
 
-;=================================================
-;
-; Init RND generator
-; if randomize is false, the counter is set to 0
-;
-; 11-Sep-90	LR	FIX initialization to use TIME!
-;=================================================
+sub_0_5482:
+db 55h, 8Bh, 0ECh, 56h, 57h, 8Ch, 0D8h, 8Eh, 0C0h, 0BFh, 0F4h, 11h, 0BEh, 16h
+db 12h, 0B9h, 11h, 00h, 0FCh, 0F3h, 0A5h, 0C7h, 06h, 0F2h, 11h, 00h, 00h, 0C7h, 06h, 0EEh
+db 11h, 22h, 00h, 0C7h, 06h, 0F0h, 11h, 0Ah, 00h, 8Bh, 46h, 04h, 3Dh, 00h, 00h, 74h
+db 0Eh, 0B4h, 2Ch, 0CDh, 21h, 89h, 16h, 14h, 12h, 33h, 0D1h, 89h, 16h, 0FCh, 11h, 0B8h
+db 0FFh, 0FFh, 50h, 0E8h, 05h, 00h, 58h, 5Fh, 5Eh, 5Dh, 0C3h
 
-PROC	initrnd	randomize:word
-	public	initrnd
+sub_0_54CB:
+db 55h, 8Bh, 0ECh, 56h, 53h
+db 51h, 52h, 8Bh, 46h, 04h, 50h, 0BAh, 0FFh, 0FFh, 0D1h, 0E0h, 72h, 04h, 0D1h, 0EAh, 0EBh
+db 0F8h, 8Bh, 1Eh, 0EEh, 11h, 8Bh, 36h, 0F0h, 11h, 8Bh, 87h, 0F2h, 11h, 13h, 84h, 0F2h
+db 11h, 89h, 87h, 0F2h, 11h, 03h, 06h, 0F2h, 11h, 0A3h, 0F2h, 11h, 4Bh, 4Bh, 75h, 03h
+db 0BBh, 22h, 00h, 4Eh, 4Eh, 75h, 03h, 0BEh, 22h, 00h, 89h, 1Eh, 0EEh, 11h, 89h, 36h
+db 0F0h, 11h, 59h, 23h, 0C2h, 3Bh, 0C1h, 76h, 02h, 0D1h, 0E8h, 5Ah, 59h, 5Bh, 5Eh, 5Dh
+db 0C3h 
 
-	push	si
-	push	di
+sub_0_5521:
+db 55h, 8Bh, 0ECh, 56h, 57h, 8Bh, 46h, 04h, 3Dh, 00h, 00h, 0BAh, 00h, 00h, 0EBh
+db 09h, 90h, 0B4h, 2Ch, 0CDh, 21h, 81h, 0E2h, 0FFh, 00h, 89h, 16h, 0ECh, 10h, 5Fh, 5Eh
+db 5Dh, 0C3h
 
-	mov	ax,ds
-	mov	es,ax
-	mov	di,offset RndArray
-	mov	si,offset baseRndArray
-	mov	cx,17
-	cld
-	rep	movsw		;set up the table (which is constantly changed)
+sub_0_5542:
+db 8Bh, 1Eh, 0ECh, 10h, 43h, 81h, 0E3h, 0FFh, 00h, 89h, 1Eh, 0ECh, 10h, 8Ah
+db 87h, 0EEh, 10h, 32h, 0E4h, 0C3h
 
-	mov	[LastRnd],0
-	mov	[indexi],17*2
-	mov	[indexj],5*2
-
-	mov	ax,[randomize]
-	cmp	ax,0
-	je	@@setit		;if randomize is true, really random
-
-	mov	ah,2ch
-	int	21h			;GetSystemTime
-
-	mov	[RndArray+34-2],dx
-	xor dx,cx				;init w/seconds values
-	mov	[RndArray+10-2],dx
-
-@@setit:
-	mov	ax,0ffffh
-	push	ax
-	call	Random			;warm up generator!
-	pop	ax
-
-	pop	di
-	pop	si
-	ret
-
-ENDP
-
-;=================================================
-;
-; Return a random # between 0-?
-; Exit : AX = 0-max value
-;
-; 11-Sep-90 LR -modify to save registers!
-;=================================================
-PROC	random maxval:WORD
-	public	random
-
-	push	si
-	push	bx			;save registers so we work OK!
-	push	cx
-	push	dx
-
-	mov	ax,[maxval]
-
-	push	ax			;save max value
-;
-; create a mask to cut down on the # of SUBTRACTS!
-;
-	mov	dx,0ffffh		;full-mask
-@@0:
-	shl	ax,1
-	jc	@@0a
-	shr	dx,1
-	jmp	@@0
-@@0a:
-	mov	bx,[indexi]		;this routine was converted from
-	mov	si,[indexj]		;the Random macro on Merlin GS
-	mov	ax,[RndArray-2+bx]
-	adc	ax,[RndArray-2+si]
-	mov	[RndArray-2+bx],ax
-	add	ax,[LastRnd]
-	mov	[LastRnd],ax
-	dec	bx
-	dec	bx
-	jne	@@1
-	mov	bx,17*2
-@@1:
-	dec	si
-	dec	si
-	jne	@@2
-	mov	si,17*2
-@@2:
-	mov	[indexi],bx
-	mov	[indexj],si
-	pop	cx                      ;loop -- returns value in range
-	and	ax,dx			;AND our mask!
-@@3:
-	cmp	ax,cx			;SUBTRACT to be within range
-	jbe	@@4
-	shr	ax,1
-@@4:
-	pop	dx
-	pop	cx				;restore registers
-	pop	bx
-	pop	si
-
-	ret
-
-ENDP
-
-
-
-;===========================================================================
-
-;=================================================
-;
-; Init table based RND generator
-; if randomize is false, the counter is set to 0
-;
-;=================================================
-
-PROC	initrndt	randomize:word
-	uses	si,di
-	public	initrndt
-
-	mov	ax,[randomize]
-	cmp	ax,0
-;	jne	@@timeit		;if randomize is true, really random
-
-	mov	dx,0			;set to a definate value
-	jmp	@@setit
-
-@@timeit:
-	mov	ah,2ch
-	int	21h			;GetSystemTime
-	and	dx,0ffh
-
-@@setit:
-	mov	[rndindex],dx
-
-	ret
-
-ENDP
-
-;=================================================
-;
-; Return a random # between 0-255
-; Exit : AX = value
-;
-;=================================================
-PROC	rndt
-	public	rndt
-
-	mov	bx,[rndindex]
-	inc	bx
-	and	bx,0ffh
-	mov	[rndindex],bx
-	mov	al,[rndtable+BX]
-	xor	ah,ah
-
-	ret
-
-ENDP
-
-
-
-;===========================================================================
-
-;========
-;
-; WAITVBL
-;
-;========
-
-PROC	WaitVBL
-	PUBLIC	WaitVBL
-
-	push	si
-	push	di
-
-	mov	dx,[crtcaddr]
-	add	dx,6
-
-waitvbl1:
-	in	al,dx
-	test	al,00001000b	;look for vbl
-	jnz	waitvbl1
-
-waitvbl2:
-	in	al,dx
-	test	al,00001000b	;look for vbl
-	jz	waitvbl2
-
-	pop	di
-	pop	si
-
-	ret
-
-ENDP
+sub_0_5556:
+db 56h, 57h, 8Bh, 16h, 60h, 0C3h, 83h, 0C2h, 06h, 0ECh
+db 0A8h, 08h, 75h, 0FBh, 0ECh, 0A8h, 08h, 74h, 0FBh, 5Fh, 5Eh, 0C3h
 
 ;=======================================================================
 
@@ -850,554 +361,67 @@ ENDP
 
 ;=======================================================================
 
-;============
-;
-; drawchar
-; Calls CGAcharout / EGAcharout / VGAcharout
-; based on grmode
-;
-;============
-
-PROC	drawchar xcoordinate:WORD, ycoordinate:WORD, char:WORD
-	PUBLIC	drawchar
-
-	push	si
-	push	di
-
-	mov	ax,[screenseg]
-	mov	es,ax
-
-	mov	si,[char]       	;low level routines get stuff in registers
-	mov	di,[xcoordinate]
-	mov	bx,[ycoordinate]
-	shl	bx,1
-	shl	bx,1
-	shl	bx,1
-	shl	bx,1
-	add bx,[_yshift]		;allow printing on non-char lines
-
-	mov	ax,[grmode]
-	cmp	ax,1		;CGA mode
-	jne	@@notcga
-	call    CgaCharout
-	pop   	di
-	pop	si
-	ret
-
-
-@@notcga:
-	cmp	ax,2		;EGA mode
-	jne	@@notega
-	call	EgaCharout
-	pop   	di
-	pop	si
-	ret
-
-
-@@notega:
-	cmp	ax,3		;VGA mode
-	jne	@@done
-	call	VgaCharout
-@@done:
-	pop   	di
-	pop	si
-	ret
-
-ENDP
-
-;===========================================================================
-
-;============
-;
-; CGAcharout
-; SI= character; DI= xcoordinate; BX= ycoordinate*2
-;
-;============
-
-PROC	CgaCharOut
-
-	shl	si,1
-	shl	si,1
-	shl	si,1
-	shl	si,1		;char * 16 = tile's offset in PICS
-
-	shl	di,1		;x * 2 + ylookup[y] = screen location
-
-	add	di,[CGAylookup+bx]	;BX is pointer into YLOOKUP
-
-	mov	bx,[xormask]	;so chars can be inverted
-
-	mov	ax,[WORD charptr+2]
-	mov	ds,ax		;segment of tile pictures (PARA'd)
-
-	cld
-
-	lodsw			;load in a row of the tile's picture
-	xor	ax,bx
-	stosw
-	add	di,1FFEh
-	lodsw
-	xor	ax,bx
-	stosw
-	sub	di,1FB2h
-	lodsw
-	xor	ax,bx
-	stosw
-	add	di,1FFEh
-	lodsw
-	xor	ax,bx
-	stosw
-	sub	di,1FB2h
-	lodsw
-	xor	ax,bx
-	stosw
-	add	di,1FFEh
-	lodsw
-	xor	ax,bx
-	stosw
-	sub	di,1FB2h
-	lodsw
-	xor	ax,bx
-	stosw
-	add	di,1FFEh
-	lodsw
-	xor	ax,bx
-	stosw
-
-	mov	ax,_DATA
-	mov	ds,ax		;restore turbo's data segment
-	ret
-ENDP
-
-
-;=======================================================================
-
-;============
-;
-; EGAcharout
-; SI= character; DI= xcoordinate; BX= ycoordinate
-;
-;============
-
-PROC	EgaCharOut
-
-	shl	si,1
-	shl	si,1
-	shl	si,1		;char * 8 = tile's offset in PICS
-
-	add	di,[EGAylookup+bx]	;BX is pointer into YLOOKUP
-
-	mov	cx,ds
-
-	mov	dx,GCindex
-	mov	ax,GCmode
-	out	dx,ax		;set read / write mode 0
-
-	cld
-
-	mov	bx,si		;so the planes can be drawn the same
-	mov	cx,di
-
-	mov	dx,GCindex
-	mov	ax,0*256+4	;read map select
-	out	dx,ax
-	mov	dx,SCindex
-	mov	ax,1*256+SCmapmask
-	out	dx,ax
-	mov	dx,[xormask]	;so chars can be inverted
-
-	mov	ax,[charptr+2]
-	mov	ds,ax		;segment of tile pictures (PARA'd)
-
-	lodsb
-	xor	al,dl
-	stosb
-	add	di,39
-	lodsb
-	xor	al,dl
-	stosb
-	add	di,39
-	lodsb
-	xor	al,dl
-	stosb
-	add	di,39
-	lodsb
-	xor	al,dl
-	stosb
-	add	di,39
-	lodsb
-	xor	al,dl
-	stosb
-	add	di,39
-	lodsb
-	xor	al,dl
-	stosb
-	add	di,39
-	lodsb
-	xor	al,dl
-	stosb
-	add	di,39
-	lodsb
-	xor	al,dl
-	stosb
-	add	di,39
-
-	mov	si,bx
-	mov	di,cx
-
-	push	dx
-	mov	dx,GCindex
-	mov	ax,1*256+4	;read map select
-	out	dx,ax
-	mov	dx,SCindex
-	mov	ax,2*256+SCmapmask	;write mask
-	out	dx,ax
-	pop	dx
-
-	lodsb
-	xor	al,dl
-	stosb
-	add	di,39
-	lodsb
-	xor	al,dl
-	stosb
-	add	di,39
-	lodsb
-	xor	al,dl
-	stosb
-	add	di,39
-	lodsb
-	xor	al,dl
-	stosb
-	add	di,39
-	lodsb
-	xor	al,dl
-	stosb
-	add	di,39
-	lodsb
-	xor	al,dl
-	stosb
-	add	di,39
-	lodsb
-	xor	al,dl
-	stosb
-	add	di,39
-	lodsb
-	xor	al,dl
-	stosb
-	add	di,39
-
-	mov	si,bx
-	mov	di,cx
-
-	push	dx
-	mov	dx,GCindex
-	mov	ax,2*256+4	;read map select
-	out	dx,ax
-	mov	dx,SCindex
-	mov	ax,4*256+SCmapmask	;write mask
-	out	dx,ax
-	pop	dx
-
-	lodsb
-	xor	al,dl
-	stosb
-	add	di,39
-	lodsb
-	xor	al,dl
-	stosb
-	add	di,39
-	lodsb
-	xor	al,dl
-	stosb
-	add	di,39
-	lodsb
-	xor	al,dl
-	stosb
-	add	di,39
-	lodsb
-	xor	al,dl
-	stosb
-	add	di,39
-	lodsb
-	xor	al,dl
-	stosb
-	add	di,39
-	lodsb
-	xor	al,dl
-	stosb
-	add	di,39
-	lodsb
-	xor	al,dl
-	stosb
-	add	di,39
-
-	mov	si,bx
-	mov	di,cx
-
-	push	dx
-	mov	dx,GCindex
-	mov	ax,3*256+4	;read map select
-	out	dx,ax
-	mov	dx,SCindex
-	mov	ax,8*256+SCmapmask	;write mask
-	out	dx,ax
-	pop	dx
-
-	lodsb
-	xor	al,dl
-	stosb
-	add	di,39
-	lodsb
-	xor	al,dl
-	stosb
-	add	di,39
-	lodsb
-	xor	al,dl
-	stosb
-	add	di,39
-	lodsb
-	xor	al,dl
-	stosb
-	add	di,39
-	lodsb
-	xor	al,dl
-	stosb
-	add	di,39
-	lodsb
-	xor	al,dl
-	stosb
-	add	di,39
-	lodsb
-	xor	al,dl
-	stosb
-	add	di,39
-	lodsb
-	xor	al,dl
-	stosb
-	add	di,39
-
-	mov	dx,SCindex
-	mov	ax,15*256 + SCmapmask	;write to all planes
-	out	dx,ax
-
-	mov	ax,_DATA
-	mov	ds,ax		;restore turbo's data segment
-	ret
-ENDP
-
-
-;=======================================================================
-
-;============
-;
-; VGAcharout
-; SI= character; DI= xcoordinate; BX= ycoordinate
-;
-;============
-
-PROC	VgaCharOut
-
-	shl	si,1
-	shl	si,1
-	shl	si,1
-	shl	si,1
-	shl	si,1
-	shl	si,1		;char * 64 = tile's offset in PICS
-
-	shl	di,1
-	shl	di,1
-	shl	di,1		;x * 8 + ylookup[y] = screen location
-
-	add	di,[VGAylookup+bx]	;BX is pointer into YLOOKUP
-
-	mov	bx,[xormask]	;so chars can be inverted
-
-	mov	ax,[WORD charptr+2]
-	mov	ds,ax		;segment of tile pictures (PARA'd)
-
-	cld
-
-	lodsw			;load in a row of the tile's picture
-	xor	ax,bx
-	stosw
-	lodsw
-	xor	ax,bx
-	stosw
-	lodsw
-	xor	ax,bx
-	stosw
-	lodsw
-	xor	ax,bx
-	stosw
-
-	add	di,312
-
-	lodsw			;load in a row of the tile's picture
-	xor	ax,bx
-	stosw
-	lodsw
-	xor	ax,bx
-	stosw
-	lodsw
-	xor	ax,bx
-	stosw
-	lodsw
-	xor	ax,bx
-	stosw
-
-	add	di,312
-
-	lodsw			;load in a row of the tile's picture
-	xor	ax,bx
-	stosw
-	lodsw
-	xor	ax,bx
-	stosw
-	lodsw
-	xor	ax,bx
-	stosw
-	lodsw
-	xor	ax,bx
-	stosw
-
-	add	di,312
-
-	lodsw			;load in a row of the tile's picture
-	xor	ax,bx
-	stosw
-	lodsw
-	xor	ax,bx
-	stosw
-	lodsw
-	xor	ax,bx
-	stosw
-	lodsw
-	xor	ax,bx
-	stosw
-
-	add	di,312
-
-	lodsw			;load in a row of the tile's picture
-	xor	ax,bx
-	stosw
-	lodsw
-	xor	ax,bx
-	stosw
-	lodsw
-	xor	ax,bx
-	stosw
-	lodsw
-	xor	ax,bx
-	stosw
-
-	add	di,312
-
-	lodsw			;load in a row of the tile's picture
-	xor	ax,bx
-	stosw
-	lodsw
-	xor	ax,bx
-	stosw
-	lodsw
-	xor	ax,bx
-	stosw
-	lodsw
-	xor	ax,bx
-	stosw
-
-	add	di,312
-
-	lodsw			;load in a row of the tile's picture
-	xor	ax,bx
-	stosw
-	lodsw
-	xor	ax,bx
-	stosw
-	lodsw
-	xor	ax,bx
-	stosw
-	lodsw
-	xor	ax,bx
-	stosw
-
-	add	di,312
-
-	lodsw			;load in a row of the tile's picture
-	xor	ax,bx
-	stosw
-	lodsw
-	xor	ax,bx
-	stosw
-	lodsw
-	xor	ax,bx
-	stosw
-	lodsw
-	xor	ax,bx
-	stosw
-
-	mov	ax,_DATA
-	mov	ds,ax		;restore turbo's data segment
-	ret
-ENDP
-
-;=======================================================================
-
-;============
-;
-; drawtile
-; Just drops a 16*16 tile onto the screen
-; Calls CGAtileout / EGAtileout / VGAtileout
-; based on grmode
-;
-;============
-
-PROC	drawtile xcoordinate:WORD, ycoordinate:WORD, tile:WORD
-	PUBLIC	drawtile
-
-	push	si
-	push	di
-
-	cld
-
-	mov	ax,[screenseg]
-	mov	es,ax
-
-	mov	si,[tile]
-	mov	di,[xcoordinate] ;low level routines get stuff in registers
-	mov	bx,[ycoordinate]
-	shl	bx,1
-
-	mov	ax,[grmode]
-
-	mov	cx,[WORD tileptr+2]
-	mov	ds,cx		;segment of pictures (PARA'd)
-
-	cmp	ax,1		;CGA mode
-	jne	@@notcga
-	call    CGAtileout
-	jmp	@@done
-
-@@notcga:
-	cmp	ax,2		;EGA mode
-	jne	@@notega
-	call	EGAtileout
-	jmp	@@done
-
-@@notega:
-	cmp	ax,3		;VGA mode
-	jne	@@done
-	call	VGAtileout
-@@done:
-
-	mov	ax,_DATA
-	mov	ds,ax		;restore turbo's data segment
-	pop   	di
-	pop	si
-	ret
-
-ENDP
-
+sub_0_55A1:
+db 55h, 8Bh, 0ECh, 56h, 57h, 0A1h, 0EAh, 10h, 8Eh, 0C0h, 8Bh, 76h, 08h, 8Bh, 7Eh
+db 04h, 8Bh, 5Eh, 06h, 0D1h, 0E3h, 0D1h, 0E3h, 0D1h, 0E3h, 0D1h, 0E3h, 0A1h, 9Ch, 0AFh, 3Dh
+db 01h, 00h, 75h, 07h, 0E8h, 1Ch, 00h, 5Fh, 5Eh, 5Dh, 0C3h, 3Dh, 02h, 00h, 75h, 07h
+db 0E8h, 6Bh, 00h, 5Fh, 5Eh, 5Dh, 0C3h, 3Dh, 03h, 00h, 75h, 03h, 0E8h, 0B8h, 01h, 5Fh
+db 5Eh, 5Dh, 0C3h
+
+sub_0_55E3:
+db 0D1h, 0E6h, 0D1h, 0E6h, 0D1h, 0E6h, 0D1h, 0E6h, 0D1h, 0E7h, 2Eh, 03h, 0BFh
+db 5Ah, 4Dh, 8Bh, 1Eh, 0E8h, 10h, 0A1h, 6Ch, 0AEh, 8Eh, 0D8h, 0FCh, 0ADh, 33h, 0C3h, 0ABh
+db 81h, 0C7h, 0FEh, 1Fh, 0ADh, 33h, 0C3h, 0ABh, 81h, 0EFh, 0B2h, 1Fh, 0ADh, 33h, 0C3h, 0ABh
+db 81h, 0C7h, 0FEh, 1Fh, 0ADh, 33h, 0C3h, 0ABh, 81h, 0EFh, 0B2h, 1Fh, 0ADh, 33h, 0C3h, 0ABh
+db 81h, 0C7h, 0FEh, 1Fh, 0ADh, 33h, 0C3h, 0ABh, 81h, 0EFh, 0B2h, 1Fh, 0ADh, 33h, 0C3h, 0ABh
+db 81h, 0C7h, 0FEh, 1Fh, 0ADh, 33h, 0C3h, 0ABh, 0B8h, 89h, 07h, 8Eh, 0D8h, 0C3h
+
+sub_0_563E:
+db 0D1h, 0E6h
+db 0D1h, 0E6h, 0D1h, 0E6h, 2Eh, 03h, 0BFh, 0EAh, 4Eh, 8Ch, 0D9h, 0BAh, 0CEh, 03h, 0B8h, 05h
+db 00h, 0EFh, 0FCh, 8Bh, 0DEh, 8Bh, 0CFh, 0BAh, 0CEh, 03h, 0B8h, 04h, 00h, 0EFh, 0BAh, 0C4h
+db 03h, 0B8h, 02h, 01h, 0EFh, 8Bh, 16h, 0E8h, 10h, 0A1h, 6Ch, 0AEh, 8Eh, 0D8h, 0ACh, 32h
+db 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh
+db 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h
+db 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh
+db 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 8Bh, 0F3h, 8Bh, 0F9h, 52h, 0BAh, 0CEh, 03h, 0B8h, 04h
+db 01h, 0EFh, 0BAh, 0C4h, 03h, 0B8h, 02h, 02h, 0EFh, 5Ah, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h
+db 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh
+db 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h
+db 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h
+db 0C7h, 2Fh, 8Bh, 0F3h, 8Bh, 0F9h, 52h, 0BAh, 0CEh, 03h, 0B8h, 04h, 02h, 0EFh, 0BAh, 0C4h
+db 03h, 0B8h, 02h, 04h, 0EFh, 5Ah, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h
+db 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h
+db 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh
+db 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 8Bh, 0F3h
+db 8Bh, 0F9h, 52h, 0BAh, 0CEh, 03h, 0B8h, 04h, 03h, 0EFh, 0BAh, 0C4h, 03h, 0B8h, 02h, 08h
+db 0EFh, 5Ah, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh
+db 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h
+db 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh
+db 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0BAh, 0C4h, 03h, 0B8h, 02h, 0Fh
+db 0EFh, 0B8h, 89h, 07h, 8Eh, 0D8h, 0C3h
+
+sub_0_5797:
+db 0D1h, 0E6h, 0D1h, 0E6h, 0D1h, 0E6h, 0D1h, 0E6h, 0D1h
+db 0E6h, 0D1h, 0E6h, 0D1h, 0E7h, 0D1h, 0E7h, 0D1h, 0E7h, 2Eh, 03h, 0BFh, 0FCh, 50h, 8Bh, 1Eh
+db 0E8h, 10h, 0A1h, 6Ch, 0AEh, 8Eh, 0D8h, 0FCh, 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh
+db 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh, 81h, 0C7h, 38h, 01h, 0ADh, 33h, 0C3h, 0ABh
+db 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh, 81h, 0C7h, 38h, 01h
+db 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh
+db 81h, 0C7h, 38h, 01h, 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh
+db 0ADh, 33h, 0C3h, 0ABh, 81h, 0C7h, 38h, 01h, 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh
+db 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh, 81h, 0C7h, 38h, 01h, 0ADh, 33h, 0C3h, 0ABh
+db 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh, 81h, 0C7h, 38h, 01h
+db 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh
+db 81h, 0C7h, 38h, 01h, 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh
+db 0ADh, 33h, 0C3h, 0ABh, 0B8h, 89h, 07h, 8Eh, 0D8h, 0C3h
+
+sub_0_585A:
+db 55h, 8Bh, 0ECh, 56h, 57h, 0FCh
+db 0A1h, 0EAh, 10h, 8Eh, 0C0h, 8Bh, 76h, 08h, 8Bh, 7Eh, 04h, 8Bh, 5Eh, 06h, 0D1h, 0E3h
+db 0A1h, 9Ch, 0AFh, 8Bh, 0Eh, 98h, 0AEh, 8Eh, 0D9h, 3Dh, 01h, 00h, 75h, 06h, 0E8h, 1Fh
+db 00h, 0EBh, 14h, 90h, 3Dh, 02h, 00h, 75h, 06h, 0E8h, 84h, 00h, 0EBh, 09h, 90h, 3Dh
+db 03h, 00h, 75h, 03h, 0E8h, 0EAh, 00h, 0B8h, 89h, 07h, 8Eh, 0D8h, 5Fh, 5Eh, 5Dh, 0C3h
 
 ;=======================
 ;
@@ -1502,49 +526,49 @@ PROC	EGAtileout
 
 	movsb
 	movsb
-	add	di,38
+	add	di,46
 	movsb
 	movsb
-	add	di,38
+	add	di,46
 	movsb
 	movsb
-	add	di,38
+	add	di,46
 	movsb
 	movsb
-	add	di,38
+	add	di,46
 	movsb
 	movsb
-	add	di,38
+	add	di,46
 	movsb
 	movsb
-	add	di,38
+	add	di,46
 	movsb
 	movsb
-	add	di,38
+	add	di,46
 	movsb
 	movsb
-	add	di,38
+	add	di,46
 	movsb
 	movsb
-	add	di,38
+	add	di,46
 	movsb
 	movsb
-	add	di,38
+	add	di,46
 	movsb
 	movsb
-	add	di,38
+	add	di,46
 	movsb
 	movsb
-	add	di,38
+	add	di,46
 	movsb
 	movsb
-	add	di,38
+	add	di,46
 	movsb
 	movsb
-	add	di,38
+	add	di,46
 	movsb
 	movsb
-	add	di,38
+	add	di,46
 	movsb
 	movsb
 
@@ -1716,70 +740,14 @@ ENDP
 
 ;=======================================================================
 
-;============
-;
-; drawpic
-; Just drops a width/depth block onto the screen with no masking
-; Calls CGAdrawpic / EGAdrawpic / VGAdrawpic
-; based on grmode
-;
-;============
-
-PROC	drawpic xcoordinate:WORD, ycoordinate:WORD, pic:WORD
-	PUBLIC	drawpic
-
-	push	si
-	push	di
-
-	cld
-
-	mov	si,[pic]
-	shl	si,1
-	shl	si,1
-	shl	si,1
-	shl	si,1		;pictable records are 16 bytes
-
-	mov	ax,[si+pictable.width]
-	mov	[WORD cs:picwidth],ax
-	mov	ax,[si+pictable.height]
-	mov	[WORD cs:picheight],ax
-	mov	si,[si+pictable.shapeptr]
-
-	mov	ax,[screenseg]
-	mov	es,ax
-
-	mov	di,[xcoordinate] ;low level routines get stuff in registers
-	mov	bx,[ycoordinate]
-	shl	bx,1         	;because it will be indexed into a table
-
-	mov	ax,[grmode]
-
-	mov	cx,[WORD picptr+2]
-	mov	ds,cx		;segment of pictures (PARA'd)
-
-	cmp	ax,1		;CGA mode
-	jne	@@notcga
-	call    CgaDrawpic
-	jmp	@@done
-
-@@notcga:
-	cmp	ax,2		;EGA mode
-	jne	@@notega
-	call	EgaDrawpic
-	jmp	@@done
-
-@@notega:
-	cmp	ax,3		;VGA mode
-	jne	@@done
-	call	VgaDrawpic
-@@done:
-	mov	ax,_DATA
-	mov	ds,ax		;restore turbo's data segment
-	pop   	di
-	pop	si
-	ret
-
-ENDP
+sub_0_5A47:
+db 55h, 8Bh, 0ECh, 56h, 57h, 0FCh, 8Bh, 76h, 08h
+db 0D1h, 0E6h, 0D1h, 0E6h, 0D1h, 0E6h, 0D1h, 0E6h, 8Bh, 84h, 0D2h, 0E3h, 2Eh, 0A3h, 0A9h, 5Ah
+db 8Bh, 84h, 0D4h, 0E3h, 2Eh, 0A3h, 0ADh, 5Ah, 8Bh, 0B4h, 0D6h, 0E3h, 0A1h, 0EAh, 10h, 8Eh
+db 0C0h, 8Bh, 7Eh, 04h, 8Bh, 5Eh, 06h, 0D1h, 0E3h, 0A1h, 9Ch, 0AFh, 8Bh, 0Eh, 88h, 0AEh
+db 8Eh, 0D9h, 3Dh, 01h, 00h, 75h, 06h, 0E8h, 25h, 00h, 0EBh, 14h, 90h, 3Dh, 02h, 00h
+db 75h, 06h, 0E8h, 40h, 00h, 0EBh, 09h, 90h, 3Dh, 03h, 00h, 75h, 03h, 0E8h, 69h, 00h
+db 0B8h, 89h, 17h, 8Eh, 0D8h, 5Fh, 5Eh, 5Dh, 0C3h
 
 picwidth	dw	?	;used by all modes
 picxcoord	dw	?
@@ -2325,115 +1293,5 @@ FoundDevice	PROC	near	; Caller:    AH = display #
 	ret
 
 FoundDevice	ENDP
-
-;============================================================================
-
-	IDEAL
-
-	DATASEG
-
-tickcount	dw	?
-
-timecall	dw	?
-timeax		dw	?
-timebx		dw	?
-timecx		dw	?
-timedx		dw	?
-timesi		dw	?
-timedi		dw	?
-timebp		dw	?
-timees		dw	?
-
-	PUBLIC	timecall,timeax,timebx,timecx,timedx,timesi,timedi,timebp,timees
-
-	CODESEG
-
-;=============
-;
-; TIMESUB
-; Returns the number of iterations of the given subroutine
-; are possible in 1/18 second
-;
-;=============
-
-PROC	timesub	ticks:WORD
-	USES	si,di,bp
-	PUBLIC	timesub
-
-	mov	ax,[ticks]
-	mov	[tickcount],ax
-
-	mov	ax,351ch	;call bios to get int 1c
-	int	21h
-	mov	[cs:@@old1c],bx
-	mov	ax,es
-	mov	[cs:@@old1c+2],ax
-
-	push	ds
-
-	push	cs
-	pop	ds
-	lea	dx,[@@intermark]
-	mov	ax,251ch	;call bios to set int 1c
-	int	21h
-
-	pop	ds
-
-	call	stopsound	;make sure the timer is going normal speed
-	xor	ax,ax
-	mov	[cs:@@counter],ax	;set counter to 0
-	mov	[cs:@@mark],ax	;will be inc to 1 after int 1c
-
-@@wait1:
-	mov	ax,[cs:@@mark]	;wait for the interrupt to go off once
-	cmp	ax,0
-	je	@@wait1
-
-@@countmore:
-	xor	ax,ax
-	mov	[cs:@@mark],ax	;will be inc to 1 after int 1c
-@@count:
-	push	bp
-	mov	ax,[timees]
-	mov	es,ax
-	mov	ax,[timeax]
-	mov	bx,[timebx]
-	mov	cx,[timecx]
-	mov	dx,[timedx]
-	mov	si,[timesi]
-	mov	di,[timedi]
-	mov	bp,[timebp]
-	call	[timecall]
-	pop	bp
-	inc	[cs:@@counter]
-	mov	ax,[cs:@@mark]	;has the interrupt gone off again?
-	or	ax,ax
-	je	@@count
-	dec	[tickcount]
-	jne	@@countmore
-
-	push	ds
-
-	mov	ax,[cs:@@old1c+2]
-	mov	ds,ax
-	mov	dx,[cs:@@old1c]
-	mov	ax,251ch	;call bios to set int 1c
-	int	21h
-
-	pop	ds
-
-	mov	ax,[cs:@@counter]	;return value
-	ret
-
-@@intermark:
-	inc	[WORD cs:@@mark]
-	jmp	[DWORD cs:@@old1C]
-
-
-@@old1C	dw	0,0		;old [1Ch*4]
-@@counter	dw	0
-@@mark	dw	0		;set to 1 when the int has occured
-
-ENDP
 
 	END
