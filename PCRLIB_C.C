@@ -765,15 +765,14 @@ db 0BFh, 50h, 0A1h, 60h, 0C3h, 40h, 50h, 0E8h, 92h, 3Dh, 59h, 59h, 5Eh
 =
 ========================
 */
-
-void sub_0_312F(void)
+//void sub_0_312F(void)
+void crtcstart (unsigned start)
 {
-asm {
-db 0E8h, 21h, 24h, 0B0h, 0Dh, 50h, 0FFh, 36h, 60h, 0C3h, 0E8h, 7Dh, 3Dh, 59h
-db 59h, 8Ah, 46h, 04h, 24h, 0FFh, 50h, 0A1h, 60h, 0C3h, 40h, 50h, 0E8h, 6Dh, 3Dh, 59h
-db 59h, 0B0h, 0Ch, 50h, 0FFh, 36h, 60h, 0C3h, 0E8h, 61h, 3Dh, 59h, 59h, 8Bh, 46h, 04h
-db 0B1h, 08h, 0D3h, 0E8h, 50h, 0A1h, 60h, 0C3h, 40h, 50h, 0E8h, 4Fh, 3Dh, 59h, 59h
-}
+  WaitVBL ();
+  outportb (crtcaddr,CRTCSTARTL);
+  outportb (crtcaddr+1,start % 256);
+  outportb (crtcaddr,CRTCSTARTH);
+  outportb (crtcaddr+1,start / 256);
 }
 
 
