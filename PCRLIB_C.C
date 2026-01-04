@@ -1185,20 +1185,33 @@ db 50h, 0E8h, 97h, 31h, 59h, 8Bh, 0F0h, 8Bh, 0C6h, 0EBh, 00h, 5Fh, 5Eh, 8Bh, 0E5
 // line input routine
 //
 ////////////////////////////////////////////////////////////////////
-void sub_0_37B1(void)
+//void sub_0_37B1(void)
+int _input(char *string,int max)
 {
-asm {
-db 4Ch, 4Ch, 56h, 57h, 33h, 0F6h, 0E8h, 0D3h, 0FBh, 25h, 0FFh, 00h
-db 50h, 0E8h, 0CBh, 2Fh, 59h, 88h, 46h, 0FFh, 80h, 7Eh, 0FFh, 7Fh, 74h, 06h, 80h, 7Eh
-db 0FFh, 08h, 75h, 1Bh, 0Bh, 0F6h, 7Eh, 17h, 4Eh, 0B8h, 20h, 00h, 50h, 0FFh, 36h, 68h
-db 0AEh, 0FFh, 36h, 02h, 0AEh, 0E8h, 0B9h, 1Dh, 83h, 0C4h, 06h, 0FFh, 0Eh, 02h, 0AEh, 80h
-db 7Eh, 0FFh, 20h, 7Ch, 2Bh, 80h, 7Eh, 0FFh, 7Ah, 7Fh, 25h, 3Bh, 76h, 06h, 7Dh, 20h
-db 8Bh, 5Eh, 04h, 8Ah, 46h, 0FFh, 88h, 00h, 46h, 8Ah, 46h, 0FFh, 98h, 50h, 0FFh, 36h
-db 68h, 0AEh, 0A1h, 02h, 0AEh, 0FFh, 06h, 02h, 0AEh, 50h, 0E8h, 84h, 1Dh, 83h, 0C4h, 06h
-db 80h, 7Eh, 0FFh, 1Bh, 74h, 06h, 80h, 7Eh, 0FFh, 0Dh, 75h, 8Eh, 8Bh, 0FEh, 0EBh, 07h
-db 8Bh, 5Eh, 04h, 0C6h, 01h, 00h, 47h, 3Bh, 7Eh, 06h, 7Ch, 0F4h, 80h, 7Eh, 0FFh, 0Dh
-db 75h, 05h, 0B8h, 01h, 00h, 0EBh, 04h, 33h, 0C0h, 0EBh, 00h, 5Fh, 5Eh, 8Bh, 0E5h
-}
+ char key;
+ int count=0,loop;
+
+ do {
+     key=toupper(get()&0xff);
+     if ((key==127 || key==8)&&count>0)
+       {
+	count--;
+	drawchar(sx,sy,' ');
+	sx--;
+       }
+
+     if (key>=' ' && key<='z' && count<max)
+       {
+	*(string+count++)=key;
+	drawchar(sx++,sy,key);
+       }
+
+    } while (key!=27 && key!=13);
+
+ for (loop=count;loop<max;loop++) *(string+loop)=0;
+
+ if (key==13) return 1;
+ return 0;
 }
 
 /*========================================================================*/
