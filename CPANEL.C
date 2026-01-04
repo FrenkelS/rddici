@@ -1,4 +1,8 @@
-/* The Catacomb Source Code
+/* Reconstructed Dangerous Dave in Copyright Infringement Source Code
+ * Copyright (C) 2026 Frenkel Smeijers
+ *
+ * The code in this file is primarily based on:
+ * The Catacomb Source Code
  * Copyright (C) 1993-2014 Flat Rock Software
  *
  * This program is free software; you can redistribute it and/or modify
@@ -82,6 +86,14 @@ void controlpanel (void);
 
 //=========================================================================
 
+////////////////
+//
+// calibratejoy
+// Brings up a dialog and has the user calibrate
+// either joystick1 or joystick2
+//
+////////////////
+
 void sub_0_3E97(void)
 {
 asm {
@@ -120,6 +132,11 @@ db 0FCh, 0ADh, 0E8h, 0CAh, 0ECh, 0E8h, 11h, 0F2h, 5Fh, 5Eh, 8Bh, 0E5h
 }
 
 
+////////////////////////////
+//
+// calibratemouse
+//
+////////////////////////////
 void sub_0_407E(void)
 {
 asm {
@@ -134,7 +151,11 @@ db 33h, 0B8h, 04h, 00h, 0B9h, 40h, 01h, 0BAh, 64h, 00h, 0CDh, 33h, 8Bh, 0E5h
 }
 }
 
-
+/////////////////////////////
+//
+// print a representation of the scan code key
+//
+////////////////////////////
 void sub_0_4100(void)
 {
 asm {
@@ -168,7 +189,11 @@ db 83h, 0C4h, 06h, 5Eh, 8Bh, 0E5h
 }
 }
 
-
+/////////////////////////////
+//
+// calibratekeys
+//
+////////////////////////////
 void sub_0_42A8(void)
 {
 asm {
@@ -204,6 +229,15 @@ db 7Eh, 0FFh, 39h, 7Fh, 03h, 0E9h, 25h, 0FFh, 0E8h, 2Eh, 0EEh, 5Fh, 5Eh, 8Bh, 0E
 }
 
 
+//=========================================================================
+
+////////////////////
+//
+// getconfig
+// Checks video cards, mouse, and joysticks
+//
+////////////////////
+
 void sub_0_4461(void)
 {
 asm {
@@ -225,6 +259,16 @@ db 0C3h, 00h, 00h, 8Bh, 0E5h
 }
 }
 
+//=========================================================================
+
+
+////////////////
+//
+// drawpanel
+// Draws everything inside the control panel window.
+// Used to refresh under dialogs.
+//
+////////////////
 
 void sub_0_4547(void)
 {
@@ -276,6 +320,13 @@ db 0ECh, 59h, 0B8h, 0A2h, 10h, 50h, 0E8h, 0F8h, 0EBh, 59h
 }
 }
 
+//=========================================================================
+
+////////////////
+//
+// controlpanel
+//
+////////////////
 
 void sub_0_47FC(void)
 {
@@ -394,6 +445,17 @@ db 0E8h, 0BFh, 28h, 46h, 81h, 0FEh, 00h, 01h, 7Ch, 0D1h, 5Eh, 8Bh, 0E5h
 }
 
 
+
+
+/*=========================================================================*/
+
+//////////////////////////
+//
+// moveega
+// moves the standard stuff into EGA memory
+// needs to be called after each setgrmode to ega to refill memory
+//
+//////////////////////////
 void sub_0_4CEF(void)
 {
 asm {
@@ -406,3 +468,4 @@ db 50h, 0B8h, 0C4h, 03h, 50h, 0E8h, 74h, 21h, 59h, 59h, 0B0h, 0Fh, 50h, 0B8h, 0C
 db 50h, 0E8h, 68h, 21h, 59h, 59h, 8Bh, 0E5h
 }
 }
+

@@ -1,3 +1,22 @@
+/* Reconstructed Dangerous Dave in Copyright Infringement Source Code
+ * Copyright (C) 2026 Frenkel Smeijers
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ */
+
+//long RLEcompress (void far *source, long length, void far *dest);
 void sub_0_5CC7(void)
 {
 asm {
@@ -8,6 +27,7 @@ db 36h, 0A3h, 42h, 12h, 0E8h, 4Ch, 01h, 36h, 0A1h, 44h, 12h, 36h, 8Bh, 16h, 46h,
 }
 }
 
+//void RLEExpand (char far *source, char far *dest, long length);
 void sub_0_5D02(void)
 {
 asm {
