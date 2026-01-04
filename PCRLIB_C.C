@@ -1124,13 +1124,24 @@ db 0FEh, 10h, 7Ch, 0D6h, 8Bh, 0E5h
 // center print
 //
 ////////////////////////////////////////////////////////////////////
-void sub_0_3668(void)
+//void sub_0_3668(void)
+void _printc(char *string)
 {
-asm {
-db 0FFh, 76h, 04h, 0E8h, 0B4h
-db 39h, 59h, 0BBh, 02h, 00h, 99h, 0F7h, 0FBh, 8Bh, 16h, 0Eh, 0Ch, 42h, 2Bh, 0D0h, 89h
-db 16h, 02h, 0AEh, 0FFh, 76h, 04h, 0E8h, 68h, 0FDh, 59h
-}
+	asm {
+		push string
+		call strlen
+		pop cx
+		mov bx, 2
+		cwd
+		idiv bx
+		mov dx, screencenterx
+		inc dx
+		sub dx, ax
+		mov sx, dx
+		push string
+		call print
+		pop cx
+	}
 }
 
 
