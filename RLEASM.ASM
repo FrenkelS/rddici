@@ -121,18 +121,115 @@ db 8Bh, 0Eh, 48h, 12h, 0E3h, 1Ah, 83h, 0F9h, 02h, 72h, 10h, 36h, 83h, 3Eh, 4Bh, 
 db 01h, 72h, 03h, 0E8h, 50h, 0FEh, 0E8h, 12h, 0FEh, 0EBh, 0Fh, 36h, 01h, 0Eh, 4Bh, 12h
 db 36h, 8Bh, 0Eh, 4Bh, 12h, 0E3h, 03h, 0E8h, 3Ch, 0FEh, 0C3h
 
-sub_0_5F5B:
-db 55h, 8Bh, 0ECh, 56h, 57h
-db 55h, 8Bh, 46h, 04h, 36h, 0A3h, 4Fh, 12h, 0B8h, 1Ch, 35h, 0CDh, 21h, 2Eh, 89h, 1Eh
-db 08h, 60h, 8Ch, 0C0h, 2Eh, 0A3h, 0Ah, 60h, 1Eh, 0Eh, 1Fh, 0BAh, 0FEh, 5Fh, 0B8h, 1Ch
-db 25h, 0CDh, 21h, 1Fh, 0E8h, 0E6h, 0F3h, 33h, 0C0h, 2Eh, 0A3h, 0Ch, 60h, 2Eh, 0A3h, 0Eh
-db 60h, 2Eh, 0A1h, 0Eh, 60h, 3Dh, 00h, 00h, 74h, 0F7h, 33h, 0C0h, 2Eh, 0A3h, 0Eh, 60h
-db 55h, 36h, 0A1h, 61h, 12h, 8Eh, 0C0h, 36h, 0A1h, 53h, 12h, 36h, 8Bh, 1Eh, 55h, 12h
-db 36h, 8Bh, 0Eh, 57h, 12h, 36h, 8Bh, 16h, 59h, 12h, 36h, 8Bh, 36h, 5Bh, 12h, 36h
-db 8Bh, 3Eh, 5Dh, 12h, 36h, 8Bh, 2Eh, 5Fh, 12h, 36h, 0FFh, 16h, 51h, 12h, 5Dh, 2Eh
-db 0FFh, 06h, 0Ch, 60h, 2Eh, 0A1h, 0Eh, 60h, 0Bh, 0C0h, 74h, 0C4h, 36h, 0FFh, 0Eh, 4Fh
-db 12h, 75h, 0B7h, 1Eh, 2Eh, 0A1h, 0Ah, 60h, 8Eh, 0D8h, 2Eh, 8Bh, 16h, 08h, 60h, 0B8h
-db 1Ch, 25h, 0CDh, 21h, 1Fh, 2Eh, 0A1h, 0Ch, 60h, 5Dh, 5Fh, 5Eh, 5Dh, 0C3h, 2Eh, 0FFh
-db 06h, 0Eh, 60h, 2Eh, 0FFh, 2Eh, 08h, 60h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+;============================================================================
+
+	IDEAL
+
+	DATASEG
+
+tickcount	dw	?
+
+timecall	dw	?
+timeax		dw	?
+timebx		dw	?
+timecx		dw	?
+timedx		dw	?
+timesi		dw	?
+timedi		dw	?
+timebp		dw	?
+timees		dw	?
+
+	PUBLIC	timecall,timeax,timebx,timecx,timedx,timesi,timedi,timebp,timees
+
+	CODESEG
+
+;=============
+;
+; TIMESUB
+; Returns the number of iterations of the given subroutine
+; are possible in 1/18 second
+;
+;=============
+;sub_0_5F5B:
+	EXTRN	StopSound:NEAR
+PROC	timesub	ticks:WORD
+	USES	si,di,bp
+	PUBLIC	timesub
+
+	mov	ax,[ticks]
+	mov	[ss:tickcount],ax
+
+	mov	ax,351ch	;call bios to get int 1c
+	int	21h
+	mov	[cs:@@old1c],bx
+	mov	ax,es
+	mov	[cs:@@old1c+2],ax
+
+	push	ds
+
+	push	cs
+	pop	ds
+	lea	dx,[@@intermark]
+	mov	ax,251ch	;call bios to set int 1c
+	int	21h
+
+	pop	ds
+
+	call	StopSound	;make sure the timer is going normal speed
+	xor	ax,ax
+	mov	[cs:@@counter],ax	;set counter to 0
+	mov	[cs:@@mark],ax	;will be inc to 1 after int 1c
+
+@@wait1:
+	mov	ax,[cs:@@mark]	;wait for the interrupt to go off once
+	cmp	ax,0
+	je	@@wait1
+
+@@countmore:
+	xor	ax,ax
+	mov	[cs:@@mark],ax	;will be inc to 1 after int 1c
+@@count:
+	push	bp
+	mov	ax,[ss:timees]
+	mov	es,ax
+	mov	ax,[ss:timeax]
+	mov	bx,[ss:timebx]
+	mov	cx,[ss:timecx]
+	mov	dx,[ss:timedx]
+	mov	si,[ss:timesi]
+	mov	di,[ss:timedi]
+	mov	bp,[ss:timebp]
+	call	[ss:timecall]
+	pop	bp
+	inc	[cs:@@counter]
+	mov	ax,[cs:@@mark]	;has the interrupt gone off again?
+	or	ax,ax
+	je	@@count
+	dec	[ss:tickcount]
+	jne	@@countmore
+
+	push	ds
+
+	mov	ax,[cs:@@old1c+2]
+	mov	ds,ax
+	mov	dx,[cs:@@old1c]
+	mov	ax,251ch	;call bios to set int 1c
+	int	21h
+
+	pop	ds
+
+	mov	ax,[cs:@@counter]	;return value
+	ret
+
+@@intermark:
+	inc	[WORD cs:@@mark]
+	jmp	[DWORD cs:@@old1C]
+
+
+@@old1C	dw	0,0		;old [1Ch*4]
+@@counter	dw	0
+@@mark	dw	0		;set to 1 when the int has occured
+
+ENDP
 
 	END
