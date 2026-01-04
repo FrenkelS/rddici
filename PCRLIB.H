@@ -1,4 +1,8 @@
-/* The Catacomb Source Code
+/* Reconstructed Dangerous Dave in Copyright Infringement Source Code
+ * Copyright (C) 2026 Frenkel Smeijers
+ *
+ * The code in this file is primarily based on:
+ * The Catacomb Source Code
  * Copyright (C) 1993-2014 Flat Rock Software
  *
  * This program is free software; you can redistribute it and/or modify
@@ -20,6 +24,7 @@
 #include <mem.h>
 #include <sys\stat.h>
 #include <fcntl.h>
+#include <stdlib.h>
 #include <alloc.h>
 #include <io.h>
 #include <alloc.h>
