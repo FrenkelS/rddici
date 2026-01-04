@@ -404,20 +404,79 @@ db 8Bh, 0E5h
 }
 
 
-void sub_0_2E84(void)
+//===========================================================================
+
+/*
+==============================================
+=
+= Save a *LARGE* file far a FAR buffer!
+= by John Romero (C) 1990 PCRcade
+=
+==============================================
+*/
+//void sub_0_2E84(void)
+void SaveFile(char *filename,char huge *buffer, long size)
 {
-asm {
-db 83h, 0ECh, 0Ah, 8Bh, 46h, 06h, 89h, 46h, 0FCh
-db 8Bh, 46h, 08h, 89h, 46h, 0FAh, 0C7h, 46h, 0F8h, 00h, 00h, 0C7h, 46h, 0F6h, 00h, 00h
-db 8Bh, 56h, 04h, 0B8h, 00h, 3Ch, 33h, 0C9h, 0CDh, 21h, 72h, 4Eh, 89h, 46h, 0FEh, 83h
-db 7Eh, 0Ch, 00h, 74h, 2Fh, 1Eh, 8Bh, 5Eh, 0FEh, 0B9h, 00h, 80h, 8Bh, 56h, 0FCh, 8Bh
-db 46h, 0FAh, 8Eh, 0D8h, 0B4h, 40h, 0CDh, 21h, 1Fh, 81h, 46h, 0FAh, 00h, 08h, 81h, 6Eh
-db 0Ah, 00h, 80h, 83h, 5Eh, 0Ch, 00h, 83h, 7Eh, 0Ch, 00h, 77h, 0D8h, 81h, 7Eh, 0Ah
-db 00h, 80h, 73h, 0D1h, 1Eh, 8Bh, 5Eh, 0FEh, 8Bh, 4Eh, 0Ah, 8Bh, 56h, 0FCh, 8Bh, 46h
-db 0FAh, 8Eh, 0D8h, 0B4h, 40h, 0CDh, 21h, 1Fh, 0EBh, 00h, 8Bh, 5Eh, 0FEh, 0B4h, 3Eh, 0CDh
-db 21h, 8Bh, 0E5h
+ unsigned int handle,buf1,buf2,foff1,foff2;
+
+ buf1=FP_OFF(buffer);
+ buf2=FP_SEG(buffer);
+
+asm		mov	WORD PTR foff1,0  		// file offset = 0 (start)
+asm		mov	WORD PTR foff2,0
+
+asm		mov	dx,filename
+asm		mov	ax,3c00h		// CREATE w/handle (read only)
+asm		xor	cx,cx
+asm		int	21h
+asm		jc	out
+
+asm		mov	handle,ax
+asm		cmp	word ptr size+2,0	// larger than 1 segment?
+asm		je	L2
+
+L1:
+
+asm		push	ds
+asm		mov	bx,handle
+asm		mov	cx,8000h
+asm		mov	dx,buf1
+asm		mov	ax,buf2
+asm		mov	ds,ax
+asm		mov	ah,40h			// WRITE w/handle
+asm		int	21h
+asm		pop	ds
+
+asm		add	buf2,800h		// bump ptr up 1/2 segment
+asm		sub	WORD PTR size,8000h		// done yet?
+asm		sbb	WORD PTR size+2,0
+asm		cmp	WORD PTR size+2,0
+asm		ja	L1
+asm		cmp	WORD PTR size,8000h
+asm		jae	L1
+
+L2:
+
+asm		push	ds
+asm		mov	bx,handle
+asm		mov	cx,WORD PTR size
+asm		mov	dx,buf1
+asm		mov	ax,buf2
+asm		mov	ds,ax
+asm		mov	ah,40h			// WRITE w/handle
+asm		int	21h
+asm		pop	ds
+asm		jmp	out
+
+out:
+
+asm		mov	bx,handle		// CLOSE w/handle
+asm		mov	ah,3eh
+asm		int	21h
+
 }
-}
+
+//==========================================================================
 
 
 void sub_0_2F05(void)
