@@ -1,3 +1,7 @@
+; Reconstructed Dangerous Dave in Copyright Infringement Source Code
+; Copyright (C) 2026 Frenkel Smeijers
+;
+; The code in this file is primarily based on:
 ; The Catacomb Source Code
 ; Copyright (C) 1993-2014 Flat Rock Software
 ;
@@ -68,58 +72,309 @@ EndByte	dw	?
 ;==========================================================
 ;
 	CODESEG
+;
+;==========================================================
+;
+;	Initialize our variables & buffers
+;
+;==========================================================
+;sub_0_5D34:
+PROC	InitRLE		;internal
 
-sub_0_5D34:
-db 36h, 0C7h, 06h, 48h, 12h, 00h, 00h, 36h, 0C7h, 06h, 4Bh, 12h
-db 01h, 00h, 36h, 0C7h, 06h, 44h, 12h, 00h, 00h, 36h, 0C7h, 06h, 46h, 12h, 00h, 00h
-db 36h, 8Bh, 36h, 3Eh, 12h, 36h, 8Bh, 3Eh, 3Ch, 12h, 0C3h
+	mov	[ss:ByteCnt],0
+	mov	[ss:DifCnt],1
+	mov	[ss:RLELen],0
+	mov	[ss:RLELen+2],0
+	mov	SI,[ss:SrcIdx]	;init Source Index (SrcIdx)
+	mov	DI,[ss:RLEIdx]	; & dest index (RLEIdx)
 
-sub_0_5D5B:
-db 56h, 06h, 50h, 36h, 8Eh
-db 06h, 38h, 12h, 36h, 0A1h, 48h, 12h, 2Ch, 02h, 0AAh, 36h, 0A0h, 4Ah, 12h, 0AAh, 36h
-db 8Bh, 36h, 3Eh, 12h, 46h, 36h, 03h, 36h, 48h, 12h, 36h, 89h, 36h, 3Eh, 12h, 36h
-db 83h, 06h, 44h, 12h, 02h, 36h, 83h, 16h, 46h, 12h, 00h, 36h, 0C7h, 06h, 48h, 12h
-db 00h, 00h, 58h, 07h, 5Eh, 0C3h
+	ret
+ENDP
 
-sub_0_5D96:
-db 06h, 50h, 56h, 36h, 8Eh, 06h, 38h, 12h, 36h, 0A1h
-db 4Bh, 12h, 04h, 7Fh, 0AAh, 36h, 8Bh, 0Eh, 4Bh, 12h, 8Bh, 0C1h, 40h, 36h, 01h, 06h
-db 44h, 12h, 36h, 83h, 16h, 46h, 12h, 00h, 36h, 8Bh, 36h, 3Eh, 12h, 1Eh, 36h, 8Eh
-db 1Eh, 3Ah, 12h, 0F3h, 0A4h, 1Fh, 36h, 0C7h, 06h, 4Bh, 12h, 00h, 00h, 36h, 89h, 36h
-db 3Eh, 12h, 5Eh, 58h, 07h, 0C3h
 
-sub_0_5DD6:
-db 0E8h, 5Bh, 0FFh, 87h, 0F7h, 0BAh, 01h, 00h, 36h, 8Eh
-db 06h, 3Ah, 12h, 32h, 0E4h, 81h, 0FFh, 00h, 0FFh, 72h, 26h, 8Bh, 0C7h, 0D1h, 0E8h, 0D1h
-db 0E8h, 0D1h, 0E8h, 0D1h, 0E8h, 36h, 01h, 06h, 3Ah, 12h, 0BFh, 00h, 00h, 8Bh, 0C6h, 0D1h
-db 0E8h, 0D1h, 0E8h, 0D1h, 0E8h, 0D1h, 0E8h, 36h, 01h, 06h, 38h, 12h, 83h, 0E6h, 0Fh, 0EBh
-db 0CDh, 36h, 29h, 16h, 40h, 12h, 36h, 83h, 1Eh, 42h, 12h, 00h, 72h, 24h, 33h, 0D2h
-db 1Eh, 36h, 8Eh, 1Eh, 38h, 12h, 0ACh, 3Ch, 80h, 72h, 0Bh, 2Ch, 7Fh, 8Bh, 0C8h, 8Bh
-db 0D0h, 0F3h, 0A4h, 1Fh, 0EBh, 0AFh, 04h, 03h, 8Bh, 0C8h, 8Bh, 0D0h, 0ACh, 0F3h, 0AAh, 1Fh
-db 0EBh, 0A3h, 0C3h
+;==========================================================
+;
+;	Output a compression string (repeated bytes)
+;
+;==========================================================
 
-sub_0_5E43:
-db 0E8h, 0EEh, 0FEh, 36h, 8Eh, 06h, 3Ah, 12h, 26h, 8Ah, 04h, 36h, 0A2h
-db 4Ah, 12h, 81h, 0FEh, 00h, 0FFh, 72h, 35h, 0E8h, 0D4h, 00h, 8Bh, 0C6h, 0D1h, 0E8h, 0D1h
-db 0E8h, 0D1h, 0E8h, 0D1h, 0E8h, 36h, 01h, 06h, 3Ah, 12h, 83h, 0E6h, 0Fh, 36h, 0C7h, 06h
-db 3Eh, 12h, 00h, 00h, 8Bh, 0C7h, 0D1h, 0E8h, 0D1h, 0E8h, 0D1h, 0E8h, 0D1h, 0E8h, 36h, 01h
-db 06h, 38h, 12h, 83h, 0E7h, 0Fh, 36h, 0FFh, 06h, 4Bh, 12h, 0EBh, 0B9h, 36h, 83h, 2Eh
-db 40h, 12h, 01h, 36h, 83h, 1Eh, 42h, 12h, 00h, 73h, 03h, 0E9h, 91h, 00h, 46h, 26h
-db 8Ah, 04h, 36h, 3Ah, 06h, 4Ah, 12h, 75h, 40h, 36h, 0FFh, 06h, 48h, 12h, 36h, 83h
-db 3Eh, 48h, 12h, 02h, 72h, 9Ch, 36h, 83h, 3Eh, 4Bh, 12h, 01h, 76h, 08h, 36h, 0FFh
-db 0Eh, 4Bh, 12h, 0E8h, 0D0h, 0FEh, 36h, 0C7h, 06h, 4Bh, 12h, 00h, 00h, 36h, 81h, 3Eh
-db 48h, 12h, 81h, 00h, 72h, 10h, 0E8h, 82h, 0FEh, 26h, 3Ah, 44h, 01h, 75h, 07h, 26h
-db 3Ah, 44h, 02h, 75h, 01h, 46h, 0E9h, 69h, 0FFh, 36h, 8Bh, 0Eh, 48h, 12h, 0E3h, 16h
-db 83h, 0F9h, 02h, 72h, 05h, 0E8h, 63h, 0FEh, 0EBh, 0Ch, 36h, 01h, 0Eh, 4Bh, 12h, 36h
-db 0C7h, 06h, 48h, 12h, 00h, 00h, 36h, 0FFh, 06h, 4Bh, 12h, 36h, 0A2h, 4Ah, 12h, 36h
-db 83h, 3Eh, 4Bh, 12h, 7Eh, 72h, 15h, 0E8h, 7Ch, 0FEh, 26h, 3Ah, 44h, 01h, 75h, 0Ch
-db 26h, 3Ah, 44h, 02h, 75h, 06h, 46h, 36h, 0FFh, 06h, 4Bh, 12h, 0E9h, 23h, 0FFh
+;sub_0_5D5B:
+PROC	OutputRep
 
-sub_0_5F2F:
-db 36h
-db 8Bh, 0Eh, 48h, 12h, 0E3h, 1Ah, 83h, 0F9h, 02h, 72h, 10h, 36h, 83h, 3Eh, 4Bh, 12h
-db 01h, 72h, 03h, 0E8h, 50h, 0FEh, 0E8h, 12h, 0FEh, 0EBh, 0Fh, 36h, 01h, 0Eh, 4Bh, 12h
-db 36h, 8Bh, 0Eh, 4Bh, 12h, 0E3h, 03h, 0E8h, 3Ch, 0FEh, 0C3h
+	push	SI
+	push	ES	;save needed registers
+	push	AX
+
+	mov	ES,[ss:RLESeg]	;get dest buffer seg
+	mov	AX,[ss:ByteCnt]
+	sub	AL,2	;get byte count - 3 (already -1)
+	stosb
+
+	mov	AL,[ss:LastByte]	; & output byte to repeat
+	stosb
+
+	mov	SI,[ss:SrcIdx]
+	inc	SI	;update source index (length + 1)
+	add	SI,[ss:ByteCnt]
+	mov	[ss:SrcIdx],SI	; & save for next output
+
+	add	[ss:RLELen],2	;update RLE length
+	adc	[ss:RLELen+2],0
+
+	mov	[ss:ByteCnt],0	;we output everything!
+
+	pop	AX
+	pop	ES	;restore registers
+
+;	mov	BL,[ES:SI]
+;	mov	[LastByte],BL	;this is 'last' byte!
+
+	pop	SI
+
+	ret
+
+	ENDP
+
+;==========================================================
+;
+;	Output a unique string with count byte preceeding
+;
+;==========================================================
+
+;sub_0_5D96:
+PROC	OutputDif
+
+	push	ES	;save important registers
+	push	AX
+	push	SI
+
+	mov	ES,[ss:RLESeg]	;get dest buffer seg
+	mov	AX,[ss:DifCnt]
+	add	AL,7Fh	; & save byte count - 1 with hi bit set
+	stosb
+
+	mov	CX,[ss:DifCnt]	;get # of bytes to copy
+
+	mov	AX,CX	;# of bytes read (count is -1)
+	inc	AX
+	add	[ss:RLELen],AX	;update RLE length
+	adc	[ss:RLELen+2],0
+
+	mov	SI,[ss:SrcIdx]	; & starting position in source
+	push	DS
+	mov	DS,[ss:SrcSeg]	;set source seg
+	REP	movsb
+	pop	DS	; & copy the string
+
+	mov	[ss:DifCnt],0	;we output everything!
+
+	mov	[ss:SrcIdx],SI	;save for next output
+
+	pop	SI
+	pop	AX
+	pop	ES	;restore registers
+
+	ret
+
+	ENDP
+
+;==========================================================
+;
+;	EXPAND a RLE compressed file segment
+;
+;==========================================================
+
+;sub_0_5DD6:
+	PUBLIC	Expand
+PROC	Expand
+
+	call	InitRLE	;init our vars & buffers
+
+	xchg	SI,DI	;swap SI and DI
+	mov	DX,1
+@@bank:
+	mov	ES,[ss:SrcSeg]	;point to source buffer
+	xor	AH,AH
+@@get:
+	cmp	DI,0FF00h	;don't bog us down!
+	jb	@@ok
+
+	mov	AX,DI
+	shr	AX,1
+	shr	AX,1	;offset / 16
+	shr	AX,1
+	shr	AX,1
+	add	[ss:SrcSeg],AX	; + seg reg = normalized ptr
+;	and	DI,0Fh
+	mov	DI,0
+
+	mov	AX,SI
+	shr	AX,1
+	shr	AX,1	;offset / 16
+	shr	AX,1
+	shr	AX,1
+	add	[ss:RLESeg],AX	; + segment register = normalized ptr
+	and	SI,0Fh
+	jmp	SHORT @@bank
+@@ok:
+	sub	[ss:SrcLen],DX	;subtract out # of chars
+	sbb	[ss:SrcLen+2],0
+	jc	@@Done	;exit if we are done!
+	xor	DX,DX
+@@0:
+	push	DS
+	mov	DS,[ss:RLESeg]	;point to RLE buffer
+	lodsb		; & get code byte
+	cmp	AL,80h
+	jb	@@rpt	;repeat code?
+	sub	AL,7Fh
+	mov	CX,AX	; no- string length = code - $80 + 1
+	mov	DX,AX
+
+	REP	movsb	;copy string
+	pop	DS
+	jmp	SHORT @@get	; & do some more
+@@rpt:
+	add	AL,3	;# of bytes = code + 3
+	mov	CX,AX
+	mov	DX,AX
+	lodsb		;get byte to repeat
+	REP	stosb
+	pop	DS	; & store that many bytes
+	jmp	SHORT @@get
+@@Done:
+	ret
+
+	ENDP
+
+;==========================================================
+;
+;	COMPRESS data buffer using RLE
+;
+;==========================================================
+;sub_0_5E43:
+	PUBLIC	Compress
+PROC	Compress
+
+	call	InitRLE	;init vars
+@@bank:
+	mov	ES,[ss:SrcSeg]	;get first byte of data
+	mov	AL,[ES:SI]
+
+	mov	[ss:LastByte],AL	; & set as last byte
+@@get:
+	cmp	SI,0FF00h	;don't bog us down!
+	jb	@@ok
+
+	call	@@Done	;send any patial strings!
+
+	mov	AX,SI
+	shr	AX,1
+	shr	AX,1	;offset / 16
+	shr	AX,1
+	shr	AX,1
+	add	[ss:SrcSeg],AX	; + segment register = normalized
+	and	SI,0Fh
+	mov	[ss:SrcIdx],0	;which is our new 'start'
+
+	mov	AX,DI
+	shr	AX,1
+	shr	AX,1	;offset / 16
+	shr	AX,1
+	shr	AX,1
+	add	[ss:RLESeg],AX	; + segment register = normalized ptr
+	and	DI,0Fh
+	inc	[ss:DifCnt]
+	jmp	SHORT @@bank
+@@ok:
+	sub	[ss:SrcLen],1	;subtract out # of chars
+	sbb	[ss:SrcLen+2],0
+	jnc	@@0
+	jmp	NEAR @@Done	;exit if we are done!
+@@0:
+	inc	SI	;get next byte
+	mov	AL,[ES:SI]
+	cmp	AL,[ss:LastByte]
+	jne	@@dif	;same as last byte?
+
+	inc	[ss:ByteCnt]	; yes- count it
+	cmp	[ss:ByteCnt],MinCnt
+	jb	@@get
+
+	cmp	[ss:DifCnt],1	;ok, got a rep string...already have dif?
+	jbe	@@same
+	dec	[ss:DifCnt]
+	call	OutputDif	; yes- output that string first
+@@same:
+	mov	[ss:DifCnt],0	;force even if not output!
+	cmp	[ss:ByteCnt],MaxCnt
+	;fsm jb	@@get	;have we gotten too big?
+	db 72h, 10h ;fsm
+
+	call	OutputRep	; yes, save string & continue
+
+	cmp	AL,[ES:SI+1]	;another repeat?
+	jne	@@gget
+	cmp	AL,[ES:SI+2]
+        jne	@@gget
+	inc	SI	;need this for >127 byte strings!
+@@gget:	jmp	NEAR @@get
+;-------------------------------------------------------------
+@@dif:
+	mov	CX,[ss:ByteCnt]	;any dups yet?
+	jcxz	@@cnt
+
+	cmp	CX,MinCnt	;repeats before now?
+	jb	@@add
+
+	call	OutputRep	; yes- save repeat bytes
+	jmp	SHORT @@cnt
+@@add:
+	add	[ss:DifCnt],CX	;add bad repeats to dif count
+	mov	[ss:ByteCnt],0	; & no more dupes!
+@@cnt:
+	inc	[ss:DifCnt]	;count byte as different
+	mov	[ss:LastByte],AL
+
+	cmp	[ss:DifCnt],MaxCnt-MinCnt-1	;still in range?
+	jb	@@goget
+
+	call	OutputDif	; no- output string & continue
+
+;	mov	AL,[ES:SI+1]
+	cmp	AL,[ES:SI+1]
+	jne	@@goget	;if repeat follows, specialize!
+	cmp	AL,[ES:SI+2]
+	jne	@@goget
+	inc	SI	;why?
+        inc	[ss:DifCnt]
+@@goget:
+	jmp	NEAR @@get
+;-------------------------------------------------------------
+@@Done:
+	mov	CX,[ss:ByteCnt]	;any reps left?
+	jcxz	@@1
+
+	cmp	CX,MinCnt	; yes- enough to output?
+	jb	@@2
+
+	cmp	[ss:DifCnt],1	; yes, any difs before these?
+	jb	@@3
+
+	call	OutputDif	; yes- output them
+@@3:
+	call	OutputRep	;output rep bytes
+	jmp	SHORT @@4
+@@2:
+	add	[ss:DifCnt],CX	;update dif count w/small rep
+@@1:
+	mov	CX,[ss:DifCnt]	;anything to output?
+	jcxz	@@4
+	call	OutputDif	;output dif string
+@@4:
+	ret
+
+	ENDP
 
 ;============================================================================
 
