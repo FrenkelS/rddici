@@ -1251,9 +1251,8 @@ db 50h, 56h, 0E8h, 33h, 35h, 83h, 0C4h, 06h, 0B8h, 01h, 00h, 50h, 0B8h, 05h, 0AE
 db 56h, 0E8h, 24h, 35h, 83h, 0C4h, 06h, 56h, 0E8h, 89h, 26h, 59h, 5Eh
 }
 }
-
-
-void sub_0_39AF(void)
+//void sub_0_39AF(void)
+void _savectrls (void)
 {
 asm {
 db 56h, 0B8h, 7Bh, 0Ch, 50h, 0B8h, 10h, 0AEh, 50h, 0E8h, 43h, 36h, 59h, 59h
@@ -1403,17 +1402,24 @@ db 0E8h, 0EFh, 0C4h
 // _quit
 //
 ////////////////////
-
-char extern far PIRACY;
 //void sub_0_3E65(void)
 void _quit (char *error)
 {
-asm {
-db 56h, 8Bh, 76h, 04h, 33h, 0C0h, 50h, 0E8h
-db 0BDh, 0F1h, 59h, 8Ah, 04h, 98h, 0Bh, 0C0h, 75h, 08h, 0E8h, 8Fh, 0FCh, 0E8h, 2Fh, 0FBh
-db 0EBh, 05h, 56h, 0E8h, 4Ah, 27h, 59h, 0E8h, 0C9h, 0E7h, 0E8h, 41h, 14h, 33h, 0C0h, 50h
-db 0E8h, 0CDh, 21h, 59h, 5Eh
-}
+  setscreenmode (text);
+  if (!(*error))
+  {
+	 _savehighscores ();
+	 _savectrls ();
+  }
+  else
+  {
+	puts (error);
+  }
+
+  ShutdownKBD ();	// shut down the interrupt driven stuff if needed
+  ShutdownSound ();
+
+  exit (0);		// quit to DOS
 }
 
 

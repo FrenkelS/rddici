@@ -1,3 +1,4 @@
+del *.obj
 del rddici.exe
 
 tcc -IX:\INCLUDE -LX:\LIB -c dave2.c
