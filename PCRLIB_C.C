@@ -139,6 +139,14 @@ void ShutdownKBD ()
 }
 
 
+/*
+===========================
+=
+= ControlKBD
+=
+===========================
+*/
+
 void sub_0_2673(void)
 {
 asm {
@@ -179,6 +187,14 @@ dw 2766h
 dw 276Dh
 
 
+
+/*
+============================
+=
+= ControlMouse
+=
+============================
+*/
 
 //void sub_0_27C0(void)
 //{
@@ -221,6 +237,15 @@ dw 28C1h
 dw 28C8h
 
 
+/*
+===============================
+=
+= ReadJoystick
+= Just return the resistance count of the joystick
+=
+===============================
+*/
+
 //void sub_0_28FD(void)
 //{
 //asm {
@@ -239,6 +264,14 @@ db 0B1h, 0FBh, 5Fh, 5Eh, 8Bh, 0E5h
 }
 }
 
+
+/*
+=============================
+=
+= ControlJoystick (joy# = 1 / 2)
+=
+=============================
+*/
 
 void sub_0_2998(void)
 {
@@ -285,6 +318,16 @@ dw 2A99h
 dw 2AA0h
 
 
+/*
+=============================
+=
+= ControlPlayer
+=
+= Expects a 1 or a 2
+=
+=============================
+*/
+
 //void sub_0_2B28(void)
 //{
 //asm {
@@ -320,6 +363,13 @@ dw 2B8Fh
 dw 2BB0h
 
 
+////////////////////////
+//
+// RecordDemo
+// Clears the demo buffer and starts capturing events
+//
+////////////////////////
+
 //void sub_0_2C4A(void)
 //{
 //asm {
@@ -330,6 +380,14 @@ db 0A2h, 9Eh, 0AFh, 0C7h, 06h, 94h, 0AEh, 9Fh, 0AFh, 0C7h, 06h, 5Ch, 0C3h, 02h, 
 }
 }
 
+
+////////////////////////
+//
+// LoadDemo / SaveDemo
+// Loads a demo from disk or
+// saves the accumulated demo command string to disk
+//
+////////////////////////
 
 void sub_0_2C61(void)
 {
@@ -359,6 +417,20 @@ db 52h, 01h, 83h, 0C4h, 0Ah, 0C7h, 06h, 5Ch, 0C3h, 00h, 00h, 8Bh, 0E5h
 }
 
 
+////////////////////////
+//
+// StartDemo
+//
+////////////////////////
+
+/*=========================================================================*/
+
+
+/*
+** Miscellanious library routines
+*/
+
+
 ///////////////////////////////
 //
 // clearkeys
@@ -375,6 +447,17 @@ void clearkeys (void)
   for (i=0;i<128;i++)
     keydown [i]=0;
 }
+
+/*
+===========================================
+=
+= Allocate a block aligned on a paragraph
+=
+===========================================
+*/
+
+void far *lastparalloc;	// global variable of the EXACT (not paralign)
+				// last block, so it can be freed right
 
 void sub_0_2D70(void)
 {
@@ -555,6 +638,16 @@ asm		int	21h
 //==========================================================================
 
 
+/*
+====================================
+=
+= bloadin
+= Paraligns just enough space and bloads in the
+= specified file, returning a pointer to the start
+=
+====================================
+*/
+
 void sub_0_2F05(void)
 {
 asm {
@@ -639,6 +732,14 @@ dw 3066h
 dw 3079h
 
 
+/*
+========================
+=
+= egasplitscreen
+=
+========================
+*/
+
 //void sub_0_30A5(void)
 //{
 //asm {
@@ -657,6 +758,14 @@ db 0BFh, 50h, 0A1h, 60h, 0C3h, 40h, 50h, 0E8h, 92h, 3Dh, 59h, 59h, 5Eh
 }
 
 
+/*
+========================
+=
+= crtcstart
+=
+========================
+*/
+
 void sub_0_312F(void)
 {
 asm {
@@ -667,6 +776,17 @@ db 0B1h, 08h, 0D3h, 0E8h, 50h, 0A1h, 60h, 0C3h, 40h, 50h, 0E8h, 4Fh, 3Dh, 59h, 5
 }
 }
 
+
+int win_xl,win_yl,win_xh,win_yh;
+
+int screencenterx = 19,screencentery = 11;
+
+//////////////////////////
+//
+// drawwindow
+// draws a bordered window and homes the cursor
+//
+//////////////////////////
 
 void sub_0_3171(void)
 {
@@ -689,6 +809,12 @@ db 0AEh, 0A3h, 02h, 0AEh, 8Bh, 46h, 06h, 40h, 0A3h, 68h, 0AEh, 5Fh, 5Eh
 }
 }
 
+////////////////////////////
+//
+// erasewindow
+// clears out the last window and it's border to spaces
+//
+///////////////////////////
 
 void sub_0_325F(void)
 {
@@ -709,6 +835,12 @@ db 0E8h, 0BCh, 0FFh, 83h, 0C4h, 0Ah
 }
 }
 
+/////////////////////////////
+//
+// centerwindow
+// Centers a drawwindow of the given size
+//
+/////////////////////////////
 
 void sub_0_32A8(void)
 {
@@ -721,7 +853,12 @@ db 8Fh, 0FEh, 83h, 0C4h, 08h, 5Fh, 5Eh
 }
 }
 
-
+///////////////////////////////
+//
+// expwin {h / v}
+// Grows the window outward
+//
+///////////////////////////////
 void sub_0_32E9(void)
 {
 asm {
@@ -755,6 +892,13 @@ db 59h, 0E8h, 0D2h, 21h, 56h, 0FFh, 76h, 04h, 0E8h, 1Dh, 0FFh, 59h, 59h, 5Eh
 }
 
 
+/////////////////////////
+//
+// get
+// Flash a cursor at sx,sy and waits for a user bioskey
+//
+/////////////////////////
+
 void sub_0_3390(void)
 {
 asm {
@@ -768,6 +912,13 @@ db 21h, 83h, 0C4h, 06h, 33h, 0C0h, 50h, 0E8h, 5Dh, 35h, 59h, 0EBh, 00h, 5Fh, 5Eh
 }
 
 
+/////////////////////////
+//
+// print
+// Prints a string at sx,sy.  No clipping!!!
+//
+/////////////////////////
+
 void sub_0_33F1(void)
 {
 asm {
@@ -779,6 +930,13 @@ db 5Eh, 04h, 0FFh, 46h, 04h, 8Ah, 07h, 88h, 46h, 0FFh, 0Ah, 0C0h, 75h, 0BAh, 8Bh
 }
 }
 
+
+///////////////////////////
+//
+// printint / printlong
+// Converts the value to a string and prints it
+//
+///////////////////////////
 
 void sub_0_3442(void)
 {
@@ -806,8 +964,6 @@ int _MouseStatus;
 // Mouse Routines
 //
 ////////////////////////////////////////////////////////////////////
-
-
 void sub_0_3481(void)
 {
 asm {
@@ -828,6 +984,7 @@ void _MouseHide(void)
  _AX=2;
  geninterrupt(0x33);
 }
+
 
 
 void sub_0_34D9(void)
@@ -867,12 +1024,12 @@ db 0E5h
 
 
 
-//void sub_0_3563
 ////////////////////////////////////////////////////////////////////
 //
 // Verify a file's existence
 //
 ////////////////////////////////////////////////////////////////////
+//void sub_0_3563
 long _Verify(char *filename)
 {
  int handle;
@@ -885,6 +1042,14 @@ long _Verify(char *filename)
 }
 
 
+
+
+
+////////////////////////////////////////////////////////////////////
+//
+// print hex byte
+//
+////////////////////////////////////////////////////////////////////
 void sub_0_35A0(void)
 {
 asm {
@@ -899,6 +1064,13 @@ db 0E5h
 }
 
 
+
+
+////////////////////////////////////////////////////////////////////
+//
+// print hex
+//
+////////////////////////////////////////////////////////////////////
 void sub_0_3603(void)
 {
 asm {
@@ -909,6 +1081,13 @@ db 0E8h, 7Dh, 0FFh, 59h
 }
 
 
+
+
+////////////////////////////////////////////////////////////////////
+//
+// print bin
+//
+////////////////////////////////////////////////////////////////////
 void sub_0_3626(void)
 {
 asm {
@@ -921,6 +1100,13 @@ db 0FEh, 10h, 7Ch, 0D6h, 8Bh, 0E5h
 }
 
 
+
+
+////////////////////////////////////////////////////////////////////
+//
+// center print
+//
+////////////////////////////////////////////////////////////////////
 void sub_0_3668(void)
 {
 asm {
@@ -931,6 +1117,13 @@ db 16h, 02h, 0AEh, 0FFh, 76h, 04h, 0E8h, 68h, 0FDh, 59h
 }
 
 
+
+
+////////////////////////////////////////////////////////////////////
+//
+// input unsigned
+//
+////////////////////////////////////////////////////////////////////
 void sub_0_368C(void)
 {
 asm {
@@ -957,6 +1150,13 @@ db 50h, 0E8h, 97h, 31h, 59h, 8Bh, 0F0h, 8Bh, 0C6h, 0EBh, 00h, 5Fh, 5Eh, 8Bh, 0E5
 }
 
 
+
+
+////////////////////////////////////////////////////////////////////
+//
+// line input routine
+//
+////////////////////////////////////////////////////////////////////
 void sub_0_37B1(void)
 {
 asm {
@@ -988,6 +1188,13 @@ int _numlevels, _maxplayers;
 char *_extension = "PCR";
 boolean	_cgaok, _egaok, _vgaok;
 
+////////////////////////
+//
+// _loadctrls
+// Tries to load the control panel settings
+// creates a default if not present
+//
+////////////////////////
 
 void sub_0_3851(void)
 {
@@ -1040,6 +1247,13 @@ db 0A2h, 25h, 59h, 5Eh
 }
 
 
+////////////////////////
+//
+// loadhighscores
+// Tries to load the score file
+// creates a default if not present
+//
+////////////////////////
 void sub_0_3A96(void)
 {
 asm {
@@ -1054,7 +1268,6 @@ db 35h, 59h, 59h, 46h, 83h, 0FEh, 05h, 7Ch, 0C2h, 5Eh
 }
 }
 
-
 //void sub_0_3B0C(void)
 void _savehighscores (void)
 {
@@ -1064,6 +1277,12 @@ void _savehighscores (void)
 }
 
 
+////////////////////////
+//
+// _showhighscores
+// Brings up a dialog box with the high score lists and returns immediately
+//
+////////////////////////
 void sub_0_3B41(void)
 {
 asm {
@@ -1092,6 +1311,13 @@ db 0E5h
 }
 
 
+//////////////////////////
+//
+// _checkhighscore
+// Compares score to highscores, and inserts place if needed.
+// calls showhighscores in any case
+//
+//////////////////////////
 void sub_0_3C83(void)
 {
 asm {
@@ -1119,6 +1345,12 @@ db 0C3h, 0Dh, 75h, 0A4h, 5Fh, 5Eh, 8Bh, 0E5h
 }
 
 
+////////////////////
+//
+// _setupgame
+//
+////////////////////
+
 void sub_0_3DBA(void)
 {
 asm {
@@ -1138,6 +1370,12 @@ db 0E8h, 0EFh, 0C4h
 }
 
 
+////////////////////
+//
+// _quit
+//
+////////////////////
+
 void sub_0_3E65(void)
 {
 asm {
@@ -1147,3 +1385,5 @@ db 0EBh, 05h, 56h, 0E8h, 4Ah, 27h, 59h, 0E8h, 0C9h, 0E7h, 0E8h, 41h, 14h, 33h, 0
 db 0E8h, 0CDh, 21h, 59h, 5Eh
 }
 }
+
+
