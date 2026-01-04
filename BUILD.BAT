@@ -1,9 +1,9 @@
 del rddici.exe
 
-tcc -a -f- -v -G -O -Z -vi- -weas -IX:\INCLUDE -LX:\LIB -P-.C -c dave2.c
-tcc -a -f- -v -G -O -Z -vi- -weas -IX:\INCLUDE -LX:\LIB -P-.C -c pcrlib_c.c
-tcc -a -f- -v -G -O -Z -vi- -weas -IX:\INCLUDE -LX:\LIB -P-.C -c cpanel.c
-tcc -a -f- -v -G -O -Z -vi- -weas -IX:\INCLUDE -LX:\LIB -P-.C -c rle.c
+tcc -IX:\INCLUDE -LX:\LIB -c dave2.c
+tcc -IX:\INCLUDE -LX:\LIB -c pcrlib_c.c
+tcc -IX:\INCLUDE -LX:\LIB -c cpanel.c
+tcc -IX:\INCLUDE -LX:\LIB -c rle.c
 
 tasm /MX /ZI /O dave2asm.asm
 tasm /MX /ZI /O pcrlib_a.asm

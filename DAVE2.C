@@ -1,5 +1,5 @@
 /* Reconstructed Dangerous Dave in Copyright Infringement Source Code
- * Copyright (C) 2025 Frenkel Smeijers
+ * Copyright (C) 2026 Frenkel Smeijers
  *
  * The code in this file is primarily based on:
  * The Catacomb Source Code
