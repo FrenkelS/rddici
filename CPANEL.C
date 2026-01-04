@@ -331,6 +331,28 @@ db 5Fh, 5Eh, 8Bh, 0E5h
 }
 
 
+//==========================================================================
+
+/*
+===================
+=
+= installgrfile
+=
+= Loads a PC-arcade graphic file
+= grmode must be set so it knows if it is an EGA planed file
+=
+= Can be a normal uncompressed file or an RLE'd file
+=
+===================
+*/
+
+unsigned egaplane[4];			// main memory paragraph of plane image
+spritetype image, spritetable[NUMSPRITES];	// grfile headers
+pictype pictable[NUMPICS];
+void far *lastgrpic;
+
+int numchars,numtiles,numpics,numsprites;
+
 void sub_0_4AD6(void)
 {
 asm {

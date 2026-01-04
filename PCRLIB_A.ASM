@@ -875,67 +875,554 @@ ENDP
 
 ;=======================================================================
 
-sub_0_55A1:
-db 55h, 8Bh, 0ECh, 56h, 57h, 0A1h, 0EAh, 10h, 8Eh, 0C0h, 8Bh, 76h, 08h, 8Bh, 7Eh
-db 04h, 8Bh, 5Eh, 06h, 0D1h, 0E3h, 0D1h, 0E3h, 0D1h, 0E3h, 0D1h, 0E3h, 0A1h, 9Ch, 0AFh, 3Dh
-db 01h, 00h, 75h, 07h, 0E8h, 1Ch, 00h, 5Fh, 5Eh, 5Dh, 0C3h, 3Dh, 02h, 00h, 75h, 07h
-db 0E8h, 6Bh, 00h, 5Fh, 5Eh, 5Dh, 0C3h, 3Dh, 03h, 00h, 75h, 03h, 0E8h, 0B8h, 01h, 5Fh
-db 5Eh, 5Dh, 0C3h
+;============
+;
+; drawchar
+; Calls CGAcharout / EGAcharout / VGAcharout
+; based on grmode
+;
+;============
+;sub_0_55A1:
+PROC	drawchar xcoordinate:WORD, ycoordinate:WORD, char:WORD
+	PUBLIC	drawchar
 
-sub_0_55E3:
-db 0D1h, 0E6h, 0D1h, 0E6h, 0D1h, 0E6h, 0D1h, 0E6h, 0D1h, 0E7h, 2Eh, 03h, 0BFh
-db 5Ah, 4Dh, 8Bh, 1Eh, 0E8h, 10h, 0A1h, 6Ch, 0AEh, 8Eh, 0D8h, 0FCh, 0ADh, 33h, 0C3h, 0ABh
-db 81h, 0C7h, 0FEh, 1Fh, 0ADh, 33h, 0C3h, 0ABh, 81h, 0EFh, 0B2h, 1Fh, 0ADh, 33h, 0C3h, 0ABh
-db 81h, 0C7h, 0FEh, 1Fh, 0ADh, 33h, 0C3h, 0ABh, 81h, 0EFh, 0B2h, 1Fh, 0ADh, 33h, 0C3h, 0ABh
-db 81h, 0C7h, 0FEh, 1Fh, 0ADh, 33h, 0C3h, 0ABh, 81h, 0EFh, 0B2h, 1Fh, 0ADh, 33h, 0C3h, 0ABh
-db 81h, 0C7h, 0FEh, 1Fh, 0ADh, 33h, 0C3h, 0ABh, 0B8h, 89h, 07h, 8Eh, 0D8h, 0C3h
+	push	si
+	push	di
 
-sub_0_563E:
-db 0D1h, 0E6h
-db 0D1h, 0E6h, 0D1h, 0E6h, 2Eh, 03h, 0BFh, 0EAh, 4Eh, 8Ch, 0D9h, 0BAh, 0CEh, 03h, 0B8h, 05h
-db 00h, 0EFh, 0FCh, 8Bh, 0DEh, 8Bh, 0CFh, 0BAh, 0CEh, 03h, 0B8h, 04h, 00h, 0EFh, 0BAh, 0C4h
-db 03h, 0B8h, 02h, 01h, 0EFh, 8Bh, 16h, 0E8h, 10h, 0A1h, 6Ch, 0AEh, 8Eh, 0D8h, 0ACh, 32h
-db 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh
-db 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h
-db 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh
-db 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 8Bh, 0F3h, 8Bh, 0F9h, 52h, 0BAh, 0CEh, 03h, 0B8h, 04h
-db 01h, 0EFh, 0BAh, 0C4h, 03h, 0B8h, 02h, 02h, 0EFh, 5Ah, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h
-db 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh
-db 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h
-db 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h
-db 0C7h, 2Fh, 8Bh, 0F3h, 8Bh, 0F9h, 52h, 0BAh, 0CEh, 03h, 0B8h, 04h, 02h, 0EFh, 0BAh, 0C4h
-db 03h, 0B8h, 02h, 04h, 0EFh, 5Ah, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h
-db 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h
-db 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh
-db 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 8Bh, 0F3h
-db 8Bh, 0F9h, 52h, 0BAh, 0CEh, 03h, 0B8h, 04h, 03h, 0EFh, 0BAh, 0C4h, 03h, 0B8h, 02h, 08h
-db 0EFh, 5Ah, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh
-db 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h
-db 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh
-db 83h, 0C7h, 2Fh, 0ACh, 32h, 0C2h, 0AAh, 83h, 0C7h, 2Fh, 0BAh, 0C4h, 03h, 0B8h, 02h, 0Fh
-db 0EFh, 0B8h, 89h, 07h, 8Eh, 0D8h, 0C3h
+	mov	ax,[screenseg]
+	mov	es,ax
 
-sub_0_5797:
-db 0D1h, 0E6h, 0D1h, 0E6h, 0D1h, 0E6h, 0D1h, 0E6h, 0D1h
-db 0E6h, 0D1h, 0E6h, 0D1h, 0E7h, 0D1h, 0E7h, 0D1h, 0E7h, 2Eh, 03h, 0BFh, 0FCh, 50h, 8Bh, 1Eh
-db 0E8h, 10h, 0A1h, 6Ch, 0AEh, 8Eh, 0D8h, 0FCh, 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh
-db 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh, 81h, 0C7h, 38h, 01h, 0ADh, 33h, 0C3h, 0ABh
-db 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh, 81h, 0C7h, 38h, 01h
-db 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh
-db 81h, 0C7h, 38h, 01h, 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh
-db 0ADh, 33h, 0C3h, 0ABh, 81h, 0C7h, 38h, 01h, 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh
-db 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh, 81h, 0C7h, 38h, 01h, 0ADh, 33h, 0C3h, 0ABh
-db 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh, 81h, 0C7h, 38h, 01h
-db 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh
-db 81h, 0C7h, 38h, 01h, 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh, 0ADh, 33h, 0C3h, 0ABh
-db 0ADh, 33h, 0C3h, 0ABh, 0B8h, 89h, 07h, 8Eh, 0D8h, 0C3h
+	mov	si,[char]       	;low level routines get stuff in registers
+	mov	di,[xcoordinate]
+	mov	bx,[ycoordinate]
+	shl	bx,1
+	shl	bx,1
+	shl	bx,1
+	shl	bx,1
+	;fsm add bx,[_yshift]		;allow printing on non-char lines
 
-sub_0_585A:
-db 55h, 8Bh, 0ECh, 56h, 57h, 0FCh
-db 0A1h, 0EAh, 10h, 8Eh, 0C0h, 8Bh, 76h, 08h, 8Bh, 7Eh, 04h, 8Bh, 5Eh, 06h, 0D1h, 0E3h
-db 0A1h, 9Ch, 0AFh, 8Bh, 0Eh, 98h, 0AEh, 8Eh, 0D9h, 3Dh, 01h, 00h, 75h, 06h, 0E8h, 1Fh
-db 00h, 0EBh, 14h, 90h, 3Dh, 02h, 00h, 75h, 06h, 0E8h, 84h, 00h, 0EBh, 09h, 90h, 3Dh
-db 03h, 00h, 75h, 03h, 0E8h, 0EAh, 00h, 0B8h, 89h, 07h, 8Eh, 0D8h, 5Fh, 5Eh, 5Dh, 0C3h
+	mov	ax,[grmode]
+	cmp	ax,1		;CGA mode
+	jne	@@notcga
+	call    CgaCharout
+	pop   	di
+	pop	si
+	ret
+
+
+@@notcga:
+	cmp	ax,2		;EGA mode
+	jne	@@notega
+	call	EgaCharout
+	pop   	di
+	pop	si
+	ret
+
+
+@@notega:
+	cmp	ax,3		;VGA mode
+	jne	@@done
+	call	VgaCharout
+@@done:
+	pop   	di
+	pop	si
+	ret
+
+ENDP
+
+;===========================================================================
+
+;============
+;
+; CGAcharout
+; SI= character; DI= xcoordinate; BX= ycoordinate*2
+;
+;============
+;sub_0_55E3:
+PROC	CgaCharOut
+
+	shl	si,1
+	shl	si,1
+	shl	si,1
+	shl	si,1		;char * 16 = tile's offset in PICS
+
+	shl	di,1		;x * 2 + ylookup[y] = screen location
+
+	add	di,[CGAylookup+bx]	;BX is pointer into YLOOKUP
+
+	mov	bx,[xormask]	;so chars can be inverted
+
+	mov	ax,[WORD charptr+2]
+	mov	ds,ax		;segment of tile pictures (PARA'd)
+
+	cld
+
+	lodsw			;load in a row of the tile's picture
+	xor	ax,bx
+	stosw
+	add	di,1FFEh
+	lodsw
+	xor	ax,bx
+	stosw
+	sub	di,1FB2h
+	lodsw
+	xor	ax,bx
+	stosw
+	add	di,1FFEh
+	lodsw
+	xor	ax,bx
+	stosw
+	sub	di,1FB2h
+	lodsw
+	xor	ax,bx
+	stosw
+	add	di,1FFEh
+	lodsw
+	xor	ax,bx
+	stosw
+	sub	di,1FB2h
+	lodsw
+	xor	ax,bx
+	stosw
+	add	di,1FFEh
+	lodsw
+	xor	ax,bx
+	stosw
+
+	mov	ax,_DATA
+	mov	ds,ax		;restore turbo's data segment
+	ret
+ENDP
+
+
+;=======================================================================
+
+;============
+;
+; EGAcharout
+; SI= character; DI= xcoordinate; BX= ycoordinate
+;
+;============
+;sub_0_563E:
+PROC	EgaCharOut
+
+	shl	si,1
+	shl	si,1
+	shl	si,1		;char * 8 = tile's offset in PICS
+
+	add	di,[EGAylookup+bx]	;BX is pointer into YLOOKUP
+
+	mov	cx,ds
+
+	mov	dx,GCindex
+	mov	ax,GCmode
+	out	dx,ax		;set read / write mode 0
+
+	cld
+
+	mov	bx,si		;so the planes can be drawn the same
+	mov	cx,di
+
+	mov	dx,GCindex
+	mov	ax,0*256+4	;read map select
+	out	dx,ax
+	mov	dx,SCindex
+	mov	ax,1*256+SCmapmask
+	out	dx,ax
+	mov	dx,[xormask]	;so chars can be inverted
+
+	mov	ax,[charptr+2]
+	mov	ds,ax		;segment of tile pictures (PARA'd)
+
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,39
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,39
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,39
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,39
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,39
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,39
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,39
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,39
+
+	mov	si,bx
+	mov	di,cx
+
+	push	dx
+	mov	dx,GCindex
+	mov	ax,1*256+4	;read map select
+	out	dx,ax
+	mov	dx,SCindex
+	mov	ax,2*256+SCmapmask	;write mask
+	out	dx,ax
+	pop	dx
+
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,39
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,39
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,39
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,39
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,39
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,39
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,39
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,39
+
+	mov	si,bx
+	mov	di,cx
+
+	push	dx
+	mov	dx,GCindex
+	mov	ax,2*256+4	;read map select
+	out	dx,ax
+	mov	dx,SCindex
+	mov	ax,4*256+SCmapmask	;write mask
+	out	dx,ax
+	pop	dx
+
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,39
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,39
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,39
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,39
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,39
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,39
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,39
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,39
+
+	mov	si,bx
+	mov	di,cx
+
+	push	dx
+	mov	dx,GCindex
+	mov	ax,3*256+4	;read map select
+	out	dx,ax
+	mov	dx,SCindex
+	mov	ax,8*256+SCmapmask	;write mask
+	out	dx,ax
+	pop	dx
+
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,39
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,39
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,39
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,39
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,39
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,39
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,39
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,39
+
+	mov	dx,SCindex
+	mov	ax,15*256 + SCmapmask	;write to all planes
+	out	dx,ax
+
+	mov	ax,_DATA
+	mov	ds,ax		;restore turbo's data segment
+	ret
+ENDP
+
+
+;=======================================================================
+
+;============
+;
+; VGAcharout
+; SI= character; DI= xcoordinate; BX= ycoordinate
+;
+;============
+;sub_0_5797:
+PROC	VgaCharOut
+
+	shl	si,1
+	shl	si,1
+	shl	si,1
+	shl	si,1
+	shl	si,1
+	shl	si,1		;char * 64 = tile's offset in PICS
+
+	shl	di,1
+	shl	di,1
+	shl	di,1		;x * 8 + ylookup[y] = screen location
+
+	add	di,[VGAylookup+bx]	;BX is pointer into YLOOKUP
+
+	mov	bx,[xormask]	;so chars can be inverted
+
+	mov	ax,[WORD charptr+2]
+	mov	ds,ax		;segment of tile pictures (PARA'd)
+
+	cld
+
+	lodsw			;load in a row of the tile's picture
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+
+	add	di,312
+
+	lodsw			;load in a row of the tile's picture
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+
+	add	di,312
+
+	lodsw			;load in a row of the tile's picture
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+
+	add	di,312
+
+	lodsw			;load in a row of the tile's picture
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+
+	add	di,312
+
+	lodsw			;load in a row of the tile's picture
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+
+	add	di,312
+
+	lodsw			;load in a row of the tile's picture
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+
+	add	di,312
+
+	lodsw			;load in a row of the tile's picture
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+
+	add	di,312
+
+	lodsw			;load in a row of the tile's picture
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+
+	mov	ax,_DATA
+	mov	ds,ax		;restore turbo's data segment
+	ret
+ENDP
+
+;=======================================================================
+
+;============
+;
+; drawtile
+; Just drops a 16*16 tile onto the screen
+; Calls CGAtileout / EGAtileout / VGAtileout
+; based on grmode
+;
+;============
+;sub_0_585A:
+PROC	drawtile xcoordinate:WORD, ycoordinate:WORD, tile:WORD
+	PUBLIC	drawtile
+
+	push	si
+	push	di
+
+	cld
+
+	mov	ax,[screenseg]
+	mov	es,ax
+
+	mov	si,[tile]
+	mov	di,[xcoordinate] ;low level routines get stuff in registers
+	mov	bx,[ycoordinate]
+	shl	bx,1
+
+	mov	ax,[grmode]
+
+	mov	cx,[WORD tileptr+2]
+	mov	ds,cx		;segment of pictures (PARA'd)
+
+	cmp	ax,1		;CGA mode
+	jne	@@notcga
+	call    CGAtileout
+	jmp	@@done
+
+@@notcga:
+	cmp	ax,2		;EGA mode
+	jne	@@notega
+	call	EGAtileout
+	jmp	@@done
+
+@@notega:
+	cmp	ax,3		;VGA mode
+	jne	@@done
+	call	VGAtileout
+@@done:
+
+	mov	ax,_DATA
+	mov	ds,ax		;restore turbo's data segment
+	pop   	di
+	pop	si
+	ret
+
+ENDP
+
 
 ;=======================
 ;
@@ -1254,14 +1741,70 @@ ENDP
 
 ;=======================================================================
 
-sub_0_5A47:
-db 55h, 8Bh, 0ECh, 56h, 57h, 0FCh, 8Bh, 76h, 08h
-db 0D1h, 0E6h, 0D1h, 0E6h, 0D1h, 0E6h, 0D1h, 0E6h, 8Bh, 84h, 0D2h, 0E3h, 2Eh, 0A3h, 0A9h, 5Ah
-db 8Bh, 84h, 0D4h, 0E3h, 2Eh, 0A3h, 0ADh, 5Ah, 8Bh, 0B4h, 0D6h, 0E3h, 0A1h, 0EAh, 10h, 8Eh
-db 0C0h, 8Bh, 7Eh, 04h, 8Bh, 5Eh, 06h, 0D1h, 0E3h, 0A1h, 9Ch, 0AFh, 8Bh, 0Eh, 88h, 0AEh
-db 8Eh, 0D9h, 3Dh, 01h, 00h, 75h, 06h, 0E8h, 25h, 00h, 0EBh, 14h, 90h, 3Dh, 02h, 00h
-db 75h, 06h, 0E8h, 40h, 00h, 0EBh, 09h, 90h, 3Dh, 03h, 00h, 75h, 03h, 0E8h, 69h, 00h
-db 0B8h, 89h, 17h, 8Eh, 0D8h, 5Fh, 5Eh, 5Dh, 0C3h
+;============
+;
+; drawpic
+; Just drops a width/depth block onto the screen with no masking
+; Calls CGAdrawpic / EGAdrawpic / VGAdrawpic
+; based on grmode
+;
+;============
+;sub_0_5A47:
+PROC	drawpic xcoordinate:WORD, ycoordinate:WORD, pic:WORD
+	PUBLIC	drawpic
+
+	push	si
+	push	di
+
+	cld
+
+	mov	si,[pic]
+	shl	si,1
+	shl	si,1
+	shl	si,1
+	shl	si,1		;pictable records are 16 bytes
+
+	mov	ax,[si+pictable.width]
+	mov	[WORD cs:picwidth],ax
+	mov	ax,[si+pictable.height]
+	mov	[WORD cs:picheight],ax
+	mov	si,[si+pictable.shapeptr]
+
+	mov	ax,[screenseg]
+	mov	es,ax
+
+	mov	di,[xcoordinate] ;low level routines get stuff in registers
+	mov	bx,[ycoordinate]
+	shl	bx,1         	;because it will be indexed into a table
+
+	mov	ax,[grmode]
+
+	mov	cx,[WORD picptr+2]
+	mov	ds,cx		;segment of pictures (PARA'd)
+
+	cmp	ax,1		;CGA mode
+	jne	@@notcga
+	call    CgaDrawpic
+	jmp	@@done
+
+@@notcga:
+	cmp	ax,2		;EGA mode
+	jne	@@notega
+	call	EgaDrawpic
+	jmp	@@done
+
+@@notega:
+	cmp	ax,3		;VGA mode
+	jne	@@done
+	call	VgaDrawpic
+@@done:
+	mov	ax,_DATA
+	mov	ds,ax		;restore turbo's data segment
+	pop   	di
+	pop	si
+	ret
+
+ENDP
 
 picwidth	dw	?	;used by all modes
 picxcoord	dw	?
