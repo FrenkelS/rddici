@@ -50,19 +50,31 @@ enum demoenum indemo;
 
 /*=======================================================================*/
 
-
-void sub_0_256A(void)
+/*
+=======================
+=
+= SetupKBD
+= Clears the keydown array and installs the INT 9 ISR if it isn't allready
+= hooked up.
+=
+=======================
+*/
+//void sub_0_256A(void)
+void SetupKBD ()
 {
-asm {
-db 83h, 0ECh, 04h
-db 56h, 0B8h, 09h, 00h, 50h, 0E8h, 0DBh, 44h, 59h, 89h, 46h, 0FCh, 89h, 56h, 0FEh, 33h
-db 0F6h, 0EBh, 0Bh, 8Bh, 0DEh, 0D1h, 0E3h, 0C7h, 87h, 9Ah, 0AEh, 00h, 00h, 46h, 81h, 0FEh
-db 80h, 00h, 7Ch, 0EFh, 0B8h, 40h, 00h, 8Eh, 0C0h, 26h, 0A1h, 1Ah, 00h, 0BAh, 40h, 00h
-db 8Eh, 0C2h, 26h, 0A3h, 1Ch, 00h, 81h, 7Eh, 0FEh, 00h, 00h, 75h, 07h, 81h, 7Eh, 0FCh
-db 0D8h, 25h, 74h, 1Fh, 8Bh, 46h, 0FEh, 8Bh, 56h, 0FCh, 89h, 16h, 0Ah, 0Ch, 0A3h, 0Ch
-db 0Ch, 0B8h, 00h, 00h, 50h, 0B8h, 0D8h, 25h, 50h, 0B8h, 09h, 00h, 50h, 0E8h, 92h, 44h
-db 83h, 0C4h, 06h, 5Eh, 8Bh, 0E5h
-}
+ void far *vect = getvect (9);
+ int i;
+
+ for (i=0;i<128;i++)			/* clear our key down table */
+   keydown[i]= false;
+
+ poke (0x40,0x1c,peek(0x40,0x1a));	/* clear the bios key buffer */
+
+ if ( &Int9ISR != vect ) 		/* is our handler allready set up? */
+ {
+   oldint9 = vect;
+   setvect (9,Int9ISR);
+ }
 }
 
 
