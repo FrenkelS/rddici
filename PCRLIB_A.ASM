@@ -238,21 +238,119 @@ ENDP
 
 ;=======================================================================
 
-sub_0_52CE:
-db 0F7h, 06h
-db 0E6h, 10h, 0FFh, 0FFh, 74h, 01h, 0C3h, 0B0h, 36h, 0E6h, 43h, 0B0h, 00h, 0E6h, 40h, 0E6h
-db 40h, 0A1h, 0CCh, 10h, 3Dh, 00h, 00h, 74h, 1Ch, 1Eh, 8Bh, 16h, 0D4h, 10h, 0A1h, 0D6h
-db 10h, 8Eh, 0D8h, 0B8h, 08h, 25h, 0CDh, 21h, 1Fh, 0C7h, 06h, 0CCh, 10h, 00h, 00h, 0E4h
-db 61h, 24h, 0FDh, 0E6h, 61h, 0C3h
+;========
+;
+; ShutdownSound
+;
+;========
+;sub_0_52CE:
+PROC	ShutdownSound
+	PUBLIC ShutdownSound
 
-sub_0_5306:
-db 55h, 8Bh, 0ECh, 0F7h, 06h, 0E6h, 10h, 0FFh, 0FFh, 74h
-db 02h, 5Dh, 0C3h, 8Bh, 46h, 04h, 56h, 8Bh, 0F0h, 0D1h, 0E6h, 0D1h, 0E6h, 0D1h, 0E6h, 0D1h
-db 0E6h, 0A1h, 0D0h, 10h, 8Eh, 0C0h, 26h, 8Ah, 44h, 02h, 3Ah, 06h, 0DEh, 10h, 72h, 3Ah
-db 0A2h, 0DEh, 10h, 26h, 8Bh, 04h, 0A3h, 0DCh, 10h, 26h, 8Ah, 5Ch, 03h, 88h, 1Eh, 0D8h
-db 10h, 88h, 1Eh, 0D9h, 10h, 80h, 0FBh, 01h, 77h, 05h, 33h, 0DBh, 0EBh, 10h, 90h, 32h
-db 0FFh, 33h, 0C0h, 0BAh, 01h, 00h, 0F7h, 0F3h, 8Bh, 0D8h, 89h, 1Eh, 0DAh, 10h, 0B0h, 36h
-db 0E6h, 43h, 8Ah, 0C3h, 0E6h, 40h, 8Ah, 0C7h, 0E6h, 40h, 5Eh, 5Dh, 0C3h
+	test	[_dontplay],0ffffh
+	je	@@dowork
+	ret
+@@dowork:
+	mov	al,36h		;tell the timer chip we are going to
+	out	43h,al		;change the speed of timer 0
+	mov	al,0		;system expects 0000 for rate
+	out	40h,al		;low
+	out	40h,al		;high
+
+	mov	ax,[SPKactive]
+	cmp	ax,0
+	je	@@done		;sound library wasn't started...
+
+	push	ds
+
+	mov	dx,[WORD Oldint8]
+	mov	ax,[WORD Oldint8+2]
+	mov	ds,ax
+	mov	ax,2508h	;call bios to set int 8
+	int	21h
+
+	pop	ds
+
+	mov	[SPKactive],0	;sound routines are now inactive
+
+	in	al,61h		;get peripheral (speaker) port value
+	and	al,11111101b	;turn speaker off
+	out	61h,al
+
+@@done:
+	ret
+
+ENDP
+
+;=========================================================================
+
+;===========
+;
+; PlaySound (soundnum)
+;
+; If the sound's priority is >= the current priority, SoundPtr, SndPriority,
+; and the timer speed are changed
+;
+;===========
+;sub_0_5306:
+PROC	PlaySound playnum:WORD
+	PUBLIC PlaySound
+
+	test	[_dontplay],0ffffh
+	je	@@dowork
+	ret
+@@dowork:
+	mov	ax,[playnum]	;index into the sound headers
+	push	si
+
+	mov	si,ax
+	shl	si,1
+	shl	si,1
+	shl	si,1
+	shl	si,1
+
+	mov	ax,[WORD SoundData+2]
+	mov	es,ax		;point es: to the spkr file
+
+	mov	al,[es:si+snd_Priority]	;priority table (one byte each)
+	cmp	al,[SndPriority]
+	jb	@@playdone	;current sound has higher priority
+	mov	[SndPriority],al
+	mov	ax,[es:si+snd_Start]	;offset in .SPK file
+	mov	[SndPtr],ax	;store it in the sound playing table
+
+	mov	bl,[es:si+snd_samples]	;samples / regular timer tick (1-255)
+	mov	[extraints],bl	;an OldInt8 will be called after this
+	mov	[intcount],bl	;many UpdateSPKR times have been called
+
+	cmp	bl,1		;sample rate of 0 or 1 = 0000 for timer
+	ja	@@oktodiv
+	xor	bx,bx
+	jmp	@@settimer
+
+@@oktodiv:
+	xor	bh,bh
+	xor	ax,ax
+	mov	dx,1
+	div	bx		;$10000 / samples = timer rate
+
+	mov	bx,ax
+	mov	[sndspeed],bx	;save off the timer rate
+
+@@settimer:
+	mov	al,36h		;tell the timer chip we are going to
+	out	43h,al		;change the speed of timer 0
+
+	mov	al,bl		;low byte of sample rate
+	out	40h,al
+	mov	al,bh		;high byte of sample rate
+	out	40h,al
+
+@@playdone:
+	pop	si
+	ret
+
+ENDP
 
 
 ;======================================================================
@@ -295,21 +393,98 @@ ENDP
 
 ;======================================================================
 
-sub_0_539A:
-db 0F7h, 06h, 0E6h, 10h, 0FFh, 0FFh
-db 74h, 01h, 0C3h, 0A1h, 0DCh, 10h, 0A3h, 0DFh, 10h, 0A0h, 0DEh, 10h, 0A2h, 0E1h, 10h, 0A0h
-db 0D8h, 10h, 0A2h, 0E2h, 10h, 0A0h, 0D9h, 10h, 0A2h, 0E3h, 10h, 0A1h, 0DAh, 10h, 0A3h, 0E4h
-db 10h, 0E8h, 0A9h, 0FFh, 0C3h
+;===========
+;
+; PauseSound
+;
+;===========
+;sub_0_539A:
+PROC	PauseSound
+	PUBLIC	PauseSound
 
-sub_0_53C5:
-db 0F7h, 06h, 0E6h, 10h, 0FFh, 0FFh, 74h, 01h, 0C3h, 0A1h, 0DFh
-db 10h, 0A3h, 0DCh, 10h, 0A0h, 0E1h, 10h, 0A2h, 0DEh, 10h, 0A0h, 0E2h, 10h, 0A2h, 0D8h, 10h
-db 0A0h, 0E3h, 10h, 0A2h, 0D9h, 10h, 8Bh, 1Eh, 0E4h, 10h, 0B0h, 36h, 0E6h, 43h, 8Ah, 0C3h
-db 0E6h, 40h, 8Ah, 0C7h, 0E6h, 40h, 0C3h
+	test	[_dontplay],0ffffh
+	je	@@dowork
+	ret
+@@dowork:
+	mov	ax,[SndPtr]	;save off the current values
+	mov	[pausesndptr],ax
+	mov	al,[SndPriority]
+	mov	[pausepriority],al
+	mov	al,[extraints]
+	mov	[pauseextraints],al
+	mov	al,[intcount]
+	mov	[pauseintcount],al
+	mov	ax,[sndspeed]
+	mov	[pausespeed],ax
+	call	StopSound
+	ret
+ENDP
 
+;======================================================================
+
+;===========
+;
+; ContinueSound
+;
+;===========
+;sub_0_53C5:
+PROC	ContinueSound
+	PUBLIC	ContinueSound
+
+	test	[_dontplay],0ffffh
+	je	@@dowork
+	ret
+@@dowork:
+	mov	ax,[pausesndptr]
+	mov	[SndPtr],ax	;restore the old values
+	mov	al,[pausepriority]
+	mov	[SndPriority],al
+	mov	al,[pauseextraints]
+	mov	[extraints],al
+	mov	al,[pauseintcount]
+	mov	[intcount],al
+
+	mov	bx,[pausespeed]
+
+	mov	al,36h		;tell the timer chip we are going to
+	out	43h,al		;change the speed of timer 0
+
+	mov	al,bl		;low byte of sample rate
+	out	40h,al
+	mov	al,bh		;high byte of sample rate
+	out	40h,al
+
+
+	ret
+ENDP
+
+;======================================================================
+
+;========
+;
+; WaitendSound
+; Just waits around until the current sound stops playing
+;
+;========
 sub_0_53F7:
-db 0F7h, 06h, 0E6h, 10h, 0FFh, 0FFh, 74h, 01h, 0C3h
-db 9Ch, 0Eh, 0E8h, 0Ah, 00h, 90h, 0A1h, 0DCh, 10h, 3Dh, 00h, 00h, 75h, 0F8h, 0C3h
+PROC	WaitEndSound
+	PUBLIC WaitEndSound
+
+	test	[_dontplay],0ffffh
+	je	@@dowork
+	ret
+@@dowork:
+	pushf
+	call FAR PTR UpdateSPKR	;in case a sound was just started and hasn't
+				;been hit by an INT yet
+@@wait:
+	mov	ax,[sndptr]
+	cmp	ax,0		;when the ptr is 0, nothing is on
+	jne	@@wait
+
+	ret
+
+ENDP
 
 ;=========================================================================
 
