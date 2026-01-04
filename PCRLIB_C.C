@@ -62,33 +62,59 @@ db 8Eh, 0C2h, 26h, 0A3h, 1Ch, 00h, 81h, 7Eh, 0FEh, 00h, 00h, 75h, 07h, 81h, 7Eh,
 db 0D8h, 25h, 74h, 1Fh, 8Bh, 46h, 0FEh, 8Bh, 56h, 0FCh, 89h, 16h, 0Ah, 0Ch, 0A3h, 0Ch
 db 0Ch, 0B8h, 00h, 00h, 50h, 0B8h, 0D8h, 25h, 50h, 0B8h, 09h, 00h, 50h, 0E8h, 92h, 44h
 db 83h, 0C4h, 06h, 5Eh, 8Bh, 0E5h
-
-db 5Dh, 0C3h
-//}
-//}
+}
+}
 
 
 //void interrupt sub_0_25D8(void)
-//{
-//asm {
-db 50h, 53h, 51h, 52h, 06h, 1Eh, 56h, 57h, 55h, 0BDh, 89h, 07h, 8Eh, 0DDh, 8Bh, 0ECh
+/*
+=========================
+=
+= Int9ISR
+= Called for every keypress.  Keeps track of which keys are down, and passes
+= the key on to DOS after clearing the dos buffer (max 1 char in buffer).
+=
+=========================
+*/
 
-db 4Ch, 4Ch, 0B8h, 60h, 00h, 50h, 0E8h, 8Bh
-db 44h, 59h, 0B4h, 00h, 89h, 46h, 0FEh, 83h, 7Eh, 0FEh, 7Fh, 7Eh, 0Dh, 8Bh, 5Eh, 0FEh
-db 0D1h, 0E3h, 0C7h, 87h, 9Ah, 0ADh, 00h, 00h, 0EBh, 1Dh, 8Bh, 5Eh, 0FEh, 0D1h, 0E3h, 0C7h
-db 87h, 9Ah, 0AEh, 01h, 00h, 0B8h, 40h, 00h, 8Eh, 0C0h, 26h, 0A1h, 1Ah, 00h, 0BAh, 40h
-db 00h, 8Eh, 0C2h, 26h, 0A3h, 1Ch, 00h, 50h, 53h, 51h, 52h, 56h, 57h, 55h, 9Ch, 0FFh
-db 1Eh, 0Ah, 0Ch, 5Dh, 5Fh, 5Eh, 5Ah, 59h, 5Bh, 58h, 0B8h, 20h, 00h, 50h, 0B8h, 20h
-db 00h, 50h, 0E8h, 6Bh, 48h, 59h, 59h, 8Bh, 0E5h
+void interrupt Int9ISR ()
+{
+ int key = inportb (0x60);		/* get the key pressed */
 
-db 5Dh, 5Fh, 5Eh, 1Fh, 07h, 5Ah, 59h, 5Bh, 58h, 0CFh, 55h, 8Bh, 0ECh
-//}
-//}
+ if (key>127)
+   keydown [key-128] = false;		/* break scan code */
+ else
+ {
+   keydown [key] = true;		/* make scan code */
+   poke (0x40,0x1c,peek(0x40,0x1a));	/* clear the bios key buffer */
+ }
+asm {
+   push ax
+   push	bx
+   push	cx
+   push	dx
+   push	si
+   push	di
+   push	bp
+ }
+ oldint9 ();				/* give it to DOS */
+asm {
+   pop	bp
+   pop  di
+   pop	si
+   pop	dx
+   pop	cx
+   pop	bx
+   pop	ax
+ }
+ outport (0x20,0x20);			/* tell the int manager we got it */
+}
 
 
-//void sub_0_2653(void)
-//{
-//asm {
+
+void sub_0_2653(void)
+{
+asm {
 db 0A1h, 0Ah, 0Ch, 0Bh, 06h, 0Ch, 0Ch, 74h, 12h, 0FFh
 db 36h, 0Ch, 0Ch, 0FFh, 36h, 0Ah, 0Ch, 0B8h, 09h, 00h, 50h, 0E8h, 0F4h, 43h, 83h, 0C4h
 db 06h
