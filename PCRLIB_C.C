@@ -78,7 +78,6 @@ void SetupKBD ()
 }
 
 
-//void interrupt sub_0_25D8(void)
 /*
 =========================
 =
@@ -88,7 +87,7 @@ void SetupKBD ()
 =
 =========================
 */
-
+//void interrupt sub_0_25D8(void)
 void interrupt Int9ISR ()
 {
  int key = inportb (0x60);		/* get the key pressed */
@@ -124,13 +123,19 @@ asm {
 
 
 
-void sub_0_2653(void)
+/*
+===========================
+=
+= ShutdownKBD
+= Sets the int 9 vector back to oldint 9
+=
+===========================
+*/
+//void sub_0_2653(void)
+void ShutdownKBD ()
 {
-asm {
-db 0A1h, 0Ah, 0Ch, 0Bh, 06h, 0Ch, 0Ch, 74h, 12h, 0FFh
-db 36h, 0Ch, 0Ch, 0FFh, 36h, 0Ah, 0Ch, 0B8h, 09h, 00h, 50h, 0E8h, 0F4h, 43h, 83h, 0C4h
-db 06h
-}
+ if (oldint9 != NULL)
+   setvect (9,oldint9);
 }
 
 
