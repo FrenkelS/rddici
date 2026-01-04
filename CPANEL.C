@@ -456,16 +456,19 @@ db 0E8h, 0BFh, 28h, 46h, 81h, 0FEh, 00h, 01h, 7Ch, 0D1h, 5Eh, 8Bh, 0E5h
 // needs to be called after each setgrmode to ega to refill memory
 //
 //////////////////////////
-void sub_0_4CEF(void)
+//void sub_0_4CEF(void)
+void moveega (void)
 {
-asm {
-db 4Ch, 4Ch, 0C7h, 46h, 0FEh, 00h, 00h, 0EBh, 3Dh, 0B0h, 02h, 50h, 0B8h, 0C4h
-db 03h, 50h, 0E8h, 0B7h, 21h, 59h, 59h, 0B0h, 01h, 8Ah, 4Eh, 0FEh, 0D2h, 0E0h, 50h, 0B8h
-db 0C5h, 03h, 50h, 0E8h, 0A6h, 21h, 59h, 59h, 0B8h, 0FFh, 56h, 50h, 33h, 0C0h, 50h, 0B8h
-db 00h, 0A9h, 50h, 33h, 0C0h, 50h, 8Bh, 5Eh, 0FEh, 0D1h, 0E3h, 0FFh, 0B7h, 72h, 0C3h, 0E8h
-db 0B8h, 1Fh, 83h, 0C4h, 0Ah, 0FFh, 46h, 0FEh, 83h, 7Eh, 0FEh, 04h, 7Ch, 0BDh, 0B0h, 02h
-db 50h, 0B8h, 0C4h, 03h, 50h, 0E8h, 74h, 21h, 59h, 59h, 0B0h, 0Fh, 50h, 0B8h, 0C5h, 03h
-db 50h, 0E8h, 68h, 21h, 59h, 59h, 8Bh, 0E5h
-}
+  int plane;
+
+  for (plane=0;plane<4;plane++)
+  {
+    outportb (SCindex,SCmapmask);
+    outportb (SCindex+1,1<<plane);	// write plane #
+
+    movedata (egaplane[plane],0,0xa900,0,0xffff-0xa900);
+  }
+  outportb (SCindex,SCmapmask);		// read map select
+  outportb (SCindex+1,15);	// all planes
 }
 
