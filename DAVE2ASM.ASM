@@ -1,3 +1,7 @@
+; Reconstructed Dangerous Dave in Copyright Infringement Source Code
+; Copyright (C) 2026 Frenkel Smeijers
+;
+; The code in this file is primarily based on:
 ; The Catacomb Source Code
 ; Copyright (C) 1993-2014 Flat Rock Software
 ;
@@ -1028,6 +1032,7 @@ db  50h
 db  31h
 
 sub_0_1D54:
+clearold:
 db 57h, 0B9h, 26h, 01h, 8Ch, 0D8h, 8Eh, 0C0h, 0BFh, 0D2h, 7Fh, 0B8h
 db 0FFh, 0FFh, 0F3h, 0ABh, 0B9h, 26h, 01h, 0BFh, 2Ah, 82h, 0F3h, 0ABh, 5Fh, 0C3h
 
