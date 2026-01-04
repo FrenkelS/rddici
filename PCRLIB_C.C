@@ -622,6 +622,16 @@ db 04h, 0E8h, 30h, 38h, 83h, 0C4h, 08h, 0B8h, 10h, 0AEh, 50h, 0E8h, 73h, 0FFh, 5
 }
 }
 
+/*========================================================================*/
+
+int _MouseStatus;
+
+////////////////////////////////////////////////////////////////////
+//
+// Mouse Routines
+//
+////////////////////////////////////////////////////////////////////
+
 
 void sub_0_3481(void)
 {
@@ -635,12 +645,13 @@ db 0EBh, 00h, 8Bh, 0E5h
 }
 
 
-void sub_0_34C6(void)
+// void sub_0_34C6(void)
+void _MouseHide(void)
 {
-asm {
-db 83h, 3Eh, 0DEh, 0ADh, 00h, 75h, 02h
-db 0EBh, 05h, 0B8h, 02h, 00h, 0CDh, 33h
-}
+ if (!_MouseStatus) return;
+
+ _AX=2;
+ geninterrupt(0x33);
 }
 
 
