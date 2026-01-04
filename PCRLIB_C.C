@@ -342,15 +342,22 @@ db 52h, 01h, 83h, 0C4h, 0Ah, 0C7h, 06h, 5Ch, 0C3h, 00h, 00h, 8Bh, 0E5h
 }
 
 
-void sub_0_2D3F(void)
+///////////////////////////////
+//
+// clearkeys
+// Clears out the bios buffer and zeros out the keydown array
+//
+///////////////////////////////
+//void sub_0_2D3F(void)
+void clearkeys (void)
 {
-asm {
-db 56h, 0EBh, 07h, 33h, 0C0h, 50h, 0E8h, 0FCh, 3Bh, 59h, 0B8h, 01h, 00h, 50h
-db 0E8h, 0F4h, 3Bh, 59h, 0Bh, 0C0h, 75h, 0EDh, 33h, 0F6h, 0EBh, 0Bh, 8Bh, 0DEh, 0D1h, 0E3h
-db 0C7h, 87h, 9Ah, 0AEh, 00h, 00h, 46h, 81h, 0FEh, 80h, 00h, 7Ch, 0EFh, 5Eh
-}
-}
+  int i;
+  while (bioskey (1))
+    bioskey(0);
 
+  for (i=0;i<128;i++)
+    keydown [i]=0;
+}
 
 void sub_0_2D70(void)
 {
