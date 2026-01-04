@@ -1,4 +1,8 @@
-/* The Catacomb Source Code
+/* Reconstructed Dangerous Dave in Copyright Infringement Source Code
+ * Copyright (C) 2026 Frenkel Smeijers
+ *
+ * The code in this file is primarily based on:
+ * The Catacomb Source Code
  * Copyright (C) 1993-2014 Flat Rock Software
  *
  * This program is free software; you can redistribute it and/or modify
@@ -639,14 +643,23 @@ db 0E5h
 }
 
 
-void sub_0_3563(void)
+
+
+//void sub_0_3563
+////////////////////////////////////////////////////////////////////
+//
+// Verify a file's existence
+//
+////////////////////////////////////////////////////////////////////
+long _Verify(char *filename)
 {
-asm {
-db 83h, 0ECh, 04h, 56h, 0B8h, 00h, 80h, 50h, 0FFh, 76h
-db 04h, 0E8h, 0C3h, 37h, 59h, 59h, 8Bh, 0F0h, 3Dh, 0FFh, 0FFh, 75h, 06h, 33h, 0D2h, 33h
-db 0C0h, 0EBh, 18h, 56h, 0E8h, 8Bh, 34h, 59h, 89h, 46h, 0FCh, 89h, 56h, 0FEh, 56h, 0E8h
-db 0A2h, 2Ah, 59h, 8Bh, 56h, 0FEh, 8Bh, 46h, 0FCh, 0EBh, 00h, 5Eh, 8Bh, 0E5h
-}
+ int handle;
+ long size;
+
+ if ((handle=open(filename,O_BINARY))==-1) return 0;
+ size=filelength(handle);
+ close(handle);
+ return size;
 }
 
 
