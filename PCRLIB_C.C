@@ -584,6 +584,34 @@ db 0EBh, 08h, 0EBh, 06h, 33h, 0D2h, 33h, 0C0h, 0EBh, 00h, 5Eh, 8Bh, 0E5h
 }
 
 
+/*==================================================================================*/
+
+/*
+** Graphic routines
+*/
+
+grtype grmode;
+cardtype _videocard;
+
+void huge *charptr;		// 8*8 tileset
+void huge *tileptr;		// 16*16 tileset
+void huge *picptr;		// any size picture set
+void huge *spriteptr;		// any size masked and hit rect sprites
+void huge *egaspriteptr[4];	// spriteptr for each ega plane's data
+
+unsigned crtcaddr;
+
+int sx,sy,leftedge;
+
+/*
+========================
+=
+= setscreenmode
+= Call BIOS to set TEXT / CGAgr / EGAgr / VGAgr
+=
+========================
+*/
+
 void sub_0_302F(void)
 {
 asm {

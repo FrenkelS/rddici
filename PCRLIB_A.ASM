@@ -466,7 +466,7 @@ ENDP
 ; Just waits around until the current sound stops playing
 ;
 ;========
-sub_0_53F7:
+;sub_0_53F7:
 PROC	WaitEndSound
 	PUBLIC WaitEndSound
 
@@ -616,34 +616,209 @@ baseRndArray	dw	1,1,2,3,5,8,13,21,54,75,129,204
 
 	CODESEG
 
-sub_0_5482:
-db 55h, 8Bh, 0ECh, 56h, 57h, 8Ch, 0D8h, 8Eh, 0C0h, 0BFh, 0F4h, 11h, 0BEh, 16h
-db 12h, 0B9h, 11h, 00h, 0FCh, 0F3h, 0A5h, 0C7h, 06h, 0F2h, 11h, 00h, 00h, 0C7h, 06h, 0EEh
-db 11h, 22h, 00h, 0C7h, 06h, 0F0h, 11h, 0Ah, 00h, 8Bh, 46h, 04h, 3Dh, 00h, 00h, 74h
-db 0Eh, 0B4h, 2Ch, 0CDh, 21h, 89h, 16h, 14h, 12h, 33h, 0D1h, 89h, 16h, 0FCh, 11h, 0B8h
-db 0FFh, 0FFh, 50h, 0E8h, 05h, 00h, 58h, 5Fh, 5Eh, 5Dh, 0C3h
+;=================================================
+;
+; Init RND generator
+; if randomize is false, the counter is set to 0
+;
+; 11-Sep-90	LR	FIX initialization to use TIME!
+;=================================================
+;sub_0_5482:
+PROC	initrnd	randomize:word
+	public	initrnd
 
-sub_0_54CB:
-db 55h, 8Bh, 0ECh, 56h, 53h
-db 51h, 52h, 8Bh, 46h, 04h, 50h, 0BAh, 0FFh, 0FFh, 0D1h, 0E0h, 72h, 04h, 0D1h, 0EAh, 0EBh
-db 0F8h, 8Bh, 1Eh, 0EEh, 11h, 8Bh, 36h, 0F0h, 11h, 8Bh, 87h, 0F2h, 11h, 13h, 84h, 0F2h
-db 11h, 89h, 87h, 0F2h, 11h, 03h, 06h, 0F2h, 11h, 0A3h, 0F2h, 11h, 4Bh, 4Bh, 75h, 03h
-db 0BBh, 22h, 00h, 4Eh, 4Eh, 75h, 03h, 0BEh, 22h, 00h, 89h, 1Eh, 0EEh, 11h, 89h, 36h
-db 0F0h, 11h, 59h, 23h, 0C2h, 3Bh, 0C1h, 76h, 02h, 0D1h, 0E8h, 5Ah, 59h, 5Bh, 5Eh, 5Dh
-db 0C3h 
+	push	si
+	push	di
 
-sub_0_5521:
-db 55h, 8Bh, 0ECh, 56h, 57h, 8Bh, 46h, 04h, 3Dh, 00h, 00h, 0BAh, 00h, 00h, 0EBh
-db 09h, 90h, 0B4h, 2Ch, 0CDh, 21h, 81h, 0E2h, 0FFh, 00h, 89h, 16h, 0ECh, 10h, 5Fh, 5Eh
-db 5Dh, 0C3h
+	mov	ax,ds
+	mov	es,ax
+	mov	di,offset RndArray
+	mov	si,offset baseRndArray
+	mov	cx,17
+	cld
+	rep	movsw		;set up the table (which is constantly changed)
 
-sub_0_5542:
-db 8Bh, 1Eh, 0ECh, 10h, 43h, 81h, 0E3h, 0FFh, 00h, 89h, 1Eh, 0ECh, 10h, 8Ah
-db 87h, 0EEh, 10h, 32h, 0E4h, 0C3h
+	mov	[LastRnd],0
+	mov	[indexi],17*2
+	mov	[indexj],5*2
 
-sub_0_5556:
-db 56h, 57h, 8Bh, 16h, 60h, 0C3h, 83h, 0C2h, 06h, 0ECh
-db 0A8h, 08h, 75h, 0FBh, 0ECh, 0A8h, 08h, 74h, 0FBh, 5Fh, 5Eh, 0C3h
+	mov	ax,[randomize]
+	cmp	ax,0
+	je	@@setit		;if randomize is true, really random
+
+	mov	ah,2ch
+	int	21h			;GetSystemTime
+
+	mov	[RndArray+34-2],dx
+	xor dx,cx				;init w/seconds values
+	mov	[RndArray+10-2],dx
+
+@@setit:
+	mov	ax,0ffffh
+	push	ax
+	call	Random			;warm up generator!
+	pop	ax
+
+	pop	di
+	pop	si
+	ret
+
+ENDP
+
+;=================================================
+;
+; Return a random # between 0-?
+; Exit : AX = 0-max value
+;
+; 11-Sep-90 LR -modify to save registers!
+;=================================================
+;sub_0_54CB:
+PROC	random maxval:WORD
+	public	random
+
+	push	si
+	push	bx			;save registers so we work OK!
+	push	cx
+	push	dx
+
+	mov	ax,[maxval]
+
+	push	ax			;save max value
+;
+; create a mask to cut down on the # of SUBTRACTS!
+;
+	mov	dx,0ffffh		;full-mask
+@@0:
+	shl	ax,1
+	jc	@@0a
+	shr	dx,1
+	jmp	@@0
+@@0a:
+	mov	bx,[indexi]		;this routine was converted from
+	mov	si,[indexj]		;the Random macro on Merlin GS
+	mov	ax,[RndArray-2+bx]
+	adc	ax,[RndArray-2+si]
+	mov	[RndArray-2+bx],ax
+	add	ax,[LastRnd]
+	mov	[LastRnd],ax
+	dec	bx
+	dec	bx
+	jne	@@1
+	mov	bx,17*2
+@@1:
+	dec	si
+	dec	si
+	jne	@@2
+	mov	si,17*2
+@@2:
+	mov	[indexi],bx
+	mov	[indexj],si
+	pop	cx                      ;loop -- returns value in range
+	and	ax,dx			;AND our mask!
+@@3:
+	cmp	ax,cx			;SUBTRACT to be within range
+	jbe	@@4
+	shr	ax,1
+@@4:
+	pop	dx
+	pop	cx				;restore registers
+	pop	bx
+	pop	si
+
+	ret
+
+ENDP
+
+
+
+;===========================================================================
+
+;=================================================
+;
+; Init table based RND generator
+; if randomize is false, the counter is set to 0
+;
+;=================================================
+;sub_0_5521:
+PROC	initrndt	randomize:word
+	uses	si,di
+	public	initrndt
+
+	mov	ax,[randomize]
+	cmp	ax,0
+;	jne	@@timeit		;if randomize is true, really random
+
+	mov	dx,0			;set to a definate value
+	jmp	@@setit
+
+@@timeit:
+	mov	ah,2ch
+	int	21h			;GetSystemTime
+	and	dx,0ffh
+
+@@setit:
+	mov	[rndindex],dx
+
+	ret
+
+ENDP
+
+;=================================================
+;
+; Return a random # between 0-255
+; Exit : AX = value
+;
+;=================================================
+;sub_0_5542:
+PROC	rndt
+	public	rndt
+
+	mov	bx,[rndindex]
+	inc	bx
+	and	bx,0ffh
+	mov	[rndindex],bx
+	mov	al,[rndtable+BX]
+	xor	ah,ah
+
+	ret
+
+ENDP
+
+
+
+;===========================================================================
+
+;========
+;
+; WAITVBL
+;
+;========
+;sub_0_5556:
+PROC	WaitVBL
+	PUBLIC	WaitVBL
+
+	push	si
+	push	di
+
+	mov	dx,[crtcaddr]
+	add	dx,6
+
+waitvbl1:
+	in	al,dx
+	test	al,00001000b	;look for vbl
+	jnz	waitvbl1
+
+waitvbl2:
+	in	al,dx
+	test	al,00001000b	;look for vbl
+	jz	waitvbl2
+
+	pop	di
+	pop	si
+
+	ret
+
+ENDP
 
 ;=======================================================================
 
