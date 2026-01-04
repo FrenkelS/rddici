@@ -664,15 +664,18 @@ db 00h, 75h, 02h, 0EBh, 05h, 0B8h, 01h, 00h, 0CDh, 33h
 }
 
 
-void sub_0_34EC(void)
+//void sub_0_34EC(void)
+int _MouseButton(void)
 {
-asm {
-db 83h
-db 0ECh, 10h, 83h, 3Eh, 0DEh, 0ADh, 00h, 75h, 04h, 33h, 0C0h, 0EBh, 1Ch, 0C7h, 46h, 0F0h
-db 03h, 00h, 8Dh, 46h, 0F0h, 50h, 8Dh, 46h, 0F0h, 50h, 0B8h, 33h, 00h, 50h, 0E8h, 76h
-db 35h, 83h, 0C4h, 06h, 8Bh, 46h, 0F2h, 0EBh, 00h, 8Bh, 0E5h
+ union REGS regs;
+
+ if (!_MouseStatus) return 0;
+
+ regs.x.ax=3;
+ int86(0x33,&regs,&regs);
+ return(regs.x.bx);
 }
-}
+
 
 
 void sub_0_351D(void)
