@@ -964,19 +964,24 @@ int _MouseStatus;
 // Mouse Routines
 //
 ////////////////////////////////////////////////////////////////////
-void sub_0_3481(void)
+//void sub_0_3481(void)
+int _MouseInit(void)
 {
-asm {
-db 83h, 0ECh, 04h, 33h, 0C0h, 8Eh, 0C0h, 26h, 0A1h, 0CEh, 00h, 33h
-db 0D2h, 8Eh, 0C2h, 26h, 8Bh, 16h, 0CCh, 00h, 89h, 56h, 0FCh, 89h, 46h, 0FEh, 0Bh, 0D0h
-db 75h, 04h, 33h, 0C0h, 0EBh, 1Ch, 0C4h, 5Eh, 0FCh, 26h, 80h, 3Fh, 0CFh, 75h, 07h, 33h
-db 0C0h, 0A3h, 0DEh, 0ADh, 0EBh, 0Ch, 33h, 0C0h, 0CDh, 33h, 0B8h, 01h, 00h, 0A3h, 0DEh, 0ADh
-db 0EBh, 00h, 8Bh, 0E5h
-}
+ union REGS regs;
+ unsigned char far *vector;
+
+ if ((vector=MK_FP(peek(0,0x33*4+2),peek(0,0x33*4)))==NULL) return 0;
+
+ if (*vector == 207)
+   return _MouseStatus = 0;
+
+ _AX=0;
+ geninterrupt(0x33);
+ return _MouseStatus = 1;
 }
 
 
-// void sub_0_34C6(void)
+//void sub_0_34C6(void)
 void _MouseHide(void)
 {
  if (!_MouseStatus) return;
@@ -987,12 +992,13 @@ void _MouseHide(void)
 
 
 
-void sub_0_34D9(void)
+//void sub_0_34D9(void)
+void _MouseShow(void)
 {
-asm {
-db 83h, 3Eh, 0DEh, 0ADh
-db 00h, 75h, 02h, 0EBh, 05h, 0B8h, 01h, 00h, 0CDh, 33h
-}
+ if (!_MouseStatus) return;
+
+ _AX=1;
+ geninterrupt(0x33);
 }
 
 
@@ -1010,15 +1016,19 @@ int _MouseButton(void)
 
 
 
-void sub_0_351D(void)
+//void sub_0_351D(void)
+void _MouseCoords(int *x,int *y)
 {
-asm {
-db 83h, 0ECh, 10h, 56h, 8Bh, 76h, 04h, 83h, 3Eh, 0DEh, 0ADh, 00h, 75h, 02h, 0EBh, 2Eh
-db 0C7h, 46h, 0F0h, 03h, 00h, 8Dh, 46h, 0F0h, 50h, 8Dh, 46h, 0F0h, 50h, 0B8h, 33h, 00h
-db 50h, 0E8h, 43h, 35h, 83h, 0C4h, 06h, 8Bh, 46h, 0F4h, 89h, 04h, 8Bh, 5Eh, 06h, 8Bh
-db 46h, 0F6h, 89h, 07h, 8Bh, 04h, 0BBh, 02h, 00h, 99h, 0F7h, 0FBh, 89h, 04h, 5Eh, 8Bh
-db 0E5h
-}
+ union REGS regs;
+
+ if (!_MouseStatus) return;
+
+ regs.x.ax=3;
+ int86(0x33,&regs,&regs);
+ *x=regs.x.cx;
+ *y=regs.x.dx;
+
+ *x/=2;
 }
 
 
