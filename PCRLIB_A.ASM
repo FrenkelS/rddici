@@ -204,11 +204,46 @@ db 10h, 88h, 1Eh, 0D9h, 10h, 80h, 0FBh, 01h, 77h, 05h, 33h, 0DBh, 0EBh, 10h, 90h
 db 0FFh, 33h, 0C0h, 0BAh, 01h, 00h, 0F7h, 0F3h, 8Bh, 0D8h, 89h, 1Eh, 0DAh, 10h, 0B0h, 36h
 db 0E6h, 43h, 8Ah, 0C3h, 0E6h, 40h, 8Ah, 0C7h, 0E6h, 40h, 5Eh, 5Dh, 0C3h
 
-sub_0_536D:
-db 0F7h, 06h, 0E6h
-db 10h, 0FFh, 0FFh, 74h, 01h, 0C3h, 33h, 0C0h, 0A3h, 0DCh, 10h, 0A2h, 0DEh, 10h, 0A3h, 0DAh
-db 10h, 0E4h, 61h, 24h, 0FDh, 0E6h, 61h, 0B0h, 36h, 0E6h, 43h, 0B0h, 00h, 0E6h, 40h, 0E6h
-db 40h, 0FEh, 0C0h, 0A2h, 0D8h, 10h, 0A2h, 0D9h, 10h, 0C3h
+
+;======================================================================
+
+;===========
+;
+; StopSound
+;
+;===========
+;sub_0_536D:
+PROC	StopSound
+	PUBLIC	StopSound
+
+	test	[_dontplay],0ffffh
+	je	@@dowork
+	ret
+@@dowork:
+	xor	ax,ax		;set to 0
+	mov	[SndPtr],ax
+	mov	[SndPriority],al
+	mov	[sndspeed],ax
+
+	in	al,61h		;get peripheral (speaker) port value
+	and	al,11111101b	;turn speaker off
+	out	61h,al
+
+	mov	al,36h		;tell the timer chip we are going to
+	out	43h,al		;change the speed of timer 0
+
+	mov	al,0		;back to normal clock speed
+	out	40h,al
+	out	40h,al
+
+	inc	al
+	mov	[extraints],al  ;one bios int / int8
+	mov	[intcount],al
+
+	ret
+ENDP
+
+;======================================================================
 
 sub_0_539A:
 db 0F7h, 06h, 0E6h, 10h, 0FFh, 0FFh
