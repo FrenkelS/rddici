@@ -384,25 +384,96 @@ db 00h, 5Fh, 5Eh, 8Bh, 0E5h
 }
 }
 
+//==========================================================================
 
-void sub_0_2DD7(void)
+/*
+==============================================
+=
+= Load a *LARGE* file into a FAR buffer!
+= by John Romero (C) 1990 PCRcade
+=
+==============================================
+*/
+//void sub_0_2DD7(void)
+unsigned long LoadFile(char *filename,char huge *buffer)
 {
-asm {
-db 83h, 0ECh, 0Eh, 0C7h, 46h, 0FCh
-db 00h, 00h, 0C7h, 46h, 0FAh, 00h, 00h, 8Bh, 46h, 06h, 89h, 46h, 0F8h, 8Bh, 46h, 08h
-db 89h, 46h, 0F6h, 0C7h, 46h, 0F4h, 00h, 00h, 0C7h, 46h, 0F2h, 00h, 00h, 8Bh, 56h, 04h
-db 0B8h, 00h, 3Dh, 0CDh, 21h, 72h, 65h, 89h, 46h, 0FEh, 8Bh, 0D8h, 33h, 0C9h, 33h, 0D2h
-db 0B8h, 02h, 42h, 0CDh, 21h, 72h, 55h, 89h, 46h, 0FCh, 89h, 56h, 0FAh, 8Bh, 4Eh, 0FAh
-db 41h, 51h, 8Bh, 4Eh, 0F2h, 8Bh, 56h, 0F4h, 0B8h, 00h, 42h, 0CDh, 21h, 1Eh, 8Bh, 5Eh
-db 0FEh, 0B9h, 0FFh, 0FFh, 8Bh, 56h, 0F8h, 8Bh, 46h, 0F6h, 8Eh, 0D8h, 0B4h, 3Fh, 0CDh, 21h
-db 1Fh, 59h, 72h, 28h, 3Dh, 0FFh, 0FFh, 75h, 23h, 51h, 1Eh, 8Bh, 5Eh, 0FEh, 0B9h, 01h
-db 00h, 8Bh, 56h, 0F8h, 83h, 0C2h, 0FFh, 8Bh, 46h, 0F6h, 8Eh, 0D8h, 0B4h, 3Fh, 0CDh, 21h
-db 1Fh, 59h, 81h, 46h, 0F6h, 00h, 10h, 0FFh, 46h, 0F2h, 0E2h, 0B5h, 8Bh, 5Eh, 0FEh, 0B4h
-db 3Eh, 0CDh, 21h, 8Bh, 56h, 0FAh, 33h, 0C0h, 03h, 46h, 0FCh, 83h, 0D2h, 00h, 0EBh, 00h
-db 8Bh, 0E5h
-}
-}
+ unsigned int handle,flength1=0,flength2=0,buf1,buf2,foff1,foff2;
 
+ buf1=FP_OFF(buffer);
+ buf2=FP_SEG(buffer);
+
+asm		mov	WORD PTR foff1,0  	// file offset = 0 (start)
+asm		mov	WORD PTR foff2,0
+
+asm		mov	dx,filename
+asm		mov	ax,3d00h		// OPEN w/handle (read only)
+asm		int	21h
+asm		jc	out
+
+asm		mov	handle,ax
+asm		mov	bx,ax
+asm		xor	cx,cx
+asm		xor	dx,dx
+asm		mov	ax,4202h
+asm		int	21h			// SEEK (find file length)
+asm		jc	out
+
+asm		mov	flength1,ax
+asm		mov	flength2,dx
+
+asm		mov	cx,flength2
+asm		inc	cx			// <- at least once!
+
+L_1:
+
+asm		push	cx
+
+asm		mov	cx,foff2
+asm		mov	dx,foff1
+asm		mov	ax,4200h
+asm		int	21h			// SEEK from start
+
+asm		push	ds
+asm		mov	bx,handle
+asm		mov	cx,-1
+asm		mov	dx,buf1
+asm		mov	ax,buf2
+asm		mov	ds,ax
+asm		mov	ah,3fh			// READ w/handle
+asm		int	21h
+asm		pop	ds
+
+asm		pop	cx
+asm		jc	out
+asm		cmp	ax,-1
+asm		jne	out
+
+asm		push	cx			// need to read the last byte
+asm		push	ds			// into the segment! IMPORTANT!
+asm		mov	bx,handle
+asm		mov	cx,1
+asm		mov	dx,buf1
+asm		add	dx,-1
+asm		mov	ax,buf2
+asm		mov	ds,ax
+asm		mov	ah,3fh
+asm		int	21h
+asm		pop	ds
+asm		pop	cx
+
+asm		add	buf2,1000h
+asm		inc	WORD PTR foff2
+asm		loop	L_1
+
+out:
+
+asm		mov	bx,handle		// CLOSE w/handle
+asm		mov	ah,3eh
+asm		int	21h
+
+return (flength2*0x10000+flength1);
+
+}
 
 //===========================================================================
 
