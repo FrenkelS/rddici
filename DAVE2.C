@@ -206,6 +206,9 @@ typedef struct {	/*holds a copy of activeobj, and its class info*/
 //NOLAN ADDED
 	boolean GODMODE = false;
 
+  int word_789_8220;
+  int word_789_94C8;
+
 
 /****************************************************************************/
 
@@ -374,7 +377,17 @@ db 94h, 00h, 00h, 5Eh, 8Bh, 0E5h
 }
 
 
-void sub_0_548(void)
+/*=========================================================================*/
+
+/*
+=============
+=
+= doendpage
+=
+=============
+*/
+//void sub_0_548(void)
+void doendpage (void)
 {
 asm {
 db 83h, 0ECh, 06h, 56h, 0FFh
@@ -393,7 +406,20 @@ db 0C2h, 94h, 00h, 00h, 5Eh, 8Bh, 0E5h
 }
 
 
-void sub_0_5F9(void)
+/*=========================================================================*/
+
+
+/*
+=============
+=
+= dodemo
+=
+= Shows a random demo
+=
+=============
+*/
+//void sub_0_5F9(void)
+void dodemo (void)
 {
 asm {
 db 83h, 0ECh, 0Ch, 56h
@@ -418,8 +444,19 @@ db 1Dh, 01h, 00h, 0C7h, 06h, 5Ch, 0C3h, 00h, 00h, 5Eh, 8Bh, 0E5h
 }
 }
 
+/*=========================================================================*/
 
-void sub_0_71E(void)
+/*
+============
+=
+= gameover
+=
+= End game, check for high score
+=
+============
+*/
+//void sub_0_71E(void)
+void gameover (void)
 {
 asm {
 db 83h, 0ECh, 06h, 56h, 0B8h, 04h, 00h, 50h, 0B8h, 0Bh, 00h, 50h, 0E8h, 0B9h, 2Bh
@@ -776,7 +813,15 @@ db 0ECh, 94h, 00h, 74h, 03h, 0E9h, 0AEh, 0FEh, 8Bh, 0E5h
 }
 
 
-void sub_0_162C(void)
+/*======================================*/
+/*				      */
+/* playloop                             */
+/* all the action is directed from here */
+/*				      */
+/*======================================*/
+//void sub_0_162C(void)
+void playloop(void)
+
 {
 asm {
 db 83h
@@ -834,16 +879,45 @@ db 0E5h
 }
 }
 
+/***************************************************************************/
+/***************************************************************************/
 
+/*=========================*/
+/*			   */
+/* m a i n   p r o g r a m */
+/*			   */
+/*=========================*/
 //void sub_0_1953(void)
-void main(void)
+void main (void)
 {
-asm {
-db 0C7h, 06h, 0E0h, 0ADh, 01h, 00h, 0C7h, 06h, 62h, 0C3h
-db 01h, 00h, 0C7h, 06h, 0E6h, 0ADh, 00h, 00h, 0C7h, 06h, 84h, 0AEh, 01h, 00h, 0C7h, 06h
-db 5Eh, 0C3h, 00h, 00h, 0C7h, 06h, 46h, 0Ch, 9Dh, 04h, 0E8h, 3Dh, 24h, 0C7h, 06h, 0Eh
-db 0Ch, 19h, 00h, 0C7h, 06h, 20h, 82h, 20h, 00h, 0E8h, 0F2h, 0E9h, 0C7h, 06h, 0C8h, 94h
-db 40h, 1Dh, 0E8h, 64h, 0ECh, 0E8h, 5Fh, 3Ah, 0E8h, 91h, 0FCh, 83h, 3Eh, 0C2h, 94h, 02h
-db 75h, 03h, 0E8h, 0A3h, 0EBh, 0E8h, 76h, 0EDh, 0EBh, 0E8h
+  _numlevels = 1;
+  _maxplayers = 1;
+
+  _cgaok = false;
+  _egaok = true;
+  _vgaok = false;
+
+  _extension = "DD2";
+
+  _setupgame ();
+
+  screencenterx = 25;
+  word_789_8220 = 32;
+
+  sub_0_37E ();
+
+  word_789_94C8 = 0x1D40;
+
+  while (1)			// go until quit () is called
+  {
+	 dodemo ();
+	 WaitEndSound ();
+	 playloop ();
+	 if (gamestate == inscores)
+	 {
+		doendpage ();		// finished all levels
+	 }
+	gameover ();
+  }
 }
-}
+

@@ -1377,8 +1377,8 @@ db 0C3h, 0Dh, 75h, 0A4h, 5Fh, 5Eh, 8Bh, 0E5h
 // _setupgame
 //
 ////////////////////
-
-void sub_0_3DBA(void)
+//void sub_0_3DBA(void)
+void _setupgame (void)
 {
 asm {
 db 0E8h, 9Bh, 1Dh
