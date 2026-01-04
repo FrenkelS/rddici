@@ -181,12 +181,62 @@ VGAylookup dw    0, 320, 640, 960,1280,1600,1920,2240,2560,2880,3200,3520,3840,4
     dw -7296,-6976,-6656,-6336,-6016,-5696,-5376,-5056,-4736,-4416,-4096,-3776,-3456,-3136
     dw -2816,-2496,-2176,-1856
 
-sub_0_528C:
-db 0F7h, 06h, 0E6h, 10h
-db 0FFh, 0FFh, 74h, 01h, 0C3h, 0F7h, 06h, 0CCh, 10h, 0FFh, 0FFh, 75h, 2Ah, 0E8h, 0CDh, 00h
-db 0B8h, 08h, 35h, 0CDh, 21h, 89h, 1Eh, 0D4h, 10h, 8Ch, 0C0h, 0A3h, 0D6h, 10h, 0B8h, 01h
-db 00h, 0A2h, 0D8h, 10h, 0A2h, 0D9h, 10h, 1Eh, 0Eh, 1Fh, 0BAh, 0Fh, 54h, 0B8h, 08h, 25h
-db 0CDh, 21h, 1Fh, 0FFh, 06h, 0CCh, 10h, 0B8h, 01h, 00h, 0A3h, 0D2h, 10h, 0C3h
+
+;=======================================================================
+
+;========
+;
+; StartupSound
+;
+; Sets up the new INT 8 ISR and various internal pointers.
+; Assumes that the calling program has pointer SOUNDDATA to something
+; meaningful...
+;
+;========
+;sub_0_528C:
+PROC StartupSound
+	PUBLIC	StartupSound
+
+	test	[_dontplay],0ffffh
+	je	@@dowork
+	ret
+@@dowork:
+	test	[SPKactive],0FFFFh	;see if library is active
+	jne	@@started		;library was allready started
+
+@@start:
+	call	NEAR PTR StopSound	;make sure nothing is playing
+
+	mov	ax,3508h	;call bios to get int 8
+	int	21h
+	mov	[WORD oldint8],bx
+	mov	ax,es
+	mov	[WORD oldint8+2],ax
+
+	mov	ax,1
+	mov	[extraints],al		;the timer is still going at the
+	mov	[intcount],al		;normal rate now
+
+	push	ds
+
+	push	cs
+	pop	ds
+	lea	dx,[UpdateSPKR]
+	mov	ax,2508h	;call bios to set int 8
+	int	21h
+
+	pop	ds
+
+	inc	[SPKactive]	;sound routines are now active
+
+@@started:
+	mov	ax,1
+	mov	[soundmode],ax ;set soundmode to SPKR
+	ret
+
+ENDP
+
+;=======================================================================
 
 sub_0_52CE:
 db 0F7h, 06h
@@ -261,16 +311,95 @@ sub_0_53F7:
 db 0F7h, 06h, 0E6h, 10h, 0FFh, 0FFh, 74h, 01h, 0C3h
 db 9Ch, 0Eh, 0E8h, 0Ah, 00h, 90h, 0A1h, 0DCh, 10h, 3Dh, 00h, 00h, 75h, 0F8h, 0C3h
 
-sub_0_540F:
-db 50h
-db 53h, 51h, 56h, 1Eh, 06h, 0B8h, 89h, 07h, 8Eh, 0D8h, 0A1h, 0D0h, 10h, 8Eh, 0C0h, 0B0h
-db 20h, 0E6h, 20h, 0FEh, 0Eh, 0D9h, 10h, 75h, 0Bh, 0A0h, 0D8h, 10h, 0A2h, 0D9h, 10h, 9Ch
-db 0FFh, 1Eh, 0D4h, 10h, 8Bh, 36h, 0DCh, 10h, 83h, 0FEh, 00h, 74h, 1Bh, 26h, 8Bh, 1Ch
-db 0FFh, 06h, 0DCh, 10h, 0FFh, 06h, 0DCh, 10h, 83h, 0FBh, 00h, 74h, 0Bh, 83h, 0FBh, 0FFh
-db 75h, 0Fh, 0E8h, 18h, 0FFh, 0EBh, 24h, 90h, 0E4h, 61h, 24h, 0FCh, 0E6h, 61h, 0EBh, 1Bh
-db 90h, 0F7h, 06h, 0D2h, 10h, 0FFh, 00h, 74h, 0EFh, 0B0h, 0B6h, 0E6h, 43h, 8Ah, 0C3h, 0E6h
-db 42h, 8Ah, 0C7h, 0E6h, 42h, 0E4h, 61h, 0Ch, 03h, 0E6h, 61h, 07h, 1Fh, 5Eh, 59h, 5Bh
-db 58h, 0CFh
+;=========================================================================
+
+;========
+;
+; UpdateSPKR
+; only called by interrupt $8!
+;
+;=========
+;sub_0_540F:
+PROC	UpdateSPKR FAR
+
+	push	ax
+	push	bx
+	push	cx
+	push	si
+	push	ds
+	push	es
+
+	mov	ax,_DATA
+	mov	ds,ax		;ds to this data segment
+	mov	ax,[WORD SoundData+2]
+	mov	es,ax		;es to sound file
+
+	mov	al,20h
+	out	20h,al		;we got the interrupt here
+
+	dec	[intcount]	;see if it is time for a BIOS int 8...
+	jne	@@dosounds
+
+	mov	al,[extraints]
+	mov	[intcount],al	;reset interrupt counter
+
+	pushf			;so the IRET from bios returns right
+	call	[OldInt8]	;call the old BIOS timer routine
+
+@@dosounds:
+;
+; play the speaker
+;
+	mov	si,[SndPtr]
+	cmp	si,0
+	je	@@nosound	;nothing playing
+
+	mov	bx,[es:si]
+	inc	[SndPtr]
+	inc	[SndPtr]
+
+	cmp	bx,0
+	je	@@nosound	;a zero frequency is no sound, but don't stop
+
+	cmp	bx,-1		;a -1 frequency is end of sound
+	jne	@@playfreq
+
+	call	StopSound
+	jmp	@@doneplay
+
+@@nosound:
+	in	al,61h		;get peripheral (speaker) port value
+	and	al,11111100b	;turn speaker off
+	out	61h,al
+	jmp	@@doneplay
+
+@@playfreq:
+	test	[soundmode],0FFh	;if soundon=0, don't play anything
+	je	@@nosound
+
+	mov	al,10110110b	;write to channel 2 (speaker) timer
+	out	43h,al
+	mov	al,bl
+	out	42h,al		;low byte
+	mov	al,bh
+	out	42h,al		;high byte
+
+	in	al,61h		;get peripheral (speaker) port value
+	or	al,00000011b	;turn speaker on to timer
+	out	61h,al
+
+@@doneplay:
+	pop	es
+	pop	ds
+	pop	si
+	pop	cx
+	pop	bx
+	pop	ax
+
+	iret
+
+
+ENDP
 
 ;==========================================================================
 
