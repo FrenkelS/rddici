@@ -458,18 +458,31 @@ void clearkeys (void)
 
 void far *lastparalloc;	// global variable of the EXACT (not paralign)
 				// last block, so it can be freed right
-
-void sub_0_2D70(void)
+//void sub_0_2D70(void)
+void huge *paralloc (long size)
 {
-asm {
-db 83h, 0ECh, 04h, 56h, 57h, 8Bh, 46h, 06h, 8Bh, 56h, 04h, 83h, 0C2h
-db 0Fh, 15h, 00h, 00h, 50h, 52h, 0E8h, 2Bh, 45h, 59h, 59h, 89h, 46h, 0FCh, 89h, 56h
-db 0FEh, 0A3h, 64h, 0C3h, 89h, 16h, 66h, 0C3h, 33h, 0C9h, 33h, 0DBh, 8Bh, 56h, 0FEh, 8Bh
-db 46h, 0FCh, 0E8h, 0B5h, 4Ah, 75h, 0Fh, 33h, 0C0h, 50h, 0E8h, 82h, 02h, 59h, 0B8h, 56h
-db 0Ch, 50h, 0E8h, 0B0h, 10h, 59h, 8Bh, 76h, 0FCh, 0Bh, 0F6h, 74h, 0Ch, 8Bh, 7Eh, 0FEh
-db 47h, 33h, 0F6h, 89h, 76h, 0FCh, 89h, 7Eh, 0FEh, 8Bh, 56h, 0FEh, 8Bh, 46h, 0FCh, 0EBh
-db 00h, 5Fh, 5Eh, 8Bh, 0E5h
-}
+ void huge *temp;
+ word seg,ofs;
+/* allocate a block with extra space */
+ lastparalloc = (void far*)temp = farmalloc (size+15);
+ if (temp == NULL)
+ //
+ // not enough memory!
+ //
+ {
+   setscreenmode (text);
+	_quit ("Out of memory!");
+ }
+
+ ofs=FP_OFF(temp);
+ if (ofs!=0)			/* set offset to 0 and bump segment */
+ {
+  seg=FP_SEG(temp);
+  seg++;
+  ofs=0;
+  temp=MK_FP (seg,ofs);
+ }
+ return (void huge *) temp;
 }
 
 //==========================================================================
@@ -709,8 +722,8 @@ int sx,sy,leftedge;
 =
 ========================
 */
-
-void sub_0_302F(void)
+//void sub_0_302F(void)
+void setscreenmode (grtype mode)
 {
 asm {
 db 83h, 0ECh, 04h, 0C7h, 46h, 0FCh, 8Eh, 94h, 8Ch, 5Eh, 0FEh, 8Bh, 5Eh, 04h
@@ -1385,7 +1398,9 @@ db 0E8h, 0EFh, 0C4h
 //
 ////////////////////
 
-void sub_0_3E65(void)
+char extern far PIRACY;
+//void sub_0_3E65(void)
+void _quit (char *error)
 {
 asm {
 db 56h, 8Bh, 76h, 04h, 33h, 0C0h, 50h, 0E8h
