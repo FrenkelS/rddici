@@ -930,8 +930,8 @@ db 21h, 83h, 0C4h, 06h, 33h, 0C0h, 50h, 0E8h, 5Dh, 35h, 59h, 0EBh, 00h, 5Fh, 5Eh
 // Prints a string at sx,sy.  No clipping!!!
 //
 /////////////////////////
-
-void sub_0_33F1(void)
+//void sub_0_33F1(void)
+void print (const char *str)
 {
 asm {
 db 4Ch, 4Ch, 0EBh, 37h, 80h, 7Eh, 0FFh, 0Ah, 75h, 0Ch, 0FFh, 06h
@@ -949,22 +949,17 @@ db 5Eh, 04h, 0FFh, 46h, 04h, 8Ah, 07h, 88h, 46h, 0FFh, 0Ah, 0C0h, 75h, 0BAh, 8Bh
 // Converts the value to a string and prints it
 //
 ///////////////////////////
-
-void sub_0_3442(void)
+//void sub_0_3442(void)
+void printint (int val)
 {
-asm {
-db 0B8h, 0Ah, 00h, 50h, 0B8h, 10h, 0AEh, 50h, 0FFh, 76h, 04h
-db 0E8h, 10h, 38h, 83h, 0C4h, 06h, 0B8h, 10h, 0AEh, 50h, 0E8h, 94h, 0FFh, 59h
+  itoa(val,str,10);
+  print (str);
 }
-}
-
-
-void sub_0_3460(void)
+//void sub_0_3460(void)
+void printlong (long val)
 {
-asm {
-db 0B8h, 0Ah, 00h, 50h, 0B8h, 10h, 0AEh, 50h, 0FFh, 76h, 06h, 0FFh, 76h
-db 04h, 0E8h, 30h, 38h, 83h, 0C4h, 08h, 0B8h, 10h, 0AEh, 50h, 0E8h, 73h, 0FFh, 59h
-}
+  ltoa(val,str,10);
+  print (str);
 }
 
 /*========================================================================*/
