@@ -940,6 +940,21 @@ db 75h, 05h, 0B8h, 01h, 00h, 0EBh, 04h, 33h, 0C0h, 0EBh, 00h, 5Fh, 5Eh, 8Bh, 0E5
 }
 }
 
+/*========================================================================*/
+
+/*
+** Game routines
+*/
+
+struct scores scoreswap, highscores[5];
+
+long score;
+int level;
+int _numlevels, _maxplayers;
+
+char *_extension = "PCR";
+boolean	_cgaok, _egaok, _vgaok;
+
 
 void sub_0_3851(void)
 {
@@ -1007,14 +1022,12 @@ db 35h, 59h, 59h, 46h, 83h, 0FEh, 05h, 7Ch, 0C2h, 5Eh
 }
 
 
-void sub_0_3B0C(void)
+//void sub_0_3B0C(void)
+void _savehighscores (void)
 {
-asm {
-db 0B8h
-db 91h, 0Ch, 50h, 0B8h, 10h, 0AEh, 50h, 0E8h, 0E7h, 34h, 59h, 59h, 0FFh, 36h, 46h, 0Ch
-db 0B8h, 10h, 0AEh, 50h, 0E8h, 0A1h, 34h, 59h, 59h, 33h, 0C0h, 0BAh, 32h, 00h, 50h, 52h
-db 1Eh, 0B8h, 26h, 0C3h, 50h, 0B8h, 10h, 0AEh, 50h, 0E8h, 48h, 0F3h, 83h, 0C4h, 0Ah
-}
+  strcpy (str,"SCORES.");
+  strcat (str,_extension);
+  SaveFile(str,(char huge *)highscores,sizeof (highscores));
 }
 
 
