@@ -1254,33 +1254,58 @@ boolean	_cgaok, _egaok, _vgaok;
 //
 ////////////////////////
 
-void sub_0_3851(void)
+//void sub_0_3851(void)
+void _loadctrls (void)
 {
-asm {
-db 56h, 0B8h, 71h, 0Ch, 50h, 0B8h, 10h, 0AEh, 50h, 0E8h, 0A1h, 37h
-db 59h, 59h, 0FFh, 36h, 46h, 0Ch, 0B8h, 10h, 0AEh, 50h, 0E8h, 5Bh, 37h, 59h, 59h, 0B8h
-db 80h, 01h, 50h, 0B8h, 01h, 80h, 50h, 0B8h, 10h, 0AEh, 50h, 0E8h, 0B9h, 34h, 83h, 0C4h
-db 06h, 8Bh, 0F0h, 3Dh, 0FFh, 0FFh, 74h, 03h, 0EBh, 78h, 90h, 0C7h, 06h, 9Ch, 0AFh, 03h
-db 00h, 0C7h, 06h, 0D2h, 10h, 01h, 00h, 0C7h, 06h, 06h, 0Ch, 00h, 00h, 0C7h, 06h, 08h
-db 0Ch, 02h, 00h, 0B8h, 14h, 00h, 0A3h, 0EEh, 0ADh, 0A3h, 0ECh, 0ADh, 0B8h, 3Ch, 00h, 0A3h
-db 0F4h, 0ADh, 0A3h, 0F2h, 0ADh, 0B8h, 14h, 00h, 0A3h, 0FAh, 0ADh, 0A3h, 0F8h, 0ADh, 0B8h, 3Ch
-db 00h, 0A3h, 00h, 0AEh, 0A3h, 0FEh, 0ADh, 0C7h, 06h, 9Ah, 0AFh, 05h, 00h, 0C6h, 06h, 60h
-db 0AEh, 48h, 0C6h, 06h, 61h, 0AEh, 49h, 0C6h, 06h, 62h, 0AEh, 4Dh, 0C6h, 06h, 63h, 0AEh
-db 51h, 0C6h, 06h, 64h, 0AEh, 50h, 0C6h, 06h, 65h, 0AEh, 4Fh, 0C6h, 06h, 66h, 0AEh, 4Bh
-db 0C6h, 06h, 67h, 0AEh, 47h, 0C6h, 06h, 04h, 0AEh, 1Dh, 0C6h, 06h, 05h, 0AEh, 38h, 0E9h
-db 0AAh, 00h, 0B8h, 02h, 00h, 50h, 0B8h, 9Ch, 0AFh, 50h, 56h, 0E8h, 0BAh, 35h, 83h, 0C4h
-db 06h, 0B8h, 02h, 00h, 50h, 0B8h, 0D2h, 10h, 50h, 56h, 0E8h, 0ABh, 35h, 83h, 0C4h, 06h
-db 0B8h, 06h, 00h, 50h, 0B8h, 04h, 0Ch, 50h, 56h, 0E8h, 9Ch, 35h, 83h, 0C4h, 06h, 0B8h
-db 06h, 00h, 50h, 0B8h, 0EAh, 0ADh, 50h, 56h, 0E8h, 8Dh, 35h, 83h, 0C4h, 06h, 0B8h, 06h
-db 00h, 50h, 0B8h, 0F6h, 0ADh, 50h, 56h, 0E8h, 7Eh, 35h, 83h, 0C4h, 06h, 0B8h, 06h, 00h
-db 50h, 0B8h, 0F0h, 0ADh, 50h, 56h, 0E8h, 6Fh, 35h, 83h, 0C4h, 06h, 0B8h, 06h, 00h, 50h
-db 0B8h, 0FCh, 0ADh, 50h, 56h, 0E8h, 60h, 35h, 83h, 0C4h, 06h, 0B8h, 02h, 00h, 50h, 0B8h
-db 9Ah, 0AFh, 50h, 56h, 0E8h, 51h, 35h, 83h, 0C4h, 06h, 0B8h, 08h, 00h, 50h, 0B8h, 60h
-db 0AEh, 50h, 56h, 0E8h, 42h, 35h, 83h, 0C4h, 06h, 0B8h, 01h, 00h, 50h, 0B8h, 04h, 0AEh
-db 50h, 56h, 0E8h, 33h, 35h, 83h, 0C4h, 06h, 0B8h, 01h, 00h, 50h, 0B8h, 05h, 0AEh, 50h
-db 56h, 0E8h, 24h, 35h, 83h, 0C4h, 06h, 56h, 0E8h, 89h, 26h, 59h, 5Eh
+  int handle;
+
+  strcpy (str,"CTLPANEL.");
+  strcat (str,_extension);
+  if ((handle = open(str, O_RDONLY | O_BINARY, S_IWRITE | S_IREAD)) == -1)
+  //
+  // set up default control panel settings
+  //
+  {
+    grmode=VGAgr;
+    soundmode=spkr;
+    playermode[1] = keyboard;
+    playermode[2] = joystick1;
+
+    JoyXlow [1] = JoyXlow [2] = 20;
+    JoyXhigh[1] = JoyXhigh[2] = 60;
+    JoyYlow [1] = JoyYlow [2] = 20;
+    JoyYhigh[1] = JoyYhigh[2] = 60;
+    MouseSensitivity = 5;
+
+    key[north] = 0x48;
+    key[northeast] = 0x49;
+    key[east] = 0x4d;
+    key[southeast] = 0x51;
+    key[south] = 0x50;
+    key[southwest] = 0x4f;
+    key[west] = 0x4b;
+    key[northwest] = 0x47;
+    keyB1 = 0x1d;
+    keyB2 = 0x38;
+  }
+  else
+  {
+    read(handle, &grmode, sizeof(grmode));
+    read(handle, &soundmode, sizeof(soundmode));
+    read(handle, &playermode, sizeof(playermode));
+    read(handle, &JoyXlow, sizeof(JoyXlow));
+    read(handle, &JoyYlow, sizeof(JoyYlow));
+    read(handle, &JoyXhigh, sizeof(JoyXhigh));
+    read(handle, &JoyYhigh, sizeof(JoyYhigh));
+    read(handle, &MouseSensitivity, sizeof(MouseSensitivity));
+    read(handle, &key, sizeof(key));
+    read(handle, &keyB1, sizeof(keyB1));
+    read(handle, &keyB2, sizeof(keyB2));
+
+    close(handle);
+  }
 }
-}
+
 //void sub_0_39AF(void)
 void _savectrls (void)
 {
