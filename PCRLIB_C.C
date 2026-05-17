@@ -1152,29 +1152,46 @@ void _printc(char *string)
 // input unsigned
 //
 ////////////////////////////////////////////////////////////////////
-void sub_0_368C(void)
+//void sub_0_368C(void)
+unsigned _inputint(void)
 {
-asm {
-db 83h
-db 0ECh, 28h, 56h, 57h, 16h, 8Dh, 46h, 0E8h, 50h, 1Eh, 0B8h, 24h, 0Ch, 50h, 0B9h, 12h
-db 00h, 0E8h, 0FEh, 3Eh, 16h, 8Dh, 46h, 0D8h, 50h, 1Eh, 0B8h, 36h, 0Ch, 50h, 0B9h, 10h
-db 00h, 0E8h, 0EEh, 3Eh, 0B8h, 11h, 00h, 50h, 8Dh, 46h, 0E8h, 50h, 0E8h, 0F2h, 00h, 59h
-db 59h, 80h, 7Eh, 0E8h, 24h, 75h, 69h, 8Dh, 46h, 0E8h, 50h, 0E8h, 57h, 39h, 59h, 05h
-db 0FEh, 0FFh, 89h, 46h, 0FAh, 83h, 7Eh, 0FAh, 00h, 7Dh, 05h, 33h, 0C0h, 0E9h, 0CBh, 00h
-db 33h, 0F6h, 0C7h, 46h, 0FCh, 00h, 00h, 0EBh, 3Dh, 8Bh, 5Eh, 0FCh, 43h, 8Dh, 46h, 0E8h
-db 03h, 0D8h, 8Ah, 07h, 98h, 50h, 0E8h, 96h, 30h, 59h, 88h, 46h, 0FFh, 33h, 0FFh, 0EBh
-db 1Dh, 8Ah, 43h, 0D8h, 3Ah, 46h, 0FFh, 75h, 14h, 8Ah, 46h, 0FAh, 2Ah, 46h, 0FCh, 0D0h
-db 0E0h, 0D0h, 0E0h, 8Bh, 0D7h, 8Ah, 0C8h, 0D3h, 0E2h, 0Bh, 0F2h, 0EBh, 06h, 47h, 83h, 0FFh
-db 10h, 72h, 0DEh, 0FFh, 46h, 0FCh, 8Bh, 46h, 0FCh, 3Bh, 46h, 0FAh, 76h, 0BBh, 0EBh, 77h
-db 80h, 7Eh, 0E8h, 25h, 75h, 67h, 8Dh, 46h, 0E8h, 50h, 0E8h, 0E8h, 38h, 59h, 05h, 0FEh
-db 0FFh, 89h, 46h, 0FAh, 83h, 7Eh, 0FAh, 00h, 7Dh, 04h, 33h, 0C0h, 0EBh, 5Dh, 33h, 0F6h
-db 0C7h, 46h, 0FCh, 00h, 00h, 0EBh, 3Ch, 8Bh, 5Eh, 0FCh, 43h, 8Dh, 46h, 0E8h, 03h, 0D8h
-db 80h, 3Fh, 30h, 7Ch, 0Eh, 8Bh, 5Eh, 0FCh, 43h, 8Dh, 46h, 0E8h, 03h, 0D8h, 80h, 3Fh
-db 31h, 7Eh, 04h, 33h, 0C0h, 0EBh, 34h, 8Bh, 5Eh, 0FCh, 43h, 8Dh, 46h, 0E8h, 03h, 0D8h
-db 8Ah, 07h, 98h, 05h, 0D0h, 0FFh, 8Ah, 4Eh, 0FAh, 2Ah, 4Eh, 0FCh, 0D3h, 0E0h, 0Bh, 0F0h
-db 0FFh, 46h, 0FCh, 8Bh, 46h, 0FCh, 3Bh, 46h, 0FAh, 76h, 0BCh, 0EBh, 0Ah, 8Dh, 46h, 0E8h
-db 50h, 0E8h, 97h, 31h, 59h, 8Bh, 0F0h, 8Bh, 0C6h, 0EBh, 00h, 5Fh, 5Eh, 8Bh, 0E5h
-}
+ char string[18]="",digit,hexstr[16]="0123456789ABCDEF";
+ unsigned value,loop,loop1;
+
+ _input(string,17);
+ if (string[0]=='$')
+   {
+    int digits;
+
+    digits=strlen(string)+-2;
+    if (digits<0) return 0;
+
+    for (value=0,loop1=0;loop1<=digits;loop1++)
+      {
+       digit=toupper(string[loop1+1]);
+       for (loop=0;loop<16;loop++)
+	  if (digit==hexstr[loop])
+	    {
+	     value|=(loop<<(digits-loop1)*4);
+	     break;
+	    }
+      }
+   }
+ else if (string[0]=='%')
+   {
+    int digits;
+
+    digits=strlen(string)+-2;
+    if (digits<0) return 0;
+
+    for (value=0,loop1=0;loop1<=digits;loop1++)
+      {
+       if (string[loop1+1]<'0' || string[loop1+1]>'1') return 0;
+       value|=(string[loop1+1]-'0')<<(digits-loop1);
+      }
+   }
+ else value=atoi(string);
+ return value;
 }
 
 
