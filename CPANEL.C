@@ -404,44 +404,81 @@ void far *lastgrpic;
 
 int numchars,numtiles,numpics,numsprites;
 
-void sub_0_4AD6(void)
+//void sub_0_4AD6(void)
+void installgrfile (char *filename, int unpack,void huge *inmem)
 {
-asm {
-db 83h, 0ECh, 0Ch, 56h, 0A1h, 0D2h, 0E7h
-db 0Bh, 06h, 0D4h, 0E7h, 74h, 0Dh, 0FFh, 36h, 0D4h, 0E7h, 0FFh, 36h, 0D2h, 0E7h, 0E8h, 0DDh
-db 26h, 59h, 59h, 83h, 7Eh, 06h, 00h, 74h, 0Fh, 0FFh, 76h, 04h, 0E8h, 65h, 0E4h, 59h
-db 89h, 46h, 0FCh, 89h, 56h, 0FEh, 0EBh, 0Dh, 0FFh, 76h, 04h, 0E8h, 0F7h, 0E3h, 59h, 89h
-db 46h, 0FCh, 89h, 56h, 0FEh, 0A1h, 66h, 0C3h, 8Bh, 16h, 64h, 0C3h, 89h, 16h, 0D2h, 0E7h
-db 0A3h, 0D4h, 0E7h, 0C4h, 5Eh, 0FCh, 26h, 8Bh, 47h, 28h, 0A3h, 0D6h, 0E7h, 0C4h, 5Eh, 0FCh
-db 26h, 8Bh, 47h, 2Ah, 0A3h, 0C8h, 0E3h, 0C4h, 5Eh, 0FCh, 26h, 8Bh, 47h, 2Ch, 0A3h, 0C4h
-db 0C3h, 0C4h, 5Eh, 0FCh, 26h, 8Bh, 47h, 2Eh, 0A3h, 0D8h, 0E7h, 83h, 3Eh, 9Ch, 0AFh, 02h
-db 74h, 03h, 0E9h, 0B0h, 00h, 0C7h, 06h, 6Ah, 0AEh, 00h, 00h, 0C7h, 06h, 6Ch, 0AEh, 00h
-db 0A9h, 0C4h, 5Eh, 0FCh, 26h, 8Bh, 47h, 06h, 05h, 00h, 0A9h, 0C4h, 5Eh, 0FCh, 26h, 2Bh
-db 47h, 02h, 0C7h, 06h, 96h, 0AEh, 00h, 00h, 0A3h, 98h, 0AEh, 0C4h, 5Eh, 0FCh, 26h, 8Bh
-db 47h, 0Ah, 05h, 00h, 0A9h, 0C4h, 5Eh, 0FCh, 26h, 2Bh, 47h, 02h, 0C7h, 06h, 86h, 0AEh
-db 00h, 00h, 0A3h, 88h, 0AEh, 0C4h, 5Eh, 0FCh, 26h, 8Bh, 47h, 0Eh, 05h, 00h, 0A9h, 0C4h
-db 5Eh, 0FCh, 26h, 2Bh, 47h, 02h, 0C7h, 06h, 80h, 0AEh, 00h, 00h, 0A3h, 82h, 0AEh, 33h
-db 0F6h, 0EBh, 4Bh, 8Bh, 0C6h, 0D1h, 0E0h, 0D1h, 0E0h, 0C4h, 5Eh, 0FCh, 03h, 0D8h, 26h, 8Bh
-db 47h, 1Ah, 03h, 46h, 0FEh, 8Bh, 0DEh, 0D1h, 0E3h, 89h, 87h, 72h, 0C3h, 8Bh, 0C6h, 0D1h
-db 0E0h, 0D1h, 0E0h, 0C4h, 5Eh, 0FCh, 03h, 0D8h, 8Bh, 46h, 0FEh, 26h, 03h, 47h, 1Ah, 0C4h
-db 5Eh, 0FCh, 26h, 03h, 47h, 0Eh, 0C4h, 5Eh, 0FCh, 26h, 2Bh, 47h, 02h, 8Bh, 0DEh, 0D1h
-db 0E3h, 0D1h, 0E3h, 0C7h, 87h, 70h, 0AEh, 00h, 00h, 89h, 87h, 72h, 0AEh, 46h, 83h, 0FEh
-db 04h, 7Ch, 0B0h, 0EBh, 4Ch, 0C4h, 5Eh, 0FCh, 8Bh, 46h, 0FEh, 26h, 03h, 47h, 02h, 0C7h
-db 06h, 6Ah, 0AEh, 00h, 00h, 0A3h, 6Ch, 0AEh, 0C4h, 5Eh, 0FCh, 8Bh, 46h, 0FEh, 26h, 03h
-db 47h, 06h, 0C7h, 06h, 96h, 0AEh, 00h, 00h, 0A3h, 98h, 0AEh, 0C4h, 5Eh, 0FCh, 8Bh, 46h
-db 0FEh, 26h, 03h, 47h, 0Ah, 0C7h, 06h, 86h, 0AEh, 00h, 00h, 0A3h, 88h, 0AEh, 0C4h, 5Eh
-db 0FCh, 8Bh, 46h, 0FEh, 26h, 03h, 47h, 0Eh, 0C7h, 06h, 80h, 0AEh, 00h, 00h, 0A3h, 82h
-db 0AEh, 0C4h, 5Eh, 0FCh, 26h, 8Bh, 47h, 12h, 03h, 46h, 0FEh, 0C4h, 5Eh, 0FCh, 26h, 8Bh
-db 57h, 10h, 03h, 56h, 0FCh, 89h, 56h, 0F4h, 89h, 46h, 0F6h, 0C4h, 5Eh, 0FCh, 26h, 8Bh
-db 47h, 16h, 03h, 46h, 0FEh, 0C4h, 5Eh, 0FCh, 26h, 8Bh, 57h, 14h, 03h, 56h, 0FCh, 89h
-db 56h, 0F8h, 89h, 46h, 0FAh, 33h, 0F6h, 0EBh, 29h, 8Bh, 0C6h, 0B1h, 04h, 0D3h, 0E0h, 05h
-db 0D2h, 0E3h, 1Eh, 50h, 8Bh, 0C6h, 99h, 0B1h, 04h, 0E8h, 85h, 28h, 50h, 52h, 8Bh, 56h
-db 0F6h, 8Bh, 46h, 0F4h, 59h, 5Bh, 0E8h, 99h, 28h, 52h, 50h, 0B9h, 10h, 00h, 0E8h, 0F1h
-db 28h, 46h, 83h, 0FEh, 40h, 7Ch, 0D2h, 33h, 0F6h, 0EBh, 29h, 8Bh, 0C6h, 0B1h, 05h, 0D3h
-db 0E0h, 05h, 0C8h, 0C3h, 1Eh, 50h, 8Bh, 0C6h, 99h, 0B1h, 05h, 0E8h, 53h, 28h, 50h, 52h
-db 8Bh, 56h, 0FAh, 8Bh, 46h, 0F8h, 59h, 5Bh, 0E8h, 67h, 28h, 52h, 50h, 0B9h, 20h, 00h
-db 0E8h, 0BFh, 28h, 46h, 81h, 0FEh, 00h, 01h, 7Ch, 0D1h, 5Eh, 8Bh, 0E5h
-}
+  int i;
+  unsigned long a,b,c,d;
+  typedef pictype ptype[NUMPICS];
+  typedef spritetype stype[NUMSPRITES];
+
+  typedef struct {void huge *charptr;
+		  void huge *tileptr;
+		  void huge *picptr;
+		  void huge *spriteptr;
+		  ptype huge *pictableptr;
+		  stype huge *spritetableptr;
+		  void huge *plane[4];
+		  int numchars,numtiles,numpics,numsprites;
+		 } picfiletype;
+
+  picfiletype huge *picfile;
+
+  stype huge *(spriteinfile);
+  ptype huge *(picinfile);
+
+
+	{
+	 if ( (long)lastgrpic )
+	   farfree ((void far *)lastgrpic); // so new graphics modes will free it up
+
+	 if (unpack)
+	   picfile = (picfiletype huge *) bloadin /* LZW */ (filename);
+	 else
+	   picfile = (picfiletype huge *) bloadin (filename);
+
+	 lastgrpic = (void far *) lastparalloc;
+	}
+
+  numchars = picfile->numchars;
+  numtiles = picfile->numtiles;
+  numpics = picfile->numpics;
+  numsprites = picfile->numsprites;
+
+
+  if (grmode==EGAgr)		// EGA is special because of bit plane grief!
+  {
+    charptr = MK_FP(0xa900,0);
+    tileptr = MK_FP(0xa900+FP_SEG(picfile->tileptr)-FP_SEG(picfile->charptr),0);
+    picptr = MK_FP(0xa900+FP_SEG(picfile->picptr)-FP_SEG(picfile->charptr),0);
+    spriteptr = MK_FP(0xa900+FP_SEG(picfile->spriteptr)-FP_SEG(picfile->charptr),0);
+
+    for (i=0;i<4;i++)
+    {
+      egaplane[i] = FP_SEG(picfile->plane[i])+FP_SEG(picfile);
+      egaspriteptr[i] = MK_FP(FP_SEG(picfile)+FP_SEG(picfile->plane[i]) +
+	FP_SEG(picfile->spriteptr) - FP_SEG(picfile->charptr),0);
+    }
+  }
+  else
+  {
+    charptr = MK_FP(FP_SEG(picfile)+FP_SEG(picfile->charptr),0);
+    tileptr = MK_FP(FP_SEG(picfile)+FP_SEG(picfile->tileptr),0);
+    picptr = MK_FP(FP_SEG(picfile)+FP_SEG(picfile->picptr),0);
+    spriteptr = MK_FP(FP_SEG(picfile)+FP_SEG(picfile->spriteptr),0);
+  }
+  //
+  // copy tables into data segment
+  //
+  picinfile = MK_FP(FP_SEG(picfile->pictableptr)+FP_SEG(picfile)
+    ,FP_OFF(picfile->pictableptr)+FP_OFF(picfile));
+  spriteinfile = MK_FP(FP_SEG(picfile->spritetableptr)+FP_SEG(picfile)
+    ,FP_OFF(picfile->spritetableptr)+FP_OFF(picfile));
+  for (i=0; i<NUMPICS; i++)
+    pictable[i] = (*picinfile)[i];
+  for (i=0; i<NUMSPRITES; i++)
+    spritetable[i] = (*spriteinfile)[i];
+
 }
 
 

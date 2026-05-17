@@ -191,7 +191,7 @@ cardtype VideoID (void);
 */
 
 #define NUMPICS 64
-#define NUMSPRITES 10
+#define NUMSPRITES 256
 
 unsigned extern EGADATASTART;
 
