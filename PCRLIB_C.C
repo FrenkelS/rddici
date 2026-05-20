@@ -146,46 +146,61 @@ void ShutdownKBD ()
 =
 ===========================
 */
-
-void sub_0_2673(void)
+//void sub_0_2673(void)
+ControlStruct ControlKBD ()
 {
-asm {
-db 83h, 0ECh, 06h, 56h, 57h, 33h, 0FFh, 33h, 0F6h, 0A0h
-db 60h, 0AEh, 98h, 0D1h, 0E0h, 8Bh, 0D8h, 83h, 0BFh, 9Ah, 0AEh, 00h, 74h, 03h, 0BEh, 0FFh
-db 0FFh, 0A0h, 62h, 0AEh, 98h, 0D1h, 0E0h, 8Bh, 0D8h, 83h, 0BFh, 9Ah, 0AEh, 00h, 74h, 03h
-db 0BFh, 01h, 00h, 0A0h, 64h, 0AEh, 98h, 0D1h, 0E0h, 8Bh, 0D8h, 83h, 0BFh, 9Ah, 0AEh, 00h
-db 74h, 03h, 0BEh, 01h, 00h, 0A0h, 66h, 0AEh, 98h, 0D1h, 0E0h, 8Bh, 0D8h, 83h, 0BFh, 9Ah
-db 0AEh, 00h, 74h, 03h, 0BFh, 0FFh, 0FFh, 0A0h, 61h, 0AEh, 98h, 0D1h, 0E0h, 8Bh, 0D8h, 83h
-db 0BFh, 9Ah, 0AEh, 00h, 74h, 06h, 0BEh, 0FFh, 0FFh, 0BFh, 01h, 00h, 0A0h, 67h, 0AEh, 98h
-db 0D1h, 0E0h, 8Bh, 0D8h, 83h, 0BFh, 9Ah, 0AEh, 00h, 74h, 06h, 0BEh, 0FFh, 0FFh, 0BFh, 0FFh
-db 0FFh, 0A0h, 63h, 0AEh, 98h, 0D1h, 0E0h, 8Bh, 0D8h, 83h, 0BFh, 9Ah, 0AEh, 00h, 74h, 06h
-db 0BEh, 01h, 00h, 0BFh, 01h, 00h, 0A0h, 65h, 0AEh, 98h, 0D1h, 0E0h, 8Bh, 0D8h, 83h, 0BFh
-db 9Ah, 0AEh, 00h, 74h, 06h, 0BEh, 01h, 00h, 0BFh, 0FFh, 0FFh, 8Bh, 0C6h, 0BAh, 03h, 00h
-db 0F7h, 0EAh, 03h, 0C7h, 2Dh, 0FCh, 0FFh, 8Bh, 0D8h, 83h, 0FBh, 08h, 77h, 46h, 0D1h, 0E3h
-db 2Eh, 0FFh, 0A7h, 0AEh, 27h, 0C7h, 46h, 0FAh, 07h, 00h, 0EBh, 38h, 0C7h, 46h, 0FAh, 00h
-db 00h, 0EBh, 31h, 0C7h, 46h, 0FAh, 01h, 00h, 0EBh, 2Ah, 0C7h, 46h, 0FAh, 06h, 00h, 0EBh
-db 23h, 0C7h, 46h, 0FAh, 08h, 00h, 0EBh, 1Ch, 0C7h, 46h, 0FAh, 02h, 00h, 0EBh, 15h, 0C7h
-db 46h, 0FAh, 05h, 00h, 0EBh, 0Eh, 0C7h, 46h, 0FAh, 04h, 00h, 0EBh, 07h, 0C7h, 46h, 0FAh
-db 03h, 00h, 0EBh, 00h, 0A0h, 04h, 0AEh, 98h, 0D1h, 0E0h, 8Bh, 0D8h, 8Bh, 87h, 9Ah, 0AEh
-db 89h, 46h, 0FCh, 0A0h, 05h, 0AEh, 98h, 0D1h, 0E0h, 8Bh, 0D8h, 8Bh, 87h, 9Ah, 0AEh, 89h
-db 46h, 0FEh, 0FFh, 76h, 06h, 0FFh, 76h, 04h, 8Dh, 46h, 0FAh, 16h, 50h, 0B9h, 06h, 00h
-db 0E8h, 0FFh, 4Dh, 8Bh, 46h, 04h, 0EBh, 00h, 5Fh, 5Eh, 8Bh, 0E5h
+ int xmove=0,
+     ymove=0;
+ ControlStruct action;
 
-db 5Dh, 0C3h
-//}
-//}
+ if (keydown [key[north]])
+  ymove=-1;
+ if (keydown [key[east]])
+  xmove=1;
+ if (keydown [key[south]])
+  ymove=1;
+ if (keydown [key[west]])
+  xmove=-1;
 
+ if (keydown [key[northeast]])
+ {
+   ymove=-1;
+   xmove=1;
+ }
+ if (keydown [key[northwest]])
+ {
+   ymove=-1;
+   xmove=-1;
+ }
+ if (keydown [key[southeast]])
+ {
+   ymove=1;
+   xmove=1;
+ }
+ if (keydown [key[southwest]])
+ {
+   ymove=1;
+   xmove=-1;
+ }
 
-dw 2735h
-dw 273Ch
-dw 2743h
-dw 274Ah
-dw 2751h
-dw 2758h
-dw 275Fh
-dw 2766h
-dw 276Dh
+  switch (ymove*3+xmove)
+ {
+   case -4: action.dir = northwest; break;
+   case -3: action.dir = north; break;
+   case -2: action.dir = northeast; break;
+   case -1: action.dir = west; break;
+   case  0: action.dir = nodir; break;
+   case  1: action.dir = east; break;
+   case  2: action.dir = southwest; break;
+   case  3: action.dir = south; break;
+   case  4: action.dir = southeast; break;
+ }
 
+ action.button1 = keydown [keyB1];
+ action.button2 = keydown [keyB2];
+
+ return (action);
+}
 
 
 /*
@@ -195,46 +210,62 @@ dw 276Dh
 =
 ============================
 */
-
 //void sub_0_27C0(void)
-//{
-//asm {
-db 55h, 8Bh, 0ECh
+ControlStruct ControlMouse ()
+{
+ int newx,newy,		/* mickeys the mouse has moved */
+     xmove = 0,
+     ymove = 0;
+ ControlStruct action;
 
-db 83h, 0ECh, 0Ah, 56h, 57h, 0C7h, 46h, 0FEh, 00h, 00h, 0C7h, 46h, 0FCh
-db 00h, 00h, 0B8h, 03h, 00h, 0CDh, 33h, 8Bh, 0F9h, 8Bh, 0F2h, 8Bh, 0C3h, 25h, 01h, 00h
-db 89h, 46h, 0F8h, 8Bh, 0C3h, 25h, 02h, 00h, 0D1h, 0E8h, 89h, 46h, 0FAh, 8Bh, 0C7h, 05h
-db 0C0h, 0FEh, 0BBh, 02h, 00h, 99h, 0F7h, 0FBh, 3Bh, 06h, 9Ah, 0AFh, 7Eh, 12h, 0C7h, 46h
-db 0FEh, 01h, 00h, 0A1h, 9Ah, 0AFh, 0D1h, 0E0h, 8Bh, 0D7h, 2Bh, 0D0h, 8Bh, 0FAh, 0EBh, 25h
-db 8Bh, 0C7h, 05h, 0C0h, 0FEh, 0BBh, 02h, 00h, 99h, 0F7h, 0FBh, 8Bh, 16h, 9Ah, 0AFh, 0F7h
-db 0DAh, 3Bh, 0C2h, 7Dh, 10h, 0C7h, 46h, 0FEh, 0FFh, 0FFh, 0A1h, 9Ah, 0AFh, 0D1h, 0E0h, 8Bh
-db 0D7h, 03h, 0D0h, 8Bh, 0FAh, 8Bh, 0C6h, 05h, 9Ch, 0FFh, 3Bh, 06h, 9Ah, 0AFh, 7Eh, 0Fh
-db 0C7h, 46h, 0FCh, 01h, 00h, 8Bh, 0C6h, 2Bh, 06h, 9Ah, 0AFh, 8Bh, 0F0h, 0EBh, 1Ch, 8Bh
-db 0C6h, 05h, 9Ch, 0FFh, 8Bh, 16h, 9Ah, 0AFh, 0F7h, 0DAh, 3Bh, 0C2h, 7Dh, 0Dh, 0C7h, 46h
-db 0FCh, 0FFh, 0FFh, 8Bh, 0C6h, 03h, 06h, 9Ah, 0AFh, 8Bh, 0F0h, 0B8h, 04h, 00h, 8Bh, 0CFh
-db 8Bh, 0D6h, 0CDh, 33h, 8Bh, 46h, 0FCh, 0BAh, 03h, 00h, 0F7h, 0EAh, 03h, 46h, 0FEh, 2Dh
-db 0FCh, 0FFh, 8Bh, 0D8h, 83h, 0FBh, 08h, 77h, 46h, 0D1h, 0E3h, 2Eh, 0FFh, 0A7h, 0EBh, 28h
-db 0C7h, 46h, 0F6h, 07h, 00h, 0EBh, 38h, 0C7h, 46h, 0F6h, 00h, 00h, 0EBh, 31h, 0C7h, 46h
-db 0F6h, 01h, 00h, 0EBh, 2Ah, 0C7h, 46h, 0F6h, 06h, 00h, 0EBh, 23h, 0C7h, 46h, 0F6h, 08h
-db 00h, 0EBh, 1Ch, 0C7h, 46h, 0F6h, 02h, 00h, 0EBh, 15h, 0C7h, 46h, 0F6h, 05h, 00h, 0EBh
-db 0Eh, 0C7h, 46h, 0F6h, 04h, 00h, 0EBh, 07h, 0C7h, 46h, 0F6h, 03h, 00h, 0EBh, 00h, 0FFh
-db 76h, 06h, 0FFh, 76h, 04h, 8Dh, 46h, 0F6h, 16h, 50h, 0B9h, 06h, 00h, 0E8h, 0C2h, 4Ch
-db 8Bh, 46h, 04h, 0EBh, 00h, 5Fh, 5Eh, 8Bh, 0E5h
+ _AX = 3;
+ geninterrupt (0x33);		/* mouse status */
+ newx = _CX;
+ newy = _DX;
+ action.button1 = _BX & 1;
+ action.button2 = (_BX & 2) >> 1;
 
-db 5Dh, 0C3h
-//}
-//}
+ if ((newx-320)/2>MouseSensitivity)
+ {
+   xmove = 1;
+   newx = newx - MouseSensitivity*2;
+ }
+ else if ((newx-320)/2<-MouseSensitivity)
+ {
+   xmove = -1;
+   newx = newx + MouseSensitivity*2;
+ }
+ if ((newy-100)>MouseSensitivity)
+ {
+   ymove = 1;
+   newy = newy - MouseSensitivity;
+ }
+ else if ((newy-100)<-MouseSensitivity)
+ {
+   ymove = -1;
+   newy = newy + MouseSensitivity;
+ }
 
+  _AX = 4;
+  _CX=newx;
+  _DX=newy;
+  geninterrupt (0x33);		/* set mouse status */
 
-dw 2890h
-dw 2897h
-dw 289Eh
-dw 28A5h
-dw 28ACh
-dw 28B3h
-dw 28BAh
-dw 28C1h
-dw 28C8h
+ switch (ymove*3+xmove)
+ {
+   case -4: action.dir = northwest; break;
+   case -3: action.dir = north; break;
+   case -2: action.dir = northeast; break;
+   case -1: action.dir = west; break;
+   case  0: action.dir = nodir; break;
+   case  1: action.dir = east; break;
+   case  2: action.dir = southwest; break;
+   case  3: action.dir = south; break;
+   case  4: action.dir = southeast; break;
+ }
+
+ return (action);
+}
 
 
 /*
@@ -245,23 +276,39 @@ dw 28C8h
 =
 ===============================
 */
-
 //void sub_0_28FD(void)
-//{
-//asm {
-db 55h, 8Bh, 0ECh
+void ReadJoystick (int joynum,int *xcount,int *ycount)
+{
+ int portval,a1,a2,xbit,ybit;
 
-db 83h, 0ECh, 0Ah, 56h, 57h, 8Bh, 7Eh, 06h, 8Bh, 76h, 08h, 83h, 7Eh, 04h, 01h, 75h
-db 0Ch, 0C7h, 46h, 0F8h, 01h, 00h, 0C7h, 46h, 0F6h, 02h, 00h, 0EBh, 0Ah, 0C7h, 46h, 0F8h
-db 04h, 00h, 0C7h, 46h, 0F6h, 08h, 00h, 0C7h, 05h, 00h, 00h, 0C7h, 04h, 00h, 00h, 0B8h
-db 01h, 02h, 50h, 0E8h, 46h, 41h, 59h, 50h, 0B8h, 01h, 02h, 50h, 0E8h, 7Dh, 45h, 59h
-db 59h, 0FAh, 0B8h, 01h, 02h, 50h, 0E8h, 33h, 41h, 59h, 0B4h, 00h, 89h, 46h, 0FEh, 8Bh
-db 46h, 0F8h, 85h, 46h, 0FEh, 74h, 05h, 0B8h, 01h, 00h, 0EBh, 02h, 33h, 0C0h, 89h, 46h
-db 0FCh, 8Bh, 46h, 0F6h, 85h, 46h, 0FEh, 74h, 05h, 0B8h, 01h, 00h, 0EBh, 02h, 33h, 0C0h
-db 89h, 46h, 0FAh, 8Bh, 46h, 0FCh, 01h, 05h, 8Bh, 46h, 0FAh, 01h, 04h, 8Bh, 46h, 0FCh
-db 03h, 46h, 0FAh, 74h, 0Ch, 81h, 3Dh, 0F4h, 01h, 7Dh, 06h, 81h, 3Ch, 0F4h, 01h, 7Ch
-db 0B1h, 0FBh, 5Fh, 5Eh, 8Bh, 0E5h
-}
+ if (joynum==1)
+ {
+  xbit=1;
+  ybit=2;
+ }
+ else
+ {
+  xbit=4;
+  ybit=8;
+ }
+
+ *xcount = 0;
+ *ycount = 0;
+
+ outportb (0x201,inportb (0x201));	/* start the signal pulse */
+
+ asm cli;
+
+ do
+ {
+   portval = inportb (0x201);
+   a1 = (portval & xbit) != 0;
+   a2 = (portval & ybit) != 0;
+   *xcount+=a1;
+   *ycount+=a2;
+ } while ((a1+a2!=0) && (*xcount<500) && (*ycount<500));
+
+ asm sti;
 }
 
 
