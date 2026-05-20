@@ -916,24 +916,20 @@ void drawwindow (int xl, int yl, int xh, int yh)
 // clears out the last window and it's border to spaces
 //
 ///////////////////////////
-
-void sub_0_325F(void)
+//void sub_0_325F(void)
+void bar (int xl, int yl, int xh, int yh, int ch)
 {
-asm {
-db 56h, 57h, 8Bh, 76h, 06h, 0EBh, 17h, 8Bh, 7Eh, 04h, 0EBh, 0Ch, 0FFh, 76h
-db 0Ch, 56h, 57h, 0E8h, 2Bh, 23h, 83h, 0C4h, 06h, 47h, 3Bh, 7Eh, 08h, 7Eh, 0EFh, 46h
-db 3Bh, 76h, 0Ah, 7Eh, 0E4h, 5Fh, 5Eh
-}
+  int x,y;
+
+  for (y=yl;y<=yh;y++)
+    for (x=xl;x<=xh;x++)
+      drawchar (x,y,ch);
 }
 
-
-void sub_0_3289(void)
+//void sub_0_3289(void)
+void erasewindow (void)
 {
-asm {
-db 0B8h, 20h, 00h, 50h
-db 0FFh, 36h, 92h, 0AEh, 0FFh, 36h, 8Eh, 0AEh, 0FFh, 36h, 90h, 0AEh, 0FFh, 36h, 8Ch, 0AEh
-db 0E8h, 0BCh, 0FFh, 83h, 0C4h, 0Ah
-}
+  bar (win_xl,win_yl,win_xh,win_yh,' ');
 }
 
 /////////////////////////////
