@@ -664,18 +664,23 @@ asm		int	21h
 =
 ====================================
 */
-
-void sub_0_2F05(void)
+//void sub_0_2F05(void)
+void huge *bloadin (char *filename)
 {
-asm {
-db 83h, 0ECh, 08h, 56h, 0B8h, 00h, 80h, 50h
-db 0FFh, 76h, 04h, 0E8h, 21h, 3Eh, 59h, 59h, 8Bh, 0F0h, 3Dh, 0FFh, 0FFh, 74h, 3Ah, 56h
-db 0E8h, 0EFh, 3Ah, 59h, 89h, 46h, 0FCh, 89h, 56h, 0FEh, 0FFh, 76h, 0FEh, 0FFh, 76h, 0FCh
-db 0E8h, 3Dh, 0FEh, 59h, 59h, 89h, 46h, 0F8h, 89h, 56h, 0FAh, 56h, 0E8h, 0F5h, 30h, 59h
-db 0FFh, 76h, 0FAh, 0FFh, 76h, 0F8h, 0FFh, 76h, 04h, 0E8h, 8Bh, 0FEh, 83h, 0C4h, 06h, 8Bh
-db 56h, 0FAh, 8Bh, 46h, 0F8h, 0EBh, 08h, 0EBh, 06h, 33h, 0D2h, 33h, 0C0h, 0EBh, 00h, 5Eh
-db 8Bh, 0E5h
-}
+ int handle;
+ long length;
+ char huge *location;
+
+ if ( (handle = open (filename,O_BINARY)) != -1 )
+   {
+    length = filelength (handle);
+    location = paralloc (length);
+    close (handle);
+    LoadFile (filename,location);
+    return location;
+   }
+ else
+   return NULL;
 }
 
 
