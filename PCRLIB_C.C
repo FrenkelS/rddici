@@ -998,17 +998,26 @@ void expwinv (int width, int height)
 // Flash a cursor at sx,sy and waits for a user bioskey
 //
 /////////////////////////
-
-void sub_0_3390(void)
+//void sub_0_3390(void)
+int get (void)
 {
-asm {
-db 56h, 57h, 0BEh, 09h, 00h, 0EBh, 21h, 8Bh, 0C6h, 46h, 50h, 0FFh, 36h
-db 68h, 0AEh, 0FFh, 36h, 02h, 0AEh, 0E8h, 0F8h, 21h, 83h, 0C4h, 06h, 0E8h, 0A7h, 21h, 0E8h
-db 0A4h, 21h, 0E8h, 0A1h, 21h, 0E8h, 9Eh, 21h, 0E8h, 9Bh, 21h, 0B8h, 01h, 00h, 50h, 0E8h
-db 85h, 35h, 59h, 8Bh, 0F8h, 0Bh, 0C0h, 75h, 05h, 83h, 0FEh, 0Dh, 7Ch, 0CCh, 0Bh, 0FFh
-db 74h, 0C3h, 0B8h, 20h, 00h, 50h, 0FFh, 36h, 68h, 0AEh, 0FFh, 36h, 02h, 0AEh, 0E8h, 0C0h
-db 21h, 83h, 0C4h, 06h, 33h, 0C0h, 50h, 0E8h, 5Dh, 35h, 59h, 0EBh, 00h, 5Fh, 5Eh
-}
+ int cycle,key;
+
+ do
+ {
+   cycle = 9;
+   while (!(key = bioskey(1)) && cycle<13)
+   {
+     drawchar (sx,sy,cycle++);
+     WaitVBL ();
+     WaitVBL ();
+     WaitVBL ();
+     WaitVBL ();
+     WaitVBL ();
+   }
+ } while (key == 0);
+ drawchar (sx,sy,' ');
+ return bioskey(0);		// take it out of the buffer
 }
 
 
@@ -1021,13 +1030,18 @@ db 21h, 83h, 0C4h, 06h, 33h, 0C0h, 50h, 0E8h, 5Dh, 35h, 59h, 0EBh, 00h, 5Fh, 5Eh
 //void sub_0_33F1(void)
 void print (const char *str)
 {
-asm {
-db 4Ch, 4Ch, 0EBh, 37h, 80h, 7Eh, 0FFh, 0Ah, 75h, 0Ch, 0FFh, 06h
-db 68h, 0AEh, 0A1h, 8Ah, 0AEh, 0A3h, 02h, 0AEh, 0EBh, 25h, 80h, 7Eh, 0FFh, 0Dh, 75h, 08h
-db 0A1h, 8Ah, 0AEh, 0A3h, 02h, 0AEh, 0EBh, 17h, 8Ah, 46h, 0FFh, 98h, 50h, 0FFh, 36h, 68h
-db 0AEh, 0A1h, 02h, 0AEh, 0FFh, 06h, 02h, 0AEh, 50h, 0E8h, 75h, 21h, 83h, 0C4h, 06h, 8Bh
-db 5Eh, 04h, 0FFh, 46h, 04h, 8Ah, 07h, 88h, 46h, 0FFh, 0Ah, 0C0h, 75h, 0BAh, 8Bh, 0E5h
-}
+  char ch;
+
+  while ((ch=*str++) != 0)
+    if (ch == '\n')
+    {
+      sy++;
+      sx=leftedge;
+    }
+    else if (ch == '\r')
+      sx=leftedge;
+    else
+      drawchar (sx++,sy,ch);
 }
 
 
