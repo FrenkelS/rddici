@@ -405,18 +405,19 @@ void LoadDemo (int demonum)
   indemo = demoplay;
 }
 
-
-void sub_0_2CD2(void)
+//void sub_0_2CD2(void)
+void SaveDemo (int demonum)
 {
-asm {
-db 83h, 0ECh, 06h, 0B8h, 4Fh, 0Ch, 50h, 0B8h, 10h, 0AEh, 50h
-db 0E8h, 1Eh, 43h, 59h, 59h, 0B8h, 0Ah, 00h, 50h, 8Dh, 46h, 0FAh, 50h, 0FFh, 76h, 04h
-db 0E8h, 70h, 3Fh, 83h, 0C4h, 06h, 8Dh, 46h, 0FAh, 50h, 0B8h, 10h, 0AEh, 50h, 0E8h, 0C7h
-db 42h, 59h, 59h, 0B8h, 54h, 0Ch, 50h, 0B8h, 10h, 0AEh, 50h, 0E8h, 0BAh, 42h, 59h, 59h
-db 0FFh, 36h, 46h, 0Ch, 0B8h, 10h, 0AEh, 50h, 0E8h, 0ADh, 42h, 59h, 59h, 0A1h, 94h, 0AEh
-db 2Dh, 9Eh, 0AFh, 99h, 52h, 50h, 0B8h, 9Eh, 0AFh, 1Eh, 50h, 0B8h, 10h, 0AEh, 50h, 0E8h
-db 52h, 01h, 83h, 0C4h, 0Ah, 0C7h, 06h, 5Ch, 0C3h, 00h, 00h, 8Bh, 0E5h
-}
+  char st2[5];
+
+  strcpy (str,"DEMO");
+  itoa (demonum,st2,10);
+  strcat (str,st2);
+  strcat (str,".");
+  strcat (str,_extension);
+
+  SaveFile (str,MK_FP(_DS,&demobuffer),(demoptr-&demobuffer[0]));
+  indemo = notdemo;
 }
 
 
