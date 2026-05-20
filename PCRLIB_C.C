@@ -938,16 +938,13 @@ void erasewindow (void)
 // Centers a drawwindow of the given size
 //
 /////////////////////////////
-
-void sub_0_32A8(void)
+//void sub_0_32A8(void)
+void centerwindow (int width, int height)
 {
-asm {
-db 56h, 57h, 8Bh, 46h, 04h
-db 0BBh, 02h, 00h, 99h, 0F7h, 0FBh, 8Bh, 16h, 0Eh, 0Ch, 2Bh, 0D0h, 8Bh, 0FAh, 8Bh, 46h
-db 06h, 0BBh, 02h, 00h, 99h, 0F7h, 0FBh, 8Bh, 16h, 10h, 0Ch, 2Bh, 0D0h, 8Bh, 0F2h, 8Bh
-db 0C6h, 03h, 46h, 06h, 40h, 50h, 8Bh, 0C7h, 03h, 46h, 04h, 40h, 50h, 56h, 57h, 0E8h
-db 8Fh, 0FEh, 83h, 0C4h, 08h, 5Fh, 5Eh
-}
+  int xl = screencenterx-width/2;
+  int yl = screencentery-height/2;
+
+  drawwindow (xl,yl,xl+width+1,yl+height+1);
 }
 
 ///////////////////////////////
