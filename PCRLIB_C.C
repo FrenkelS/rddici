@@ -1169,17 +1169,17 @@ long _Verify(char *filename)
 // print hex byte
 //
 ////////////////////////////////////////////////////////////////////
-void sub_0_35A0(void)
+//void sub_0_35A0(void)
+void _printhexb(unsigned char value)
 {
-asm {
-db 83h, 0ECh, 14h, 16h, 8Dh, 46h, 0ECh, 50h, 1Eh, 0B8h, 12h, 0Ch, 50h
-db 0B9h, 10h, 00h, 0E8h, 0ECh, 3Fh, 16h, 8Dh, 46h, 0FCh, 50h, 1Eh, 0B8h, 22h, 0Ch, 50h
-db 0B9h, 02h, 00h, 0E8h, 0DCh, 3Fh, 0C7h, 46h, 0FEh, 00h, 00h, 0EBh, 2Ch, 8Ah, 46h, 04h
-db 0B4h, 00h, 0B2h, 01h, 2Ah, 56h, 0FEh, 0D0h, 0E2h, 0D0h, 0E2h, 8Ah, 0CAh, 0D3h, 0F8h, 25h
-db 0Fh, 00h, 8Dh, 56h, 0ECh, 03h, 0C2h, 8Bh, 0D8h, 8Ah, 07h, 88h, 46h, 0FCh, 8Dh, 46h
-db 0FCh, 50h, 0E8h, 0FCh, 0FDh, 59h, 0FFh, 46h, 0FEh, 83h, 7Eh, 0FEh, 02h, 7Ch, 0CEh, 8Bh
-db 0E5h
-}
+ int loop;
+ char hexstr[16]="0123456789ABCDEF",str[2]="";
+
+ for (loop=0;loop<2;loop++)
+   {
+    str[0]=hexstr[(value>>(1-loop)*4)&15];
+    print(str);
+   }
 }
 
 
@@ -1190,13 +1190,12 @@ db 0E5h
 // print hex
 //
 ////////////////////////////////////////////////////////////////////
-void sub_0_3603(void)
+//void sub_0_3603(void)
+void _printhex(unsigned value)
 {
-asm {
-db 0B8h, 65h, 0Ch, 50h, 0E8h, 0E4h, 0FDh, 59h, 8Bh, 46h
-db 04h, 0B1h, 08h, 0D3h, 0E8h, 50h, 0E8h, 87h, 0FFh, 59h, 8Ah, 46h, 04h, 24h, 0FFh, 50h
-db 0E8h, 7Dh, 0FFh, 59h
-}
+ print("$");
+ _printhexb(value>>8);
+ _printhexb(value&0xff);
 }
 
 
@@ -1207,15 +1206,14 @@ db 0E8h, 7Dh, 0FFh, 59h
 // print bin
 //
 ////////////////////////////////////////////////////////////////////
-void sub_0_3626(void)
+//void sub_0_3626(void)
+void _printbin(unsigned value)
 {
-asm {
-db 4Ch, 4Ch, 0B8h, 67h, 0Ch, 50h, 0E8h
-db 0BFh, 0FDh, 59h, 0C7h, 46h, 0FEh, 00h, 00h, 0EBh, 24h, 0B1h, 0Fh, 2Ah, 4Eh, 0FEh, 8Bh
-db 46h, 04h, 0D3h, 0E8h, 0A9h, 01h, 00h, 74h, 0Ah, 0B8h, 69h, 0Ch, 50h, 0E8h, 0A1h, 0FDh
-db 59h, 0EBh, 08h, 0B8h, 6Bh, 0Ch, 50h, 0E8h, 97h, 0FDh, 59h, 0FFh, 46h, 0FEh, 83h, 7Eh
-db 0FEh, 10h, 7Ch, 0D6h, 8Bh, 0E5h
-}
+ int loop;
+
+ print("%");
+ for (loop=0;loop<16;loop++)
+    if ((value>>15-loop)&1) print("1"); else print("0");
 }
 
 
@@ -1229,21 +1227,8 @@ db 0FEh, 10h, 7Ch, 0D6h, 8Bh, 0E5h
 //void sub_0_3668(void)
 void _printc(char *string)
 {
-	asm {
-		push string
-		call strlen
-		pop cx
-		mov bx, 2
-		cwd
-		idiv bx
-		mov dx, screencenterx
-		inc dx
-		sub dx, ax
-		mov sx, dx
-		push string
-		call print
-		pop cx
-	}
+ sx=1+screencenterx-((int)strlen(string)/2);
+ print(string);
 }
 
 
