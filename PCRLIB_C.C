@@ -1506,30 +1506,55 @@ void _showhighscores (void)
 // calls showhighscores in any case
 //
 //////////////////////////
-void sub_0_3C83(void)
+//void sub_0_3C83(void)
+void _checkhighscore (void)
 {
-asm {
-db 4Ch, 4Ch, 56h, 57h, 33h, 0FFh, 0E9h, 91h, 00h, 8Bh
-db 0C7h, 0BAh, 0Ah, 00h, 0F7h, 0EAh, 8Bh, 0D8h, 8Bh, 87h, 28h, 0C3h, 8Bh, 97h, 26h, 0C3h
-db 3Bh, 06h, 0E4h, 0ADh, 7Eh, 03h, 0EBh, 77h, 90h, 7Ch, 06h, 3Bh, 16h, 0E2h, 0ADh, 73h
-db 6Eh, 0BEh, 04h, 00h, 0EBh, 26h, 8Bh, 0C6h, 48h, 89h, 46h, 0FEh, 8Bh, 0C6h, 0BAh, 0Ah
-db 00h, 0F7h, 0EAh, 05h, 26h, 0C3h, 1Eh, 50h, 8Bh, 46h, 0FEh, 0BAh, 0Ah, 00h, 0F7h, 0EAh
-db 05h, 26h, 0C3h, 1Eh, 50h, 0B9h, 0Ah, 00h, 0E8h, 0C7h, 38h, 4Eh, 3Bh, 0FEh, 7Ch, 0D6h
-db 8Bh, 0C7h, 0BAh, 0Ah, 00h, 0F7h, 0EAh, 8Bh, 16h, 0E4h, 0ADh, 8Bh, 1Eh, 0E2h, 0ADh, 93h
-db 89h, 87h, 26h, 0C3h, 89h, 97h, 28h, 0C3h, 8Bh, 0C7h, 0BAh, 0Ah, 00h, 0F7h, 0EAh, 8Bh
-db 16h, 6Eh, 0AEh, 8Bh, 0D8h, 89h, 97h, 2Ah, 0C3h, 0B8h, 0D2h, 0Ch, 50h, 8Bh, 0C7h, 0BAh
-db 0Ah, 00h, 0F7h, 0EAh, 05h, 2Ch, 0C3h, 50h, 0E8h, 0E6h, 32h, 59h, 59h, 0EBh, 09h, 47h
-db 83h, 0FFh, 05h, 7Dh, 03h, 0E9h, 67h, 0FFh, 0E8h, 16h, 0FEh, 83h, 0FFh, 05h, 7Ch, 03h
-db 0E9h, 81h, 00h, 0B8h, 01h, 00h, 50h, 0E8h, 0CCh, 15h, 59h, 0E8h, 01h, 0F0h, 0A1h, 0Eh
-db 0Ch, 05h, 06h, 00h, 0A3h, 02h, 0AEh, 8Bh, 0C7h, 0D1h, 0E0h, 8Bh, 16h, 10h, 0Ch, 03h
-db 0D0h, 4Ah, 89h, 16h, 68h, 0AEh, 33h, 0F6h, 0E8h, 35h, 0F6h, 89h, 46h, 0FEh, 0A2h, 68h
-db 0C3h, 80h, 3Eh, 68h, 0C3h, 20h, 7Ch, 2Eh, 83h, 0FEh, 03h, 7Dh, 29h, 0A0h, 68h, 0C3h
-db 98h, 50h, 0FFh, 36h, 68h, 0AEh, 0FFh, 36h, 02h, 0AEh, 0E8h, 24h, 18h, 83h, 0C4h, 06h
-db 0FFh, 06h, 02h, 0AEh, 8Bh, 0C7h, 0BAh, 0Ah, 00h, 0F7h, 0EAh, 8Ah, 16h, 68h, 0C3h, 8Bh
-db 0D8h, 88h, 90h, 2Ch, 0C3h, 46h, 80h, 3Eh, 68h, 0C3h, 08h, 74h, 07h, 81h, 7Eh, 0FEh
-db 00h, 4Bh, 75h, 09h, 0Bh, 0F6h, 7Eh, 05h, 0FFh, 0Eh, 02h, 0AEh, 4Eh, 80h, 3Eh, 68h
-db 0C3h, 0Dh, 75h, 0A4h, 5Fh, 5Eh, 8Bh, 0E5h
-}
+  int i,j,k;
+
+  for (i=0;i<5;i++)
+    if (score>highscores[i].score)
+    {
+      for (j=4;i<j;j--)
+      {
+	k=j-1;
+	highscores[j] = highscores[k];
+      }
+      highscores[i].score = score;
+      highscores[i].level = level;
+      strcpy(highscores[i].initials,"   ");
+      break;
+    }
+
+  _showhighscores ();
+
+  //
+  // did get a high score
+  //
+  if (i<5)
+  {
+    PlaySound (16);
+    clearkeys ();
+    sx = screencenterx-17/2+14;
+    sy = screencentery-1+i*2;
+    j=0;
+    do
+    {
+      ch = k = get();
+      if (ch>=' ' && j<3)
+      {
+	drawchar (sx,sy,ch);
+	sx++;
+	highscores[i].initials[j]=ch;
+	j++;
+      }
+      if (ch==8 || k==19200)
+	if (j>0)
+	{
+	  sx--;
+	  j--;
+	}
+    } while (ch != 13);
+  }
 }
 
 
