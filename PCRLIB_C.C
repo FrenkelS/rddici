@@ -1396,23 +1396,27 @@ void _loadctrls (void)
 //void sub_0_39AF(void)
 void _savectrls (void)
 {
-asm {
-db 56h, 0B8h, 7Bh, 0Ch, 50h, 0B8h, 10h, 0AEh, 50h, 0E8h, 43h, 36h, 59h, 59h
-db 0FFh, 36h, 46h, 0Ch, 0B8h, 10h, 0AEh, 50h, 0E8h, 0FDh, 35h, 59h, 59h, 0B8h, 80h, 01h
-db 50h, 0B8h, 02h, 03h, 50h, 0B8h, 10h, 0AEh, 50h, 0E8h, 5Bh, 33h, 83h, 0C4h, 06h, 8Bh
-db 0F0h, 3Dh, 0FFh, 0FFh, 75h, 03h, 0E9h, 0AAh, 00h, 0B8h, 02h, 00h, 50h, 0B8h, 9Ch, 0AFh
-db 50h, 56h, 0E8h, 0C6h, 2Dh, 83h, 0C4h, 06h, 0B8h, 02h, 00h, 50h, 0B8h, 0D2h, 10h, 50h
-db 56h, 0E8h, 0B7h, 2Dh, 83h, 0C4h, 06h, 0B8h, 06h, 00h, 50h, 0B8h, 04h, 0Ch, 50h, 56h
-db 0E8h, 0A8h, 2Dh, 83h, 0C4h, 06h, 0B8h, 06h, 00h, 50h, 0B8h, 0EAh, 0ADh, 50h, 56h, 0E8h
-db 99h, 2Dh, 83h, 0C4h, 06h, 0B8h, 06h, 00h, 50h, 0B8h, 0F6h, 0ADh, 50h, 56h, 0E8h, 8Ah
-db 2Dh, 83h, 0C4h, 06h, 0B8h, 06h, 00h, 50h, 0B8h, 0F0h, 0ADh, 50h, 56h, 0E8h, 7Bh, 2Dh
-db 83h, 0C4h, 06h, 0B8h, 06h, 00h, 50h, 0B8h, 0FCh, 0ADh, 50h, 56h, 0E8h, 6Ch, 2Dh, 83h
-db 0C4h, 06h, 0B8h, 02h, 00h, 50h, 0B8h, 9Ah, 0AFh, 50h, 56h, 0E8h, 5Dh, 2Dh, 83h, 0C4h
-db 06h, 0B8h, 08h, 00h, 50h, 0B8h, 60h, 0AEh, 50h, 56h, 0E8h, 4Eh, 2Dh, 83h, 0C4h, 06h
-db 0B8h, 01h, 00h, 50h, 0B8h, 04h, 0AEh, 50h, 56h, 0E8h, 3Fh, 2Dh, 83h, 0C4h, 06h, 0B8h
-db 01h, 00h, 50h, 0B8h, 05h, 0AEh, 50h, 56h, 0E8h, 30h, 2Dh, 83h, 0C4h, 06h, 56h, 0E8h
-db 0A2h, 25h, 59h, 5Eh
-}
+  int handle;
+
+  strcpy (str,"CTLPANEL.");
+  strcat (str,_extension);
+
+  if ((handle = open(str, O_WRONLY | O_BINARY | O_CREAT | O_TRUNC, S_IREAD | S_IWRITE)) == -1)
+    return;
+
+  write(handle, &grmode, sizeof(grmode));
+  write(handle, &soundmode, sizeof(soundmode));
+  write(handle, &playermode, sizeof(playermode));
+  write(handle, &JoyXlow, sizeof(JoyXlow));
+  write(handle, &JoyYlow, sizeof(JoyYlow));
+  write(handle, &JoyXhigh, sizeof(JoyXhigh));
+  write(handle, &JoyYhigh, sizeof(JoyYhigh));
+  write(handle, &MouseSensitivity, sizeof(MouseSensitivity));
+  write(handle, &key, sizeof(key));
+  write(handle, &keyB1, sizeof(keyB1));
+  write(handle, &keyB2, sizeof(keyB2));
+
+  close(handle);
 }
 
 
@@ -1423,18 +1427,20 @@ db 0A2h, 25h, 59h, 5Eh
 // creates a default if not present
 //
 ////////////////////////
-void sub_0_3A96(void)
+//void sub_0_3A96(void)
+void _loadhighscores (void)
 {
-asm {
-db 56h, 0B8h, 85h, 0Ch, 50h, 0B8h, 10h
-db 0AEh, 50h, 0E8h, 5Ch, 35h, 59h, 59h, 0FFh, 36h, 46h, 0Ch, 0B8h, 10h, 0AEh, 50h, 0E8h
-db 16h, 35h, 59h, 59h, 1Eh, 0B8h, 26h, 0C3h, 50h, 0B8h, 10h, 0AEh, 50h, 0E8h, 17h, 0F3h
-db 83h, 0C4h, 06h, 0Bh, 0C2h, 75h, 42h, 33h, 0F6h, 0EBh, 39h, 8Bh, 0C6h, 0BAh, 0Ah, 00h
-db 0F7h, 0EAh, 8Bh, 0D8h, 0C7h, 87h, 26h, 0C3h, 64h, 00h, 0C7h, 87h, 28h, 0C3h, 00h, 00h
-db 8Bh, 0C6h, 0BAh, 0Ah, 00h, 0F7h, 0EAh, 8Bh, 0D8h, 0C7h, 87h, 2Ah, 0C3h, 01h, 00h, 0B8h
-db 8Dh, 0Ch, 50h, 8Bh, 0C6h, 0BAh, 0Ah, 00h, 0F7h, 0EAh, 05h, 2Ch, 0C3h, 50h, 0E8h, 00h
-db 35h, 59h, 59h, 46h, 83h, 0FEh, 05h, 7Ch, 0C2h, 5Eh
-}
+  int i;
+
+  strcpy (str,"SCORES.");
+  strcat (str,_extension);
+  if (LoadFile(str,(char huge *)highscores) == 0 )
+    for (i=0;i<5;i++)
+    {
+      highscores[i].score = 100;
+      highscores[i].level = 1;
+      strcpy(highscores[i].initials,"PCR");
+    }
 }
 
 //void sub_0_3B0C(void)
@@ -1452,31 +1458,44 @@ void _savehighscores (void)
 // Brings up a dialog box with the high score lists and returns immediately
 //
 ////////////////////////
-void sub_0_3B41(void)
+//void sub_0_3B41(void)
+void _showhighscores (void)
 {
-asm {
-db 83h, 0ECh, 04h, 56h, 0B8h, 0Fh, 00h, 50h, 0B8h, 11h, 00h, 50h
-db 0E8h, 96h, 0F7h, 59h, 59h, 0B8h, 99h, 0Ch, 50h, 0E8h, 95h, 0F8h, 59h, 0B8h, 0ABh, 0Ch
-db 50h, 0E8h, 8Dh, 0F8h, 59h, 0B8h, 0BDh, 0Ch, 50h, 0E8h, 85h, 0F8h, 59h, 33h, 0F6h, 0E9h
-db 04h, 01h, 0FFh, 06h, 02h, 0AEh, 8Bh, 0C6h, 05h, 31h, 00h, 50h, 0FFh, 36h, 68h, 0AEh
-db 0FFh, 36h, 02h, 0AEh, 0E8h, 1Ah, 1Ah, 83h, 0C4h, 06h, 83h, 06h, 02h, 0AEh, 02h, 8Bh
-db 0C6h, 0BAh, 0Ah, 00h, 0F7h, 0EAh, 8Bh, 0D8h, 8Bh, 87h, 28h, 0C3h, 8Bh, 97h, 26h, 0C3h
-db 89h, 56h, 0FCh, 89h, 46h, 0FEh, 83h, 7Eh, 0FEh, 01h, 7Fh, 0Dh, 7Ch, 07h, 81h, 7Eh
-db 0FCh, 0A0h, 86h, 73h, 04h, 0FFh, 06h, 02h, 0AEh, 83h, 7Eh, 0FEh, 00h, 7Fh, 0Dh, 7Ch
-db 07h, 81h, 7Eh, 0FCh, 10h, 27h, 73h, 04h, 0FFh, 06h, 02h, 0AEh, 83h, 7Eh, 0FEh, 00h
-db 7Fh, 0Dh, 7Ch, 07h, 81h, 7Eh, 0FCh, 0E8h, 03h, 73h, 04h, 0FFh, 06h, 02h, 0AEh, 83h
-db 7Eh, 0FEh, 00h, 7Fh, 0Ch, 7Ch, 06h, 83h, 7Eh, 0FCh, 64h, 73h, 04h, 0FFh, 06h, 02h
-db 0AEh, 83h, 7Eh, 0FEh, 00h, 7Fh, 0Ch, 7Ch, 06h, 83h, 7Eh, 0FCh, 0Ah, 73h, 04h, 0FFh
-db 06h, 02h, 0AEh, 0B8h, 0Ah, 00h, 50h, 0B8h, 10h, 0AEh, 50h, 0FFh, 76h, 0FEh, 0FFh, 76h
-db 0FCh, 0E8h, 90h, 30h, 83h, 0C4h, 08h, 0B8h, 10h, 0AEh, 50h, 0E8h, 0D3h, 0F7h, 59h, 0FFh
-db 06h, 02h, 0AEh, 8Bh, 0C6h, 0BAh, 0Ah, 00h, 0F7h, 0EAh, 8Bh, 0D8h, 83h, 0BFh, 2Ah, 0C3h
-db 0Ah, 7Dh, 04h, 0FFh, 06h, 02h, 0AEh, 0B8h, 0Ah, 00h, 50h, 0B8h, 10h, 0AEh, 50h, 8Bh
-db 0C6h, 0BAh, 0Ah, 00h, 0F7h, 0EAh, 8Bh, 0D8h, 0FFh, 0B7h, 2Ah, 0C3h, 0E8h, 14h, 30h, 83h
-db 0C4h, 06h, 0B8h, 10h, 0AEh, 50h, 0E8h, 98h, 0F7h, 59h, 0FFh, 06h, 02h, 0AEh, 8Bh, 0C6h
-db 0BAh, 0Ah, 00h, 0F7h, 0EAh, 05h, 2Ch, 0C3h, 50h, 0E8h, 85h, 0F7h, 59h, 0B8h, 0CFh, 0Ch
-db 50h, 0E8h, 7Dh, 0F7h, 59h, 46h, 83h, 0FEh, 05h, 7Dh, 03h, 0E9h, 0F4h, 0FEh, 5Eh, 8Bh
-db 0E5h
-}
+  int i;
+  long h;
+  char st2[10];
+
+  centerwindow (17,17);
+  print ("\n   HIGH SCORES\n\n");
+  print (" #  SCORE LV  BY\n");
+  print (" - ------ -- ---\n");
+  for (i=0;i<5;i++)
+  {
+    sx++;
+    drawchar (sx,sy,'1'+i);
+    sx+=2;
+    h=highscores[i].score;
+    if (h<100000l)
+      sx++;
+    if (h<10000l)
+      sx++;
+    if (h<1000l)
+      sx++;
+    if (h<100l)
+      sx++;
+    if (h<10l)
+      sx++;
+    ltoa(h,str,10);
+    print (str);
+    sx++;
+    if (highscores[i].level<10)
+      sx++;
+    itoa(highscores[i].level,str,10);
+    print (str);
+    sx++;
+    print (highscores[i].initials);
+    print ("\n\n");
+  }
 }
 
 
