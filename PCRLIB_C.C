@@ -1566,20 +1566,46 @@ void _checkhighscore (void)
 //void sub_0_3DBA(void)
 void _setupgame (void)
 {
-asm {
-db 0E8h, 9Bh, 1Dh
-db 0A3h, 0E8h, 0ADh, 0C7h, 06h, 9Ch, 0AFh, 00h, 00h, 83h, 3Eh, 0E8h, 0ADh, 05h, 74h, 0Dh
-db 83h, 3Eh, 0E8h, 0ADh, 04h, 74h, 06h, 0C7h, 06h, 5Eh, 0C3h, 00h, 00h, 83h, 3Eh, 0E8h
-db 0ADh, 03h, 74h, 0Dh, 83h, 3Eh, 0E8h, 0ADh, 05h, 74h, 06h, 0C7h, 06h, 84h, 0AEh, 00h
-db 00h, 0E8h, 5Dh, 0FAh, 83h, 3Eh, 9Ch, 0AFh, 03h, 75h, 0Fh, 83h, 3Eh, 5Eh, 0C3h, 00h
-db 74h, 08h, 0C7h, 06h, 9Ch, 0AFh, 03h, 00h, 0EBh, 1Ch, 83h, 3Eh, 9Ch, 0AFh, 02h, 7Ch
-db 0Fh, 83h, 3Eh, 84h, 0AEh, 00h, 74h, 08h, 0C7h, 06h, 9Ch, 0AFh, 02h, 00h, 0EBh, 06h
-db 0C7h, 06h, 9Ch, 0AFh, 01h, 00h, 0B8h, 0D6h, 0Ch, 50h, 0B8h, 10h, 0AEh, 50h, 0E8h, 0D0h
-db 31h, 59h, 59h, 0FFh, 36h, 46h, 0Ch, 0B8h, 10h, 0AEh, 50h, 0E8h, 8Ah, 31h, 59h, 59h
-db 0B8h, 10h, 0AEh, 50h, 0E8h, 0BEh, 0F0h, 59h, 0A3h, 0CEh, 10h, 89h, 16h, 0D0h, 10h, 0E8h
-db 3Ah, 14h, 0E8h, 15h, 0E7h, 0B8h, 01h, 00h, 50h, 0E8h, 0C5h, 16h, 59h, 0E8h, 36h, 0FCh
-db 0E8h, 0EFh, 0C4h
-}
+//
+// set up game's library routines
+//
+  _videocard = VideoID ();
+
+  grmode = text;
+
+  if (!(_videocard == VGAcard || _videocard == MCGAcard))
+    _vgaok = false;
+
+  if (!(_videocard == EGAcard || _videocard == VGAcard))
+    _egaok = false;
+
+  // allways assume CGA compatability for simCGA garbage
+
+  _loadctrls ();
+
+  if (grmode==VGAgr && _vgaok)
+    grmode=VGAgr;
+  else if (grmode>=EGAgr && _egaok)
+    grmode=EGAgr;
+  else
+    grmode=CGAgr;
+
+  strcpy (str,"SOUNDS.");
+  strcat (str,_extension);
+
+  SoundData = (char huge *) bloadin (str);
+
+  StartupSound ();
+
+  SetupKBD ();
+
+  initrndt (1);		// setup random routines
+//  initrnd (1);
+
+  _loadhighscores ();
+
+  loadgrfiles ();	// load the graphic files
+
 }
 
 
