@@ -794,24 +794,38 @@ int sx,sy,leftedge;
 //void sub_0_302F(void)
 void setscreenmode (grtype mode)
 {
-asm {
-db 83h, 0ECh, 04h, 0C7h, 46h, 0FCh, 8Eh, 94h, 8Ch, 5Eh, 0FEh, 8Bh, 5Eh, 04h
-db 83h, 0FBh, 03h, 77h, 4Eh, 0D1h, 0E3h, 2Eh, 0FFh, 0A7h, 9Dh, 30h, 0B8h, 03h, 00h, 0CDh
-db 10h, 0C7h, 06h, 0EAh, 10h, 00h, 0B8h, 0EBh, 3Ah, 0B8h, 04h, 00h, 0CDh, 10h, 0C7h, 06h
-db 0EAh, 10h, 00h, 0B8h, 0EBh, 2Dh, 0B8h, 0Dh, 00h, 0CDh, 10h, 0C7h, 06h, 0EAh, 10h, 00h
-db 0A0h, 0E8h, 7Bh, 1Ch, 0E8h, 19h, 0D2h, 0EBh, 1Ah, 0B8h, 13h, 00h, 0CDh, 10h, 0C7h, 06h
-db 0EAh, 10h, 00h, 0A0h, 0C4h, 56h, 0FCh, 33h, 0DBh, 0B9h, 00h, 01h, 0B8h, 12h, 10h, 0CDh
-db 10h, 0EBh, 00h, 0C7h, 06h, 60h, 0C3h, 0D4h, 03h, 8Bh, 0E5h
+  char extern VGAPAL;			// deluxepaint vga pallet .OBJ file
+  void far *vgapal = &VGAPAL;
 
-db 5Dh, 0C3h
-//}
-//}
-
-
-dw 304Ch
-dw 3059h
-dw 3066h
-dw 3079h
+  switch (mode)
+  {
+    case text: _AX = 3;
+	       geninterrupt (0x10);
+	       screenseg=0xb800;
+	       break;
+    case CGAgr: _AX = 4;
+		geninterrupt (0x10);
+		screenseg=0xb800;
+		break;
+    case EGAgr: _AX = 0xd;
+		geninterrupt (0x10);
+		screenseg=0xa000;
+		EGAmove ();
+		moveega ();
+		break;
+    case VGAgr: _AX = 0x13;
+		geninterrupt (0x10);
+		screenseg=0xa000;
+		_ES = FP_SEG(vgapal);
+		_DX = FP_OFF(vgapal);
+		_BX = 0;
+		_CX = 0x100;
+		_AX = 0x1012;
+		geninterrupt(0x10);			// set the deluxepaint pallet
+		break;
+  }
+  crtcaddr = 0x3d4;		//peek (0x40,0x63) if not for two monitors...
+}
 
 
 /*
@@ -821,22 +835,21 @@ dw 3079h
 =
 ========================
 */
-
 //void sub_0_30A5(void)
-//{
-//asm {
-db 55h, 8Bh, 0ECh
-
-db 56h, 8Bh, 76h, 04h, 0E8h, 0A7h, 24h, 83h
-db 3Eh, 0E8h, 0ADh, 05h, 75h, 09h, 0BAh, 02h, 00h, 8Bh, 0C6h, 0F7h, 0EAh, 8Bh, 0F0h, 0B0h
-db 18h, 50h, 0FFh, 36h, 60h, 0C3h, 0E8h, 0F3h, 3Dh, 59h, 59h, 8Bh, 0C6h, 0BBh, 00h, 01h
-db 99h, 0F7h, 0FBh, 52h, 0A1h, 60h, 0C3h, 40h, 50h, 0E8h, 0E0h, 3Dh, 59h, 59h, 0B0h, 07h
-db 50h, 0FFh, 36h, 60h, 0C3h, 0E8h, 0D4h, 3Dh, 59h, 59h, 8Bh, 0C6h, 0BBh, 00h, 01h, 99h
-db 0F7h, 0FBh, 0B1h, 04h, 0D2h, 0E0h, 0FEh, 0C0h, 50h, 0A1h, 60h, 0C3h, 40h, 50h, 0E8h, 0BBh
-db 3Dh, 59h, 59h, 83h, 3Eh, 0E8h, 0ADh, 05h, 75h, 22h, 0B0h, 09h, 50h, 0FFh, 36h, 60h
-db 0C3h, 0E8h, 0A8h, 3Dh, 59h, 59h, 0A1h, 60h, 0C3h, 40h, 50h, 0E8h, 5Eh, 39h, 59h, 24h
-db 0BFh, 50h, 0A1h, 60h, 0C3h, 40h, 50h, 0E8h, 92h, 3Dh, 59h, 59h, 5Eh
-}
+void egasplitscreen (int linenum)
+{
+  WaitVBL ();
+  if (_videocard==VGAcard)
+    linenum*=2;
+  outportb (crtcaddr,CRTCLINECOMPARE);
+  outportb (crtcaddr+1,linenum % 256);
+  outportb (crtcaddr,CRTCOVERFLOW);
+  outportb (crtcaddr+1, 1+16*(linenum/256));
+  if (_videocard==VGAcard)
+  {
+    outportb (crtcaddr,CRTCMAXSCANLINE);
+    outportb (crtcaddr+1,inportb(crtcaddr+1) & (255-64));
+  }
 }
 
 
