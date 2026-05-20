@@ -388,18 +388,21 @@ db 0A2h, 9Eh, 0AFh, 0C7h, 06h, 94h, 0AEh, 9Fh, 0AFh, 0C7h, 06h, 5Ch, 0C3h, 02h, 
 // saves the accumulated demo command string to disk
 //
 ////////////////////////
-
-void sub_0_2C61(void)
+//void sub_0_2C61(void)
+void LoadDemo (int demonum)
 {
-asm {
-db 83h, 0ECh, 06h, 0B8h, 48h, 0Ch, 50h, 0B8h, 10h, 0AEh, 50h, 0E8h
-db 8Fh, 43h, 59h, 59h, 0B8h, 0Ah, 00h, 50h, 8Dh, 46h, 0FAh, 50h, 0FFh, 76h, 04h, 0E8h
-db 0E1h, 3Fh, 83h, 0C4h, 06h, 8Dh, 46h, 0FAh, 50h, 0B8h, 10h, 0AEh, 50h, 0E8h, 38h, 43h
-db 59h, 59h, 0B8h, 4Dh, 0Ch, 50h, 0B8h, 10h, 0AEh, 50h, 0E8h, 2Bh, 43h, 59h, 59h, 0FFh
-db 36h, 46h, 0Ch, 0B8h, 10h, 0AEh, 50h, 0E8h, 1Eh, 43h, 59h, 59h, 0B8h, 9Eh, 0AFh, 1Eh
-db 50h, 0B8h, 10h, 0AEh, 50h, 0E8h, 1Fh, 01h, 83h, 0C4h, 06h, 0A0h, 9Eh, 0AFh, 98h, 0A3h
-db 6Eh, 0AEh, 0C7h, 06h, 94h, 0AEh, 9Fh, 0AFh, 0C7h, 06h, 5Ch, 0C3h, 01h, 00h, 8Bh, 0E5h
-}
+  char st2[5];
+
+  strcpy (str,"DEMO");
+  itoa (demonum,st2,10);
+  strcat (str,st2);
+  strcat (str,".");
+  strcat (str,_extension);
+
+  LoadFile (str,MK_FP(_DS,&demobuffer));
+  level=demobuffer[0];
+  demoptr = &demobuffer[1];
+  indemo = demoplay;
 }
 
 
