@@ -953,36 +953,42 @@ void centerwindow (int width, int height)
 // Grows the window outward
 //
 ///////////////////////////////
-void sub_0_32E9(void)
+//void sub_0_32E9(void)
+void expwin (int width, int height)
 {
-asm {
-db 56h, 57h, 8Bh, 7Eh
-db 04h, 8Bh, 76h, 06h, 83h, 0FFh, 02h, 7Eh, 26h, 83h, 0FEh, 02h, 7Eh, 13h, 8Bh, 0C6h
-db 05h, 0FEh, 0FFh, 50h, 8Bh, 0C7h, 05h, 0FEh, 0FFh, 50h, 0E8h, 0DCh, 0FFh, 59h, 59h, 0EBh
-db 0Ch, 56h, 8Bh, 0C7h, 05h, 0FEh, 0FFh, 50h, 0E8h, 23h, 00h, 59h, 59h, 0EBh, 11h, 83h
-db 0FEh, 02h, 7Eh, 0Ch, 8Bh, 0C6h, 05h, 0FEh, 0FFh, 50h, 57h, 0E8h, 39h, 00h, 59h, 59h
-db 0E8h, 23h, 22h, 56h, 57h, 0E8h, 70h, 0FFh, 59h, 59h, 5Fh, 5Eh
-}
+  if (width > 2)
+  {
+    if (height >2)
+      expwin (width-2,height-2);
+    else
+      expwinh (width-2,height);
+  }
+  else
+    if (height >2)
+      expwinv (width,height-2);
+
+  WaitVBL ();
+  centerwindow (width,height);
 }
 
-
-void sub_0_333E(void)
+//void sub_0_333E(void)
+void expwinh (int width, int height)
 {
-asm {
-db 56h, 8Bh, 76h, 04h, 83h, 0FEh, 02h, 7Eh, 0Eh, 0FFh, 76h, 06h, 8Bh, 0C6h, 05h
-db 0FEh, 0FFh, 50h, 0E8h, 0E8h, 0FFh, 59h, 59h, 0E8h, 0FBh, 21h, 0FFh, 76h, 06h, 56h, 0E8h
-db 46h, 0FFh, 59h, 59h, 5Eh
-}
+  if (width > 2)
+    expwinh (width-2,height);
+
+  WaitVBL ();
+  centerwindow (width,height);
 }
 
-
-void sub_0_3367(void)
+//void sub_0_3367(void)
+void expwinv (int width, int height)
 {
-asm {
-db 56h, 8Bh, 76h, 06h, 83h, 0FEh
-db 02h, 7Eh, 0Eh, 8Bh, 0C6h, 05h, 0FEh, 0FFh, 50h, 0FFh, 76h, 04h, 0E8h, 0E8h, 0FFh, 59h
-db 59h, 0E8h, 0D2h, 21h, 56h, 0FFh, 76h, 04h, 0E8h, 1Dh, 0FFh, 59h, 59h, 5Eh
-}
+  if (height >2)
+    expwinv (width,height-2);
+
+  WaitVBL ();
+  centerwindow (width,height);
 }
 
 
