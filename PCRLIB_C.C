@@ -319,50 +319,57 @@ void ReadJoystick (int joynum,int *xcount,int *ycount)
 =
 =============================
 */
-
-void sub_0_2998(void)
+//void sub_0_2998(void)
+ControlStruct ControlJoystick (int joynum)
 {
-asm {
-db 83h, 0ECh, 0Eh, 56h, 57h
-db 8Bh, 76h, 08h, 0C7h, 46h, 0FEh, 00h, 00h, 0C7h, 46h, 0FCh, 00h, 00h, 0C7h, 46h, 0FAh
-db 00h, 00h, 0C7h, 46h, 0F8h, 00h, 00h, 8Dh, 46h, 0FCh, 50h, 8Dh, 46h, 0FEh, 50h, 56h
-db 0E8h, 3Ah, 0FFh, 83h, 0C4h, 06h, 81h, 7Eh, 0FEh, 0F4h, 01h, 7Eh, 05h, 0B8h, 01h, 00h
-db 0EBh, 02h, 33h, 0C0h, 50h, 81h, 7Eh, 0FCh, 0F4h, 01h, 7Eh, 05h, 0B8h, 01h, 00h, 0EBh
-db 02h, 33h, 0C0h, 5Ah, 0Bh, 0D0h, 74h, 18h, 8Bh, 0DEh, 0D1h, 0E3h, 8Bh, 87h, 0EAh, 0ADh
-db 40h, 89h, 46h, 0FEh, 8Bh, 0DEh, 0D1h, 0E3h, 8Bh, 87h, 0F6h, 0ADh, 40h, 89h, 46h, 0FCh
-db 8Bh, 0DEh, 0D1h, 0E3h, 8Bh, 87h, 0F0h, 0ADh, 3Bh, 46h, 0FEh, 7Dh, 07h, 0C7h, 46h, 0FAh
-db 01h, 00h, 0EBh, 12h, 8Bh, 0DEh, 0D1h, 0E3h, 8Bh, 87h, 0EAh, 0ADh, 3Bh, 46h, 0FEh, 7Eh
-db 05h, 0C7h, 46h, 0FAh, 0FFh, 0FFh, 8Bh, 0DEh, 0D1h, 0E3h, 8Bh, 87h, 0FCh, 0ADh, 3Bh, 46h
-db 0FCh, 7Dh, 07h, 0C7h, 46h, 0F8h, 01h, 00h, 0EBh, 12h, 8Bh, 0DEh, 0D1h, 0E3h, 8Bh, 87h
-db 0F6h, 0ADh, 3Bh, 46h, 0FCh, 7Eh, 05h, 0C7h, 46h, 0F8h, 0FFh, 0FFh, 8Bh, 46h, 0F8h, 0BAh
-db 03h, 00h, 0F7h, 0EAh, 03h, 46h, 0FAh, 2Dh, 0FCh, 0FFh, 8Bh, 0D8h, 83h, 0FBh, 08h, 77h
-db 46h, 0D1h, 0E3h, 2Eh, 0FFh, 0A7h, 16h, 2Bh, 0C7h, 46h, 0F2h, 07h, 00h, 0EBh, 38h, 0C7h
-db 46h, 0F2h, 00h, 00h, 0EBh, 31h, 0C7h, 46h, 0F2h, 01h, 00h, 0EBh, 2Ah, 0C7h, 46h, 0F2h
-db 06h, 00h, 0EBh, 23h, 0C7h, 46h, 0F2h, 08h, 00h, 0EBh, 1Ch, 0C7h, 46h, 0F2h, 02h, 00h
-db 0EBh, 15h, 0C7h, 46h, 0F2h, 05h, 00h, 0EBh, 0Eh, 0C7h, 46h, 0F2h, 04h, 00h, 0EBh, 07h
-db 0C7h, 46h, 0F2h, 03h, 00h, 0EBh, 00h, 0B8h, 01h, 02h, 50h, 0E8h, 0CEh, 3Fh, 59h, 0B4h
-db 00h, 8Bh, 0F8h, 83h, 0FEh, 01h, 75h, 22h, 0F7h, 0C7h, 10h, 00h, 75h, 05h, 0B8h, 01h
-db 00h, 0EBh, 02h, 33h, 0C0h, 89h, 46h, 0F4h, 0F7h, 0C7h, 20h, 00h, 75h, 05h, 0B8h, 01h
-db 00h, 0EBh, 02h, 33h, 0C0h, 89h, 46h, 0F6h, 0EBh, 20h, 0F7h, 0C7h, 40h, 00h, 75h, 05h
-db 0B8h, 01h, 00h, 0EBh, 02h, 33h, 0C0h, 89h, 46h, 0F4h, 0F7h, 0C7h, 80h, 00h, 75h, 05h
-db 0B8h, 01h, 00h, 0EBh, 02h, 33h, 0C0h, 89h, 46h, 0F6h, 0FFh, 76h, 06h, 0FFh, 76h, 04h
-db 8Dh, 46h, 0F2h, 16h, 50h, 0B9h, 06h, 00h, 0E8h, 97h, 4Ah, 8Bh, 46h, 04h, 0EBh, 00h
-db 5Fh, 5Eh, 8Bh, 0E5h
+ int joyx = 0,joyy = 0,		/* resistance in joystick */
+     xmove = 0,
+     ymove = 0,
+     buttons;
+ ControlStruct action;
 
-db 5Dh, 0C3h
-//}
-//}
+ ReadJoystick (joynum,&joyx,&joyy);
+ if ( (joyx>500) | (joyy>500) )
+ {
+   joyx=JoyXlow [joynum] + 1;	/* no joystick connected, do nothing */
+   joyy=JoyYlow [joynum] + 1;
+ }
 
+ if (joyx > JoyXhigh [joynum])
+   xmove = 1;
+ else if (joyx < JoyXlow [joynum])
+   xmove = -1;
+ if (joyy > JoyYhigh [joynum])
+   ymove = 1;
+ else if (joyy < JoyYlow [joynum])
+   ymove = -1;
 
-dw 2A68h
-dw 2A6Fh
-dw 2A76h
-dw 2A7Dh
-dw 2A84h
-dw 2A8Bh
-dw 2A92h
-dw 2A99h
-dw 2AA0h
+ switch (ymove*3+xmove)
+ {
+   case -4: action.dir = northwest; break;
+   case -3: action.dir = north; break;
+   case -2: action.dir = northeast; break;
+   case -1: action.dir = west; break;
+   case  0: action.dir = nodir; break;
+   case  1: action.dir = east; break;
+   case  2: action.dir = southwest; break;
+   case  3: action.dir = south; break;
+   case  4: action.dir = southeast; break;
+ }
+
+ buttons = inportb (0x201);	/* get all four button status */
+ if (joynum == 1)
+ {
+   action.button1 = ((buttons & 0x10) == 0);
+   action.button2 = ((buttons & 0x20) == 0);
+ }
+ else
+ {
+   action.button1 = ((buttons & 0x40) == 0);
+   action.button2 = ((buttons & 0x80) == 0);
+ }
+ return (action);
+}
 
 
 /*
@@ -374,40 +381,49 @@ dw 2AA0h
 =
 =============================
 */
-
 //void sub_0_2B28(void)
-//{
-//asm {
-db 55h, 8Bh, 0ECh
+ControlStruct ControlPlayer (int player)
+{
+ ControlStruct ret;
+ int val;
 
-db 83h, 0ECh, 20h, 83h, 3Eh
-db 5Ch, 0C3h, 00h, 74h, 0Ah, 83h, 3Eh, 5Ch, 0C3h, 02h, 74h, 03h, 0E9h, 0BCh, 00h, 8Bh
-db 5Eh, 08h, 0D1h, 0E3h, 8Bh, 9Fh, 04h, 0Ch, 83h, 0FBh, 03h, 76h, 03h, 0E9h, 81h, 00h
-db 0D1h, 0E3h, 2Eh, 0FFh, 0A7h, 42h, 2Ch, 8Dh, 46h, 0FAh, 16h, 50h, 16h, 8Dh, 46h, 0F2h
-db 50h, 0E8h, 0Fh, 0FBh, 59h, 59h, 8Dh, 46h, 0F2h, 16h, 50h, 0B9h, 06h, 00h, 0E8h, 31h
-db 4Ah, 0EBh, 5Eh, 8Dh, 46h, 0FAh, 16h, 50h, 16h, 8Dh, 46h, 0ECh, 50h, 0E8h, 40h, 0FCh
-db 59h, 59h, 8Dh, 46h, 0ECh, 16h, 50h, 0B9h, 06h, 00h, 0E8h, 15h, 4Ah, 0EBh, 42h, 8Dh
-db 46h, 0FAh, 16h, 50h, 0B8h, 01h, 00h, 50h, 16h, 8Dh, 46h, 0E6h, 50h, 0E8h, 0F8h, 0FDh
-db 83h, 0C4h, 06h, 8Dh, 46h, 0E6h, 16h, 50h, 0B9h, 06h, 00h, 0E8h, 0F4h, 49h, 0EBh, 21h
-db 8Dh, 46h, 0FAh, 16h, 50h, 0B8h, 02h, 00h, 50h, 16h, 8Dh, 46h, 0E0h, 50h, 0E8h, 0D7h
-db 0FDh, 83h, 0C4h, 06h, 8Dh, 46h, 0E0h, 16h, 50h, 0B9h, 06h, 00h, 0E8h, 0D3h, 49h, 0EBh
-db 00h, 83h, 3Eh, 5Ch, 0C3h, 02h, 75h, 21h, 8Bh, 46h, 0FAh, 0D1h, 0E0h, 0D1h, 0E0h, 8Bh
-db 56h, 0FEh, 0D1h, 0E2h, 0Bh, 0C2h, 0Bh, 46h, 0FCh, 89h, 46h, 0F8h, 8Bh, 1Eh, 94h, 0AEh
-db 8Ah, 46h, 0F8h, 88h, 07h, 0FFh, 06h, 94h, 0AEh, 0EBh, 2Dh, 8Bh, 1Eh, 94h, 0AEh, 8Ah
-db 07h, 98h, 89h, 46h, 0F8h, 0FFh, 06h, 94h, 0AEh, 8Bh, 46h, 0F8h, 25h, 01h, 00h, 89h
-db 46h, 0FCh, 8Bh, 46h, 0F8h, 25h, 01h, 00h, 89h, 46h, 0FEh, 8Bh, 46h, 0F8h, 25h, 3Ch
-db 00h, 0D1h, 0F8h, 0D1h, 0F8h, 89h, 46h, 0FAh, 0FFh, 76h, 06h, 0FFh, 76h, 04h, 8Dh, 46h
-db 0FAh, 16h, 50h, 0B9h, 06h, 00h, 0E8h, 69h, 49h, 8Bh, 46h, 04h, 0EBh, 00h, 8Bh, 0E5h
+ if (indemo == notdemo || indemo == recording)
+ {
+   switch (playermode[player])
+   {
+     case keyboard : ret = ControlKBD (); break;
+     case mouse    : ret = ControlMouse (); break;
+     case joystick1: ret = ControlJoystick(1); break;
+     case joystick2: ret = ControlJoystick(2); break;
+   }
 
-db 5Dh, 0C3h
-//}
-//}
+   //
+   // recording a demo?
+   //
+   if (indemo == recording)
+   {
+     val = (ret.dir << 2) | (ret.button2 << 1) | ret.button1;
+     *demoptr++=val;
+   }
 
 
-dw 2B57h
-dw 2B73h
-dw 2B8Fh
-dw 2BB0h
+ }
+
+ else
+
+ //
+ // get the command from the demo buffer
+ //
+ {
+   val = *demoptr++;
+
+   ret.button1 = val & 1;
+   ret.button2 = val & 1;
+   ret.dir = (dirtype) ( (val & (4+8+16+32) ) >> 2);
+ }
+
+ return (ret);
+}
 
 
 ////////////////////////
@@ -416,15 +432,12 @@ dw 2BB0h
 // Clears the demo buffer and starts capturing events
 //
 ////////////////////////
-
 //void sub_0_2C4A(void)
-//{
-//asm {
-db 55h, 8Bh, 0ECh
-
-db 0A0h, 6Eh, 0AEh
-db 0A2h, 9Eh, 0AFh, 0C7h, 06h, 94h, 0AEh, 9Fh, 0AFh, 0C7h, 06h, 5Ch, 0C3h, 02h, 00h
-}
+void RecordDemo (void)
+{
+  demobuffer[0]=level;
+  demoptr = &demobuffer[1];
+  indemo = recording;
 }
 
 
