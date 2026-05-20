@@ -881,26 +881,33 @@ int screencenterx = 19,screencentery = 11;
 // draws a bordered window and homes the cursor
 //
 //////////////////////////
-
-void sub_0_3171(void)
+//void sub_0_3171(void)
+void drawwindow (int xl, int yl, int xh, int yh)
 {
-asm {
-db 56h, 57h, 8Bh, 46h, 04h, 0A3h, 8Ch, 0AEh, 8Bh, 46h, 06h, 0A3h
-db 90h, 0AEh, 8Bh, 46h, 08h, 0A3h, 8Eh, 0AEh, 8Bh, 46h, 0Ah, 0A3h, 92h, 0AEh, 0B8h, 01h
-db 00h, 50h, 0FFh, 76h, 06h, 0FFh, 76h, 04h, 0E8h, 06h, 24h, 83h, 0C4h, 06h, 8Bh, 46h
-db 04h, 40h, 8Bh, 0F0h, 0EBh, 0Fh, 0B8h, 02h, 00h, 50h, 0FFh, 76h, 06h, 56h, 0E8h, 0F0h
-db 23h, 83h, 0C4h, 06h, 46h, 3Bh, 76h, 08h, 7Ch, 0ECh, 0B8h, 03h, 00h, 50h, 0FFh, 76h
-db 06h, 0FFh, 76h, 08h, 0E8h, 0DAh, 23h, 83h, 0C4h, 06h, 8Bh, 46h, 06h, 40h, 8Bh, 0F8h
-db 0EBh, 37h, 0B8h, 04h, 00h, 50h, 57h, 0FFh, 76h, 04h, 0E8h, 0C4h, 23h, 83h, 0C4h, 06h
-db 8Bh, 46h, 04h, 40h, 8Bh, 0F0h, 0EBh, 0Dh, 0B8h, 20h, 00h, 50h, 57h, 56h, 0E8h, 0B0h
-db 23h, 83h, 0C4h, 06h, 46h, 3Bh, 76h, 08h, 7Ch, 0EEh, 0B8h, 05h, 00h, 50h, 57h, 0FFh
-db 76h, 08h, 0E8h, 9Ch, 23h, 83h, 0C4h, 06h, 47h, 3Bh, 7Eh, 0Ah, 7Ch, 0C4h, 0B8h, 06h
-db 00h, 50h, 0FFh, 76h, 0Ah, 0FFh, 76h, 04h, 0E8h, 86h, 23h, 83h, 0C4h, 06h, 8Bh, 46h
-db 04h, 40h, 8Bh, 0F0h, 0EBh, 0Fh, 0B8h, 07h, 00h, 50h, 0FFh, 76h, 0Ah, 56h, 0E8h, 70h
-db 23h, 83h, 0C4h, 06h, 46h, 3Bh, 76h, 08h, 7Ch, 0ECh, 0B8h, 08h, 00h, 50h, 0FFh, 76h
-db 0Ah, 0FFh, 76h, 08h, 0E8h, 5Ah, 23h, 83h, 0C4h, 06h, 8Bh, 46h, 04h, 40h, 0A3h, 8Ah
-db 0AEh, 0A3h, 02h, 0AEh, 8Bh, 46h, 06h, 40h, 0A3h, 68h, 0AEh, 5Fh, 5Eh
-}
+ int x,y;
+ win_xl=xl;
+ win_yl=yl;
+ win_xh=xh;
+ win_yh=yh;		// so the window can be erased
+
+ drawchar (xl,yl,1);
+ for (x=xl+1;x<xh;x++)
+   drawchar (x,yl,2);
+ drawchar (xh,yl,3);
+ for (y=yl+1;y<yh;y++)
+ {
+   drawchar (xl,y,4);
+   for (x=xl+1;x<xh;x++)
+     drawchar (x,y,' ');
+   drawchar (xh,y,5);
+ }
+ drawchar (xl,yh,6);
+ for (x=xl+1;x<xh;x++)
+   drawchar (x,yh,7);
+ drawchar (xh,yh,8);
+
+ sx = leftedge = xl+1;
+ sy = yl+1;
 }
 
 ////////////////////////////
