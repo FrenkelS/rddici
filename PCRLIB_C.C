@@ -744,7 +744,8 @@ void huge *bloadin (char *filename)
 }
 
 
-void sub_0_2F64(void)
+//void sub_0_2F64(void)
+void huge *bloadinLZW (char *filename)
 {
 asm {
 db 83h, 0ECh, 14h, 56h, 0B8h, 00h, 80h, 50h, 0FFh

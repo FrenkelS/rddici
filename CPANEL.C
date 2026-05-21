@@ -433,7 +433,7 @@ void installgrfile (char *filename, int unpack,void huge *inmem)
 	   farfree ((void far *)lastgrpic); // so new graphics modes will free it up
 
 	 if (unpack)
-	   picfile = (picfiletype huge *) bloadin /* LZW */ (filename);
+	   picfile = (picfiletype huge *) bloadinLZW (filename);
 	 else
 	   picfile = (picfiletype huge *) bloadin (filename);
 
