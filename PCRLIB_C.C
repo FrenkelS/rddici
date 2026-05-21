@@ -747,21 +747,29 @@ void huge *bloadin (char *filename)
 //void sub_0_2F64(void)
 void huge *bloadinLZW (char *filename)
 {
-asm {
-db 83h, 0ECh, 14h, 56h, 0B8h, 00h, 80h, 50h, 0FFh
-db 76h, 04h, 0E8h, 0C2h, 3Dh, 59h, 59h, 8Bh, 0F0h, 3Dh, 0FFh, 0FFh, 75h, 03h, 0E9h, 0A3h
-db 00h, 56h, 0E8h, 8Dh, 3Ah, 59h, 89h, 46h, 0FCh, 89h, 56h, 0FEh, 0B8h, 04h, 00h, 50h
-db 8Dh, 46h, 0F8h, 50h, 56h, 0E8h, 30h, 3Fh, 83h, 0C4h, 06h, 56h, 0E8h, 95h, 30h, 59h
-db 0FFh, 76h, 0FAh, 0FFh, 76h, 0F8h, 0E8h, 0C7h, 0FDh, 59h, 59h, 89h, 46h, 0ECh, 89h, 56h
-db 0EEh, 0A1h, 66h, 0C3h, 8Bh, 16h, 64h, 0C3h, 89h, 56h, 0F4h, 89h, 46h, 0F6h, 0FFh, 76h
-db 0FEh, 0FFh, 76h, 0FCh, 0E8h, 0A9h, 0FDh, 59h, 59h, 89h, 46h, 0F0h, 89h, 56h, 0F2h, 0FFh
-db 76h, 0F2h, 0FFh, 76h, 0F0h, 0FFh, 76h, 04h, 0E8h, 0FCh, 0FDh, 83h, 0C4h, 06h, 0FFh, 76h
-db 0FAh, 0FFh, 76h, 0F8h, 0FFh, 76h, 0EEh, 0FFh, 76h, 0ECh, 8Bh, 56h, 0F2h, 8Bh, 46h, 0F0h
-db 33h, 0C9h, 0BBh, 04h, 00h, 0E8h, 4Ah, 45h, 52h, 50h, 0E8h, 05h, 2Dh, 83h, 0C4h, 0Ch
-db 0FFh, 36h, 66h, 0C3h, 0FFh, 36h, 64h, 0C3h, 0E8h, 0C3h, 41h, 59h, 59h, 8Bh, 46h, 0F6h
-db 8Bh, 56h, 0F4h, 89h, 16h, 64h, 0C3h, 0A3h, 66h, 0C3h, 8Bh, 56h, 0EEh, 8Bh, 46h, 0ECh
-db 0EBh, 08h, 0EBh, 06h, 33h, 0D2h, 33h, 0C0h, 0EBh, 00h, 5Eh, 8Bh, 0E5h
-}
+ int handle;
+ long length;
+ long expanded;
+ void far *oldlastparalloc;
+ char huge *buffer;
+ char huge *location;
+
+ if ( (handle = open (filename,O_BINARY)) != -1 )
+   {
+    length = filelength (handle);
+    read(handle, &expanded, sizeof(expanded));
+    close(handle);
+    location = paralloc (expanded);
+    oldlastparalloc = lastparalloc;
+    buffer = paralloc(length);
+    LoadFile (filename,buffer);
+    RLEExpand(buffer + 4, location, expanded);
+    farfree(lastparalloc);
+    lastparalloc = oldlastparalloc;
+    return location;
+   }
+ else
+   return NULL;
 }
 
 
