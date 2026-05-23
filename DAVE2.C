@@ -441,17 +441,33 @@ void sub_0_239(void)
 
 void sub_0_290(void)
 {
-asm {
-db 83h, 3Eh, 9Ch, 0AFh, 01h, 75h, 5Ah, 83h, 3Eh, 0E8h, 0ADh, 03h, 75h
-db 1Ah, 0B0h, 12h, 50h, 0B8h, 0D4h, 03h, 50h, 0E8h, 11h, 6Ch, 59h, 59h, 0B0h, 0B0h, 50h
-db 0B8h, 0D5h, 03h, 50h, 0E8h, 05h, 6Ch, 59h, 59h, 0EBh, 39h, 83h, 3Eh, 0E8h, 0ADh, 05h
-db 75h, 1Ah, 0B0h, 12h, 50h, 0B8h, 0D4h, 03h, 50h, 0E8h, 0F0h, 6Bh, 59h, 59h, 0B0h, 60h
-db 50h, 0B8h, 0D5h, 03h, 50h, 0E8h, 0E4h, 6Bh, 59h, 59h, 0EBh, 18h, 0B0h, 06h, 50h, 0B8h
-db 0D4h, 03h, 50h, 0E8h, 0D6h, 6Bh, 59h, 59h, 0B0h, 58h, 50h, 0B8h, 0D5h, 03h, 50h, 0E8h
-db 0CAh, 6Bh, 59h, 59h, 83h, 3Eh, 9Ch, 0AFh, 02h, 75h, 21h, 0B0h, 13h, 50h, 0FFh, 36h
-db 60h, 0C3h, 0E8h, 0B7h, 6Bh, 59h, 59h, 0B0h, 18h, 50h, 0A1h, 60h, 0C3h, 40h, 50h, 0E8h
-db 0AAh, 6Bh, 59h, 59h, 0B4h, 10h, 0B0h, 01h, 0B7h, 05h, 0CDh, 10h
-}
+  if (grmode == CGAgr)
+  {
+    if (_videocard == EGAcard)
+    {
+      outportb(0x3d4, 0x12);
+      outportb(0x3d5, 0xb0);
+    }
+    else if (_videocard == VGAcard)
+    {
+      outportb(0x3d4, 0x12);
+      outportb(0x3d5, 0x60);
+    }
+    else
+    {
+      outportb(0x3d4, 0x06);
+      outportb(0x3d5, 0x58);
+    }
+  }
+  if (grmode == EGAgr)
+  {
+    outportb(crtcaddr, 0x13);
+    outportb(crtcaddr + 1, 0x18);
+	_AH = 0x10;
+    _AL = 1;
+    _BH = 5;
+    geninterrupt(0x10);
+  }
 }
 
 
