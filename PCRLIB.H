@@ -228,7 +228,7 @@ unsigned extern screenseg;		// loaded into ES in the draw routines
 					// switches, page flipping, and scrolls
 
 void moveega (void);
-void installgrfile (char *filename,int unpack,void huge *inmem);
+void installgrfile (char *filename,int unpack);
 
 void drawchar (int x, int y, int charnum);
 void drawtile (int x, int y, int picnum);

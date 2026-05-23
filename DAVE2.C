@@ -201,6 +201,7 @@ char fsm_7B38[] = {
 //NOLAN ADDED
 	boolean GODMODE = false;
 
+  int word_789_1554;
   int word_789_8220;
   int word_789_94C8;
 
@@ -438,13 +439,16 @@ db 06h, 0E8h, 10h, 00h, 00h, 33h, 0C0h, 0A3h, 8Ah, 0AEh, 0A3h, 68h, 0AEh, 0A3h, 
 }
 
 
-void sub_0_352(void)
+//void sub_0_352(void)
+void loadgrfiles(void)
 {
-asm {
-db 83h, 3Eh, 9Ch, 0AFh, 01h, 75h, 0Eh, 33h, 0C0h, 50h, 0B8h
-db 0C8h, 03h, 50h, 0E8h, 70h, 47h, 59h, 59h, 0EBh, 12h, 33h, 0C0h, 50h, 0B8h, 0D4h, 03h
-db 50h, 0E8h, 62h, 47h, 59h, 59h, 81h, 36h, 54h, 15h, 01h, 00h
-}
+  if (grmode == 1)
+    installgrfile("CGAPICS.DD2", 0);
+  else
+  {
+    installgrfile("EGAPICS.DD2", 0);
+    word_789_1554 ^= 0x0100; // FIXME fsm: should be 0x0001
+  }
 }
 
 

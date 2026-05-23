@@ -635,7 +635,7 @@ void far *lastgrpic;
 int numchars,numtiles,numpics,numsprites;
 
 //void sub_0_4AD6(void)
-void installgrfile (char *filename, int unpack,void huge *inmem)
+void installgrfile (char *filename, int unpack)
 {
   int i;
   unsigned long a,b,c,d;
