@@ -415,52 +415,62 @@ void getconfig (void)
 //void sub_0_4547(void)
 void drawpanel (void)
 {
-asm {
-db 0C7h, 06h, 8Ah, 0AEh, 01h, 00h
-db 0C7h, 06h, 0E8h, 10h, 00h, 00h, 0C7h, 06h, 02h, 0AEh, 08h, 00h, 0C7h, 06h, 68h, 0AEh
-db 02h, 00h, 0B8h, 1Fh, 10h, 50h, 0E8h, 88h, 0EEh, 59h, 0E8h, 0F4h, 0FEh, 0A1h, 0DEh, 0Ch
-db 40h, 40h, 0A3h, 68h, 0AEh, 0C7h, 06h, 02h, 0AEh, 02h, 00h, 0B8h, 39h, 10h, 50h, 0E8h
-db 6Fh, 0EEh, 59h, 33h, 0C0h, 50h, 0A1h, 0DEh, 0Ch, 0D1h, 0E0h, 0D1h, 0E0h, 0D1h, 0E0h, 50h
-db 0A1h, 0E6h, 0Ch, 0D1h, 0E0h, 0D1h, 0E0h, 0D1h, 0E0h, 50h, 0E8h, 0AAh, 14h, 83h, 0C4h, 06h
-db 83h, 3Eh, 84h, 0AEh, 00h, 74h, 20h, 0B8h, 01h, 00h, 50h, 0A1h, 0DEh, 0Ch, 0D1h, 0E0h
-db 0D1h, 0E0h, 0D1h, 0E0h, 50h, 0A1h, 0E8h, 0Ch, 0D1h, 0E0h, 0D1h, 0E0h, 0D1h, 0E0h, 50h, 0E8h
-db 85h, 14h, 83h, 0C4h, 06h, 0EBh, 1Eh, 0B8h, 03h, 00h, 50h, 0A1h, 0DEh, 0Ch, 0D1h, 0E0h
-db 0D1h, 0E0h, 0D1h, 0E0h, 50h, 0A1h, 0E8h, 0Ch, 0D1h, 0E0h, 0D1h, 0E0h, 0D1h, 0E0h, 50h, 0E8h
-db 65h, 14h, 83h, 0C4h, 06h, 83h, 3Eh, 5Eh, 0C3h, 00h, 74h, 20h, 0B8h, 02h, 00h, 50h
-db 0A1h, 0DEh, 0Ch, 0D1h, 0E0h, 0D1h, 0E0h, 0D1h, 0E0h, 50h, 0A1h, 0EAh, 0Ch, 0D1h, 0E0h, 0D1h
-db 0E0h, 0D1h, 0E0h, 50h, 0E8h, 40h, 14h, 83h, 0C4h, 06h, 0EBh, 1Eh, 0B8h, 04h, 00h, 50h
-db 0A1h, 0DEh, 0Ch, 0D1h, 0E0h, 0D1h, 0E0h, 0D1h, 0E0h, 50h, 0A1h, 0EAh, 0Ch, 0D1h, 0E0h, 0D1h
-db 0E0h, 0D1h, 0E0h, 50h, 0E8h, 20h, 14h, 83h, 0C4h, 06h, 0A1h, 0E0h, 0Ch, 40h, 40h, 0A3h
-db 68h, 0AEh, 0C7h, 06h, 02h, 0AEh, 02h, 00h, 0B8h, 40h, 10h, 50h, 0E8h, 0B2h, 0EDh, 59h
-db 0B8h, 05h, 00h, 50h, 0A1h, 0E0h, 0Ch, 0D1h, 0E0h, 0D1h, 0E0h, 0D1h, 0E0h, 50h, 0A1h, 0E6h
-db 0Ch, 0D1h, 0E0h, 0D1h, 0E0h, 0D1h, 0E0h, 50h, 0E8h, 0ECh, 13h, 83h, 0C4h, 06h, 0B8h, 06h
-db 00h, 50h, 0A1h, 0E0h, 0Ch, 0D1h, 0E0h, 0D1h, 0E0h, 0D1h, 0E0h, 50h, 0A1h, 0E8h, 0Ch, 0D1h
-db 0E0h, 0D1h, 0E0h, 0D1h, 0E0h, 50h, 0E8h, 0CEh, 13h, 83h, 0C4h, 06h, 0A1h, 0E2h, 0Ch, 40h
-db 40h, 0A3h, 68h, 0AEh, 0C7h, 06h, 02h, 0AEh, 02h, 00h, 0B8h, 47h, 10h, 50h, 0E8h, 60h
-db 0EDh, 59h, 0B8h, 07h, 00h, 50h, 0A1h, 0E2h, 0Ch, 0D1h, 0E0h, 0D1h, 0E0h, 0D1h, 0E0h, 50h
-db 0A1h, 0E6h, 0Ch, 0D1h, 0E0h, 0D1h, 0E0h, 0D1h, 0E0h, 50h, 0E8h, 9Ah, 13h, 83h, 0C4h, 06h
-db 83h, 3Eh, 70h, 0C3h, 00h, 74h, 20h, 0B8h, 0Ah, 00h, 50h, 0A1h, 0E2h, 0Ch, 0D1h, 0E0h
-db 0D1h, 0E0h, 0D1h, 0E0h, 50h, 0A1h, 0E8h, 0Ch, 0D1h, 0E0h, 0D1h, 0E0h, 0D1h, 0E0h, 50h, 0E8h
-db 75h, 13h, 83h, 0C4h, 06h, 0EBh, 1Eh, 0B8h, 0Ch, 00h, 50h, 0A1h, 0E2h, 0Ch, 0D1h, 0E0h
-db 0D1h, 0E0h, 0D1h, 0E0h, 50h, 0A1h, 0E8h, 0Ch, 0D1h, 0E0h, 0D1h, 0E0h, 0D1h, 0E0h, 50h, 0E8h
-db 55h, 13h, 83h, 0C4h, 06h, 83h, 3Eh, 6Ah, 0C3h, 00h, 74h, 20h, 0B8h, 08h, 00h, 50h
-db 0A1h, 0E2h, 0Ch, 0D1h, 0E0h, 0D1h, 0E0h, 0D1h, 0E0h, 50h, 0A1h, 0EAh, 0Ch, 0D1h, 0E0h, 0D1h
-db 0E0h, 0D1h, 0E0h, 50h, 0E8h, 30h, 13h, 83h, 0C4h, 06h, 0EBh, 1Eh, 0B8h, 0Bh, 00h, 50h
-db 0A1h, 0E2h, 0Ch, 0D1h, 0E0h, 0D1h, 0E0h, 0D1h, 0E0h, 50h, 0A1h, 0EAh, 0Ch, 0D1h, 0E0h, 0D1h
-db 0E0h, 0D1h, 0E0h, 50h, 0E8h, 10h, 13h, 83h, 0C4h, 06h, 83h, 3Eh, 6Ch, 0C3h, 00h, 74h
-db 20h, 0B8h, 09h, 00h, 50h, 0A1h, 0E2h, 0Ch, 0D1h, 0E0h, 0D1h, 0E0h, 0D1h, 0E0h, 50h, 0A1h
-db 0ECh, 0Ch, 0D1h, 0E0h, 0D1h, 0E0h, 0D1h, 0E0h, 50h, 0E8h, 0EBh, 12h, 83h, 0C4h, 06h, 0EBh
-db 1Eh, 0B8h, 0Bh, 00h, 50h, 0A1h, 0E2h, 0Ch, 0D1h, 0E0h, 0D1h, 0E0h, 0D1h, 0E0h, 50h, 0A1h
-db 0ECh, 0Ch, 0D1h, 0E0h, 0D1h, 0E0h, 0D1h, 0E0h, 50h, 0E8h, 0CBh, 12h, 83h, 0C4h, 06h, 0B8h
-db 0Fh, 00h, 50h, 0A1h, 0DEh, 0Ch, 05h, 03h, 00h, 50h, 8Bh, 1Eh, 0CAh, 0E3h, 0D1h, 0E3h
-db 8Bh, 87h, 0E4h, 0Ch, 40h, 50h, 0E8h, 08h, 0Eh, 83h, 0C4h, 06h, 0B8h, 0Fh, 00h, 50h
-db 0A1h, 0E0h, 0Ch, 05h, 03h, 00h, 50h, 8Bh, 1Eh, 0DAh, 0E7h, 0D1h, 0E3h, 8Bh, 87h, 0E6h
-db 0Ch, 40h, 50h, 0E8h, 0EBh, 0Dh, 83h, 0C4h, 06h, 0B8h, 0Fh, 00h, 50h, 0A1h, 0E2h, 0Ch
-db 05h, 03h, 00h, 50h, 8Bh, 1Eh, 0E0h, 0E7h, 0D1h, 0E3h, 8Bh, 87h, 0E6h, 0Ch, 40h, 50h
-db 0E8h, 0CEh, 0Dh, 83h, 0C4h, 06h, 0C7h, 06h, 68h, 0AEh, 15h, 00h, 0C7h, 06h, 02h, 0AEh
-db 01h, 00h, 0B8h, 50h, 10h, 50h, 0E8h, 08h, 0ECh, 59h, 0B8h, 79h, 10h, 50h, 0E8h, 00h
-db 0ECh, 59h, 0B8h, 0A2h, 10h, 50h, 0E8h, 0F8h, 0EBh, 59h
-}
+  leftedge=1;
+
+  xormask = 0;
+
+  sx=8;
+  sy=2;
+  print ("PC-Arcade Control Panel\n\r");
+
+  getconfig ();
+
+  sy=rowy[0]+2;
+  sx=2;
+  print ("VIDEO:");
+  drawpic (collumnx[0]*8,rowy[0]*8,0);
+  if (_egaok)
+    drawpic (collumnx[1]*8,rowy[0]*8,1);
+  else
+    drawpic (collumnx[1]*8,rowy[0]*8,3);
+
+  if (_vgaok)
+    drawpic (collumnx[2]*8,rowy[0]*8,1);
+  else
+    drawpic (collumnx[2]*8,rowy[0]*8,3);
+
+  sy=rowy[1]+2;
+  sx=2;
+  print ("SOUND:");
+  drawpic (collumnx[0]*8,rowy[1]*8,5);
+  drawpic (collumnx[1]*8,rowy[1]*8,6);
+
+  sy=rowy[2]+2;
+  sx=2;
+  print ("CONTROL:");
+  drawpic (collumnx[0]*8,rowy[2]*8,7);
+  if (mouseok)
+    drawpic (collumnx[1]*8,rowy[2]*8,10);
+  else
+    drawpic (collumnx[1]*8,rowy[2]*8,12);
+  if (joy1ok)
+    drawpic (collumnx[2]*8,rowy[2]*8,8);
+  else
+    drawpic (collumnx[2]*8,rowy[2]*8,11);
+  if (joy2ok)
+    drawpic (collumnx[3]*8,rowy[2]*8,9);
+  else
+    drawpic (collumnx[3]*8,rowy[2]*8,11);
+
+  drawchar(collumnx[(int) newgrmode -1]+1,rowy[0]+3,15);
+  drawchar(collumnx[(int) newsoundmode]+1,rowy[1]+3,15);
+  drawchar(collumnx[(int) newplayermode[1]]+1,rowy[2]+3,15);
+
+  sy=21;
+  sx=1;
+  print ("  Move the cursor with the arrow keys \n\r");
+  print ("   Make decisions with the ENTER key  \n\r");
+  print ("       ESC to return to your game     \n\r"); 
 }
 
 //=========================================================================
