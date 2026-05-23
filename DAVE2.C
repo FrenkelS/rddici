@@ -697,12 +697,10 @@ db 00h, 5Fh, 5Eh, 8Bh, 0E5h
 }
 
 
-void sub_0_AA7(void)
+//void sub_0_AA7(void)
+void BadThink(void)
 {
-asm {
-db 0B8h, 3Eh, 04h, 50h, 0E8h, 0B4h
-db 33h, 59h
-}
+  _quit("badTHINK!");
 }
 
 
