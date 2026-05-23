@@ -203,6 +203,8 @@ char fsm_7B38[] = {
 
   int word_789_1554;
   int word_789_8220;
+  int word_789_947E;
+  int *word_789_9486;
   int word_789_94C8;
 
 
@@ -746,13 +748,9 @@ db 7Dh, 04h, 33h, 0C0h, 0EBh, 05h, 0B8h, 01h, 00h, 0EBh, 00h
 }
 
 
-void sub_0_C1D(void)
+int sub_0_C1D(int arg_0, int arg_2)
 {
-asm {
-db 8Bh, 46h, 06h, 0BBh, 10h, 00h, 99h, 0F7h, 0FBh, 0F7h, 2Eh, 7Eh, 94h, 50h, 8Bh, 46h
-db 04h, 0BBh, 10h, 00h, 99h, 0F7h, 0FBh, 5Ah, 03h, 0D0h, 0D1h, 0E2h, 8Bh, 1Eh, 86h, 94h
-db 03h, 0DAh, 8Bh, 07h, 0EBh, 00h
-}
+  return word_789_9486[(arg_2 / 16) * word_789_947E + (arg_0 / 16)];
 }
 
 
