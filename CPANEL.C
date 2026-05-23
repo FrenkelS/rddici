@@ -360,23 +360,46 @@ void calibratekeys (void)
 //void sub_0_4461(void)
 void getconfig (void)
 {
-asm {
-db 83h, 0ECh, 08h, 0C7h, 06h, 7Ah, 0C3h, 01h, 00h, 0A1h, 84h, 0AEh
-db 0A3h, 7Ch, 0C3h, 0A1h, 5Eh, 0C3h, 0A3h, 7Eh, 0C3h, 0C7h, 06h, 80h, 0C3h, 00h, 00h, 0C7h
-db 06h, 82h, 0C3h, 00h, 00h, 0C7h, 06h, 84h, 0C3h, 01h, 00h, 0C7h, 06h, 86h, 0C3h, 01h
-db 00h, 0C7h, 06h, 88h, 0C3h, 00h, 00h, 0C7h, 06h, 8Ah, 0C3h, 00h, 00h, 0C7h, 06h, 8Ch
-db 0C3h, 00h, 00h, 0C7h, 06h, 6Ah, 0C3h, 00h, 00h, 0C7h, 06h, 6Ch, 0C3h, 00h, 00h, 8Dh
-db 46h, 0FCh, 50h, 8Dh, 46h, 0FEh, 50h, 0B8h, 01h, 00h, 50h, 0E8h, 3Fh, 0E4h, 83h, 0C4h
-db 06h, 81h, 7Eh, 0FEh, 0F4h, 01h, 7Dh, 06h, 0C7h, 06h, 6Ah, 0C3h, 01h, 00h, 8Dh, 46h
-db 0FCh, 50h, 8Dh, 46h, 0FEh, 50h, 0B8h, 02h, 00h, 50h, 0E8h, 20h, 0E4h, 83h, 0C4h, 06h
-db 81h, 7Eh, 0FEh, 0F4h, 01h, 7Dh, 06h, 0C7h, 06h, 6Ah, 0C3h, 02h, 00h, 0C7h, 06h, 70h
-db 0C3h, 01h, 00h, 0B8h, 33h, 00h, 50h, 0E8h, 59h, 25h, 59h, 89h, 46h, 0F8h, 89h, 56h
-db 0FAh, 8Bh, 46h, 0F8h, 0Bh, 46h, 0FAh, 75h, 08h, 0C7h, 06h, 70h, 0C3h, 00h, 00h, 0EBh
-db 14h, 0C4h, 5Eh, 0F8h, 26h, 8Bh, 07h, 25h, 0FFh, 00h, 3Dh, 0CFh, 00h, 75h, 06h, 0C7h
-db 06h, 70h, 0C3h, 00h, 00h, 0C7h, 06h, 8Eh, 0C3h, 01h, 00h, 0A1h, 70h, 0C3h, 0A3h, 90h
-db 0C3h, 0A1h, 6Ah, 0C3h, 0A3h, 92h, 0C3h, 0A1h, 6Ch, 0C3h, 0A3h, 94h, 0C3h, 0C7h, 06h, 96h
-db 0C3h, 00h, 00h, 8Bh, 0E5h
-}
+  int x,y;
+  int far *vect;
+
+  spotok [0][0] = 1;
+  spotok [0][1] = _egaok;
+  spotok [0][2] = _vgaok;
+  spotok [0][3] = 0;
+  spotok [0][4] = 0;
+
+  spotok [1][0] = 1;
+  spotok [1][1] = 1;
+  spotok [1][2] = 0;
+  spotok [1][3] = 0;
+  spotok [1][4] = 0;
+
+  joy1ok = 0;
+  joy2ok = 0;
+
+  ReadJoystick (1,&x,&y);
+  if (x<500)
+    joy1ok = 1;
+  ReadJoystick (2,&x,&y);
+  if (x<500)
+    joy1ok = 2;
+
+  mouseok = 1;
+  vect = (int far *) getvect (0x33);
+
+  if (vect == NULL)
+    mouseok = 0;		// vecter is NULL, calling would be bad...
+  else
+    if ((*vect & 255) == 0xcf)	// points to an IRET
+      mouseok = 0;
+
+  spotok [2][0] = 1;
+  spotok [2][1] = mouseok;
+  spotok [2][2] = joy1ok;
+  spotok [2][3] = joy2ok;
+  spotok [2][4] = 0;
+
 }
 
 //=========================================================================
