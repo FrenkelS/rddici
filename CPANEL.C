@@ -93,8 +93,8 @@ void controlpanel (void);
 // either joystick1 or joystick2
 //
 ////////////////
-
-void sub_0_3E97(void)
+//void sub_0_3E97(void)
+void calibratejoy (int joynum)
 {
 asm {
 db 83h, 0ECh, 2Ah, 56h, 57h, 8Bh
@@ -137,18 +137,32 @@ db 0FCh, 0ADh, 0E8h, 0CAh, 0ECh, 0E8h, 11h, 0F2h, 5Fh, 5Eh, 8Bh, 0E5h
 // calibratemouse
 //
 ////////////////////////////
-void sub_0_407E(void)
+//void sub_0_407E(void)
+void calibratemouse (void)
 {
-asm {
-db 4Ch, 4Ch, 0B8h, 05h, 00h, 50h, 0B8h, 18h, 00h, 50h, 0E8h, 5Bh, 0F2h, 59h, 59h
-db 0B8h, 20h, 0Eh, 50h, 0E8h, 5Ah, 0F3h, 59h, 0B8h, 3Bh, 0Eh, 50h, 0E8h, 52h, 0F3h, 59h
-db 0B8h, 56h, 0Eh, 50h, 0E8h, 4Ah, 0F3h, 59h, 0B8h, 71h, 0Eh, 50h, 0E8h, 42h, 0F3h, 59h
-db 0B8h, 8Ch, 0Eh, 50h, 0E8h, 3Ah, 0F3h, 59h, 0E8h, 0D5h, 0F2h, 0BBh, 00h, 01h, 99h, 0F7h
-db 0FBh, 88h, 56h, 0FFh, 80h, 7Eh, 0FFh, 1Bh, 75h, 04h, 0C6h, 46h, 0FFh, 35h, 80h, 7Eh
-db 0FFh, 31h, 7Ch, 0E4h, 80h, 7Eh, 0FFh, 39h, 7Fh, 0DEh, 8Ah, 46h, 0FFh, 98h, 05h, 0D0h
-db 0FFh, 0BAh, 0Fh, 00h, 2Bh, 0D0h, 89h, 16h, 9Ah, 0AFh, 0E8h, 9Ch, 0F1h, 33h, 0C0h, 0CDh
-db 33h, 0B8h, 04h, 00h, 0B9h, 40h, 01h, 0BAh, 64h, 00h, 0CDh, 33h, 8Bh, 0E5h
-}
+  char ch;
+
+  expwin (24,5);
+  print ("  Mouse Configuration   \n\r");
+  print ("  -------------------   \n\r");
+  print ("Choose the sensitivity  \n\r");
+  print ("of the mouse, 1 being   \n\r");
+  print ("slow, 9 being fast:");
+  do
+  {  ch=get() % 256;
+    if (ch==27)
+      ch='5';
+  } while (ch<'1' || ch>'9');
+  MouseSensitivity = 15-(ch-'0');
+  erasewindow ();
+  _AX=0;
+  geninterrupt (0x33);		// initialize the mouse
+  _AX = 4;
+  _CX=320;
+  _DX=100;
+  geninterrupt (0x33);		// set mouse status
+
+
 }
 
 /////////////////////////////
@@ -156,7 +170,8 @@ db 33h, 0B8h, 04h, 00h, 0B9h, 40h, 01h, 0BAh, 64h, 00h, 0CDh, 33h, 8Bh, 0E5h
 // print a representation of the scan code key
 //
 ////////////////////////////
-void sub_0_4100(void)
+//void sub_0_4100(void)
+void printscan (int sc)
 {
 asm {
 db 83h, 0ECh, 04h, 56h, 8Bh, 76h, 04h, 8Bh, 0C6h, 25h, 7Fh, 00h, 8Bh
@@ -194,7 +209,8 @@ db 83h, 0C4h, 06h, 5Eh, 8Bh, 0E5h
 // calibratekeys
 //
 ////////////////////////////
-void sub_0_42A8(void)
+//void sub_0_42A8(void)
+void calibratekeys (void)
 {
 asm {
 db 83h, 0ECh, 08h, 56h, 57h
@@ -237,8 +253,8 @@ db 7Eh, 0FFh, 39h, 7Fh, 03h, 0E9h, 25h, 0FFh, 0E8h, 2Eh, 0EEh, 5Fh, 5Eh, 8Bh, 0E
 // Checks video cards, mouse, and joysticks
 //
 ////////////////////
-
-void sub_0_4461(void)
+//void sub_0_4461(void)
+void getconfig (void)
 {
 asm {
 db 83h, 0ECh, 08h, 0C7h, 06h, 7Ah, 0C3h, 01h, 00h, 0A1h, 84h, 0AEh
@@ -269,8 +285,8 @@ db 0C3h, 00h, 00h, 8Bh, 0E5h
 // Used to refresh under dialogs.
 //
 ////////////////
-
-void sub_0_4547(void)
+//void sub_0_4547(void)
+void drawpanel (void)
 {
 asm {
 db 0C7h, 06h, 8Ah, 0AEh, 01h, 00h
@@ -327,8 +343,8 @@ db 0ECh, 59h, 0B8h, 0A2h, 10h, 50h, 0E8h, 0F8h, 0EBh, 59h
 // controlpanel
 //
 ////////////////
-
-void sub_0_47FC(void)
+//void sub_0_47FC(void)
+void controlpanel (void)
 {
 asm {
 db 83h
