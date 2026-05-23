@@ -456,11 +456,11 @@ db 0FFh, 36h, 9Ch, 0AFh, 0E8h, 0A7h, 2Ch, 59h, 0E8h, 04h, 0FFh
 }
 
 
-void sub_0_38E(void)
+//void sub_0_38E(void)
+void repaintscreen(void)
 {
-asm {
-db 0E8h, 0EAh, 0FFh, 0E8h, 0A2h, 0FEh
-}
+  sub_0_37E();
+  sub_0_239();
 }
 
 
