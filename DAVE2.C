@@ -431,11 +431,10 @@ db 0AAh, 6Bh, 59h, 59h, 0B4h, 10h, 0B0h, 01h, 0B7h, 05h, 0CDh, 10h
 
 void sub_0_31E(void)
 {
-asm {
-db 0C7h, 06h, 0E8h, 10h, 0FFh, 0FFh, 0B8h, 20h, 00h, 50h, 0B8h, 18h, 00h, 50h, 0B8h
-db 27h, 00h, 50h, 33h, 0C0h, 50h, 33h, 0C0h, 50h, 0E8h, 23h, 2Fh, 83h, 0C4h, 0Ah, 0C7h
-db 06h, 0E8h, 10h, 00h, 00h, 33h, 0C0h, 0A3h, 8Ah, 0AEh, 0A3h, 68h, 0AEh, 0A3h, 02h, 0AEh
-}
+  xormask = 0xffff;
+  bar(0, 0, 39, 24, 32);
+  xormask = 0;
+  sx = sy = leftedge = 0;
 }
 
 
