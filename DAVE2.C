@@ -450,9 +450,8 @@ db 50h, 0E8h, 62h, 47h, 59h, 59h, 81h, 36h, 54h, 15h, 01h, 00h
 
 void sub_0_37E(void)
 {
-asm {
-db 0FFh, 36h, 9Ch, 0AFh, 0E8h, 0A7h, 2Ch, 59h, 0E8h, 04h, 0FFh
-}
+  setscreenmode(grmode);
+  EGAmove();
 }
 
 
