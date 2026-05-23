@@ -202,6 +202,11 @@ char fsm_7B38[] = {
 	boolean GODMODE = false;
 
   int word_789_1554;
+  int word_789_1D28;
+  int word_789_1D2A;
+  int word_789_1D34;
+  int word_789_1D36;
+  int *word_789_7FD0;
   int word_789_8220;
   int word_789_947E;
   int *word_789_9486;
@@ -736,15 +741,21 @@ db 0A3h, 36h, 1Dh, 0A1h, 2Eh, 1Dh, 03h, 06h, 0B6h, 0C3h, 0A3h, 2Ah, 1Dh
 }
 
 
-void sub_0_BCF(void)
+boolean sub_0_BCF(void)
 {
-asm {
-db 8Bh, 1Eh, 0D0h, 7Fh, 8Bh, 47h, 1Ch, 3Bh, 06h, 28h, 1Dh, 7Eh, 04h, 33h
-db 0C0h, 0EBh, 38h, 8Bh, 1Eh, 0D0h, 7Fh, 8Bh, 47h, 1Eh, 3Bh, 06h, 2Ah, 1Dh, 7Eh, 04h
-db 33h, 0C0h, 0EBh, 27h, 8Bh, 1Eh, 0D0h, 7Fh, 8Bh, 47h, 20h, 3Bh, 06h, 34h, 1Dh, 7Dh
-db 04h, 33h, 0C0h, 0EBh, 16h, 8Bh, 1Eh, 0D0h, 7Fh, 8Bh, 47h, 22h, 3Bh, 06h, 36h, 1Dh
-db 7Dh, 04h, 33h, 0C0h, 0EBh, 05h, 0B8h, 01h, 00h, 0EBh, 00h
-}
+  if (word_789_7FD0[14] > word_789_1D28)
+    return false;
+
+  if (word_789_7FD0[15] > word_789_1D2A)
+    return false;
+
+  if (word_789_7FD0[16] < word_789_1D34)
+    return false;
+
+  if (word_789_7FD0[17] < word_789_1D36)
+    return false;
+
+  return true;
 }
 
 
