@@ -483,55 +483,132 @@ void drawpanel (void)
 //void sub_0_47FC(void)
 void controlpanel (void)
 {
-asm {
-db 83h
-db 0ECh, 04h, 56h, 57h, 0E8h, 38h, 0E5h, 0E8h, 90h, 0Bh, 0A1h, 9Ch, 0AFh, 0A3h, 0A2h, 0C3h
-db 0A3h, 0CAh, 0E3h, 0A1h, 0D2h, 10h, 0A3h, 0C6h, 0C3h, 0A3h, 0DAh, 0E7h, 0A1h, 06h, 0Ch, 0A3h
-db 0CEh, 0E3h, 0A3h, 0E0h, 0E7h, 0A1h, 08h, 0Ch, 0A3h, 0D0h, 0E3h, 0A3h, 0E2h, 0E7h, 0A1h, 0Eh
-db 0Ch, 89h, 46h, 0FCh, 8Bh, 3Eh, 10h, 0Ch, 0C7h, 06h, 0Eh, 0Ch, 13h, 00h, 0C7h, 06h
-db 10h, 0Ch, 0Bh, 00h, 0FFh, 36h, 9Ch, 0AFh, 0E8h, 0E4h, 0E7h, 59h, 0B8h, 18h, 00h, 50h
-db 0B8h, 27h, 00h, 50h, 33h, 0C0h, 50h, 33h, 0C0h, 50h, 0E8h, 14h, 0E9h, 83h, 0C4h, 08h
-db 0E8h, 0E4h, 0FCh, 0C7h, 06h, 0DCh, 0E7h, 00h, 00h, 0A1h, 9Ch, 0AFh, 48h, 0A3h, 6Eh, 0C3h
-db 8Bh, 1Eh, 6Eh, 0C3h, 0D1h, 0E3h, 8Bh, 87h, 0E6h, 0Ch, 40h, 40h, 0A3h, 02h, 0AEh, 8Bh
-db 1Eh, 0DCh, 0E7h, 0D1h, 0E3h, 8Bh, 87h, 0DEh, 0Ch, 05h, 03h, 00h, 0A3h, 68h, 0AEh, 0E8h
-db 0FEh, 0EAh, 8Bh, 0F0h, 8Bh, 0C6h, 0BBh, 00h, 01h, 99h, 0F7h, 0FBh, 88h, 56h, 0FFh, 8Bh
-db 0C6h, 0BBh, 00h, 01h, 99h, 0F7h, 0FBh, 88h, 46h, 0FEh, 80h, 7Eh, 0FEh, 48h, 75h, 0Ch
-db 0FFh, 0Eh, 0DCh, 0E7h, 7Dh, 06h, 0C7h, 06h, 0DCh, 0E7h, 02h, 00h, 80h, 7Eh, 0FEh, 50h
-db 75h, 12h, 0FFh, 06h, 0DCh, 0E7h, 0A1h, 0DCh, 0E7h, 3Dh, 02h, 00h, 7Eh, 06h, 0C7h, 06h
-db 0DCh, 0E7h, 00h, 00h, 0EBh, 04h, 0FFh, 0Eh, 6Eh, 0C3h, 0A1h, 0DCh, 0E7h, 0BAh, 0Ah, 00h
-db 0F7h, 0EAh, 8Bh, 16h, 6Eh, 0C3h, 0D1h, 0E2h, 03h, 0C2h, 8Bh, 0D8h, 83h, 0BFh, 7Ah, 0C3h
-db 00h, 74h, 0E3h, 80h, 7Eh, 0FEh, 4Bh, 75h, 2Ch, 83h, 3Eh, 6Eh, 0C3h, 00h, 75h, 06h
-db 0C7h, 06h, 6Eh, 0C3h, 04h, 00h, 0EBh, 00h, 0A1h, 0DCh, 0E7h, 0BAh, 0Ah, 00h, 0F7h, 0EAh
-db 0FFh, 0Eh, 6Eh, 0C3h, 8Bh, 16h, 6Eh, 0C3h, 0D1h, 0E2h, 03h, 0C2h, 8Bh, 0D8h, 83h, 0BFh
-db 7Ah, 0C3h, 00h, 74h, 0E3h, 80h, 7Eh, 0FEh, 4Dh, 75h, 33h, 0EBh, 0Dh, 83h, 3Eh, 6Eh
-db 0C3h, 04h, 75h, 06h, 0C7h, 06h, 6Eh, 0C3h, 0FFh, 0FFh, 0A1h, 0DCh, 0E7h, 0BAh, 0Ah, 00h
-db 0F7h, 0EAh, 0FFh, 06h, 6Eh, 0C3h, 8Bh, 16h, 6Eh, 0C3h, 0D1h, 0E2h, 03h, 0C2h, 8Bh, 0D8h
-db 83h, 0BFh, 7Ah, 0C3h, 00h, 74h, 0D6h, 83h, 3Eh, 6Eh, 0C3h, 03h, 7Fh, 0CFh, 80h, 7Eh
-db 0FFh, 0Dh, 74h, 03h, 0E9h, 38h, 01h, 0A1h, 0DCh, 0E7h, 0Bh, 0C0h, 74h, 10h, 3Dh, 01h
-db 00h, 74h, 75h, 3Dh, 02h, 00h, 75h, 03h, 0E9h, 99h, 00h, 0E9h, 0FDh, 00h, 0A1h, 6Eh
-db 0C3h, 40h, 3Bh, 06h, 0CAh, 0E3h, 75h, 03h, 0E9h, 0F0h, 00h, 0B8h, 20h, 00h, 50h, 8Bh
-db 1Eh, 0DCh, 0E7h, 0D1h, 0E3h, 8Bh, 87h, 0DEh, 0Ch, 05h, 03h, 00h, 50h, 8Bh, 1Eh, 0CAh
-db 0E3h, 0D1h, 0E3h, 8Bh, 87h, 0E4h, 0Ch, 40h, 50h, 0E8h, 0F5h, 0Bh, 83h, 0C4h, 06h, 0A1h
-db 6Eh, 0C3h, 40h, 0A3h, 0CAh, 0E3h, 0A3h, 9Ch, 0AFh, 0E8h, 96h, 0B9h, 0FFh, 36h, 9Ch, 0AFh
-db 0E8h, 6Ch, 0E6h, 59h, 83h, 3Eh, 9Ch, 0AFh, 02h, 75h, 03h, 0E8h, 21h, 03h, 0B8h, 18h
-db 00h, 50h, 0B8h, 27h, 00h, 50h, 33h, 0C0h, 50h, 33h, 0C0h, 50h, 0E8h, 92h, 0E7h, 83h
-db 0C4h, 08h, 0E8h, 62h, 0FBh, 0E9h, 93h, 00h, 0B8h, 20h, 00h, 50h, 8Bh, 1Eh, 0DCh, 0E7h
-db 0D1h, 0E3h, 8Bh, 87h, 0DEh, 0Ch, 05h, 03h, 00h, 50h, 8Bh, 1Eh, 0DAh, 0E7h, 0D1h, 0E3h
-db 8Bh, 87h, 0E6h, 0Ch, 40h, 50h, 0E8h, 98h, 0Bh, 83h, 0C4h, 06h, 0A1h, 6Eh, 0C3h, 0A3h
-db 0DAh, 0E7h, 0EBh, 67h, 0B8h, 20h, 00h, 50h, 8Bh, 1Eh, 0DCh, 0E7h, 0D1h, 0E3h, 8Bh, 87h
-db 0DEh, 0Ch, 05h, 03h, 00h, 50h, 8Bh, 1Eh, 0E0h, 0E7h, 0D1h, 0E3h, 8Bh, 87h, 0E6h, 0Ch
-db 40h, 50h, 0E8h, 6Ch, 0Bh, 83h, 0C4h, 06h, 0A1h, 6Eh, 0C3h, 0A3h, 0E0h, 0E7h, 83h, 3Eh
-db 0E0h, 0E7h, 00h, 75h, 05h, 0E8h, 60h, 0F8h, 0EBh, 2Ch, 83h, 3Eh, 0E0h, 0E7h, 01h, 75h
-db 05h, 0E8h, 2Ah, 0F6h, 0EBh, 20h, 83h, 3Eh, 0E0h, 0E7h, 02h, 75h, 0Ah, 0B8h, 01h, 00h
-db 50h, 0E8h, 33h, 0F4h, 59h, 0EBh, 0Fh, 83h, 3Eh, 0E0h, 0E7h, 03h, 75h, 08h, 0B8h, 02h
-db 00h, 50h, 0E8h, 22h, 0F4h, 59h, 0E8h, 0CEh, 0FAh, 0EBh, 00h, 0B8h, 0Fh, 00h, 50h, 8Bh
-db 1Eh, 0DCh, 0E7h, 0D1h, 0E3h, 8Bh, 87h, 0DEh, 0Ch, 05h, 03h, 00h, 50h, 8Bh, 1Eh, 6Eh
-db 0C3h, 0D1h, 0E3h, 8Bh, 87h, 0E6h, 0Ch, 40h, 50h, 0E8h, 05h, 0Bh, 83h, 0C4h, 06h, 80h
-db 7Eh, 0FFh, 1Bh, 74h, 03h, 0E9h, 0C8h, 0FDh, 0A1h, 0E0h, 0E7h, 0A3h, 06h, 0Ch, 0A1h, 0E2h
-db 0E7h, 0A3h, 08h, 0Ch, 0A1h, 0CAh, 0E3h, 0A3h, 9Ch, 0AFh, 8Bh, 46h, 0FCh, 0A3h, 0Eh, 0Ch
-db 89h, 3Eh, 10h, 0Ch, 0A1h, 0DAh, 0E7h, 0A3h, 0D2h, 10h, 0E8h, 0C1h, 0B8h, 0E8h, 0F5h, 08h
-db 5Fh, 5Eh, 8Bh, 0E5h
-}
+  int chf;
+  char chl,chh;
+  int oldcenterx,oldcentery;
+
+  clearkeys ();			// clear out the F2 and other crap
+
+  PauseSound ();		// pause any sound that is playing
+
+//
+// save off current settings so we can tell what changed
+//
+  newgrmode = oldgrmode = grmode;
+  newsoundmode = oldsoundmode = soundmode;
+  newplayermode[1] = oldplayermode[1] = playermode[1];
+  newplayermode[2] = oldplayermode[2] = playermode[2];
+  oldcenterx=screencenterx;
+  oldcentery=screencentery;
+
+  screencenterx = 19;
+  screencentery = 11;
+
+  setscreenmode (grmode);
+
+//
+// draw the screen
+//
+  drawwindow (0,0,39,24);
+  drawpanel ();
+
+  row = 0;
+  collumn = (int) grmode-1;
+
+  do
+  {
+//////////////////////////////////////
+
+    sx=collumnx[collumn]+2;
+    sy=rowy[row]+3;
+    chf = get ();
+    chl = chf % 256;
+    chh = chf / 256;
+
+    if (chh==0x48)	// up arrow
+      if (--row<0)
+	row = 2;
+
+    if (chh==0x50)	// down arrow
+      if (++row>2)
+	row = 0;
+
+    //
+    // see if up or down took you to a bad spot
+    //
+    while (!spotok[row][collumn])
+      collumn--;
+
+    if (chh==0x4b)	// left arrow
+    {
+      if (collumn==0)
+	collumn=4;
+      while (!spotok[row][--collumn]);
+    }
+
+    if (chh==0x4d)	// right arrow
+    {
+      while (!spotok[row][++collumn] || collumn>3)
+	if (collumn==4)
+	  collumn=-1;
+    }
+
+
+    if (chl==13)		// return
+    {
+      switch (row)
+      {
+	case 0:
+	       if ( (int) newgrmode == collumn+1 )
+		 break;			// don't reload if not needed
+	       drawchar(collumnx[(int) newgrmode-1]+1,rowy[row]+3,32);
+	       grmode = newgrmode = (grtype) collumn + 1;	// becuase TEXT is 0
+	       loadgrfiles ();
+	       setscreenmode (grmode);
+	       if (grmode==EGAgr)
+		 moveega();
+	       drawwindow (0,0,39,24);
+	       drawpanel ();
+	       break;
+	case 1:
+	       drawchar(collumnx[(int) newsoundmode]+1,rowy[row]+3,32);
+	       newsoundmode = (soundtype) collumn;
+	       break;
+	case 2:
+	       drawchar(collumnx[(int) newplayermode[1]]+1,rowy[row]+3,32);
+	       newplayermode[1] = (inputtype) collumn;
+	       if (newplayermode[1]==keyboard)
+		 calibratekeys ();
+	       else if (newplayermode[1]==mouse)
+		 calibratemouse ();
+	       else if (newplayermode[1]==joystick1)
+		 calibratejoy (1);
+	       else if (newplayermode[1]==joystick2)
+		 calibratejoy (2);
+	       drawpanel ();
+	       break;
+      }
+      drawchar(collumnx[collumn]+1,rowy[row]+3,15);
+    }
+
+//////////////////////////////////////
+
+  } while (chl!=27);	// ESC to quit
+
+//
+// done, so return to game
+//
+  playermode[1] = newplayermode[1];
+  playermode[2] = newplayermode[2];
+
+  grmode = newgrmode;
+
+  screencenterx = oldcenterx;
+  screencentery = oldcentery;
+
+  soundmode = newsoundmode;
+  repaintscreen ();		// have the game redraw everything
+  ContinueSound ();		// continue any sound that was playing
 }
 
 
