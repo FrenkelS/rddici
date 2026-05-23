@@ -208,35 +208,69 @@ void calibratemouse (void)
 //void sub_0_4100(void)
 void printscan (int sc)
 {
-asm {
-db 83h, 0ECh, 04h, 56h, 8Bh, 76h, 04h, 8Bh, 0C6h, 25h, 7Fh, 00h, 8Bh
-db 0F0h, 83h, 0FEh, 01h, 75h, 0Bh, 0B8h, 0A0h, 0Eh, 50h, 0E8h, 0D4h, 0F2h, 59h, 0E9h, 82h
-db 01h, 83h, 0FEh, 0Eh, 75h, 0Bh, 0B8h, 0A4h, 0Eh, 50h, 0E8h, 0C4h, 0F2h, 59h, 0E9h, 72h
-db 01h, 83h, 0FEh, 0Fh, 75h, 0Bh, 0B8h, 0A9h, 0Eh, 50h, 0E8h, 0B4h, 0F2h, 59h, 0E9h, 62h
-db 01h, 83h, 0FEh, 1Dh, 75h, 0Bh, 0B8h, 0ADh, 0Eh, 50h, 0E8h, 0A4h, 0F2h, 59h, 0E9h, 52h
-db 01h, 83h, 0FEh, 2Ah, 75h, 0Bh, 0B8h, 0B2h, 0Eh, 50h, 0E8h, 94h, 0F2h, 59h, 0E9h, 42h
-db 01h, 83h, 0FEh, 39h, 75h, 0Bh, 0B8h, 0B9h, 0Eh, 50h, 0E8h, 84h, 0F2h, 59h, 0E9h, 32h
-db 01h, 83h, 0FEh, 3Ah, 75h, 0Bh, 0B8h, 0BFh, 0Eh, 50h, 0E8h, 74h, 0F2h, 59h, 0E9h, 22h
-db 01h, 83h, 0FEh, 3Bh, 7Ch, 2Ch, 83h, 0FEh, 44h, 7Fh, 27h, 0B8h, 0C6h, 0Eh, 50h, 0E8h
-db 5Fh, 0F2h, 59h, 0B8h, 0Ah, 00h, 50h, 8Dh, 46h, 0FCh, 50h, 8Bh, 0C6h, 05h, 0C6h, 0FFh
-db 50h, 0E8h, 0BFh, 2Ah, 83h, 0C4h, 06h, 8Dh, 46h, 0FCh, 50h, 0E8h, 43h, 0F2h, 59h, 0E9h
-db 0F1h, 00h, 83h, 0FEh, 57h, 75h, 0Bh, 0B8h, 0C8h, 0Eh, 50h, 0E8h, 33h, 0F2h, 59h, 0E9h
-db 0E1h, 00h, 83h, 0FEh, 59h, 75h, 0Bh, 0B8h, 0CCh, 0Eh, 50h, 0E8h, 23h, 0F2h, 59h, 0E9h
-db 0D1h, 00h, 83h, 0FEh, 46h, 75h, 0Bh, 0B8h, 0D0h, 0Eh, 50h, 0E8h, 13h, 0F2h, 59h, 0E9h
-db 0C1h, 00h, 83h, 0FEh, 1Ch, 75h, 0Bh, 0B8h, 0D7h, 0Eh, 50h, 0E8h, 03h, 0F2h, 59h, 0E9h
-db 0B1h, 00h, 83h, 0FEh, 36h, 75h, 0Bh, 0B8h, 0DDh, 0Eh, 50h, 0E8h, 0F3h, 0F1h, 59h, 0E9h
-db 0A1h, 00h, 83h, 0FEh, 37h, 75h, 0Bh, 0B8h, 0E4h, 0Eh, 50h, 0E8h, 0E3h, 0F1h, 59h, 0E9h
-db 91h, 00h, 83h, 0FEh, 38h, 75h, 0Bh, 0B8h, 0EAh, 0Eh, 50h, 0E8h, 0D3h, 0F1h, 59h, 0E9h
-db 81h, 00h, 83h, 0FEh, 47h, 75h, 0Ah, 0B8h, 0EEh, 0Eh, 50h, 0E8h, 0C3h, 0F1h, 59h, 0EBh
-db 72h, 83h, 0FEh, 49h, 75h, 0Ah, 0B8h, 0F3h, 0Eh, 50h, 0E8h, 0B4h, 0F1h, 59h, 0EBh, 63h
-db 83h, 0FEh, 4Fh, 75h, 0Ah, 0B8h, 0F8h, 0Eh, 50h, 0E8h, 0A5h, 0F1h, 59h, 0EBh, 54h, 83h
-db 0FEh, 51h, 75h, 0Ah, 0B8h, 0FCh, 0Eh, 50h, 0E8h, 96h, 0F1h, 59h, 0EBh, 45h, 83h, 0FEh
-db 52h, 75h, 0Ah, 0B8h, 01h, 0Fh, 50h, 0E8h, 87h, 0F1h, 59h, 0EBh, 36h, 83h, 0FEh, 53h
-db 75h, 0Ah, 0B8h, 05h, 0Fh, 50h, 0E8h, 78h, 0F1h, 59h, 0EBh, 27h, 83h, 0FEh, 45h, 75h
-db 0Ah, 0B8h, 09h, 0Fh, 50h, 0E8h, 69h, 0F1h, 59h, 0EBh, 18h, 8Ah, 84h, 0EEh, 0Ch, 98h
-db 50h, 0FFh, 36h, 68h, 0AEh, 0A1h, 02h, 0AEh, 0FFh, 06h, 02h, 0AEh, 50h, 0E8h, 01h, 13h
-db 83h, 0C4h, 06h, 5Eh, 8Bh, 0E5h
-}
+ char static chartable[128] =
+ {'?','?','1','2','3','4','5','6','7','8','9','0','-','+','?','?',
+  'Q','W','E','R','T','Y','U','I','O','P','[',']','|','?','A','S',
+  'D','F','G','H','J','K','L',';','"','?','?','?','Z','X','C','V',
+  'B','N','M',',','.','/','?','?','?','?','?','?','?','?','?','?',
+  '?','?','?','?','?','?','?','?', 15,'?','-', 21,'5', 17,'+','?',
+   19,'?','?','?','?','?','?','?','?','?','?','?','?','?','?','?',
+  '?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?',
+  '?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?'};
+
+ sc = sc & 0x7f;
+
+ if (sc==1)
+   print ("ESC");
+ else if (sc==0xe)
+   print ("BKSP");
+ else if (sc==0xf)
+   print ("TAB");
+ else if (sc==0x1d)
+   print ("CTRL");
+ else if (sc==0x2A)
+   print ("LSHIFT");
+ else if (sc==0x39)
+   print ("SPACE");
+ else if (sc==0x3A)
+   print ("CAPSLK");
+ else if (sc>=0x3b && sc<=0x44)
+ {
+   char str[3];
+   print ("F");
+   itoa (sc-0x3a,str,10);
+   print (str);
+ }
+ else if (sc==0x57)
+   print ("F11");
+ else if (sc==0x59)
+   print ("F12");
+ else if (sc==0x46)
+   print ("SCRLLK");
+ else if (sc==0x1c)
+   print ("ENTER");
+ else if (sc==0x36)
+   print ("RSHIFT");
+ else if (sc==0x37)
+   print ("PRTSC");
+ else if (sc==0x38)
+   print ("ALT");
+ else if (sc==0x47)
+   print ("HOME");
+ else if (sc==0x49)
+   print ("PGUP");
+ else if (sc==0x4f)
+   print ("END");
+ else if (sc==0x51)
+   print ("PGDN");
+ else if (sc==0x52)
+   print ("INS");
+ else if (sc==0x53)
+   print ("DEL");
+ else if (sc==0x45)
+   print ("NUMLK");
+ else
+   drawchar (sx++,sy,chartable[sc]);
 }
 
 /////////////////////////////
