@@ -288,12 +288,12 @@ void calibratekeys (void)
   print ("Keyboard Configuration\n\r");
   print ("----------------------");
   print ("\n\r0 north    :");
-  print ("\n\r1 east     :");
-  print ("\n\r2 south    :");
-  print ("\n\r3 west     :");
-  print ("\n\r4 northeast:");
-  print ("\n\r5 southeast:");
-  print ("\n\r6 southwest:");
+  print ("\n\r1 northeast:");
+  print ("\n\r2 east     :");
+  print ("\n\r3 southeast:");
+  print ("\n\r4 south    :");
+  print ("\n\r5 southwest:");
+  print ("\n\r6 west     :");
   print ("\n\r7 northwest:");
   print ("\n\r8 button1  :");
   print ("\n\r9 button2  :");
