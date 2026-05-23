@@ -201,6 +201,27 @@ char fsm_7B38[] = {
 //NOLAN ADDED
 	boolean GODMODE = false;
 
+
+typedef struct {
+  char      unk0[0x16];
+  int       class;
+  char      unk18[0x04];
+  int       x1;
+  int       y1;
+  int       x2;
+  int       y2;
+  char      unk24[0x0C];
+  void      (*think)();
+} objtype;
+
+
+objtype *new;
+int lastobj;
+
+
+#define OBJECT_POOL ((objtype *)0x9508)
+
+
   int word_789_1554;
   int word_789_1D28;
   int word_789_1D2A;
@@ -709,16 +730,24 @@ void BadThink(void)
 }
 
 
-void sub_0_AB4(void)
+//void sub_0_AB4(void)
+void FindFreeObj (void)
 {
-asm {
-db 56h, 0BEh, 01h, 00h, 0C7h, 06h, 24h, 82h, 08h
-db 95h, 0EBh, 06h, 46h, 83h, 06h, 24h, 82h, 32h, 8Bh, 1Eh, 24h, 82h, 83h, 7Fh, 16h
-db 00h, 74h, 06h, 3Bh, 36h, 22h, 82h, 7Ch, 0EAh, 3Bh, 36h, 22h, 82h, 7Ch, 04h, 0FFh
-db 06h, 22h, 82h, 8Bh, 1Eh, 24h, 82h, 33h, 0C0h, 89h, 47h, 20h, 8Bh, 1Eh, 24h, 82h
-db 89h, 47h, 22h, 8Bh, 1Eh, 24h, 82h, 89h, 47h, 1Eh, 8Bh, 1Eh, 24h, 82h, 89h, 47h
-db 1Ch, 8Bh, 1Eh, 24h, 82h, 0C7h, 47h, 30h, 0A7h, 0Ah, 5Eh
-}
+  int si = 1;
+  new = OBJECT_POOL;
+
+  while (new->class != nothing && si < lastobj)
+  {
+    si++;
+    new++;
+  }
+
+  if (si >= lastobj)
+    lastobj++;
+
+  new->x1 = new->y1 = new->y2 = new->x2 = 0;
+
+  new->think = BadThink;
 }
 
 
