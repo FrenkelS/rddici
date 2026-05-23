@@ -94,7 +94,6 @@ pausespeed	dw	?
 _dontplay	dw	0	;set to 1 to avoid all interrupt and timer stuff
 
 xormask		dw	0	;to invert characters
-_yshift		dw	0	;to shift char lines
 
 screenseg	dw	0a000h	;changes with grmode, page flips, & scrolls
 
@@ -899,7 +898,6 @@ PROC	drawchar xcoordinate:WORD, ycoordinate:WORD, char:WORD
 	shl	bx,1
 	shl	bx,1
 	shl	bx,1
-	;fsm add bx,[_yshift]		;allow printing on non-char lines
 
 	mov	ax,[grmode]
 	cmp	ax,1		;CGA mode
