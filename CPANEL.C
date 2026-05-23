@@ -281,36 +281,71 @@ void printscan (int sc)
 //void sub_0_42A8(void)
 void calibratekeys (void)
 {
-asm {
-db 83h, 0ECh, 08h, 56h, 57h
-db 0B8h, 0Fh, 00h, 50h, 0B8h, 16h, 00h, 50h, 0E8h, 2Eh, 0F0h, 59h, 59h, 0B8h, 0Fh, 0Fh
-db 50h, 0E8h, 2Dh, 0F1h, 59h, 0B8h, 28h, 0Fh, 50h, 0E8h, 25h, 0F1h, 59h, 0B8h, 3Fh, 0Fh
-db 50h, 0E8h, 1Dh, 0F1h, 59h, 0B8h, 4Eh, 0Fh, 50h, 0E8h, 15h, 0F1h, 59h, 0B8h, 5Dh, 0Fh
-db 50h, 0E8h, 0Dh, 0F1h, 59h, 0B8h, 6Ch, 0Fh, 50h, 0E8h, 05h, 0F1h, 59h, 0B8h, 7Bh, 0Fh
-db 50h, 0E8h, 0FDh, 0F0h, 59h, 0B8h, 8Ah, 0Fh, 50h, 0E8h, 0F5h, 0F0h, 59h, 0B8h, 99h, 0Fh
-db 50h, 0E8h, 0EDh, 0F0h, 59h, 0B8h, 0A8h, 0Fh, 50h, 0E8h, 0E5h, 0F0h, 59h, 0B8h, 0B7h, 0Fh
-db 50h, 0E8h, 0DDh, 0F0h, 59h, 0B8h, 0C6h, 0Fh, 50h, 0E8h, 0D5h, 0F0h, 59h, 0B8h, 0D5h, 0Fh
-db 50h, 0E8h, 0CDh, 0F0h, 59h, 0A1h, 02h, 0AEh, 89h, 46h, 0FCh, 0A1h, 68h, 0AEh, 89h, 46h
-db 0FAh, 33h, 0FFh, 0EBh, 19h, 0C7h, 06h, 02h, 0AEh, 16h, 00h, 8Bh, 0C7h, 05h, 07h, 00h
-db 0A3h, 68h, 0AEh, 8Ah, 85h, 60h, 0AEh, 98h, 50h, 0E8h, 0B4h, 0FDh, 59h, 47h, 83h, 0FFh
-db 08h, 7Ch, 0E2h, 0C7h, 06h, 02h, 0AEh, 16h, 00h, 0C7h, 06h, 68h, 0AEh, 0Fh, 00h, 0A0h
-db 04h, 0AEh, 98h, 50h, 0E8h, 99h, 0FDh, 59h, 0C7h, 06h, 02h, 0AEh, 16h, 00h, 0C7h, 06h
-db 68h, 0AEh, 10h, 00h, 0A0h, 05h, 0AEh, 98h, 50h, 0E8h, 84h, 0FDh, 59h, 8Bh, 46h, 0FCh
-db 0A3h, 02h, 0AEh, 8Bh, 46h, 0FAh, 0A3h, 68h, 0AEh, 0E8h, 04h, 0F0h, 0BBh, 00h, 01h, 99h
-db 0F7h, 0FBh, 88h, 56h, 0FFh, 80h, 7Eh, 0FFh, 30h, 7Ch, 06h, 80h, 7Eh, 0FFh, 39h, 7Eh
-db 03h, 0E9h, 0A5h, 00h, 8Ah, 46h, 0FFh, 98h, 05h, 0D0h, 0FFh, 8Bh, 0F0h, 8Ah, 46h, 0FFh
-db 98h, 50h, 0FFh, 36h, 68h, 0AEh, 0FFh, 36h, 02h, 0AEh, 0E8h, 0E4h, 11h, 83h, 0C4h, 06h
-db 8Ah, 46h, 0FFh, 98h, 05h, 0D0h, 0FFh, 8Bh, 0F0h, 0B8h, 0EDh, 0Fh, 50h, 0E8h, 21h, 0F0h
-db 59h, 0E8h, 6Bh, 0E9h, 0C7h, 46h, 0F8h, 0FFh, 0FFh, 0EBh, 0Bh, 83h, 7Eh, 0F8h, 7Fh, 75h
-db 05h, 0C7h, 46h, 0F8h, 0FFh, 0FFh, 0FFh, 46h, 0F8h, 8Bh, 5Eh, 0F8h, 0D1h, 0E3h, 83h, 0BFh
-db 9Ah, 0AEh, 00h, 74h, 0E6h, 0E8h, 47h, 0E9h, 0B8h, 02h, 10h, 50h, 0E8h, 0F2h, 0EFh, 59h
-db 83h, 0FEh, 08h, 7Dh, 07h, 8Ah, 46h, 0F8h, 88h, 84h, 60h, 0AEh, 83h, 0FEh, 08h, 75h
-db 06h, 8Ah, 46h, 0F8h, 0A2h, 04h, 0AEh, 83h, 0FEh, 09h, 75h, 06h, 8Ah, 46h, 0F8h, 0A2h
-db 05h, 0AEh, 8Bh, 0C6h, 05h, 07h, 00h, 0A3h, 68h, 0AEh, 0C7h, 06h, 02h, 0AEh, 16h, 00h
-db 0B8h, 16h, 10h, 50h, 0E8h, 0BAh, 0EFh, 59h, 0C7h, 06h, 02h, 0AEh, 16h, 00h, 0FFh, 76h
-db 0F8h, 0E8h, 0BCh, 0FCh, 59h, 0C6h, 46h, 0FFh, 30h, 80h, 7Eh, 0FFh, 30h, 7Ch, 09h, 80h
-db 7Eh, 0FFh, 39h, 7Fh, 03h, 0E9h, 25h, 0FFh, 0E8h, 2Eh, 0EEh, 5Fh, 5Eh, 8Bh, 0E5h
-}
+  char ch;
+  int hx,hy,i,select,new;
+
+  expwin (22,15);
+  print ("Keyboard Configuration\n\r");
+  print ("----------------------");
+  print ("\n\r0 north    :");
+  print ("\n\r1 east     :");
+  print ("\n\r2 south    :");
+  print ("\n\r3 west     :");
+  print ("\n\r4 northeast:");
+  print ("\n\r5 southeast:");
+  print ("\n\r6 southwest:");
+  print ("\n\r7 northwest:");
+  print ("\n\r8 button1  :");
+  print ("\n\r9 button2  :");
+  print ("\n\n\rModify which action:");
+  hx=sx;
+  hy=sy;
+  for (i=0;i<8;i++)
+  {
+    sx=22;
+    sy=7+i;
+    printscan (key[i]);
+  }
+  sx=22;
+  sy=15;
+  printscan (keyB1);
+  sx=22;
+  sy=16;
+  printscan (keyB2);
+
+  do
+  {
+    sx=hx;
+    sy=hy;
+    ch=get() % 256;
+    if (ch<'0' || ch>'9')
+      continue;
+    select = ch - '0';
+    drawchar (sx,sy,ch);
+    select = ch - '0';
+    print ("\n\rPress the new key:");
+    clearkeys ();
+    new=-1;
+    while (!keydown[++new])
+      if (new==0x79)
+	new=-1;
+    clearkeys ();
+    print ("\r                  ");
+    if (select<8)
+      key[select]=new;
+    if (select==8)
+      keyB1=new;
+    if (select==9)
+      keyB2=new;
+    sy=select+7;
+    sx=22;
+    print ("        ");
+    sx=22;
+    printscan (new);
+    ch='0';				// so the loop continues
+  } while (ch>='0' && ch<='9');
+
+  erasewindow ();
 }
 
 
