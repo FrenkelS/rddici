@@ -96,39 +96,74 @@ void controlpanel (void);
 //void sub_0_3E97(void)
 void calibratejoy (int joynum)
 {
-asm {
-db 83h, 0ECh, 2Ah, 56h, 57h, 8Bh
-db 7Eh, 04h, 0B8h, 09h, 00h, 50h, 0B8h, 18h, 00h, 50h, 0E8h, 3Ch, 0F4h, 59h, 59h, 0B8h
-db 6Eh, 0Dh, 50h, 0E8h, 3Bh, 0F5h, 59h, 0B8h, 88h, 0Dh, 50h, 0E8h, 33h, 0F5h, 59h, 0B8h
-db 0A2h, 0Dh, 50h, 0E8h, 2Bh, 0F5h, 59h, 0B8h, 0BDh, 0Dh, 50h, 0E8h, 23h, 0F5h, 59h, 0B8h
-db 0CAh, 0Dh, 50h, 0E8h, 1Bh, 0F5h, 59h, 0BEh, 0Fh, 00h, 56h, 0FFh, 36h, 68h, 0AEh, 0FFh
-db 36h, 02h, 0AEh, 0E8h, 0BBh, 16h, 83h, 0C4h, 06h, 0E8h, 6Ah, 16h, 0E8h, 67h, 16h, 0E8h
-db 64h, 16h, 46h, 8Bh, 0C6h, 3Dh, 17h, 00h, 75h, 03h, 0BEh, 0Fh, 00h, 8Dh, 46h, 0F8h
-db 50h, 8Dh, 46h, 0FAh, 50h, 57h, 0E8h, 0F4h, 0E9h, 83h, 0C4h, 06h, 8Dh, 46h, 0EEh, 16h
-db 50h, 57h, 16h, 8Dh, 46h, 0E8h, 50h, 0E8h, 7Eh, 0EAh, 83h, 0C4h, 06h, 8Dh, 46h, 0E8h
-db 16h, 50h, 0B9h, 06h, 00h, 0E8h, 7Ah, 36h, 83h, 3Eh, 9Ch, 0AEh, 00h, 74h, 03h, 0E9h
-db 40h, 01h, 83h, 7Eh, 0F0h, 01h, 75h, 0A2h, 0B8h, 20h, 00h, 50h, 0FFh, 36h, 68h, 0AEh
-db 0FFh, 36h, 02h, 0AEh, 0E8h, 5Ah, 16h, 83h, 0C4h, 06h, 8Dh, 46h, 0EEh, 16h, 50h, 57h
-db 16h, 8Dh, 46h, 0E2h, 50h, 0E8h, 40h, 0EAh, 83h, 0C4h, 06h, 8Dh, 46h, 0E2h, 16h, 50h
-db 0B9h, 06h, 00h, 0E8h, 3Ch, 36h, 83h, 7Eh, 0F0h, 00h, 75h, 0DEh, 0E8h, 0E7h, 15h, 0E8h
-db 0E4h, 15h, 0B8h, 0DFh, 0Dh, 50h, 0E8h, 78h, 0F4h, 59h, 0B8h, 0FDh, 0Dh, 50h, 0E8h, 70h
-db 0F4h, 59h, 0B8h, 0Bh, 0Eh, 50h, 0E8h, 68h, 0F4h, 59h, 56h, 0FFh, 36h, 68h, 0AEh, 0FFh
-db 36h, 02h, 0AEh, 0E8h, 0Bh, 16h, 83h, 0C4h, 06h, 0E8h, 0BAh, 15h, 0E8h, 0B7h, 15h, 0E8h
-db 0B4h, 15h, 46h, 8Bh, 0C6h, 3Dh, 17h, 00h, 75h, 03h, 0BEh, 0Fh, 00h, 8Dh, 46h, 0F4h
-db 50h, 8Dh, 46h, 0F6h, 50h, 57h, 0E8h, 44h, 0E9h, 83h, 0C4h, 06h, 8Dh, 46h, 0EEh, 16h
-db 50h, 57h, 16h, 8Dh, 46h, 0DCh, 50h, 0E8h, 0CEh, 0E9h, 83h, 0C4h, 06h, 8Dh, 46h, 0DCh
-db 16h, 50h, 0B9h, 06h, 00h, 0E8h, 0CAh, 35h, 83h, 3Eh, 9Ch, 0AEh, 00h, 74h, 03h, 0E9h
-db 90h, 00h, 83h, 7Eh, 0F0h, 01h, 75h, 0A2h, 0B8h, 20h, 00h, 50h, 0FFh, 36h, 68h, 0AEh
-db 0FFh, 36h, 02h, 0AEh, 0E8h, 0AAh, 15h, 83h, 0C4h, 06h, 8Dh, 46h, 0EEh, 16h, 50h, 57h
-db 16h, 8Dh, 46h, 0D6h, 50h, 0E8h, 90h, 0E9h, 83h, 0C4h, 06h, 8Dh, 46h, 0D6h, 16h, 50h
-db 0B9h, 06h, 00h, 0E8h, 8Ch, 35h, 83h, 7Eh, 0F0h, 00h, 75h, 0DEh, 8Bh, 46h, 0F6h, 2Bh
-db 46h, 0FAh, 0BBh, 04h, 00h, 99h, 0F7h, 0FBh, 89h, 46h, 0FEh, 8Bh, 46h, 0F4h, 2Bh, 46h
-db 0F8h, 0BBh, 04h, 00h, 99h, 0F7h, 0FBh, 89h, 46h, 0FCh, 8Bh, 0DFh, 0D1h, 0E3h, 8Bh, 46h
-db 0FAh, 03h, 46h, 0FEh, 89h, 87h, 0EAh, 0ADh, 8Bh, 0DFh, 0D1h, 0E3h, 8Bh, 46h, 0F6h, 2Bh
-db 46h, 0FEh, 89h, 87h, 0F0h, 0ADh, 8Bh, 0DFh, 0D1h, 0E3h, 8Bh, 46h, 0F8h, 03h, 46h, 0FCh
-db 89h, 87h, 0F6h, 0ADh, 8Bh, 0DFh, 0D1h, 0E3h, 8Bh, 46h, 0F4h, 2Bh, 46h, 0FCh, 89h, 87h
-db 0FCh, 0ADh, 0E8h, 0CAh, 0ECh, 0E8h, 11h, 0F2h, 5Fh, 5Eh, 8Bh, 0E5h
-}
+  int stage,dx,dy,xl,yl,xh,yh;
+  ControlStruct ctr;
+
+  expwin (24,9);
+
+  print(" Joystick Configuration\n\r");
+  print(" ----------------------\n\r");
+  print("Hold the joystick in the\n\r");
+  print("upper left\n\r");
+  print("corner and hit fire:");
+  stage=15;
+  do				// wait for a button press
+  {
+    drawchar (sx,sy,stage);
+    WaitVBL ();
+    WaitVBL ();
+    WaitVBL ();
+    if (++stage==23)
+      stage=15;
+    ReadJoystick (joynum,&xl,&yl);
+    ctr = ControlJoystick(joynum);
+    if (keydown[1])
+      goto done;
+  } while (ctr.button1!= 1);
+  drawchar (sx,sy,' ');
+  do                  		// wait for the button release
+  {
+    ctr = ControlJoystick(joynum);
+  } while (ctr.button1);
+  WaitVBL ();
+  WaitVBL ();			// so the button can't bounce
+
+  print("\n\n\rHold the joystick in the\n\r");
+  print("lower right\n\r");
+  print("corner and hit fire:");
+  do				// wait for a button press
+  {
+    drawchar (sx,sy,stage);
+    WaitVBL ();
+    WaitVBL ();
+    WaitVBL ();
+    if (++stage==23)
+      stage=15;
+    ReadJoystick (joynum,&xh,&yh);
+    ctr = ControlJoystick(joynum);
+    if (keydown[1])
+      goto done;
+  } while (ctr.button1!= 1);
+  drawchar (sx,sy,' ');
+  do                  		// wait for the button release
+  {
+    ctr = ControlJoystick(joynum);
+  } while (ctr.button1);
+
+  //
+  // figure out good boundaries
+  //
+
+  dx=(xh-xl) / 4;
+  dy=(yh-yl) / 4;
+  JoyXlow[joynum]=xl+dx;
+  JoyXhigh[joynum]=xh-dx;
+  JoyYlow[joynum]=yl+dy;
+  JoyYhigh[joynum]=yh-dy;
+
+done:
+  clearkeys ();
+  erasewindow ();
 }
 
 
