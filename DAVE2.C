@@ -316,18 +316,18 @@ int word_789_23C = 2;
 int word_789_23E = 3;
 int word_789_240 = 4;
 int word_789_242 = 5;
-int word_789_244 = 0x0006;
-int word_789_246 = 0x0007;
-int word_789_248 = 0x0008;
-int word_789_24a = 0x0009;
-int word_789_24c = 0x000a;
-int word_789_24e = 0x000b;
-int word_789_250 = 0x000c;
-int word_789_252 = 0x000e;
-int word_789_254 = 0x000f;
-int word_789_256 = 0x0010;
-int word_789_258 = 0x000d;
-int word_789_25a = 0x0011;
+int word_789_244 = 6;
+int word_789_246 = 7;
+int word_789_248 = 8;
+int word_789_24a = 9;
+int word_789_24c = 10;
+int word_789_24e = 11;
+int word_789_250 = 12;
+int word_789_252 = 14;
+int word_789_254 = 15;
+int word_789_256 = 16;
+int word_789_258 = 13;
+int word_789_25a = 17;
 int word_789_25c = 0x0012;
 int word_789_25e = 0x0013;
 int word_789_260 = 0x0014;
@@ -388,28 +388,28 @@ int word_789_2cc = 0x004a;
 int word_789_2ce = 0x004b;
 int word_789_2d0 = 0x004c;
 int word_789_2d2 = 0x004d;
-int word_789_2d4 = 0x0000;
-int word_789_2d6 = 0x0000;
-int word_789_2d8 = 0x0000;
-int word_789_2da = 0x0000;
-int word_789_2dc = 0x0000;
-int word_789_2de = 0x0000;
-int word_789_2e0 = 0x0000;
-int word_789_2e2 = 0x0000;
-int word_789_2e4 = 0x0000;
-int word_789_2e6 = 0x0000;
-int word_789_2e8 = 0x0000;
-int word_789_2ea = 0x0000;
-int word_789_2ec = 0x0000;
-int word_789_2ee = 0x0000;
-int word_789_2f0 = 0x0000;
-int word_789_2f2 = 0x0000;
-int word_789_2f4 = 0x0000;
-int word_789_2f6 = 0x0000;
-int word_789_2f8 = 0x0000;
-int word_789_2fa = 0x0000;
-int word_789_2fc = 0x0000;
-int word_789_2fe = 0x0000;
+int word_789_2d4 = 0;
+int word_789_2d6 = 0;
+int word_789_2d8 = 0;
+int word_789_2da = 0;
+int word_789_2dc = 0;
+int word_789_2de = 0;
+int word_789_2e0 = 0;
+int word_789_2e2 = 0;
+int word_789_2e4 = 0;
+int word_789_2e6 = 0;
+int word_789_2e8 = 0;
+int word_789_2ea = 0;
+int word_789_2ec = 0;
+int word_789_2ee = 0;
+int word_789_2f0 = 0;
+int word_789_2f2 = 0;
+int word_789_2f4 = 0;
+int word_789_2f6 = 0;
+int word_789_2f8 = 0;
+int word_789_2fa = 0;
+int word_789_2fc = 0;
+int word_789_2fe = 0;
 int word_789_300 = 0x00d7;
 int word_789_302 = 0x00d7;
 int word_789_304 = 0x00d7;
@@ -501,15 +501,15 @@ int word_789_3ae = 0x00d7;
 int word_789_3b0 = 0x00d7;
 int word_789_3b2 = 0x00d7;
 int word_789_3b4 = 0x00d7;
-int word_789_3b6 = 0x0000;
-int word_789_3b8 = 0x0000;
-int word_789_3ba = 0x0000;
-int word_789_3bc = 0x0000;
-int word_789_3be = 0x0000;
-int word_789_3c0 = 0x0000;
-int word_789_3c2 = 0x0000;
-int word_789_3c4 = 0x0000;
-int word_789_3c6 = 0x0000;
+int word_789_3b6 = 0;
+int word_789_3b8 = 0;
+int word_789_3ba = 0;
+int word_789_3bc = 0;
+int word_789_3be = 0;
+int word_789_3c0 = 0;
+int word_789_3c2 = 0;
+int word_789_3c4 = 0;
+int word_789_3c6 = 0;
 char aCgapics_dd2[] = "CGAPICS.DD2";
 char aEgapics_dd2[] = "EGAPICS.DD2";
 char aResetGameYN[] = "RESET GAME (Y/N)?";
@@ -530,9 +530,9 @@ char aDavesLeft[] = "\n\n DAVES LEFT:";
 char aRecordDemo[] = "RECORD DEMO";
 char aDd2[] = "DD2";
 char unk_789_4a1 = 0;
-int word_789_4a2 = 0x0000;
-int word_789_4a4 = 0x0000;
-int word_789_4a6 = 0x0000;
+int word_789_4a2 = 0;
+int word_789_4a4 = 0;
+int word_789_4a6 = 0;
 int word_789_4a8 = 0x2193;
 int word_789_4aa = 0x21b5;
 int word_789_4ac = 0x21d9;
@@ -542,14 +542,14 @@ int word_789_4b2 = 0x2273;
 int word_789_4b4 = 0x22ad;
 int word_789_4b6 = 0x22f1;
 int word_789_4b8 = 0x2335;
-int word_789_4ba = 0x0000;
+int word_789_4ba = 0;
 int word_789_4bc = 0x247e;
 int word_789_4be = 0x2498;
 int word_789_4c0 = 0x24b6;
 int word_789_4c2 = 0x24de;
 int word_789_4c4 = 0x2506;
 int word_789_4c6 = 0x2538;
-int word_789_4c8 = 0x0000;
+int word_789_4c8 = 0;
 int word_789_4ca = 0x0040;
 int word_789_4cc = 0x0080;
 int word_789_4ce = 0x00c0;
@@ -805,7 +805,7 @@ int word_789_6c0 = 0x3f00;
 int word_789_6c2 = 0x3f40;
 int word_789_6c4 = 0x3f80;
 int word_789_6c6 = 0x3fc0;
-int word_789_6c8 = 0x0000;
+int word_789_6c8 = 0;
 int word_789_6ca = 0x0020;
 int word_789_6cc = 0x0040;
 int word_789_6ce = 0x0060;
@@ -933,7 +933,7 @@ int word_789_7c0 = 0x0f80;
 int word_789_7c2 = 0x0fa0;
 int word_789_7c4 = 0x0fc0;
 int word_789_7c6 = 0x0fe0;
-int word_789_7c8 = 0x0000;
+int word_789_7c8 = 0;
 int word_789_7ca = 0x0004;
 int word_789_7cc = 0x0008;
 int word_789_7ce = 0x000c;
@@ -1393,6 +1393,86 @@ int word_789_b58 = 0x2410;
 int word_789_b5a = 0x2412;
 int word_789_b5c = 0x2414;
 int word_789_b5e = 0x2416;
+int word_789_b60 = 0x2418;
+int word_789_b62 = 0x241a;
+int word_789_b64 = 0x241C;
+int word_789_b66 = 0x241E;
+int word_789_b68 = 0x2420;
+int word_789_b6a = 0x2422;
+int word_789_b6c = 0x2424;
+int word_789_b6e = 0x2426;
+int word_789_b70 = 0x2428;
+int word_789_b72 = 0x242A;
+int word_789_b74 = 0x242C;
+int word_789_b76 = 0x2704;
+int word_789_b78 = 0x2706;
+int word_789_b7a = 0x2708;
+int word_789_b7c = 0x270A;
+int word_789_b7e = 0x270C;
+int word_789_b80 = 0x270E;
+int word_789_b82 = 0x2710;
+int word_789_b84 = 0x2712;
+int word_789_b86 = 0x2714;
+int word_789_b88 = 0x2716;
+int word_789_b8a = 0x2718;
+int word_789_b8c = 0x271A;
+int word_789_b8e = 0x271C;
+int word_789_b90 = 0x271E;
+int word_789_b92 = 0x2720;
+int word_789_b94 = 0x2722;
+int word_789_b96 = 0x2724;
+int word_789_b98 = 0x2726;
+int word_789_b9a = 0x2728;
+int word_789_b9c = 0x272A;
+int word_789_b9e = 0x272C;
+int word_789_ba0 = 0x2A04;
+int word_789_ba2 = 0x2A06;
+int word_789_ba4 = 0x2A08;
+int word_789_ba6 = 0x2A0A;
+int word_789_ba8 = 0x2A0C;
+int word_789_baa = 0x2A0E;
+int word_789_bac = 0x2A10;
+int word_789_bae = 0x2A12;
+int word_789_bb0 = 0x2A14;
+int word_789_bb2 = 0x2A16;
+int word_789_bb4 = 0x2A18;
+int word_789_bb6 = 0x2A1A;
+int word_789_bb8 = 0x2A1C;
+int word_789_bba = 0x2A1E;
+int word_789_bbc = 0x2A20;
+int word_789_bbe = 0x2A22;
+int word_789_bc0 = 0x2A24;
+int word_789_bc2 = 0x2A26;
+int word_789_bc4 = 0x2A28;
+int word_789_bc6 = 0x2A2A;
+int word_789_bc8 = 0x2A2C;
+int word_789_bca = 0x2D04;
+int word_789_bcc = 0x2D06;
+int word_789_bce = 0x2D08;
+int word_789_bd0 = 0x2D0A;
+int word_789_bd2 = 0x2D0C;
+int word_789_bd4 = 0x2D0E;
+int word_789_bd6 = 0x2D10;
+int word_789_bd8 = 0x2D12;
+int word_789_bda = 0x2D14;
+int word_789_bdc = 0x2D16;
+int word_789_bde = 0x2D18;
+int word_789_be0 = 0x2D1A;
+int word_789_be2 = 0x2D1C;
+int word_789_be4 = 0x2D1E;
+int word_789_be6 = 0x2D20;
+int word_789_be8 = 0x2D22;
+int word_789_bea = 0x2D24;
+int word_789_bec = 0x2D26;
+int word_789_bee = 0x2D28;
+int word_789_bf0 = 0x2D2A;
+int word_789_bf2 = 0x2D2C;
+int word_789_bf4 = 0;
+int word_789_bf6 = 0;
+int word_789_bf8 = 0;
+int word_789_bfa = 0;
+int word_789_bfc = 0;
+int word_789_bfe = 0;
 
 
   enum {quited,killed,reseted,victorious} gamexit; /*determines what to do after playloop*/
@@ -1501,6 +1581,7 @@ int lastobj;
 //////////////////////////////////
 
 void extern drawobj (void);
+void extern clearold (void);
 void extern eraseobj (void);
 void extern doall (void);
 void extern egamove (void);
@@ -1586,10 +1667,10 @@ void sub_0_31E(void)
 void loadgrfiles(void)
 {
   if (grmode == 1)
-    installgrfile("CGAPICS.DD2", 0);
+    installgrfile(aCgapics_dd2, 0); // "CGAPICS.DD2"
   else
   {
-    installgrfile("EGAPICS.DD2", 0);
+    installgrfile(aEgapics_dd2, 0); // "EGAPICS.DD2"
     word_789_1554 ^= 0x0100; // FIXME fsm: should be 0x0001
   }
 }
@@ -1633,7 +1714,7 @@ void dofkeys (void)
     case 0x3d:			// F3
       clearkeys ();
       expwin (18,1);
-      print ("RESET GAME (Y/N)?");
+      print (aResetGameYN); // "RESET GAME (Y/N)?"
       ch=toupper(get());
       if (ch=='Y')
       {
@@ -1645,14 +1726,14 @@ void dofkeys (void)
     case 0x43:			// F9
       clearkeys ();
       expwin (7,1);
-      print ("PAUSED");
+      print (aPaused); // "PAUSED"
       get ();
       break;
 	case 0x01:			// ESC
 	case 0x44:			// F10
       clearkeys ();
       expwin (12,1);
-      print ("QUIT (Y/N)?");
+      print (aQuitYN); // "QUIT (Y/N)?"
       ch=toupper(get());
       if (ch=='Y')
 
@@ -1671,7 +1752,7 @@ void dofkeys (void)
 void help (void)
 {
   expwin (36,21);
-  print ("dave2 help screen");
+  print (aDave2HelpScree); // "dave2 help screen"
   get ();
 }
 
@@ -1722,7 +1803,7 @@ void dotitlepage (void)
   gamestate = 2;
   sx = 0;
   sy = 0;
-  print( "Dave 2 title screen");
+  print (aDave2TitleScre); // "Dave 2 title screen"
 
   for (i=0;i<300;i++)
   {
@@ -1830,7 +1911,7 @@ void gameover (void)
   int i;
 
   expwin (11,4);
-  print ("\n GAME OVER\n     ");
+  print (aGameOver); // "\n GAME OVER\n     "
   PlaySound (7);
   WaitEndSound ();
   for (i=0;i<120;i++)
@@ -1915,7 +1996,7 @@ db 00h, 5Fh, 5Eh, 8Bh, 0E5h
 //void sub_0_AA7(void)
 void BadThink(void)
 {
-  _quit("badTHINK!");
+  _quit(aBadthink); // "badTHINK!"
 }
 
 
@@ -2190,7 +2271,7 @@ switch (indemo)
       {
         clearkeys();
         centerwindow(15, 1);
-        print("Warp to level:");
+        print(aWarpToLevel); // "Warp to level:"
         ch = get();
         if (ch > '0' && ch <= '9')
         {
@@ -2220,7 +2301,7 @@ switch (indemo)
       {
         clearkeys();
         centerwindow(15, 1);
-        print("SAVE AS DEMO#:");
+        print(aSaveAsDemo); // "SAVE AS DEMO#:"
         do
         {
           ch = get ();
@@ -2323,7 +2404,7 @@ void main (void)
   _egaok = true;
   _vgaok = false;
 
-  _extension = "DD2";
+  _extension = aDd2; // "DD2"
 
   _setupgame ();
 
