@@ -103,6 +103,13 @@ typedef struct {	/*holds a copy of activeobj, and its class info*/
 /* typed constants */
 /*     		   */
 /*=================*/
+
+
+/*==================*/
+/*		    */
+/* global variables */
+/*		    */
+/*==================*/
 char fsm_7B38[] = {
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -134,11 +141,6 @@ char fsm_7B38[] = {
 };
 
 
-/*==================*/
-/*		    */
-/* global variables */
-/*		    */
-/*==================*/
   enum {quited,killed,reseted,victorious} gamexit; /*determines what to do after playloop*/
 
   int oldtiles [numtiles];		/*tile displayed last refresh*/
@@ -233,33 +235,6 @@ int lastobj;
   int *word_789_9486;
   int word_789_94C8;
 
-
-/****************************************************************************/
-
-//////////////////////////////////
-//
-// function prototypes
-//
-//////////////////////////////////
-
-void extern drawobj (void);
-void extern eraseobj (void);
-void extern doall (void);
-void extern egamove (void);
-void extern cgarefresh (void);
-void extern egarefresh (void);
-void dofkeys (void);
-
-
-
-/*==============================*/
-/*			        */
-/* xxxrefresh                   */
-/* refresh the changed areas of */
-/* the tiles map in the various */
-/* graphics modes.              */
-/*			        */
-/*==============================*/
 
 char fsm_7CD4[] = {
 0x06, 0x00, 0x07, 0x00, 0x08, 0x00, 0x09, 0x00, 0x0A, 0x00, 0x0B, 0x00,
@@ -418,6 +393,34 @@ char fsm_7CD4[] = {
 0x0A, 0x2D, 0x0C, 0x2D, 0x0E, 0x2D, 0x10, 0x2D, 0x12, 0x2D, 0x14, 0x2D
 };
 
+
+/****************************************************************************/
+
+//////////////////////////////////
+//
+// function prototypes
+//
+//////////////////////////////////
+
+void extern drawobj (void);
+void extern eraseobj (void);
+void extern doall (void);
+void extern egamove (void);
+void extern cgarefresh (void);
+void extern egarefresh (void);
+void dofkeys (void);
+
+
+
+/*==============================*/
+/*			        */
+/* xxxrefresh                   */
+/* refresh the changed areas of */
+/* the tiles map in the various */
+/* graphics modes.              */
+/*			        */
+/*==============================*/
+
 void sub_0_239(void)
 {
   clearold();
@@ -508,49 +511,66 @@ void repaintscreen(void)
 }
 
 
-void sub_0_399(void)
+//void sub_0_399(void)
+void dofkeys (void)
+{
+  int i,handle;
+  char st2[10];
+  int key=bioskey(1)/256;
+  if (key==0)
+    return;
+
+  switch (key)
+  {
+    case 0x3b:			// F1
+      clearkeys ();
+      help ();
+      break;
+    case 0x3c:          	// F2
+      clearkeys ();
+      controlpanel ();
+      sub_0_290 ();
+      break;
+    case 0x3d:			// F3
+      clearkeys ();
+      expwin (18,1);
+      print ("RESET GAME (Y/N)?");
+      ch=toupper(get());
+      if (ch=='Y')
+      {
+        gamexit = quited;
+        playdone = true;
+      }
+      break;
+
+    case 0x43:			// F9
+      clearkeys ();
+      expwin (7,1);
+      print ("PAUSED");
+      get ();
+      break;
+	case 0x01:			// ESC
+	case 0x44:			// F10
+      clearkeys ();
+      expwin (12,1);
+      print ("QUIT (Y/N)?");
+      ch=toupper(get());
+      if (ch=='Y')
+
+	_quit ("");
+      break;
+
+    default:
+      return;
+  }
+
+  sub_0_239 ();
+}
+
+
+void sub_0_48C(void)
 {
 asm {
-db 56h, 57h, 0B8h, 01h
-db 00h, 50h, 0E8h, 0A2h, 65h, 59h, 0BBh, 00h, 01h, 99h, 0F7h, 0FBh, 8Bh, 0F0h, 0Bh, 0F6h
-db 75h, 03h, 0E9h, 0BBh, 00h, 8Bh, 0FEh, 0B9h, 06h, 00h, 0BBh, 74h, 04h, 2Eh, 39h, 3Fh
-db 74h, 07h, 43h, 43h, 0E2h, 0F7h, 0E9h, 0A2h, 00h, 2Eh, 0FFh, 67h, 0Ch, 0E8h, 6Fh, 29h
-db 0E8h, 0B9h, 00h, 0E9h, 97h, 00h, 0E8h, 66h, 29h, 0E8h, 20h, 44h, 0E8h, 0B1h, 0FEh, 0E9h
-db 8Bh, 00h, 0E8h, 5Ah, 29h, 0B8h, 01h, 00h, 50h, 0B8h, 12h, 00h, 50h, 0E8h, 0F9h, 2Eh
-db 59h, 59h, 0B8h, 0E0h, 03h, 50h, 0E8h, 0F8h, 2Fh, 59h, 0E8h, 93h, 2Fh, 50h, 0E8h, 8Eh
-db 63h, 59h, 0A2h, 68h, 0C3h, 80h, 3Eh, 68h, 0C3h, 59h, 75h, 0Ch, 0C7h, 06h, 0ECh, 94h
-db 00h, 00h, 0C7h, 06h, 84h, 94h, 01h, 00h, 0EBh, 53h, 0E8h, 22h, 29h, 0B8h, 01h, 00h
-db 50h, 0B8h, 07h, 00h, 50h, 0E8h, 0C1h, 2Eh, 59h, 59h, 0B8h, 0F2h, 03h, 50h, 0E8h, 0C0h
-db 2Fh, 59h, 0E8h, 5Bh, 2Fh, 0EBh, 36h, 0E8h, 05h, 29h, 0B8h, 01h, 00h, 50h, 0B8h, 0Ch
-db 00h, 50h, 0E8h, 0A4h, 2Eh, 59h, 59h, 0B8h, 0F9h, 03h, 50h, 0E8h, 0A3h, 2Fh, 59h, 0E8h
-db 3Eh, 2Fh, 50h, 0E8h, 39h, 63h, 59h, 0A2h, 68h, 0C3h, 80h, 3Eh, 68h, 0C3h, 59h, 75h
-db 08h, 0B8h, 05h, 04h, 50h, 0E8h, 0FDh, 39h, 59h, 0EBh, 02h, 0EBh, 03h, 0E8h, 0C9h, 0FDh
-db 5Fh, 5Eh
-
-db 5Dh, 0C3h
-//}
-//}
-
-
-db 01h, 00h
-db 3Bh, 00h
-db 3Ch, 00h
-db 3Dh, 00h
-db 43h, 00h
-db 44h, 00h
-db 37h, 04h
-db 0CDh, 03h
-db 0D6h, 03h
-db 0E2h, 03h
-db 1Ah, 04h
-db 37h, 04h
-
-
-//void sub_0_48C(void)
-//{
-//asm {
-db 55h, 8Bh, 0ECh
-
 db 0B8h
 db 15h, 00h, 50h, 0B8h, 24h, 00h, 50h, 0E8h, 4Fh, 2Eh, 59h, 59h, 0B8h, 06h, 04h, 50h
 db 0E8h, 4Eh, 2Fh, 59h, 0E8h, 0E9h, 2Eh
