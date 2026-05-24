@@ -231,9 +231,14 @@ int lastobj;
   int word_789_1D36;
   int *word_789_7FD0;
   int word_789_8220;
+  int word_789_8228;
   int word_789_947E;
   int *word_789_9486;
+  int word_789_949E;
+  int word_789_94BC;
+  int word_789_94C6;
   int word_789_94C8;
+  int word_789_94D4;
 
 
 char fsm_7CD4[] = {
@@ -382,9 +387,7 @@ char fsm_7CD4[] = {
 0x2C, 0x1E, 0x04, 0x21, 0x06, 0x21, 0x08, 0x21, 0x0A, 0x21, 0x0C, 0x21, 0x0E, 0x21, 0x10, 0x21,
 0x12, 0x21, 0x14, 0x21, 0x16, 0x21, 0x18, 0x21, 0x1A, 0x21, 0x1C, 0x21, 0x1E, 0x21, 0x20, 0x21,
 0x22, 0x21, 0x24, 0x21, 0x26, 0x21, 0x28, 0x21, 0x2A, 0x21, 0x2C, 0x21, 0x04, 0x24, 0x06, 0x24,
-0x08, 0x24, 0x0A, 0x24, 0x0C, 0x24, 0x0E, 0x24, 0x10, 0x24, 0x12, 0x24, 0x14, 0x24, 0x16, 0x24,
-0x18, 0x24, 0x1A, 0x24, 0x1C, 0x24, 0x1E, 0x24, 0x20, 0x24, 0x22, 0x24, 0x24, 0x24, 0x26, 0x24,
-0x28, 0x24, 0x2A, 0x24, 0x2C, 0x24, 0x04, 0x27, 0x06, 0x27, 0x08, 0x27, 0x0A, 0x27
+0x08, 0x24, 0x0A, 0x24, 0x0C, 0x24, 0x0E, 0x24, 0x10, 0x24, 0x12, 0x24, 0x14, 0x24, 0x16, 0x24
 };
 
 
@@ -661,7 +664,7 @@ void dodemo (void)
 {
   int i;
 
-  exitdemo = 0;
+  exitdemo = false;
   indemo = 0;
 
   ctrl = ControlPlayer (1);
@@ -1065,32 +1068,73 @@ db 10h, 27h, 83h, 16h, 0C0h, 94h, 00h, 0FFh, 06h, 84h, 94h
 }
 
 
+// FIXME fsm: what does break do in a switch inside a do-loop?
 void sub_0_14CD(void)
 {
-asm {
-db 83h, 0ECh, 06h, 0E8h, 7Eh, 08h, 33h, 0C0h, 0A3h, 0D4h, 94h, 0A3h, 9Eh, 94h, 0A3h, 0BCh
-db 94h, 0C7h, 06h, 0C6h, 94h, 7Ch, 84h, 0E8h, 6Ch, 40h, 0C7h, 06h, 28h, 82h, 0D6h, 94h
-db 0E8h, 26h, 0FAh, 0E8h, 0BDh, 0F2h, 0E8h, 0A0h, 0EEh, 0A1h, 5Ch, 0C3h, 0Bh, 0C0h, 74h, 10h
-db 3Dh, 01h, 00h, 75h, 03h, 0E9h, 0BFh, 00h, 3Dh, 02h, 00h, 74h, 60h, 0E9h, 07h, 01h
-db 83h, 3Eh, 0F6h, 0AEh, 00h, 74h, 53h, 83h, 3Eh, 0C2h, 0AEh, 00h, 74h, 4Ch, 83h, 3Eh
-db 0Ch, 0AFh, 00h, 74h, 45h, 0E8h, 17h, 18h, 0B8h, 01h, 00h, 50h, 0B8h, 0Fh, 00h, 50h
-db 0E8h, 75h, 1Dh, 59h, 59h, 0B8h, 48h, 04h, 50h, 0E8h, 0B5h, 1Eh, 59h, 0E8h, 50h, 1Eh
-db 0A2h, 68h, 0C3h, 80h, 3Eh, 68h, 0C3h, 30h, 7Eh, 17h, 80h, 3Eh, 68h, 0C3h, 39h, 7Fh
-db 10h, 0A0h, 68h, 0C3h, 98h, 05h, 0CFh, 0FFh, 0A3h, 6Eh, 0AEh, 0C7h, 06h, 38h, 1Dh, 01h
-db 00h, 0E8h, 0F0h, 07h, 0E8h, 4Ch, 0F2h, 0E8h, 49h, 0F2h, 0E9h, 0AAh, 00h, 83h, 3Eh, 0ECh
-db 94h, 00h, 74h, 0Eh, 83h, 3Eh, 1Eh, 0AFh, 00h, 74h, 4Ah, 83h, 3Eh, 0DAh, 0AEh, 00h
-db 74h, 43h, 0E8h, 0BAh, 17h, 0B8h, 01h, 00h, 50h, 0B8h, 0Fh, 00h, 50h, 0E8h, 18h, 1Dh
-db 59h, 59h, 0B8h, 57h, 04h, 50h, 0E8h, 58h, 1Eh, 59h, 0E8h, 0F3h, 1Dh, 0A2h, 68h, 0C3h
-db 80h, 3Eh, 68h, 0C3h, 30h, 7Eh, 07h, 80h, 3Eh, 68h, 0C3h, 39h, 7Fh, 00h, 0A0h, 68h
-db 0C3h, 98h, 05h, 0D0h, 0FFh, 50h, 0E8h, 19h, 17h, 59h, 0E8h, 97h, 07h, 0E8h, 0F3h, 0F1h
-db 0E8h, 0F0h, 0F1h, 0EBh, 63h, 0EBh, 50h, 0C7h, 06h, 5Ch, 0C3h, 00h, 00h, 0B8h, 3Ah, 1Dh
-db 1Eh, 50h, 0B8h, 01h, 00h, 50h, 16h, 8Dh, 46h, 0FAh, 50h, 0E8h, 4Ah, 15h, 83h, 0C4h
-db 06h, 8Dh, 46h, 0FAh, 16h, 50h, 0B9h, 06h, 00h, 0E8h, 0B6h, 5Fh, 83h, 3Eh, 3Ch, 1Dh
-db 00h, 75h, 0Eh, 83h, 3Eh, 3Eh, 1Dh, 00h, 75h, 07h, 83h, 3Eh, 0Ch, 0AFh, 00h, 74h
-db 0Eh, 0C7h, 06h, 5Ch, 0C3h, 01h, 00h, 0C7h, 06h, 1Eh, 82h, 01h, 00h, 0EBh, 19h, 0C7h
-db 06h, 5Ch, 0C3h, 01h, 00h, 0EBh, 00h, 83h, 3Eh, 38h, 1Dh, 00h, 75h, 0Ah, 83h, 3Eh
-db 0ECh, 94h, 00h, 74h, 03h, 0E9h, 0AEh, 0FEh, 8Bh, 0E5h
+  clearold();
+  do
+  {
+    word_789_94BC = word_789_949E = word_789_94D4 = 0;
+	word_789_94C6 = 0x847C;
+    WaitVBL();
+    word_789_8228 = 0x94D6;
+    sub_0_F19();
+    sub_0_7B3();
+    dofkeys();
+
+switch (indemo)
+{
+  case 0:
+      if (keydown[0x2e] && keydown[0x14] && keydown[0x39])
+      {
+        clearkeys();
+        centerwindow(15, 1);
+        print("Warp to level:");
+        ch = get();
+        if (ch > '0' && ch <= '9')
+        {
+          level = ch - '1';
+          leveldone = 1;
+        }
+        clearold();
+        sub_0_7B3();
+        sub_0_7B3();
+      }
+    break;
+
+  case 1:
+      indemo = 0;
+      ctrl = ControlPlayer (1);
+      if (ctrl.button1 || ctrl.button2 || keydown[0x39])
+      {
+        indemo = 1;
+        exitdemo = true;
+        break;
+      }
+      indemo = 1;
+    break;
+
+  case 2:
+      if (!gamexit || (keydown[0x42] && keydown[0x20]))
+      {
+        clearkeys();
+        centerwindow(15, 1);
+        print("SAVE AS DEMO#:");
+        do
+        {
+          ch = get ();
+        } while (ch<'0' || ch>'9');
+        SaveDemo(ch-'0');
+        clearold();
+        sub_0_7B3();
+        sub_0_7B3();
+        return;
+      }
+    break;
 }
+
+
+  } while (!leveldone && gamexit);
 }
 
 
