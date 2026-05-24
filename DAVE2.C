@@ -729,18 +729,26 @@ void dodemo (void)
 //void sub_0_71E(void)
 void gameover (void)
 {
-asm {
-db 83h, 0ECh, 06h, 56h, 0B8h, 04h, 00h, 50h, 0B8h, 0Bh, 00h, 50h, 0E8h, 0B9h, 2Bh
-db 59h, 59h, 0B8h, 2Ch, 04h, 50h, 0E8h, 0B8h, 2Ch, 59h, 0B8h, 07h, 00h, 50h, 0E8h, 0C5h
-db 4Bh, 59h, 0E8h, 0B2h, 4Ch, 33h, 0F6h, 0EBh, 04h, 0E8h, 0Ah, 4Eh, 46h, 83h, 0FEh, 78h
-db 7Ch, 0F7h, 0C7h, 06h, 0C2h, 94h, 03h, 00h, 0E8h, 28h, 35h, 33h, 0F6h, 0EBh, 49h, 0E8h
-db 0F4h, 4Dh, 0B8h, 3Ah, 1Dh, 1Eh, 50h, 0B8h, 01h, 00h, 50h, 16h, 8Dh, 46h, 0FAh, 50h
-db 0E8h, 0B5h, 23h, 83h, 0C4h, 06h, 8Dh, 46h, 0FAh, 16h, 50h, 0B9h, 06h, 00h, 0E8h, 21h
-db 6Eh, 83h, 3Eh, 3Ch, 1Dh, 00h, 75h, 0Eh, 83h, 3Eh, 3Eh, 1Dh, 00h, 75h, 07h, 83h
-db 3Eh, 0Ch, 0AFh, 00h, 74h, 02h, 0EBh, 16h, 0B8h, 01h, 00h, 50h, 0E8h, 0A8h, 61h, 59h
-db 0Bh, 0C0h, 74h, 03h, 0E8h, 0F2h, 0FBh, 46h, 81h, 0FEh, 2Ch, 01h, 7Ch, 0B1h, 5Eh, 8Bh
-db 0E5h
-}
+  int i;
+
+  expwin (11,4);
+  print ("\n GAME OVER\n     ");
+  PlaySound (7);
+  WaitEndSound ();
+  for (i=0;i<120;i++)
+    WaitVBL ();
+  gamestate=3;
+  _checkhighscore ();
+
+  for (i=0;i<500;i++)
+  {
+	 WaitVBL ();
+	 ctrl = ControlPlayer (1);
+	 if (ctrl.button1 || ctrl.button2 || keydown[0x39])
+		break;
+	 if (bioskey (1))
+		dofkeys ();
+  }
 }
 
 
