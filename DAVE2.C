@@ -577,8 +577,7 @@ void help (void)
 }
 
 
-//void sub_0_4A9(void)
-void dotitlepage (void)
+void sub_0_4A9(void)
 {
   int i;
   setscreenmode (grmode);
@@ -617,22 +616,36 @@ void dotitlepage (void)
 =============
 */
 //void sub_0_548(void)
-void doendpage (void)
+void dotitlepage (void)
 {
-asm {
-db 83h, 0ECh, 06h, 56h, 0FFh
-db 36h, 9Ch, 0AFh, 0E8h, 0D9h, 2Ah, 59h, 0C7h, 06h, 0C2h, 94h, 02h, 00h, 0C7h, 06h, 02h
-db 0AEh, 00h, 00h, 0C7h, 06h, 68h, 0AEh, 00h, 00h, 0B8h, 18h, 04h, 50h, 0E8h, 81h, 2Eh
-db 59h, 33h, 0F6h, 0EBh, 5Bh, 0E8h, 0DEh, 4Fh, 0C7h, 06h, 5Ch, 0C3h, 00h, 00h, 0B8h, 3Ah
-db 1Dh, 1Eh, 50h, 0B8h, 01h, 00h, 50h, 16h, 8Dh, 46h, 0FAh, 50h, 0E8h, 99h, 25h, 83h
-db 0C4h, 06h, 8Dh, 46h, 0FAh, 16h, 50h, 0B9h, 06h, 00h, 0E8h, 05h, 70h, 83h, 3Eh, 3Ch
-db 1Dh, 00h, 75h, 0Eh, 83h, 3Eh, 3Eh, 1Dh, 00h, 75h, 07h, 83h, 3Eh, 0Ch, 0AFh, 00h
-db 74h, 08h, 0C7h, 06h, 1Eh, 82h, 01h, 00h, 0EBh, 1Ch, 0C7h, 06h, 5Ch, 0C3h, 01h, 00h
-db 0B8h, 01h, 00h, 50h, 0E8h, 80h, 63h, 59h, 0Bh, 0C0h, 74h, 03h, 0E8h, 0CAh, 0FDh, 46h
-db 81h, 0FEh, 2Ch, 01h, 7Ch, 9Fh, 0E8h, 66h, 27h, 0C7h, 06h, 02h, 0AEh, 14h, 00h, 0C7h
-db 06h, 68h, 0AEh, 18h, 00h, 0E8h, 0A8h, 2Dh, 0C7h, 06h, 5Ch, 0C3h, 01h, 00h, 0C7h, 06h
-db 0C2h, 94h, 00h, 00h, 5Eh, 8Bh, 0E5h
-}
+  int i;
+  setscreenmode (grmode);
+  gamestate = 2;
+  sx = 0;
+  sy = 0;
+  print( "Dave 2 title screen");
+
+  for (i=0;i<300;i++)
+  {
+    WaitVBL ();
+    indemo = 0;
+    ctrl = ControlPlayer(1);
+    if (ctrl.button1 || ctrl.button2 || keydown[0x39])
+    {
+      exitdemo = true;
+      break;
+    }
+    indemo = 1;
+    if (bioskey (1))
+      dofkeys ();
+  }
+
+  clearkeys ();
+  sx = 20;
+  sy = 24;
+  get ();
+  indemo = 1;
+  gamestate = 0;
 }
 
 
