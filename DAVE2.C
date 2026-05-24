@@ -577,21 +577,33 @@ void help (void)
 }
 
 
-void sub_0_4A9(void)
+//void sub_0_4A9(void)
+void dotitlepage (void)
 {
-asm {
-db 83h, 0ECh, 06h, 56h
-db 0FFh, 36h, 9Ch, 0AFh, 0E8h, 78h, 2Bh, 59h, 83h, 3Eh, 9Ch, 0AFh, 02h, 75h, 03h, 0E8h
-db 0CEh, 0FDh, 0B8h, 0Dh, 00h, 50h, 33h, 0C0h, 50h, 33h, 0C0h, 50h, 0E8h, 78h, 55h, 83h
-db 0C4h, 06h, 0C7h, 06h, 0C2h, 94h, 01h, 00h, 33h, 0F6h, 0EBh, 5Bh, 0E8h, 77h, 50h, 0C7h
-db 06h, 5Ch, 0C3h, 00h, 00h, 0B8h, 3Ah, 1Dh, 1Eh, 50h, 0B8h, 01h, 00h, 50h, 16h, 8Dh
-db 46h, 0FAh, 50h, 0E8h, 32h, 26h, 83h, 0C4h, 06h, 8Dh, 46h, 0FAh, 16h, 50h, 0B9h, 06h
-db 00h, 0E8h, 9Eh, 70h, 83h, 3Eh, 3Ch, 1Dh, 00h, 75h, 0Eh, 83h, 3Eh, 3Eh, 1Dh, 00h
-db 75h, 07h, 83h, 3Eh, 0Ch, 0AFh, 00h, 74h, 08h, 0C7h, 06h, 1Eh, 82h, 01h, 00h, 0EBh
-db 1Ch, 0C7h, 06h, 5Ch, 0C3h, 01h, 00h, 0B8h, 01h, 00h, 50h, 0E8h, 19h, 64h, 59h, 0Bh
-db 0C0h, 74h, 03h, 0E8h, 63h, 0FEh, 46h, 81h, 0FEh, 2Ch, 01h, 7Ch, 9Fh, 0C7h, 06h, 0C2h
-db 94h, 00h, 00h, 5Eh, 8Bh, 0E5h
-}
+  int i;
+  setscreenmode (grmode);
+
+  if (grmode == 2)
+    sub_0_290();
+
+  drawpic (0,0,0x0d);
+
+  gamestate=intitle;
+  for (i=0;i<300;i++)
+  {
+    WaitVBL ();
+    indemo = notdemo;
+    ctrl = ControlPlayer (1);
+    if (ctrl.button1 || ctrl.button2 || keydown[0x39])
+    {
+      exitdemo = true;
+      break;
+    }
+    indemo = demoplay;
+    if (bioskey (1))
+      dofkeys ();
+  }
+  gamestate=ingame;
 }
 
 
