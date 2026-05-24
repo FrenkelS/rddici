@@ -1555,21 +1555,25 @@ int lastobj;
 #define OBJECT_POOL ((objtype *)0x9508)
 
 
-  int word_789_1554;
-  int word_789_1D28;
-  int word_789_1D2A;
-  int word_789_1D34;
-  int word_789_1D36;
-  int *word_789_7FD0;
-  int word_789_8220;
-  int word_789_8228;
-  int word_789_947E;
-  int *word_789_9486;
-  int word_789_949E;
-  int word_789_94BC;
-  int word_789_94C6;
-  int word_789_94C8;
-  int word_789_94D4;
+int word_789_1554;
+int word_789_1D28;
+int word_789_1D2A;
+int word_789_1D34;
+int word_789_1D36;
+int word_789_7B20;
+int *word_789_7FD0;
+int word_789_7FD2;
+int word_789_8220;
+int word_789_8228;
+int word_789_822A;
+int word_789_947E;
+int *word_789_9486;
+int word_789_949E;
+int word_789_94BC;
+int word_789_94C6;
+int word_789_94C8;
+int word_789_94CA;
+int word_789_94D4;
 
 
 /****************************************************************************/
@@ -1587,6 +1591,7 @@ void extern doall (void);
 void extern egamove (void);
 void extern cgarefresh (void);
 void extern egarefresh (void);
+void extern sub_0_1E46 (void);
 void dofkeys (void);
 void help (void);
 void playloop(void);
@@ -1933,14 +1938,57 @@ void gameover (void)
 
 void sub_0_7B3(void)
 {
-asm {
-db 56h, 0E8h, 8Ch, 16h, 0FFh, 06h, 0CAh, 94h, 83h, 3Eh
-db 54h, 15h, 00h, 74h, 1Dh, 33h, 0F6h, 0EBh, 11h, 8Bh, 0DEh, 0D1h, 0E3h, 8Bh, 9Fh, 20h
-db 7Bh, 0D1h, 0E3h, 0C7h, 87h, 0D2h, 7Fh, 0FFh, 0FFh, 46h, 3Bh, 36h, 9Eh, 94h, 7Ch, 0E9h
-db 0EBh, 1Bh, 33h, 0F6h, 0EBh, 11h, 8Bh, 0DEh, 0D1h, 0E3h, 8Bh, 9Fh, 20h, 7Bh, 0D1h, 0E3h
-db 0C7h, 87h, 2Ah, 82h, 0FFh, 0FFh, 46h, 3Bh, 36h, 9Eh, 94h, 7Ch, 0E9h, 83h, 3Eh, 9Ch
-db 0AFh, 02h, 75h, 06h, 81h, 36h, 54h, 15h, 01h, 00h, 5Eh
-}
+asm    call    sub_0_1E46
+asm    inc     word_789_94CA
+asm    cmp     word_789_1554, 0
+asm    jz      short loc_0_7E2
+asm    xor     si, si
+asm    jmp     short loc_0_7DA
+
+loc_0_7C9:
+
+asm    mov     bx, si
+asm    shl     bx, 1
+asm    mov     bx, word_789_7B20[bx]
+asm    shl     bx, 1
+asm    mov     word_789_7FD2[bx], 0FFFFh
+asm    inc     si
+
+loc_0_7DA:
+
+asm    cmp     si, word_789_949E
+asm    jl      short loc_0_7C9
+asm    jmp     short loc_0_7FD
+
+loc_0_7E2:
+
+asm    xor     si, si
+asm    jmp     short loc_0_7F7
+
+loc_0_7E6:
+
+asm    mov     bx, si
+asm    shl     bx, 1
+asm    mov     bx, word_789_7B20[bx]
+asm    shl     bx, 1
+asm    mov     word_789_822A[bx], -1
+asm    inc     si
+
+loc_0_7F7:
+
+asm    cmp     si, word_789_949E
+asm    jl      short loc_0_7E6
+
+loc_0_7FD:
+
+asm    cmp     grmode, 2
+asm    jnz     short loc_0_80A
+asm    xor     word_789_1554, 1
+
+loc_0_80A:
+
+asm    pop     si
+
 }
 
 
