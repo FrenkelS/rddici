@@ -410,6 +410,7 @@ void extern cgarefresh (void);
 void extern egarefresh (void);
 void dofkeys (void);
 void help (void);
+void playloop(void);
 
 
 /*==============================*/
@@ -664,32 +665,54 @@ void dotitlepage (void)
 //void sub_0_5F9(void)
 void dodemo (void)
 {
-asm {
-db 83h, 0ECh, 0Ch, 56h
-db 0C7h, 06h, 1Eh, 82h, 00h, 00h, 0C7h, 06h, 5Ch, 0C3h, 00h, 00h, 0B8h, 3Ah, 1Dh, 1Eh
-db 50h, 0B8h, 01h, 00h, 50h, 16h, 8Dh, 46h, 0FAh, 50h, 0E8h, 0Bh, 25h, 83h, 0C4h, 06h
-db 8Dh, 46h, 0FAh, 16h, 50h, 0B9h, 06h, 00h, 0E8h, 77h, 6Fh, 83h, 3Eh, 3Ch, 1Dh, 00h
-db 75h, 0Eh, 83h, 3Eh, 3Eh, 1Dh, 00h, 75h, 07h, 83h, 3Eh, 0Ch, 0AFh, 00h, 74h, 06h
-db 0C7h, 06h, 1Eh, 82h, 01h, 00h, 0B8h, 01h, 00h, 50h, 0E8h, 0FAh, 62h, 59h, 0Bh, 0C0h
-db 74h, 03h, 0E8h, 44h, 0FDh, 0E9h, 0A5h, 00h, 0E8h, 4Eh, 0FEh, 83h, 3Eh, 1Eh, 82h, 00h
-db 74h, 03h, 0E9h, 0A2h, 00h, 33h, 0C0h, 0BAh, 0FFh, 7Fh, 50h, 52h
-}
+  int i;
 
-random(NUMDEMOS);
+  exitdemo = 0;
+  indemo = 0;
 
-asm {
-db 59h, 0C7h, 06h, 38h
-db 1Dh, 01h, 00h, 0E8h, 0A6h, 0Fh, 83h, 3Eh, 1Eh, 82h, 00h, 74h, 02h, 0EBh, 78h, 0C7h
-db 06h, 0C2h, 94h, 03h, 00h, 0E8h, 0A9h, 34h, 33h, 0F6h, 0EBh, 5Bh, 0E8h, 0B7h, 4Eh, 0C7h
-db 06h, 5Ch, 0C3h, 00h, 00h, 0B8h, 3Ah, 1Dh, 1Eh, 50h, 0B8h, 01h, 00h, 50h, 16h, 8Dh
-db 46h, 0F4h, 50h, 0E8h, 72h, 24h, 83h, 0C4h, 06h, 8Dh, 46h, 0F4h, 16h, 50h, 0B9h, 06h
-db 00h, 0E8h, 0DEh, 6Eh, 83h, 3Eh, 3Ch, 1Dh, 00h, 75h, 0Eh, 83h, 3Eh, 3Eh, 1Dh, 00h
-db 75h, 07h, 83h, 3Eh, 0Ch, 0AFh, 00h, 74h, 08h, 0C7h, 06h, 1Eh, 82h, 01h, 00h, 0EBh
-db 1Ch, 0C7h, 06h, 5Ch, 0C3h, 01h, 00h, 0B8h, 01h, 00h, 50h, 0E8h, 59h, 62h, 59h, 0Bh
-db 0C0h, 74h, 03h, 0E8h, 0A3h, 0FCh, 46h, 81h, 0FEh, 2Ch, 01h, 7Ch, 9Fh, 83h, 3Eh, 1Eh
-db 82h, 00h, 75h, 03h, 0E9h, 51h, 0FFh, 0C7h, 06h, 6Eh, 0AEh, 01h, 00h, 0C7h, 06h, 38h
-db 1Dh, 01h, 00h, 0C7h, 06h, 5Ch, 0C3h, 00h, 00h, 5Eh, 8Bh, 0E5h
-}
+  ctrl = ControlPlayer (1);
+  if (ctrl.button1 || ctrl.button2 || keydown[0x39])
+    exitdemo = true;
+
+  if (bioskey (1))
+    dofkeys ();
+
+  while (!exitdemo)
+  {
+    dotitlepage ();
+
+    if (exitdemo)
+      break;
+
+    i=random(NUMDEMOS)+1;
+    LoadDemo (i);
+    level=0;
+    playloop ();
+    if (exitdemo)
+      break;
+
+    gamestate=3;
+    _showhighscores ();
+    for (i=0;i<500;i++)
+    {
+      WaitVBL ();
+      indemo = notdemo;
+      ctrl = ControlPlayer (1);
+      if (ctrl.button1 || ctrl.button2 || keydown[0x39])
+      {
+	exitdemo = true;
+	break;
+      }
+      indemo = 1;
+      if (bioskey (1))
+	dofkeys ();
+    }
+
+  }
+
+  level = 1;
+  leveldone = 1;
+  indemo = 0;
 }
 
 /*=========================================================================*/
