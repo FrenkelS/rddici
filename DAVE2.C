@@ -409,7 +409,7 @@ void extern egamove (void);
 void extern cgarefresh (void);
 void extern egarefresh (void);
 void dofkeys (void);
-
+void help (void);
 
 
 /*==============================*/
@@ -568,13 +568,12 @@ void dofkeys (void)
 }
 
 
-void sub_0_48C(void)
+//void sub_0_48C(void)
+void help (void)
 {
-asm {
-db 0B8h
-db 15h, 00h, 50h, 0B8h, 24h, 00h, 50h, 0E8h, 4Fh, 2Eh, 59h, 59h, 0B8h, 06h, 04h, 50h
-db 0E8h, 4Eh, 2Fh, 59h, 0E8h, 0E9h, 2Eh
-}
+  expwin (36,21);
+  print ("dave2 help screen");
+  get ();
 }
 
 
