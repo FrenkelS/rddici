@@ -1031,10 +1031,14 @@ db  31h
 db  50h
 db  31h
 
+
+PUBLIC clearold
+PROC clearold
 sub_0_1D54:
-clearold:
 db 57h, 0B9h, 26h, 01h, 8Ch, 0D8h, 8Eh, 0C0h, 0BFh, 0D2h, 7Fh, 0B8h
 db 0FFh, 0FFh, 0F3h, 0ABh, 0B9h, 26h, 01h, 0BFh, 2Ah, 82h, 0F3h, 0ABh, 5Fh, 0C3h
+ENDP
+
 
 sub_0_1D6E:
 db 56h, 57h
