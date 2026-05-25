@@ -819,8 +819,8 @@ void setscreenmode (grtype mode)
     case EGAgr: _AX = 0xd;
 		geninterrupt (0x10);
 		screenseg=0xa000;
-		EGAmove ();
 		moveega ();
+		sub_0_290 ();
 		break;
     case VGAgr: _AX = 0x13;
 		geninterrupt (0x10);
@@ -1541,7 +1541,7 @@ void _checkhighscore (void)
   //
   if (i<5)
   {
-    PlaySound (16);
+    PlaySound (1);
     clearkeys ();
     sx = screencenterx-17/2+14;
     sy = screencentery-1+i*2;

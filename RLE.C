@@ -16,7 +16,9 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-//long RLEcompress (void far *source, long length, void far *dest);
+#include "pcrlib.h"
+
+//long RLEcompress(void far *source, long length, void far *dest)
 void sub_0_5CC7(void)
 {
 asm {
@@ -38,8 +40,9 @@ db 36h, 8Bh, 16h, 46h, 12h
 }
 }
 
-//void RLEExpand (char far *source, char far *dest, long length);
-void sub_0_5D02(void)
+
+//void sub_0_5D02(void)
+void RLEExpand(char far *source, char far *dest, long length)
 {
 asm {
 db 8Bh, 46h, 04h

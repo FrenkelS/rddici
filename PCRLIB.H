@@ -78,7 +78,7 @@ void WaitEndSound (void);
 ** The control panel handles all this stuff!
 */
 
-typedef enum {north,east,south,west,northeast,southeast,southwest,
+typedef enum {north,northeast,east,southeast,south,southwest,west,
 	      northwest,nodir} dirtype;
 
 typedef struct {dirtype dir;

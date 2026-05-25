@@ -1592,6 +1592,8 @@ void extern egamove (void);
 void extern cgarefresh (void);
 void extern egarefresh (void);
 void extern sub_0_1E46 (void);
+void sub_0_290 (void);
+void sub_0_7B3 (void);
 void dofkeys (void);
 void help (void);
 void playloop(void);
@@ -1611,9 +1613,9 @@ void sub_0_239(void)
   clearold();
   if (gamestate == 0 || gamestate == 3)
   {
-    refresh();
-    EGAmove();
-    refresh();
+    sub_0_7B3();
+    sub_0_290();
+    sub_0_7B3();
   }
 
   if (gamestate == 1)
@@ -1684,7 +1686,7 @@ void loadgrfiles(void)
 void sub_0_37E(void)
 {
   setscreenmode(grmode);
-  EGAmove();
+  sub_0_290();
 }
 
 
@@ -1870,7 +1872,7 @@ void dodemo (void)
 
     i=random(NUMDEMOS)+1;
     LoadDemo (i);
-    level=0;
+    level=1;
     playloop ();
     if (exitdemo)
       break;
@@ -2470,7 +2472,7 @@ void main (void)
 	 playloop ();
 	 if (gamestate == inscores)
 	 {
-		doendpage ();		// finished all levels
+		dotitlepage ();		// finished all levels
 	 }
 	gameover ();
   }
