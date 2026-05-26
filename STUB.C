@@ -18,5 +18,16 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "pcrlib.h"
+
+
+char huge *SoundData;
+
+
+void initrndt(boolean randomize) {printf("initrndt"); exit(0);}
+
+void StartupSound(void) {printf("StartupSound"); exit(0);}
 
 void sub_0_53F7(void) {printf("sub_0_53F"); exit(0);}
+
+cardtype VideoID(void) {printf("VideoID"); exit(0);}

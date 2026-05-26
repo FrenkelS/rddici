@@ -23,10 +23,10 @@
 //#define CATALOG
 
 
-//#include "pcrlib.h"
+#include "pcrlib.h"
 //#include <conio.h>
 
-//char	ch,str[80];	// scratch space
+char	ch,str[80];	// scratch space
 
 /*========================================================================*/
 
@@ -60,7 +60,7 @@
 =======================
 */
 //void sub_0_256A(void)
-//void SetupKBD ()
+void SetupKBD () {printf("SetupKBD"); exit(0);}
 //{
 // void far *vect = getvect (9);
 // int i;
@@ -725,7 +725,7 @@
 ====================================
 */
 //void sub_0_2F05(void)
-//void huge *bloadin (char *filename)
+void huge *bloadin (char *filename) {printf("bloadin"); exit(0);}
 //{
 // int handle;
 // long length;
@@ -779,8 +779,8 @@
 ** Graphic routines
 */
 
-//grtype grmode;
-//cardtype _videocard;
+grtype grmode;
+cardtype _videocard;
 
 //void huge *charptr;		// 8*8 tileset
 //void huge *tileptr;		// 16*16 tileset
@@ -1339,8 +1339,8 @@
 //int level;
 //int _numlevels, _maxplayers;
 
-//char *_extension = "PCR";
-//boolean	_cgaok, _egaok, _vgaok;
+char *_extension = "PCR";
+boolean	_cgaok, _egaok, _vgaok;
 
 ////////////////////////
 //
@@ -1351,7 +1351,7 @@
 ////////////////////////
 
 //void sub_0_3851(void)
-//void _loadctrls (void)
+void _loadctrls (void) {printf("_loadctrls"); exit(0);}
 //{
 //  int handle;
 //
@@ -1437,7 +1437,7 @@
 //
 ////////////////////////
 //void sub_0_3A96(void)
-//void _loadhighscores (void)
+void _loadhighscores (void) {printf("_loadhighscores"); exit(0);}
 //{
 //  int i;
 //
@@ -1572,50 +1572,50 @@
 // _setupgame
 //
 ////////////////////
-void sub_0_3DBA(void) {printf("sub_0_3DBA"); exit(0);}
-//void _setupgame (void)
-//{
-////
-//// set up game's library routines
-////
-//  _videocard = VideoID ();
+//void sub_0_3DBA(void)
+void _setupgame (void)
+{
 //
-//  grmode = text;
+// set up game's library routines
 //
-//  if (!(_videocard == VGAcard || _videocard == MCGAcard))
-//    _vgaok = false;
-//
-//  if (!(_videocard == EGAcard || _videocard == VGAcard))
-//    _egaok = false;
-//
-//  // allways assume CGA compatability for simCGA garbage
-//
-//  _loadctrls ();
-//
-//  if (grmode==VGAgr && _vgaok)
-//    grmode=VGAgr;
-//  else if (grmode>=EGAgr && _egaok)
-//    grmode=EGAgr;
-//  else
-//    grmode=CGAgr;
-//
-//  strcpy (str,"SOUNDS.");
-//  strcat (str,_extension);
-//
-//  SoundData = (char huge *) bloadin (str);
-//
-//  StartupSound ();
-//
-//  SetupKBD ();
-//
-//  initrndt (1);		// setup random routines
-////  initrnd (1);
-//
-//  _loadhighscores ();
-//
-//  loadgrfiles ();	// load the graphic files
-//
-//}
+  _videocard = VideoID ();
+
+  grmode = text;
+
+  if (!(_videocard == VGAcard || _videocard == MCGAcard))
+    _vgaok = false;
+
+  if (!(_videocard == EGAcard || _videocard == VGAcard))
+    _egaok = false;
+
+  // allways assume CGA compatability for simCGA garbage
+
+  _loadctrls ();
+
+  if (grmode==VGAgr && _vgaok)
+    grmode=VGAgr;
+  else if (grmode>=EGAgr && _egaok)
+    grmode=EGAgr;
+  else
+    grmode=CGAgr;
+
+  strcpy (str,"SOUNDS.");
+  strcat (str,_extension);
+
+  SoundData = (char huge *) bloadin (str);
+
+  StartupSound ();
+
+  SetupKBD ();
+
+  initrndt (1);		// setup random routines
+//  initrnd (1);
+
+  _loadhighscores ();
+
+  loadgrfiles ();	// load the graphic files
+
+}
 
 
 ////////////////////

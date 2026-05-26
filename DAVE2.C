@@ -1476,7 +1476,6 @@
 
 
 int word_789_C0E;
-int word_789_C46;
 //int word_789_1554;
 //int word_789_1D28;
 //int word_789_1D2A;
@@ -1499,8 +1498,6 @@ int word_789_94C8;
 //int word_789_94D4;
 int word_789_ADE0;
 int word_789_ADE6;
-int word_789_AE84;
-int word_789_C35E;
 int word_789_C362;
 
 
@@ -1679,7 +1676,7 @@ int word_789_C362;
 
 
 //void sub_0_352(void)
-//void loadgrfiles(void)
+void loadgrfiles(void) {printf("loadgrfiles"); exit(0);}
 //{
 //  if (grmode == 1)
 //    installgrfile(aCgapics_dd2, 0); // "CGAPICS.DD2"
@@ -2458,12 +2455,12 @@ void main (void)
 	word_789_C362 = 1;
 
 	word_789_ADE6 = 0;
-	word_789_AE84 = 1;
-	word_789_C35E = 0;
+	_egaok = 1;
+	_vgaok = 0;
 
-	word_789_C46 = 0x49D; // "DD2"
+	_extension = "DD2";
 
-	sub_0_3DBA();
+	_setupgame();
 
 	word_789_C0E = 0x19;
 	word_789_8220 = 0x20;
