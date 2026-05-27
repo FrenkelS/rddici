@@ -560,85 +560,85 @@ void huge *paralloc (long size)
 ==============================================
 */
 //void sub_0_2DD7(void)
-unsigned long LoadFile(char *filename,char huge *buffer) {printf("LoadFile"); exit(0);}
-//{
-// unsigned int handle,flength1=0,flength2=0,buf1,buf2,foff1,foff2;
-//
-// buf1=FP_OFF(buffer);
-// buf2=FP_SEG(buffer);
-//
-//asm		mov	WORD PTR foff1,0  	// file offset = 0 (start)
-//asm		mov	WORD PTR foff2,0
-//
-//asm		mov	dx,filename
-//asm		mov	ax,3d00h		// OPEN w/handle (read only)
-//asm		int	21h
-//asm		jc	out
-//
-//asm		mov	handle,ax
-//asm		mov	bx,ax
-//asm		xor	cx,cx
-//asm		xor	dx,dx
-//asm		mov	ax,4202h
-//asm		int	21h			// SEEK (find file length)
-//asm		jc	out
-//
-//asm		mov	flength1,ax
-//asm		mov	flength2,dx
-//
-//asm		mov	cx,flength2
-//asm		inc	cx			// <- at least once!
-//
-//L_1:
-//
-//asm		push	cx
-//
-//asm		mov	cx,foff2
-//asm		mov	dx,foff1
-//asm		mov	ax,4200h
-//asm		int	21h			// SEEK from start
-//
-//asm		push	ds
-//asm		mov	bx,handle
-//asm		mov	cx,-1
-//asm		mov	dx,buf1
-//asm		mov	ax,buf2
-//asm		mov	ds,ax
-//asm		mov	ah,3fh			// READ w/handle
-//asm		int	21h
-//asm		pop	ds
-//
-//asm		pop	cx
-//asm		jc	out
-//asm		cmp	ax,-1
-//asm		jne	out
-//
-//asm		push	cx			// need to read the last byte
-//asm		push	ds			// into the segment! IMPORTANT!
-//asm		mov	bx,handle
-//asm		mov	cx,1
-//asm		mov	dx,buf1
-//asm		add	dx,-1
-//asm		mov	ax,buf2
-//asm		mov	ds,ax
-//asm		mov	ah,3fh
-//asm		int	21h
-//asm		pop	ds
-//asm		pop	cx
-//
-//asm		add	buf2,1000h
-//asm		inc	WORD PTR foff2
-//asm		loop	L_1
-//
-//out:
-//
-//asm		mov	bx,handle		// CLOSE w/handle
-//asm		mov	ah,3eh
-//asm		int	21h
-//
-//return (flength2*0x10000+flength1);
-//
-//}
+unsigned long LoadFile(char *filename,char huge *buffer)
+{
+ unsigned int handle,flength1=0,flength2=0,buf1,buf2,foff1,foff2;
+
+ buf1=FP_OFF(buffer);
+ buf2=FP_SEG(buffer);
+
+asm		mov	WORD PTR foff1,0  	// file offset = 0 (start)
+asm		mov	WORD PTR foff2,0
+
+asm		mov	dx,filename
+asm		mov	ax,3d00h		// OPEN w/handle (read only)
+asm		int	21h
+asm		jc	out
+
+asm		mov	handle,ax
+asm		mov	bx,ax
+asm		xor	cx,cx
+asm		xor	dx,dx
+asm		mov	ax,4202h
+asm		int	21h			// SEEK (find file length)
+asm		jc	out
+
+asm		mov	flength1,ax
+asm		mov	flength2,dx
+
+asm		mov	cx,flength2
+asm		inc	cx			// <- at least once!
+
+L_1:
+
+asm		push	cx
+
+asm		mov	cx,foff2
+asm		mov	dx,foff1
+asm		mov	ax,4200h
+asm		int	21h			// SEEK from start
+
+asm		push	ds
+asm		mov	bx,handle
+asm		mov	cx,-1
+asm		mov	dx,buf1
+asm		mov	ax,buf2
+asm		mov	ds,ax
+asm		mov	ah,3fh			// READ w/handle
+asm		int	21h
+asm		pop	ds
+
+asm		pop	cx
+asm		jc	out
+asm		cmp	ax,-1
+asm		jne	out
+
+asm		push	cx			// need to read the last byte
+asm		push	ds			// into the segment! IMPORTANT!
+asm		mov	bx,handle
+asm		mov	cx,1
+asm		mov	dx,buf1
+asm		add	dx,-1
+asm		mov	ax,buf2
+asm		mov	ds,ax
+asm		mov	ah,3fh
+asm		int	21h
+asm		pop	ds
+asm		pop	cx
+
+asm		add	buf2,1000h
+asm		inc	WORD PTR foff2
+asm		loop	L_1
+
+out:
+
+asm		mov	bx,handle		// CLOSE w/handle
+asm		mov	ah,3eh
+asm		int	21h
+
+return (flength2*0x10000+flength1);
+
+}
 
 //===========================================================================
 
