@@ -30,15 +30,15 @@ char	ch,str[80];	// scratch space
 
 /*========================================================================*/
 
-//inputtype playermode[3] = {0,keyboard,joystick1};
+inputtype playermode[3] = {0,keyboard,joystick1};
 
 //boolean		keydown[128];
 
-//int JoyXlow [3], JoyXhigh [3], JoyYlow [3], JoyYhigh [3];
+int JoyXlow [3], JoyXhigh [3], JoyYlow [3], JoyYhigh [3];
 
-//int MouseSensitivity;
+int MouseSensitivity;
 
-//char key[8],keyB1,keyB2;
+char key[8],keyB1,keyB2;
 
 //void interrupt (*oldint9) ()=NULL;
 
@@ -1351,56 +1351,56 @@ boolean	_cgaok, _egaok, _vgaok;
 ////////////////////////
 
 //void sub_0_3851(void)
-void _loadctrls (void) {printf("_loadctrls"); exit(0);}
-//{
-//  int handle;
-//
-//  strcpy (str,"CTLPANEL.");
-//  strcat (str,_extension);
-//  if ((handle = open(str, O_RDONLY | O_BINARY, S_IWRITE | S_IREAD)) == -1)
-//  //
-//  // set up default control panel settings
-//  //
-//  {
-//    grmode=VGAgr;
-//    soundmode=spkr;
-//    playermode[1] = keyboard;
-//    playermode[2] = joystick1;
-//
-//    JoyXlow [1] = JoyXlow [2] = 20;
-//    JoyXhigh[1] = JoyXhigh[2] = 60;
-//    JoyYlow [1] = JoyYlow [2] = 20;
-//    JoyYhigh[1] = JoyYhigh[2] = 60;
-//    MouseSensitivity = 5;
-//
-//    key[north] = 0x48;
-//    key[northeast] = 0x49;
-//    key[east] = 0x4d;
-//    key[southeast] = 0x51;
-//    key[south] = 0x50;
-//    key[southwest] = 0x4f;
-//    key[west] = 0x4b;
-//    key[northwest] = 0x47;
-//    keyB1 = 0x1d;
-//    keyB2 = 0x38;
-//  }
-//  else
-//  {
-//    read(handle, &grmode, sizeof(grmode));
-//    read(handle, &soundmode, sizeof(soundmode));
-//    read(handle, &playermode, sizeof(playermode));
-//    read(handle, &JoyXlow, sizeof(JoyXlow));
-//    read(handle, &JoyYlow, sizeof(JoyYlow));
-//    read(handle, &JoyXhigh, sizeof(JoyXhigh));
-//    read(handle, &JoyYhigh, sizeof(JoyYhigh));
-//    read(handle, &MouseSensitivity, sizeof(MouseSensitivity));
-//    read(handle, &key, sizeof(key));
-//    read(handle, &keyB1, sizeof(keyB1));
-//    read(handle, &keyB2, sizeof(keyB2));
-//
-//    close(handle);
-//  }
-//}
+void _loadctrls (void)
+{
+  int handle;
+
+  strcpy (str,"CTLPANEL.");
+  strcat (str,_extension);
+  if ((handle = open(str, O_RDONLY | O_BINARY, S_IWRITE | S_IREAD)) == -1)
+  //
+  // set up default control panel settings
+  //
+  {
+    grmode=VGAgr;
+    soundmode=spkr;
+    playermode[1] = keyboard;
+    playermode[2] = joystick1;
+
+    JoyXlow [1] = JoyXlow [2] = 20;
+    JoyXhigh[1] = JoyXhigh[2] = 60;
+    JoyYlow [1] = JoyYlow [2] = 20;
+    JoyYhigh[1] = JoyYhigh[2] = 60;
+    MouseSensitivity = 5;
+
+    key[north] = 0x48;
+    key[northeast] = 0x49;
+    key[east] = 0x4d;
+    key[southeast] = 0x51;
+    key[south] = 0x50;
+    key[southwest] = 0x4f;
+    key[west] = 0x4b;
+    key[northwest] = 0x47;
+    keyB1 = 0x1d;
+    keyB2 = 0x38;
+  }
+  else
+  {
+    read(handle, &grmode, sizeof(grmode));
+    read(handle, &soundmode, sizeof(soundmode));
+    read(handle, &playermode, sizeof(playermode));
+    read(handle, &JoyXlow, sizeof(JoyXlow));
+    read(handle, &JoyYlow, sizeof(JoyYlow));
+    read(handle, &JoyXhigh, sizeof(JoyXhigh));
+    read(handle, &JoyYhigh, sizeof(JoyYhigh));
+    read(handle, &MouseSensitivity, sizeof(MouseSensitivity));
+    read(handle, &key, sizeof(key));
+    read(handle, &keyB1, sizeof(keyB1));
+    read(handle, &keyB2, sizeof(keyB2));
+
+    close(handle);
+  }
+}
 
 //void sub_0_39AF(void)
 //void _savectrls (void)
