@@ -32,7 +32,7 @@ char	ch,str[80];	// scratch space
 
 inputtype playermode[3] = {0,keyboard,joystick1};
 
-//boolean		keydown[128];
+boolean		keydown[128];
 
 int JoyXlow [3], JoyXhigh [3], JoyYlow [3], JoyYhigh [3];
 
@@ -60,22 +60,22 @@ void interrupt (*oldint9) ()=NULL;
 =======================
 */
 //void sub_0_256A(void)
-void SetupKBD () {IMPLEMENT_ME("SetupKBD");}
-//{
-// void far *vect = getvect (9);
-// int i;
-//
-// for (i=0;i<128;i++)			/* clear our key down table */
-//   keydown[i]= false;
-//
-// poke (0x40,0x1c,peek(0x40,0x1a));	/* clear the bios key buffer */
-//
-// if ( &Int9ISR != vect ) 		/* is our handler allready set up? */
-// {
-//   oldint9 = vect;
-//   setvect (9,Int9ISR);
-// }
-//}
+void SetupKBD ()
+{
+ void far *vect = getvect (9);
+ int i;
+
+ for (i=0;i<128;i++)			/* clear our key down table */
+   keydown[i]= false;
+
+ poke (0x40,0x1c,peek(0x40,0x1a));	/* clear the bios key buffer */
+
+ if ( &Int9ISR != vect ) 		/* is our handler allready set up? */
+ {
+   oldint9 = vect;
+   setvect (9,Int9ISR);
+ }
+}
 
 
 /*
@@ -88,38 +88,38 @@ void SetupKBD () {IMPLEMENT_ME("SetupKBD");}
 =========================
 */
 //void interrupt sub_0_25D8(void)
-//void interrupt Int9ISR ()
-//{
-// int key = inportb (0x60);		/* get the key pressed */
-//
-// if (key>127)
-//   keydown [key-128] = false;		/* break scan code */
-// else
-// {
-//   keydown [key] = true;		/* make scan code */
-//   poke (0x40,0x1c,peek(0x40,0x1a));	/* clear the bios key buffer */
-// }
-//asm {
-//   push ax
-//   push	bx
-//   push	cx
-//   push	dx
-//   push	si
-//   push	di
-//   push	bp
-// }
-// oldint9 ();				/* give it to DOS */
-//asm {
-//   pop	bp
-//   pop  di
-//   pop	si
-//   pop	dx
-//   pop	cx
-//   pop	bx
-//   pop	ax
-// }
-// outport (0x20,0x20);			/* tell the int manager we got it */
-//}
+void interrupt Int9ISR ()
+{
+ int key = inportb (0x60);		/* get the key pressed */
+
+ if (key>127)
+   keydown [key-128] = false;		/* break scan code */
+ else
+ {
+   keydown [key] = true;		/* make scan code */
+   poke (0x40,0x1c,peek(0x40,0x1a));	/* clear the bios key buffer */
+ }
+asm {
+   push ax
+   push	bx
+   push	cx
+   push	dx
+   push	si
+   push	di
+   push	bp
+ }
+ oldint9 ();				/* give it to DOS */
+asm {
+   pop	bp
+   pop  di
+   pop	si
+   pop	dx
+   pop	cx
+   pop	bx
+   pop	ax
+ }
+ outport (0x20,0x20);			/* tell the int manager we got it */
+}
 
 
 
