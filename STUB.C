@@ -23,11 +23,18 @@
 
 void initrndt(boolean randomize) {IMPLEMENT_ME("initrndt");}
 
+void ShutdownKBD(void) {IMPLEMENT_ME("ShutdownKBD");}
+
+void ShutdownSound(void) {IMPLEMENT_ME("ShutdownSound");}
+
 void StartupSound(void) {IMPLEMENT_ME("StartupSound");}
+
+void sub_0_290(void) {IMPLEMENT_ME("sub_0_290");}
+
+void sub_0_4CEF(void) {IMPLEMENT_ME("sub_0_4CEF");}
 
 void sub_0_53F7(void) {IMPLEMENT_ME("sub_0_53F");}
 
 void IMPLEMENT_ME(char *func) {
-	printf("%s", func);
-	exit(0);
+	_quit(func);
 }

@@ -1547,7 +1547,7 @@ int word_789_C362;
 //  char far *grmem;
 //  classtype clvar;
 
-//  int VGAPAL;				// just to make pcrlib happy
+  int VGAPAL;				// just to make pcrlib happy
 
 //  boolean exitdemo,resetgame;
 //  statetype gamestate;

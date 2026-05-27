@@ -651,66 +651,66 @@ return (flength2*0x10000+flength1);
 ==============================================
 */
 //void sub_0_2E84(void)
-//void SaveFile(char *filename,char huge *buffer, long size)
-//{
-// unsigned int handle,buf1,buf2,foff1,foff2;
-//
-// buf1=FP_OFF(buffer);
-// buf2=FP_SEG(buffer);
-//
-//asm		mov	WORD PTR foff1,0  		// file offset = 0 (start)
-//asm		mov	WORD PTR foff2,0
-//
-//asm		mov	dx,filename
-//asm		mov	ax,3c00h		// CREATE w/handle (read only)
-//asm		xor	cx,cx
-//asm		int	21h
-//asm		jc	out
-//
-//asm		mov	handle,ax
-//asm		cmp	word ptr size+2,0	// larger than 1 segment?
-//asm		je	L2
-//
-//L1:
-//
-//asm		push	ds
-//asm		mov	bx,handle
-//asm		mov	cx,8000h
-//asm		mov	dx,buf1
-//asm		mov	ax,buf2
-//asm		mov	ds,ax
-//asm		mov	ah,40h			// WRITE w/handle
-//asm		int	21h
-//asm		pop	ds
-//
-//asm		add	buf2,800h		// bump ptr up 1/2 segment
-//asm		sub	WORD PTR size,8000h		// done yet?
-//asm		sbb	WORD PTR size+2,0
-//asm		cmp	WORD PTR size+2,0
-//asm		ja	L1
-//asm		cmp	WORD PTR size,8000h
-//asm		jae	L1
-//
-//L2:
-//
-//asm		push	ds
-//asm		mov	bx,handle
-//asm		mov	cx,WORD PTR size
-//asm		mov	dx,buf1
-//asm		mov	ax,buf2
-//asm		mov	ds,ax
-//asm		mov	ah,40h			// WRITE w/handle
-//asm		int	21h
-//asm		pop	ds
-//asm		jmp	out
-//
-//out:
-//
-//asm		mov	bx,handle		// CLOSE w/handle
-//asm		mov	ah,3eh
-//asm		int	21h
-//
-//}
+void SaveFile(char *filename,char huge *buffer, long size)
+{
+ unsigned int handle,buf1,buf2,foff1,foff2;
+
+ buf1=FP_OFF(buffer);
+ buf2=FP_SEG(buffer);
+
+asm		mov	WORD PTR foff1,0  		// file offset = 0 (start)
+asm		mov	WORD PTR foff2,0
+
+asm		mov	dx,filename
+asm		mov	ax,3c00h		// CREATE w/handle (read only)
+asm		xor	cx,cx
+asm		int	21h
+asm		jc	out
+
+asm		mov	handle,ax
+asm		cmp	word ptr size+2,0	// larger than 1 segment?
+asm		je	L2
+
+L1:
+
+asm		push	ds
+asm		mov	bx,handle
+asm		mov	cx,8000h
+asm		mov	dx,buf1
+asm		mov	ax,buf2
+asm		mov	ds,ax
+asm		mov	ah,40h			// WRITE w/handle
+asm		int	21h
+asm		pop	ds
+
+asm		add	buf2,800h		// bump ptr up 1/2 segment
+asm		sub	WORD PTR size,8000h		// done yet?
+asm		sbb	WORD PTR size+2,0
+asm		cmp	WORD PTR size+2,0
+asm		ja	L1
+asm		cmp	WORD PTR size,8000h
+asm		jae	L1
+
+L2:
+
+asm		push	ds
+asm		mov	bx,handle
+asm		mov	cx,WORD PTR size
+asm		mov	dx,buf1
+asm		mov	ax,buf2
+asm		mov	ds,ax
+asm		mov	ah,40h			// WRITE w/handle
+asm		int	21h
+asm		pop	ds
+asm		jmp	out
+
+out:
+
+asm		mov	bx,handle		// CLOSE w/handle
+asm		mov	ah,3eh
+asm		int	21h
+
+}
 
 //==========================================================================
 
@@ -788,7 +788,7 @@ cardtype _videocard;
 //void huge *spriteptr;		// any size masked and hit rect sprites
 //void huge *egaspriteptr[4];	// spriteptr for each ega plane's data
 
-//unsigned crtcaddr;
+unsigned crtcaddr;
 
 //int sx,sy,leftedge;
 
@@ -801,40 +801,40 @@ cardtype _videocard;
 ========================
 */
 //void sub_0_302F(void)
-void setscreenmode (grtype mode) {IMPLEMENT_ME("setscreenmode");}
-//{
-//  char extern VGAPAL;			// deluxepaint vga pallet .OBJ file
-//  void far *vgapal = &VGAPAL;
-//
-//  switch (mode)
-//  {
-//    case text: _AX = 3;
-//	       geninterrupt (0x10);
-//	       screenseg=0xb800;
-//	       break;
-//    case CGAgr: _AX = 4;
-//		geninterrupt (0x10);
-//		screenseg=0xb800;
-//		break;
-//    case EGAgr: _AX = 0xd;
-//		geninterrupt (0x10);
-//		screenseg=0xa000;
-//		moveega ();
-//		sub_0_290 ();
-//		break;
-//    case VGAgr: _AX = 0x13;
-//		geninterrupt (0x10);
-//		screenseg=0xa000;
-//		_ES = FP_SEG(vgapal);
-//		_DX = FP_OFF(vgapal);
-//		_BX = 0;
-//		_CX = 0x100;
-//		_AX = 0x1012;
-//		geninterrupt(0x10);			// set the deluxepaint pallet
-//		break;
-//  }
-//  crtcaddr = 0x3d4;		//peek (0x40,0x63) if not for two monitors...
-//}
+void setscreenmode (grtype mode)
+{
+  char extern VGAPAL;			// deluxepaint vga pallet .OBJ file
+  void far *vgapal = &VGAPAL;
+
+  switch (mode)
+  {
+    case text: _AX = 3;
+	       geninterrupt (0x10);
+	       screenseg=0xb800;
+	       break;
+    case CGAgr: _AX = 4;
+		geninterrupt (0x10);
+		screenseg=0xb800;
+		break;
+    case EGAgr: _AX = 0xd;
+		geninterrupt (0x10);
+		screenseg=0xa000;
+		sub_0_4CEF ();
+		sub_0_290 ();
+		break;
+    case VGAgr: _AX = 0x13;
+		geninterrupt (0x10);
+		screenseg=0xa000;
+		_ES = FP_SEG(vgapal);
+		_DX = FP_OFF(vgapal);
+		_BX = 0;
+		_CX = 0x100;
+		_AX = 0x1012;
+		geninterrupt(0x10);			// set the deluxepaint pallet
+		break;
+  }
+  crtcaddr = 0x3d4;		//peek (0x40,0x63) if not for two monitors...
+}
 
 
 /*
@@ -1333,7 +1333,7 @@ void setscreenmode (grtype mode) {IMPLEMENT_ME("setscreenmode");}
 ** Game routines
 */
 
-//struct scores scoreswap, highscores[5];
+struct scores scoreswap, highscores[5];
 
 //long score;
 //int level;
@@ -1403,30 +1403,30 @@ void _loadctrls (void)
 }
 
 //void sub_0_39AF(void)
-//void _savectrls (void)
-//{
-//  int handle;
-//
-//  strcpy (str,"CTLPANEL.");
-//  strcat (str,_extension);
-//
-//  if ((handle = open(str, O_WRONLY | O_BINARY | O_CREAT | O_TRUNC, S_IREAD | S_IWRITE)) == -1)
-//    return;
-//
-//  write(handle, &grmode, sizeof(grmode));
-//  write(handle, &soundmode, sizeof(soundmode));
-//  write(handle, &playermode, sizeof(playermode));
-//  write(handle, &JoyXlow, sizeof(JoyXlow));
-//  write(handle, &JoyYlow, sizeof(JoyYlow));
-//  write(handle, &JoyXhigh, sizeof(JoyXhigh));
-//  write(handle, &JoyYhigh, sizeof(JoyYhigh));
-//  write(handle, &MouseSensitivity, sizeof(MouseSensitivity));
-//  write(handle, &key, sizeof(key));
-//  write(handle, &keyB1, sizeof(keyB1));
-//  write(handle, &keyB2, sizeof(keyB2));
-//
-//  close(handle);
-//}
+void _savectrls (void)
+{
+  int handle;
+
+  strcpy (str,"CTLPANEL.");
+  strcat (str,_extension);
+
+  if ((handle = open(str, O_WRONLY | O_BINARY | O_CREAT | O_TRUNC, S_IREAD | S_IWRITE)) == -1)
+    return;
+
+  write(handle, &grmode, sizeof(grmode));
+  write(handle, &soundmode, sizeof(soundmode));
+  write(handle, &playermode, sizeof(playermode));
+  write(handle, &JoyXlow, sizeof(JoyXlow));
+  write(handle, &JoyYlow, sizeof(JoyYlow));
+  write(handle, &JoyXhigh, sizeof(JoyXhigh));
+  write(handle, &JoyYhigh, sizeof(JoyYhigh));
+  write(handle, &MouseSensitivity, sizeof(MouseSensitivity));
+  write(handle, &key, sizeof(key));
+  write(handle, &keyB1, sizeof(keyB1));
+  write(handle, &keyB2, sizeof(keyB2));
+
+  close(handle);
+}
 
 
 ////////////////////////
@@ -1453,12 +1453,12 @@ void _loadhighscores (void) {IMPLEMENT_ME("_loadhighscores");}
 //}
 
 //void sub_0_3B0C(void)
-//void _savehighscores (void)
-//{
-//  strcpy (str,"SCORES.");
-//  strcat (str,_extension);
-//  SaveFile(str,(char huge *)highscores,sizeof (highscores));
-//}
+void _savehighscores (void)
+{
+  strcpy (str,"SCORES.");
+  strcat (str,_extension);
+  SaveFile(str,(char huge *)highscores,sizeof (highscores));
+}
 
 
 ////////////////////////
@@ -1624,23 +1624,31 @@ void _setupgame (void)
 //
 ////////////////////
 //void sub_0_3E65(void)
-void _quit (char *error) {IMPLEMENT_ME("_quit");}
-//{
-//  setscreenmode (text);
-//  if (!(*error))
-//  {
-//	 _savehighscores ();
-//	 _savectrls ();
-//  }
-//  else
-//  {
-//	puts (error);
-//  }
-//
-//  ShutdownKBD ();	// shut down the interrupt driven stuff if needed
-//  ShutdownSound ();
-//
-//  exit (0);		// quit to DOS
-//}
+void _quit (char *error)
+{
+static int stackoverflow = 0;
+stackoverflow++;
+if (stackoverflow > 1)
+{
+	printf("%s not again", error);
+	exit(0);
+}
+
+  setscreenmode (text);
+  if (!(*error))
+  {
+	 _savehighscores ();
+	 _savectrls ();
+  }
+  else
+  {
+	puts (error);
+  }
+
+  ShutdownKBD ();	// shut down the interrupt driven stuff if needed
+  ShutdownSound ();
+
+  exit (0);		// quit to DOS
+}
 
 
