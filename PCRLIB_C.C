@@ -1437,20 +1437,20 @@ void _savectrls (void)
 //
 ////////////////////////
 //void sub_0_3A96(void)
-void _loadhighscores (void) {IMPLEMENT_ME("_loadhighscores");}
-//{
-//  int i;
-//
-//  strcpy (str,"SCORES.");
-//  strcat (str,_extension);
-//  if (LoadFile(str,(char huge *)highscores) == 0 )
-//    for (i=0;i<5;i++)
-//    {
-//      highscores[i].score = 100;
-//      highscores[i].level = 1;
-//      strcpy(highscores[i].initials,"PCR");
-//    }
-//}
+void _loadhighscores (void)
+{
+  int i;
+
+  strcpy (str,"SCORES.");
+  strcat (str,_extension);
+  if (LoadFile(str,(char huge *)highscores) == 0 )
+    for (i=0;i<5;i++)
+    {
+      highscores[i].score = 100;
+      highscores[i].level = 1;
+      strcpy(highscores[i].initials,"PCR");
+    }
+}
 
 //void sub_0_3B0C(void)
 void _savehighscores (void)
@@ -1634,7 +1634,7 @@ if (stackoverflow > 1)
 	exit(0);
 }
 
-  setscreenmode (text);
+//  setscreenmode (text);
   if (!(*error))
   {
 	 _savehighscores ();
