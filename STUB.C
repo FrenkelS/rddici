@@ -21,8 +21,6 @@
 #include "pcrlib.h"
 
 
-void initrndt(boolean randomize) {IMPLEMENT_ME("initrndt");}
-
 void moveega(void) {IMPLEMENT_ME("moveega");}
 
 void sub_0_290(void) {IMPLEMENT_ME("sub_0_290");}

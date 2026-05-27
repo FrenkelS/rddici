@@ -580,7 +580,7 @@ ENDP
 ;========================================================================
 	DATASEG
 
-;rndindex	dw	?
+rndindex	dw	?
 
 ;rndtable db    0,   8, 109, 220, 222, 241, 149, 107,  75, 248, 254, 140,  16,  66
 ;    db   74,  21, 211,  47,  80, 242, 154,  27, 205, 128, 161,  89,  77,  36
@@ -739,28 +739,28 @@ ENDP
 ;
 ;=================================================
 ;sub_0_5521:
-;PROC	initrndt	randomize:word
-;	uses	si,di
-;	public	initrndt
-;
-;	mov	ax,[randomize]
-;	cmp	ax,0
-;;	jne	@@timeit		;if randomize is true, really random
-;
-;	mov	dx,0			;set to a definate value
-;	jmp	@@setit
-;
-;@@timeit:
-;	mov	ah,2ch
-;	int	21h			;GetSystemTime
-;	and	dx,0ffh
-;
-;@@setit:
-;	mov	[rndindex],dx
-;
-;	ret
-;
-;ENDP
+PROC	initrndt	randomize:word
+	uses	si,di
+	public	initrndt
+
+	mov	ax,[randomize]
+	cmp	ax,0
+;	jne	@@timeit		;if randomize is true, really random
+
+	mov	dx,0			;set to a definate value
+	jmp	@@setit
+
+@@timeit:
+	mov	ah,2ch
+	int	21h			;GetSystemTime
+	and	dx,0ffh
+
+@@setit:
+	mov	[rndindex],dx
+
+	ret
+
+ENDP
 
 ;=================================================
 ;
