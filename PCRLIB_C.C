@@ -523,7 +523,7 @@ void SetupKBD () {printf("SetupKBD"); exit(0);}
 //void far *lastparalloc;	// global variable of the EXACT (not paralign)
 				// last block, so it can be freed right
 //void sub_0_2D70(void)
-//void huge *paralloc (long size)
+void huge *paralloc (long size) {printf("paralloc"); exit(0);}
 //{
 // void huge *temp;
 // word seg,ofs;
@@ -560,7 +560,7 @@ void SetupKBD () {printf("SetupKBD"); exit(0);}
 ==============================================
 */
 //void sub_0_2DD7(void)
-//unsigned long LoadFile(char *filename,char huge *buffer)
+unsigned long LoadFile(char *filename,char huge *buffer) {printf("LoadFile"); exit(0);}
 //{
 // unsigned int handle,flength1=0,flength2=0,buf1,buf2,foff1,foff2;
 //
@@ -725,23 +725,23 @@ void SetupKBD () {printf("SetupKBD"); exit(0);}
 ====================================
 */
 //void sub_0_2F05(void)
-void huge *bloadin (char *filename) {printf("bloadin"); exit(0);}
-//{
-// int handle;
-// long length;
-// char huge *location;
-//
-// if ( (handle = open (filename,O_BINARY)) != -1 )
-//   {
-//    length = filelength (handle);
-//    location = paralloc (length);
-//    close (handle);
-//    LoadFile (filename,location);
-//    return location;
-//   }
-// else
-//   return NULL;
-//}
+void huge *bloadin (char *filename)
+{
+ int handle;
+ long length;
+ char huge *location;
+
+ if ( (handle = open (filename,O_BINARY)) != -1 )
+   {
+    length = filelength (handle);
+    location = paralloc (length);
+    close (handle);
+    LoadFile (filename,location);
+    return location;
+   }
+ else
+   return NULL;
+}
 
 
 //void sub_0_2F64(void)
