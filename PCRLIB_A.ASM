@@ -73,17 +73,17 @@
 
 ;	EXTRN	imageinfo: picstruct	; array of picture info
 
-;SPKactive dw    0                   ;set non zero when started
+SPKactive dw    0                   ;set non zero when started
 
 SoundData	dd	?	;two word pointer to SPKR file, PARA aligned
 soundmode	dw	1       ;0=nosound, 1=SPKR, 2= adlib...
-;OldInt8		dd	?	;StartupSPK saves here, Shutdown restores
-;ExtraInts	db	?	;number of PlaySPKR's to a regular int 8
-;Intcount	db	?	;counter for extraints, call OldInt8 at 0
-;sndspeed	dw	?	;timer count speed
+OldInt8		dd	?	;StartupSPK saves here, Shutdown restores
+ExtraInts	db	?	;number of PlaySPKR's to a regular int 8
+Intcount	db	?	;counter for extraints, call OldInt8 at 0
+sndspeed	dw	?	;timer count speed
 
-;SndPtr		dw	?	;Pointer to frequency of current sound
-;SndPriority	db	?	;current sound's priority
+SndPtr		dw	?	;Pointer to frequency of current sound
+SndPriority	db	?	;current sound's priority
 
 ;pausesndptr	dw	?
 ;pausepriority	db	?
@@ -99,7 +99,7 @@ screenseg	dw	0a000h	;changes with grmode, page flips, & scrolls
 
 	PUBLIC soundmode,SoundData,xormask,screenseg,_dontplay
 
-;	  CODESEG
+	  CODESEG
 
 ;	PUBLIC CGAylookup,EGAylookup,VGAylookup
 
@@ -193,47 +193,47 @@ screenseg	dw	0a000h	;changes with grmode, page flips, & scrolls
 ;
 ;========
 ;sub_0_528C:
-;PROC StartupSound
-;	PUBLIC	StartupSound
-;
-;	test	[_dontplay],0ffffh
-;	je	@@dowork
-;	ret
-;@@dowork:
-;	test	[SPKactive],0FFFFh	;see if library is active
-;	jne	@@started		;library was allready started
-;
-;@@start:
-;	call	NEAR PTR StopSound	;make sure nothing is playing
-;
-;	mov	ax,3508h	;call bios to get int 8
-;	int	21h
-;	mov	[WORD oldint8],bx
-;	mov	ax,es
-;	mov	[WORD oldint8+2],ax
-;
-;	mov	ax,1
-;	mov	[extraints],al		;the timer is still going at the
-;	mov	[intcount],al		;normal rate now
-;
-;	push	ds
-;
-;	push	cs
-;	pop	ds
-;	lea	dx,[UpdateSPKR]
-;	mov	ax,2508h	;call bios to set int 8
-;	int	21h
-;
-;	pop	ds
-;
-;	inc	[SPKactive]	;sound routines are now active
-;
-;@@started:
-;	mov	ax,1
-;	mov	[soundmode],ax ;set soundmode to SPKR
-;	ret
-;
-;ENDP
+PROC StartupSound
+	PUBLIC	StartupSound
+
+	test	[_dontplay],0ffffh
+	je	@@dowork
+	ret
+@@dowork:
+	test	[SPKactive],0FFFFh	;see if library is active
+	jne	@@started		;library was allready started
+
+@@start:
+	call	NEAR PTR StopSound	;make sure nothing is playing
+
+	mov	ax,3508h	;call bios to get int 8
+	int	21h
+	mov	[WORD oldint8],bx
+	mov	ax,es
+	mov	[WORD oldint8+2],ax
+
+	mov	ax,1
+	mov	[extraints],al		;the timer is still going at the
+	mov	[intcount],al		;normal rate now
+
+	push	ds
+
+	push	cs
+	pop	ds
+	lea	dx,[UpdateSPKR]
+	mov	ax,2508h	;call bios to set int 8
+	int	21h
+
+	pop	ds
+
+	inc	[SPKactive]	;sound routines are now active
+
+@@started:
+	mov	ax,1
+	mov	[soundmode],ax ;set soundmode to SPKR
+	ret
+
+ENDP
 
 ;=======================================================================
 
@@ -243,43 +243,43 @@ screenseg	dw	0a000h	;changes with grmode, page flips, & scrolls
 ;
 ;========
 ;sub_0_52CE:
-;PROC	ShutdownSound
-;	PUBLIC ShutdownSound
-;
-;	test	[_dontplay],0ffffh
-;	je	@@dowork
-;	ret
-;@@dowork:
-;	mov	al,36h		;tell the timer chip we are going to
-;	out	43h,al		;change the speed of timer 0
-;	mov	al,0		;system expects 0000 for rate
-;	out	40h,al		;low
-;	out	40h,al		;high
-;
-;	mov	ax,[SPKactive]
-;	cmp	ax,0
-;	je	@@done		;sound library wasn't started...
-;
-;	push	ds
-;
-;	mov	dx,[WORD Oldint8]
-;	mov	ax,[WORD Oldint8+2]
-;	mov	ds,ax
-;	mov	ax,2508h	;call bios to set int 8
-;	int	21h
-;
-;	pop	ds
-;
-;	mov	[SPKactive],0	;sound routines are now inactive
-;
-;	in	al,61h		;get peripheral (speaker) port value
-;	and	al,11111101b	;turn speaker off
-;	out	61h,al
-;
-;@@done:
-;	ret
-;
-;ENDP
+PROC	ShutdownSound
+	PUBLIC ShutdownSound
+
+	test	[_dontplay],0ffffh
+	je	@@dowork
+	ret
+@@dowork:
+	mov	al,36h		;tell the timer chip we are going to
+	out	43h,al		;change the speed of timer 0
+	mov	al,0		;system expects 0000 for rate
+	out	40h,al		;low
+	out	40h,al		;high
+
+	mov	ax,[SPKactive]
+	cmp	ax,0
+	je	@@done		;sound library wasn't started...
+
+	push	ds
+
+	mov	dx,[WORD Oldint8]
+	mov	ax,[WORD Oldint8+2]
+	mov	ds,ax
+	mov	ax,2508h	;call bios to set int 8
+	int	21h
+
+	pop	ds
+
+	mov	[SPKactive],0	;sound routines are now inactive
+
+	in	al,61h		;get peripheral (speaker) port value
+	and	al,11111101b	;turn speaker off
+	out	61h,al
+
+@@done:
+	ret
+
+ENDP
 
 ;=========================================================================
 
@@ -360,35 +360,35 @@ screenseg	dw	0a000h	;changes with grmode, page flips, & scrolls
 ;
 ;===========
 ;sub_0_536D:
-;PROC	StopSound
-;	PUBLIC	StopSound
-;
-;	test	[_dontplay],0ffffh
-;	je	@@dowork
-;	ret
-;@@dowork:
-;	xor	ax,ax		;set to 0
-;	mov	[SndPtr],ax
-;	mov	[SndPriority],al
-;	mov	[sndspeed],ax
-;
-;	in	al,61h		;get peripheral (speaker) port value
-;	and	al,11111101b	;turn speaker off
-;	out	61h,al
-;
-;	mov	al,36h		;tell the timer chip we are going to
-;	out	43h,al		;change the speed of timer 0
-;
-;	mov	al,0		;back to normal clock speed
-;	out	40h,al
-;	out	40h,al
-;
-;	inc	al
-;	mov	[extraints],al  ;one bios int / int8
-;	mov	[intcount],al
-;
-;	ret
-;ENDP
+PROC	StopSound
+	PUBLIC	StopSound
+
+	test	[_dontplay],0ffffh
+	je	@@dowork
+	ret
+@@dowork:
+	xor	ax,ax		;set to 0
+	mov	[SndPtr],ax
+	mov	[SndPriority],al
+	mov	[sndspeed],ax
+
+	in	al,61h		;get peripheral (speaker) port value
+	and	al,11111101b	;turn speaker off
+	out	61h,al
+
+	mov	al,36h		;tell the timer chip we are going to
+	out	43h,al		;change the speed of timer 0
+
+	mov	al,0		;back to normal clock speed
+	out	40h,al
+	out	40h,al
+
+	inc	al
+	mov	[extraints],al  ;one bios int / int8
+	mov	[intcount],al
+
+	ret
+ENDP
 
 ;======================================================================
 
@@ -494,91 +494,91 @@ screenseg	dw	0a000h	;changes with grmode, page flips, & scrolls
 ;
 ;=========
 ;sub_0_540F:
-;PROC	UpdateSPKR FAR
+PROC	UpdateSPKR FAR
+
+	push	ax
+	push	bx
+	push	cx
+	push	si
+	push	ds
+	push	es
+
+	mov	ax,_DATA
+	mov	ds,ax		;ds to this data segment
+	mov	ax,[WORD SoundData+2]
+	mov	es,ax		;es to sound file
+
+	mov	al,20h
+	out	20h,al		;we got the interrupt here
+
+	dec	[intcount]	;see if it is time for a BIOS int 8...
+	jne	@@dosounds
+
+	mov	al,[extraints]
+	mov	[intcount],al	;reset interrupt counter
+
+	pushf			;so the IRET from bios returns right
+	call	[OldInt8]	;call the old BIOS timer routine
+
+@@dosounds:
 ;
-;	push	ax
-;	push	bx
-;	push	cx
-;	push	si
-;	push	ds
-;	push	es
+; play the speaker
 ;
-;	mov	ax,_DATA
-;	mov	ds,ax		;ds to this data segment
-;	mov	ax,[WORD SoundData+2]
-;	mov	es,ax		;es to sound file
-;
-;	mov	al,20h
-;	out	20h,al		;we got the interrupt here
-;
-;	dec	[intcount]	;see if it is time for a BIOS int 8...
-;	jne	@@dosounds
-;
-;	mov	al,[extraints]
-;	mov	[intcount],al	;reset interrupt counter
-;
-;	pushf			;so the IRET from bios returns right
-;	call	[OldInt8]	;call the old BIOS timer routine
-;
-;@@dosounds:
-;;
-;; play the speaker
-;;
-;	mov	si,[SndPtr]
-;	cmp	si,0
-;	je	@@nosound	;nothing playing
-;
-;	mov	bx,[es:si]
-;	inc	[SndPtr]
-;	inc	[SndPtr]
-;
-;	cmp	bx,0
-;	je	@@nosound	;a zero frequency is no sound, but don't stop
-;
-;	cmp	bx,-1		;a -1 frequency is end of sound
-;	jne	@@playfreq
-;
-;	call	StopSound
-;	jmp	@@doneplay
-;
-;@@nosound:
-;	in	al,61h		;get peripheral (speaker) port value
-;	and	al,11111100b	;turn speaker off
-;	out	61h,al
-;	jmp	@@doneplay
-;
-;@@playfreq:
-;	test	[soundmode],0FFh	;if soundon=0, don't play anything
-;	je	@@nosound
-;
-;	mov	al,10110110b	;write to channel 2 (speaker) timer
-;	out	43h,al
-;	mov	al,bl
-;	out	42h,al		;low byte
-;	mov	al,bh
-;	out	42h,al		;high byte
-;
-;	in	al,61h		;get peripheral (speaker) port value
-;	or	al,00000011b	;turn speaker on to timer
-;	out	61h,al
-;
-;@@doneplay:
-;	pop	es
-;	pop	ds
-;	pop	si
-;	pop	cx
-;	pop	bx
-;	pop	ax
-;
-;	iret
-;
-;
-;ENDP
+	mov	si,[SndPtr]
+	cmp	si,0
+	je	@@nosound	;nothing playing
+
+	mov	bx,[es:si]
+	inc	[SndPtr]
+	inc	[SndPtr]
+
+	cmp	bx,0
+	je	@@nosound	;a zero frequency is no sound, but don't stop
+
+	cmp	bx,-1		;a -1 frequency is end of sound
+	jne	@@playfreq
+
+	call	StopSound
+	jmp	@@doneplay
+
+@@nosound:
+	in	al,61h		;get peripheral (speaker) port value
+	and	al,11111100b	;turn speaker off
+	out	61h,al
+	jmp	@@doneplay
+
+@@playfreq:
+	test	[soundmode],0FFh	;if soundon=0, don't play anything
+	je	@@nosound
+
+	mov	al,10110110b	;write to channel 2 (speaker) timer
+	out	43h,al
+	mov	al,bl
+	out	42h,al		;low byte
+	mov	al,bh
+	out	42h,al		;high byte
+
+	in	al,61h		;get peripheral (speaker) port value
+	or	al,00000011b	;turn speaker on to timer
+	out	61h,al
+
+@@doneplay:
+	pop	es
+	pop	ds
+	pop	si
+	pop	cx
+	pop	bx
+	pop	ax
+
+	iret
+
+
+ENDP
 
 ;==========================================================================
 
 ;========================================================================
-;	DATASEG
+	DATASEG
 
 ;rndindex	dw	?
 
