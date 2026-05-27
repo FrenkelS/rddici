@@ -40,7 +40,7 @@ int MouseSensitivity;
 
 char key[8],keyB1,keyB2;
 
-//void interrupt (*oldint9) ()=NULL;
+void interrupt (*oldint9) ()=NULL;
 
 //char	demobuffer[5000];
 //char	*demoptr;
@@ -132,11 +132,11 @@ void SetupKBD () {IMPLEMENT_ME("SetupKBD");}
 ===========================
 */
 //void sub_0_2653(void)
-//void ShutdownKBD ()
-//{
-// if (oldint9 != NULL)
-//   setvect (9,oldint9);
-//}
+void ShutdownKBD ()
+{
+ if (oldint9 != NULL)
+   setvect (9,oldint9);
+}
 
 
 /*

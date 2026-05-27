@@ -25,8 +25,6 @@ void initrndt(boolean randomize) {IMPLEMENT_ME("initrndt");}
 
 void moveega(void) {IMPLEMENT_ME("moveega");}
 
-void ShutdownKBD(void) {IMPLEMENT_ME("ShutdownKBD");}
-
 void ShutdownSound(void) {IMPLEMENT_ME("ShutdownSound");}
 
 void StartupSound(void) {IMPLEMENT_ME("StartupSound");}
