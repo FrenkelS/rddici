@@ -60,7 +60,7 @@ char key[8],keyB1,keyB2;
 =======================
 */
 //void sub_0_256A(void)
-void SetupKBD () {printf("SetupKBD"); exit(0);}
+void SetupKBD () {IMPLEMENT_ME("SetupKBD");}
 //{
 // void far *vect = getvect (9);
 // int i;
@@ -801,7 +801,7 @@ cardtype _videocard;
 ========================
 */
 //void sub_0_302F(void)
-void setscreenmode (grtype mode) {printf("setscreenmode"); exit(0);}
+void setscreenmode (grtype mode) {IMPLEMENT_ME("setscreenmode");}
 //{
 //  char extern VGAPAL;			// deluxepaint vga pallet .OBJ file
 //  void far *vgapal = &VGAPAL;
@@ -1437,7 +1437,7 @@ void _loadctrls (void)
 //
 ////////////////////////
 //void sub_0_3A96(void)
-void _loadhighscores (void) {printf("_loadhighscores"); exit(0);}
+void _loadhighscores (void) {IMPLEMENT_ME("_loadhighscores");}
 //{
 //  int i;
 //
@@ -1624,7 +1624,7 @@ void _setupgame (void)
 //
 ////////////////////
 //void sub_0_3E65(void)
-void _quit (char *error) {printf("_quit"); exit(0);}
+void _quit (char *error) {IMPLEMENT_ME("_quit");}
 //{
 //  setscreenmode (text);
 //  if (!(*error))

@@ -21,8 +21,13 @@
 #include "pcrlib.h"
 
 
-void initrndt(boolean randomize) {printf("initrndt"); exit(0);}
+void initrndt(boolean randomize) {IMPLEMENT_ME("initrndt");}
 
-void StartupSound(void) {printf("StartupSound"); exit(0);}
+void StartupSound(void) {IMPLEMENT_ME("StartupSound");}
 
-void sub_0_53F7(void) {printf("sub_0_53F"); exit(0);}
+void sub_0_53F7(void) {IMPLEMENT_ME("sub_0_53F");}
+
+void IMPLEMENT_ME(char *func) {
+	printf("%s", func);
+	exit(0);
+}

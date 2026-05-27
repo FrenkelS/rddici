@@ -1676,7 +1676,7 @@ int word_789_C362;
 
 
 //void sub_0_352(void)
-void loadgrfiles(void) {printf("loadgrfiles"); exit(0);}
+void loadgrfiles(void) {IMPLEMENT_ME("loadgrfiles");}
 //{
 //  if (grmode == 1)
 //    installgrfile(aCgapics_dd2, 0); // "CGAPICS.DD2"
@@ -1688,7 +1688,7 @@ void loadgrfiles(void) {printf("loadgrfiles"); exit(0);}
 //}
 
 
-void sub_0_37E(void) {printf("sub_0_37E"); exit(0);}
+void sub_0_37E(void) {IMPLEMENT_ME("sub_0_37E");}
 //{
 //  setscreenmode(grmode);
 //  sub_0_290();
@@ -1807,7 +1807,7 @@ void sub_0_37E(void) {printf("sub_0_37E"); exit(0);}
 =
 =============
 */
-void sub_0_548(void) {printf("sub_0_548"); exit(0);}
+void sub_0_548(void) {IMPLEMENT_ME("sub_0_548");}
 //void dotitlepage (void)
 //{
 //  int i;
@@ -1853,7 +1853,7 @@ void sub_0_548(void) {printf("sub_0_548"); exit(0);}
 =
 =============
 */
-void sub_0_5F9(void) {printf("sub_0_5F9"); exit(0);}
+void sub_0_5F9(void) {IMPLEMENT_ME("sub_0_5F9");}
 //void dodemo (void)
 //{
 //  int i;
@@ -1917,7 +1917,7 @@ void sub_0_5F9(void) {printf("sub_0_5F9"); exit(0);}
 =
 ============
 */
-void sub_0_71E(void) {printf("sub_0_71E"); exit(0);}
+void sub_0_71E(void) {IMPLEMENT_ME("sub_0_71E");}
 //void gameover (void)
 //{
 //  int i;
@@ -2381,7 +2381,7 @@ void sub_0_71E(void) {printf("sub_0_71E"); exit(0);}
 /* all the action is directed from here */
 /*				      */
 /*======================================*/
-void sub_0_162C(void) {printf("sub_0_162C"); exit(0);}
+void sub_0_162C(void) {IMPLEMENT_ME("sub_0_162C");}
 //void playloop(void)
 //{
 //asm {
