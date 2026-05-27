@@ -724,18 +724,18 @@ void installgrfile (char *filename, int unpack)
 //
 //////////////////////////
 //void sub_0_4CEF(void)
-//void moveega (void)
-//{
-//  int plane;
-//
-//  for (plane=0;plane<4;plane++)
-//  {
-//    outportb (SCindex,SCmapmask);
-//    outportb (SCindex+1,1<<plane);	// write plane #
-//
-//    movedata (egaplane[plane],0,0xa900,0,0xffff-0xa900);
-//  }
-//  outportb (SCindex,SCmapmask);		// read map select
-//  outportb (SCindex+1,15);	// all planes
-//}
+void moveega (void)
+{
+  int plane;
+
+  for (plane=0;plane<4;plane++)
+  {
+    outportb (SCindex,SCmapmask);
+    outportb (SCindex+1,1<<plane);	// write plane #
+
+    movedata (egaplane[plane],0,0xa900,0,0xffff-0xa900);
+  }
+  outportb (SCindex,SCmapmask);		// read map select
+  outportb (SCindex+1,15);	// all planes
+}
 

@@ -1634,7 +1634,7 @@ if (stackoverflow > 1)
 	exit(0);
 }
 
-//  setscreenmode (text);
+  setscreenmode (text);
   if (!(*error))
   {
 	 _savehighscores ();

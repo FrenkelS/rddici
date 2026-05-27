@@ -1497,7 +1497,6 @@ int word_789_94C8;
 //int word_789_94CA;
 //int word_789_94D4;
 int word_789_ADE0;
-int word_789_ADE6;
 int word_789_C362;
 
 
@@ -1634,36 +1633,36 @@ int word_789_C362;
 //}
 
 
-//void sub_0_290(void)
-//{
-//  if (grmode == CGAgr)
-//  {
-//    if (_videocard == EGAcard)
-//    {
-//      outportb(0x3d4, 0x12);
-//      outportb(0x3d5, 0xb0);
-//    }
-//    else if (_videocard == VGAcard)
-//    {
-//      outportb(0x3d4, 0x12);
-//      outportb(0x3d5, 0x60);
-//    }
-//    else
-//    {
-//      outportb(0x3d4, 0x06);
-//      outportb(0x3d5, 0x58);
-//    }
-//  }
-//  if (grmode == EGAgr)
-//  {
-//    outportb(crtcaddr, 0x13);
-//    outportb(crtcaddr + 1, 0x18);
-//	_AH = 0x10;
-//    _AL = 1;
-//    _BH = 5;
-//    geninterrupt(0x10);
-//  }
-//}
+void sub_0_290(void)
+{
+  if (grmode == CGAgr)
+  {
+    if (_videocard == EGAcard)
+    {
+      outportb(0x3d4, 0x12);
+      outportb(0x3d5, 0xb0);
+    }
+    else if (_videocard == VGAcard)
+    {
+      outportb(0x3d4, 0x12);
+      outportb(0x3d5, 0x60);
+    }
+    else
+    {
+      outportb(0x3d4, 0x06);
+      outportb(0x3d5, 0x58);
+    }
+  }
+  if (grmode == EGAgr)
+  {
+    outportb(crtcaddr, 0x13);
+    outportb(crtcaddr + 1, 0x18);
+	_AH = 0x10;
+    _AL = 1;
+    _BH = 5;
+    geninterrupt(0x10);
+  }
+}
 
 
 //void sub_0_31E(void)
@@ -1688,11 +1687,11 @@ void loadgrfiles(void)
 }
 
 
-void sub_0_37E(void) {IMPLEMENT_ME("sub_0_37E");}
-//{
-//  setscreenmode(grmode);
-//  sub_0_290();
-//}
+void sub_0_37E(void)
+{
+  setscreenmode(grmode);
+  sub_0_290();
+}
 
 
 //void sub_0_38E(void)
@@ -2454,7 +2453,7 @@ void main (void)
 	word_789_ADE0 = 1;
 	word_789_C362 = 1;
 
-	word_789_ADE6 = 0;
+	_cgaok = 0;
 	_egaok = 1;
 	_vgaok = 0;
 
