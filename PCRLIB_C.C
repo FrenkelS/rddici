@@ -819,7 +819,7 @@ void setscreenmode (grtype mode)
     case EGAgr: _AX = 0xd;
 		geninterrupt (0x10);
 		screenseg=0xa000;
-		sub_0_4CEF ();
+		moveega ();
 		sub_0_290 ();
 		break;
     case VGAgr: _AX = 0x13;
