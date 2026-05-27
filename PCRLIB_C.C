@@ -520,34 +520,34 @@ void SetupKBD () {printf("SetupKBD"); exit(0);}
 ===========================================
 */
 
-//void far *lastparalloc;	// global variable of the EXACT (not paralign)
+void far *lastparalloc;	// global variable of the EXACT (not paralign)
 				// last block, so it can be freed right
 //void sub_0_2D70(void)
-void huge *paralloc (long size) {printf("paralloc"); exit(0);}
-//{
-// void huge *temp;
-// word seg,ofs;
-///* allocate a block with extra space */
-// lastparalloc = (void far*)temp = farmalloc (size+15);
-// if (temp == NULL)
-// //
-// // not enough memory!
-// //
-// {
-//   setscreenmode (text);
-//	_quit ("Out of memory!");
-// }
-//
-// ofs=FP_OFF(temp);
-// if (ofs!=0)			/* set offset to 0 and bump segment */
-// {
-//  seg=FP_SEG(temp);
-//  seg++;
-//  ofs=0;
-//  temp=MK_FP (seg,ofs);
-// }
-// return (void huge *) temp;
-//}
+void huge *paralloc (long size)
+{
+ void huge *temp;
+ word seg,ofs;
+/* allocate a block with extra space */
+ lastparalloc = (void far*)temp = farmalloc (size+15);
+ if (temp == NULL)
+ //
+ // not enough memory!
+ //
+ {
+   setscreenmode (text);
+	_quit ("Out of memory!");
+ }
+
+ ofs=FP_OFF(temp);
+ if (ofs!=0)			/* set offset to 0 and bump segment */
+ {
+  seg=FP_SEG(temp);
+  seg++;
+  ofs=0;
+  temp=MK_FP (seg,ofs);
+ }
+ return (void huge *) temp;
+}
 
 //==========================================================================
 
@@ -801,7 +801,7 @@ cardtype _videocard;
 ========================
 */
 //void sub_0_302F(void)
-//void setscreenmode (grtype mode)
+void setscreenmode (grtype mode) {printf("setscreenmode"); exit(0);}
 //{
 //  char extern VGAPAL;			// deluxepaint vga pallet .OBJ file
 //  void far *vgapal = &VGAPAL;
@@ -1624,7 +1624,7 @@ void _setupgame (void)
 //
 ////////////////////
 //void sub_0_3E65(void)
-//void _quit (char *error)
+void _quit (char *error) {printf("_quit"); exit(0);}
 //{
 //  setscreenmode (text);
 //  if (!(*error))
