@@ -1476,7 +1476,7 @@
 
 
 int word_789_C0E;
-//int word_789_1554;
+int word_789_1554;
 //int word_789_1D28;
 //int word_789_1D2A;
 //int word_789_1D34;
@@ -1676,16 +1676,16 @@ int word_789_C362;
 
 
 //void sub_0_352(void)
-void loadgrfiles(void) {IMPLEMENT_ME("loadgrfiles");}
-//{
-//  if (grmode == 1)
-//    installgrfile(aCgapics_dd2, 0); // "CGAPICS.DD2"
-//  else
-//  {
-//    installgrfile(aEgapics_dd2, 0); // "EGAPICS.DD2"
-//    word_789_1554 ^= 0x0100; // FIXME fsm: should be 0x0001
-//  }
-//}
+void loadgrfiles(void)
+{
+  if (grmode == 1)
+    installgrfile("CGAPICS.DD2", 0);
+  else
+  {
+    installgrfile("EGAPICS.DD2", 0);
+    word_789_1554 ^= 0x0001;
+  }
+}
 
 
 void sub_0_37E(void) {IMPLEMENT_ME("sub_0_37E");}

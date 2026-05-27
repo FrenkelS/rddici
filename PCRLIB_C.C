@@ -745,7 +745,7 @@ void huge *bloadin (char *filename)
 
 
 //void sub_0_2F64(void)
-//void huge *bloadinLZW (char *filename)
+void huge *bloadinRLE (char *filename) {IMPLEMENT_ME("bloadinRLE");}
 //{
 // int handle;
 // long length;
@@ -782,11 +782,11 @@ void huge *bloadin (char *filename)
 grtype grmode;
 cardtype _videocard;
 
-//void huge *charptr;		// 8*8 tileset
-//void huge *tileptr;		// 16*16 tileset
-//void huge *picptr;		// any size picture set
-//void huge *spriteptr;		// any size masked and hit rect sprites
-//void huge *egaspriteptr[4];	// spriteptr for each ega plane's data
+void huge *charptr;		// 8*8 tileset
+void huge *tileptr;		// 16*16 tileset
+void huge *picptr;		// any size picture set
+void huge *spriteptr;		// any size masked and hit rect sprites
+void huge *egaspriteptr[4];	// spriteptr for each ega plane's data
 
 unsigned crtcaddr;
 

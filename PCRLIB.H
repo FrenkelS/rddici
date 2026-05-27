@@ -123,7 +123,7 @@ void huge *paralloc (long size);
 long unsigned int LoadFile(char *filename,char huge *buffer);
 void SaveFile(char *filename,char huge *buffer, long size);
 void huge *bloadin (char *filename);
-void huge *bloadinLZW (char *filename);
+void huge *bloadinRLE (char *filename);
 long RLEcompress (void far *source, long length, void far *dest);
 
 void initrndt (boolean randomize);
