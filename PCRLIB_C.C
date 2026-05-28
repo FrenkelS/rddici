@@ -46,7 +46,7 @@ void interrupt (*oldint9) ()=NULL;
 //char	*demoptr;
 //int	democount;
 //int	lastdemoval;		// so demo can be RLE compressed
-//enum demoenum indemo;
+enum demoenum indemo;
 
 /*=======================================================================*/
 
@@ -382,7 +382,7 @@ void ShutdownKBD ()
 =============================
 */
 //void sub_0_2B28(void)
-//ControlStruct ControlPlayer (int player)
+ControlStruct ControlPlayer (int player) {IMPLEMENT_ME("ControlPlayer");}
 //{
 // ControlStruct ret;
 // int val;
@@ -449,7 +449,7 @@ void ShutdownKBD ()
 //
 ////////////////////////
 //void sub_0_2C61(void)
-//void LoadDemo (int demonum)
+void LoadDemo (int demonum) {IMPLEMENT_ME("LoadDemo");}
 //{
 //  char st2[5];
 //
@@ -1336,8 +1336,8 @@ void setscreenmode (grtype mode)
 struct scores scoreswap, highscores[5];
 
 //long score;
-//int level;
-//int _numlevels, _maxplayers;
+int level;
+int _numlevels, _maxplayers;
 
 char *_extension = "PCR";
 boolean	_cgaok, _egaok, _vgaok;
@@ -1468,7 +1468,7 @@ void _savehighscores (void)
 //
 ////////////////////////
 //void sub_0_3B41(void)
-//void _showhighscores (void)
+void _showhighscores (void) {IMPLEMENT_ME("_showhighscores");}
 //{
 //  int i;
 //  long h;

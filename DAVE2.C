@@ -30,11 +30,11 @@
 //#include "NGRABCA2.H"
 //#include "SOUNDS.H"
 
-//#define NUMDEMOS 1
+#define NUMDEMOS 1
 
 //#define maxpics 2047
 //#define numtiles 24*24   /*number of tiles displayed on screen*/
-//#define numlevels 30
+//#define numlevels 1
 //#define maxobj 200           /*maximum possible active objects*/
 //#define solidwall 129
 //#define blankfloor 128
@@ -55,7 +55,7 @@
 //    wallhit,shot,bigshot,rock,dead1,dead2,dead3,dead4,dead5,dead6,teleporter,
 //    torch,secretgate,gune,guns,lastclass} classtype;
 
-//typedef enum {ingame,intitle,inscores} statetype;
+typedef enum {ingame,intitle,inscores} statetype;
 
 
 //typedef struct {
@@ -1491,13 +1491,10 @@ int word_789_8220;
 //int *word_789_9486;
 //int word_789_949E;
 //int word_789_94BC;
-int word_789_94C2;
 //int word_789_94C6;
 int word_789_94C8;
 //int word_789_94CA;
 //int word_789_94D4;
-int word_789_ADE0;
-int word_789_C362;
 
 
 //  enum {quited,killed,reseted,victorious} gamexit; /*determines what to do after playloop*/
@@ -1535,7 +1532,7 @@ int word_789_C362;
 
 
 //  int i,j,k,x,y,z;
-//  boolean playdone, leveldone;
+  boolean playdone, leveldone;
 
 //  boolean tempb;
 //  char far *tempp;
@@ -1548,10 +1545,10 @@ int word_789_C362;
 
   int VGAPAL;				// just to make pcrlib happy
 
-//  boolean exitdemo,resetgame;
-//  statetype gamestate;
+  boolean exitdemo,resetgame;
+  statetype gamestate;
 
-//  ControlStruct ctrl;
+  ControlStruct ctrl;
 
 //  char far *pics, far *picsexact;
 
@@ -1600,7 +1597,7 @@ int word_789_C362;
 //void sub_0_7B3 (void);
 //void dofkeys (void);
 //void help (void);
-//void playloop(void);
+void playloop(void);
 
 
 /*==============================*/
@@ -1703,7 +1700,7 @@ void sub_0_37E(void)
 
 
 //void sub_0_399(void)
-//void dofkeys (void)
+void dofkeys (void) {IMPLEMENT_ME("dofkeys");}
 //{
 //  int i,handle;
 //  char st2[10];
@@ -1768,7 +1765,7 @@ void sub_0_37E(void)
 //}
 
 
-//void sub_0_4A9(void)
+void sub_0_4A9(void) {IMPLEMENT_ME("sub_0_4A9");}
 //{
 //  int i;
 //  setscreenmode (grmode);
@@ -1852,58 +1849,58 @@ void sub_0_548(void) {IMPLEMENT_ME("sub_0_548");}
 =
 =============
 */
-void sub_0_5F9(void) {IMPLEMENT_ME("sub_0_5F9");}
-//void dodemo (void)
-//{
-//  int i;
-//
-//  exitdemo = false;
-//  indemo = 0;
-//
-//  ctrl = ControlPlayer (1);
-//  if (ctrl.button1 || ctrl.button2 || keydown[0x39])
-//    exitdemo = true;
-//
-//  if (bioskey (1))
-//    dofkeys ();
-//
-//  while (!exitdemo)
-//  {
-//    dotitlepage ();
-//
-//    if (exitdemo)
-//      break;
-//
-//    i=random(NUMDEMOS)+1;
-//    LoadDemo (i);
-//    level=1;
-//    playloop ();
-//    if (exitdemo)
-//      break;
-//
-//    gamestate=3;
-//    _showhighscores ();
-//    for (i=0;i<500;i++)
-//    {
-//      WaitVBL ();
-//      indemo = notdemo;
-//      ctrl = ControlPlayer (1);
-//      if (ctrl.button1 || ctrl.button2 || keydown[0x39])
-//      {
-//	exitdemo = true;
-//	break;
-//      }
-//      indemo = 1;
-//      if (bioskey (1))
-//	dofkeys ();
-//    }
-//
-//  }
-//
-//  level = 1;
-//  leveldone = 1;
-//  indemo = 0;
-//}
+//void sub_0_5F9(void)
+void dodemo (void)
+{
+  int i;
+
+  exitdemo = false;
+  indemo = 0;
+
+  ctrl = ControlPlayer (1);
+  if (ctrl.button1 || ctrl.button2 || keydown[0x39])
+    exitdemo = true;
+
+  if (bioskey (1))
+    dofkeys ();
+
+  while (!exitdemo)
+  {
+    sub_0_4A9 ();
+
+    if (exitdemo)
+      break;
+
+    i=random(NUMDEMOS)+1;
+    LoadDemo (i);
+    leveldone=1;
+    playloop ();
+    if (exitdemo)
+      break;
+
+    gamestate=3;
+    _showhighscores ();
+    for (i=0;i<500;i++)
+    {
+      WaitVBL ();
+      indemo = notdemo;
+      ctrl = ControlPlayer (1);
+      if (ctrl.button1 || ctrl.button2 || keydown[0x39])
+      {
+	exitdemo = true;
+	break;
+      }
+      indemo = 1;
+      if (bioskey (1))
+	dofkeys ();
+    }
+
+  }
+
+  level = 1;
+  leveldone = 1;
+  indemo = 0;
+}
 
 /*=========================================================================*/
 
@@ -2380,8 +2377,8 @@ void sub_0_71E(void) {IMPLEMENT_ME("sub_0_71E");}
 /* all the action is directed from here */
 /*				      */
 /*======================================*/
-void sub_0_162C(void) {IMPLEMENT_ME("sub_0_162C");}
-//void playloop(void)
+//void sub_0_162C(void)
+void playloop(void) {IMPLEMENT_ME("playloop");}
 //{
 //asm {
 //db 83h
@@ -2450,8 +2447,8 @@ void sub_0_162C(void) {IMPLEMENT_ME("sub_0_162C");}
 //void sub_0_1953(void)
 void main (void)
 {
-	word_789_ADE0 = 1;
-	word_789_C362 = 1;
+	_numlevels = 1;
+	_maxplayers = 1;
 
 	_cgaok = 0;
 	_egaok = 1;
@@ -2470,10 +2467,10 @@ void main (void)
 
 	while (1)
 	{
-		sub_0_5F9();
+		dodemo();
 		sub_0_53F7();
-		sub_0_162C();
-		if (word_789_94C2 == 2)
+		playloop();
+		if (gamestate == 2)
 		{
 			sub_0_548();
 		}

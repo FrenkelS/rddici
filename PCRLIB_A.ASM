@@ -60,7 +60,7 @@
 ;	EXTRN picptr:WORD
 ;	EXTRN spriteptr:WORD	;paraligned pointers
 ;	EXTRN grmode:WORD
-;	EXTRN crtcaddr:WORD
+	EXTRN crtcaddr:WORD
 
 ;
 ; stuff for pics and sprites
@@ -793,31 +793,31 @@ ENDP
 ;
 ;========
 ;sub_0_5556:
-;PROC	WaitVBL
-;	PUBLIC	WaitVBL
-;
-;	push	si
-;	push	di
-;
-;	mov	dx,[crtcaddr]
-;	add	dx,6
-;
-;waitvbl1:
-;	in	al,dx
-;	test	al,00001000b	;look for vbl
-;	jnz	waitvbl1
-;
-;waitvbl2:
-;	in	al,dx
-;	test	al,00001000b	;look for vbl
-;	jz	waitvbl2
-;
-;	pop	di
-;	pop	si
-;
-;	ret
-;
-;ENDP
+PROC	WaitVBL
+	PUBLIC	WaitVBL
+
+	push	si
+	push	di
+
+	mov	dx,[crtcaddr]
+	add	dx,6
+
+waitvbl1:
+	in	al,dx
+	test	al,00001000b	;look for vbl
+	jnz	waitvbl1
+
+waitvbl2:
+	in	al,dx
+	test	al,00001000b	;look for vbl
+	jz	waitvbl2
+
+	pop	di
+	pop	si
+
+	ret
+
+ENDP
 
 ;=======================================================================
 
