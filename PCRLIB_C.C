@@ -43,7 +43,7 @@ char key[8],keyB1,keyB2;
 void interrupt (*oldint9) ()=NULL;
 
 //char	demobuffer[5000];
-//char	*demoptr;
+char	*demoptr;
 //int	democount;
 //int	lastdemoval;		// so demo can be RLE compressed
 enum demoenum indemo;
@@ -147,60 +147,60 @@ void ShutdownKBD ()
 ===========================
 */
 //void sub_0_2673(void)
-//ControlStruct ControlKBD ()
-//{
-// int xmove=0,
-//     ymove=0;
-// ControlStruct action;
-//
-// if (keydown [key[north]])
-//  ymove=-1;
-// if (keydown [key[east]])
-//  xmove=1;
-// if (keydown [key[south]])
-//  ymove=1;
-// if (keydown [key[west]])
-//  xmove=-1;
-//
-// if (keydown [key[northeast]])
-// {
-//   ymove=-1;
-//   xmove=1;
-// }
-// if (keydown [key[northwest]])
-// {
-//   ymove=-1;
-//   xmove=-1;
-// }
-// if (keydown [key[southeast]])
-// {
-//   ymove=1;
-//   xmove=1;
-// }
-// if (keydown [key[southwest]])
-// {
-//   ymove=1;
-//   xmove=-1;
-// }
-//
-//  switch (ymove*3+xmove)
-// {
-//   case -4: action.dir = northwest; break;
-//   case -3: action.dir = north; break;
-//   case -2: action.dir = northeast; break;
-//   case -1: action.dir = west; break;
-//   case  0: action.dir = nodir; break;
-//   case  1: action.dir = east; break;
-//   case  2: action.dir = southwest; break;
-//   case  3: action.dir = south; break;
-//   case  4: action.dir = southeast; break;
-// }
-//
-// action.button1 = keydown [keyB1];
-// action.button2 = keydown [keyB2];
-//
-// return (action);
-//}
+ControlStruct ControlKBD ()
+{
+ int xmove=0,
+     ymove=0;
+ ControlStruct action;
+
+ if (keydown [key[north]])
+  ymove=-1;
+ if (keydown [key[east]])
+  xmove=1;
+ if (keydown [key[south]])
+  ymove=1;
+ if (keydown [key[west]])
+  xmove=-1;
+
+ if (keydown [key[northeast]])
+ {
+   ymove=-1;
+   xmove=1;
+ }
+ if (keydown [key[northwest]])
+ {
+   ymove=-1;
+   xmove=-1;
+ }
+ if (keydown [key[southeast]])
+ {
+   ymove=1;
+   xmove=1;
+ }
+ if (keydown [key[southwest]])
+ {
+   ymove=1;
+   xmove=-1;
+ }
+
+  switch (ymove*3+xmove)
+ {
+   case -4: action.dir = northwest; break;
+   case -3: action.dir = north; break;
+   case -2: action.dir = northeast; break;
+   case -1: action.dir = west; break;
+   case  0: action.dir = nodir; break;
+   case  1: action.dir = east; break;
+   case  2: action.dir = southwest; break;
+   case  3: action.dir = south; break;
+   case  4: action.dir = southeast; break;
+ }
+
+ action.button1 = keydown [keyB1];
+ action.button2 = keydown [keyB2];
+
+ return (action);
+}
 
 
 /*
@@ -211,61 +211,61 @@ void ShutdownKBD ()
 ============================
 */
 //void sub_0_27C0(void)
-//ControlStruct ControlMouse ()
-//{
-// int newx,newy,		/* mickeys the mouse has moved */
-//     xmove = 0,
-//     ymove = 0;
-// ControlStruct action;
-//
-// _AX = 3;
-// geninterrupt (0x33);		/* mouse status */
-// newx = _CX;
-// newy = _DX;
-// action.button1 = _BX & 1;
-// action.button2 = (_BX & 2) >> 1;
-//
-// if ((newx-320)/2>MouseSensitivity)
-// {
-//   xmove = 1;
-//   newx = newx - MouseSensitivity*2;
-// }
-// else if ((newx-320)/2<-MouseSensitivity)
-// {
-//   xmove = -1;
-//   newx = newx + MouseSensitivity*2;
-// }
-// if ((newy-100)>MouseSensitivity)
-// {
-//   ymove = 1;
-//   newy = newy - MouseSensitivity;
-// }
-// else if ((newy-100)<-MouseSensitivity)
-// {
-//   ymove = -1;
-//   newy = newy + MouseSensitivity;
-// }
-//
-//  _AX = 4;
-//  _CX=newx;
-//  _DX=newy;
-//  geninterrupt (0x33);		/* set mouse status */
-//
-// switch (ymove*3+xmove)
-// {
-//   case -4: action.dir = northwest; break;
-//   case -3: action.dir = north; break;
-//   case -2: action.dir = northeast; break;
-//   case -1: action.dir = west; break;
-//   case  0: action.dir = nodir; break;
-//   case  1: action.dir = east; break;
-//   case  2: action.dir = southwest; break;
-//   case  3: action.dir = south; break;
-//   case  4: action.dir = southeast; break;
-// }
-//
-// return (action);
-//}
+ControlStruct ControlMouse ()
+{
+ int newx,newy,		/* mickeys the mouse has moved */
+     xmove = 0,
+     ymove = 0;
+ ControlStruct action;
+
+ _AX = 3;
+ geninterrupt (0x33);		/* mouse status */
+ newx = _CX;
+ newy = _DX;
+ action.button1 = _BX & 1;
+ action.button2 = (_BX & 2) >> 1;
+
+ if ((newx-320)/2>MouseSensitivity)
+ {
+   xmove = 1;
+   newx = newx - MouseSensitivity*2;
+ }
+ else if ((newx-320)/2<-MouseSensitivity)
+ {
+   xmove = -1;
+   newx = newx + MouseSensitivity*2;
+ }
+ if ((newy-100)>MouseSensitivity)
+ {
+   ymove = 1;
+   newy = newy - MouseSensitivity;
+ }
+ else if ((newy-100)<-MouseSensitivity)
+ {
+   ymove = -1;
+   newy = newy + MouseSensitivity;
+ }
+
+  _AX = 4;
+  _CX=newx;
+  _DX=newy;
+  geninterrupt (0x33);		/* set mouse status */
+
+ switch (ymove*3+xmove)
+ {
+   case -4: action.dir = northwest; break;
+   case -3: action.dir = north; break;
+   case -2: action.dir = northeast; break;
+   case -1: action.dir = west; break;
+   case  0: action.dir = nodir; break;
+   case  1: action.dir = east; break;
+   case  2: action.dir = southwest; break;
+   case  3: action.dir = south; break;
+   case  4: action.dir = southeast; break;
+ }
+
+ return (action);
+}
 
 
 /*
@@ -277,39 +277,39 @@ void ShutdownKBD ()
 ===============================
 */
 //void sub_0_28FD(void)
-//void ReadJoystick (int joynum,int *xcount,int *ycount)
-//{
-// int portval,a1,a2,xbit,ybit;
-//
-// if (joynum==1)
-// {
-//  xbit=1;
-//  ybit=2;
-// }
-// else
-// {
-//  xbit=4;
-//  ybit=8;
-// }
-//
-// *xcount = 0;
-// *ycount = 0;
-//
-// outportb (0x201,inportb (0x201));	/* start the signal pulse */
-//
-// asm cli;
-//
-// do
-// {
-//   portval = inportb (0x201);
-//   a1 = (portval & xbit) != 0;
-//   a2 = (portval & ybit) != 0;
-//   *xcount+=a1;
-//   *ycount+=a2;
-// } while ((a1+a2!=0) && (*xcount<500) && (*ycount<500));
-//
-// asm sti;
-//}
+void ReadJoystick (int joynum,int *xcount,int *ycount)
+{
+ int portval,a1,a2,xbit,ybit;
+
+ if (joynum==1)
+ {
+  xbit=1;
+  ybit=2;
+ }
+ else
+ {
+  xbit=4;
+  ybit=8;
+ }
+
+ *xcount = 0;
+ *ycount = 0;
+
+ outportb (0x201,inportb (0x201));	/* start the signal pulse */
+
+ asm cli;
+
+ do
+ {
+   portval = inportb (0x201);
+   a1 = (portval & xbit) != 0;
+   a2 = (portval & ybit) != 0;
+   *xcount+=a1;
+   *ycount+=a2;
+ } while ((a1+a2!=0) && (*xcount<500) && (*ycount<500));
+
+ asm sti;
+}
 
 
 /*
@@ -320,56 +320,56 @@ void ShutdownKBD ()
 =============================
 */
 //void sub_0_2998(void)
-//ControlStruct ControlJoystick (int joynum)
-//{
-// int joyx = 0,joyy = 0,		/* resistance in joystick */
-//     xmove = 0,
-//     ymove = 0,
-//     buttons;
-// ControlStruct action;
-//
-// ReadJoystick (joynum,&joyx,&joyy);
-// if ( (joyx>500) | (joyy>500) )
-// {
-//   joyx=JoyXlow [joynum] + 1;	/* no joystick connected, do nothing */
-//   joyy=JoyYlow [joynum] + 1;
-// }
-//
-// if (joyx > JoyXhigh [joynum])
-//   xmove = 1;
-// else if (joyx < JoyXlow [joynum])
-//   xmove = -1;
-// if (joyy > JoyYhigh [joynum])
-//   ymove = 1;
-// else if (joyy < JoyYlow [joynum])
-//   ymove = -1;
-//
-// switch (ymove*3+xmove)
-// {
-//   case -4: action.dir = northwest; break;
-//   case -3: action.dir = north; break;
-//   case -2: action.dir = northeast; break;
-//   case -1: action.dir = west; break;
-//   case  0: action.dir = nodir; break;
-//   case  1: action.dir = east; break;
-//   case  2: action.dir = southwest; break;
-//   case  3: action.dir = south; break;
-//   case  4: action.dir = southeast; break;
-// }
-//
-// buttons = inportb (0x201);	/* get all four button status */
-// if (joynum == 1)
-// {
-//   action.button1 = ((buttons & 0x10) == 0);
-//   action.button2 = ((buttons & 0x20) == 0);
-// }
-// else
-// {
-//   action.button1 = ((buttons & 0x40) == 0);
-//   action.button2 = ((buttons & 0x80) == 0);
-// }
-// return (action);
-//}
+ControlStruct ControlJoystick (int joynum)
+{
+ int joyx = 0,joyy = 0,		/* resistance in joystick */
+     xmove = 0,
+     ymove = 0,
+     buttons;
+ ControlStruct action;
+
+ ReadJoystick (joynum,&joyx,&joyy);
+ if ( (joyx>500) | (joyy>500) )
+ {
+   joyx=JoyXlow [joynum] + 1;	/* no joystick connected, do nothing */
+   joyy=JoyYlow [joynum] + 1;
+ }
+
+ if (joyx > JoyXhigh [joynum])
+   xmove = 1;
+ else if (joyx < JoyXlow [joynum])
+   xmove = -1;
+ if (joyy > JoyYhigh [joynum])
+   ymove = 1;
+ else if (joyy < JoyYlow [joynum])
+   ymove = -1;
+
+ switch (ymove*3+xmove)
+ {
+   case -4: action.dir = northwest; break;
+   case -3: action.dir = north; break;
+   case -2: action.dir = northeast; break;
+   case -1: action.dir = west; break;
+   case  0: action.dir = nodir; break;
+   case  1: action.dir = east; break;
+   case  2: action.dir = southwest; break;
+   case  3: action.dir = south; break;
+   case  4: action.dir = southeast; break;
+ }
+
+ buttons = inportb (0x201);	/* get all four button status */
+ if (joynum == 1)
+ {
+   action.button1 = ((buttons & 0x10) == 0);
+   action.button2 = ((buttons & 0x20) == 0);
+ }
+ else
+ {
+   action.button1 = ((buttons & 0x40) == 0);
+   action.button2 = ((buttons & 0x80) == 0);
+ }
+ return (action);
+}
 
 
 /*
@@ -382,48 +382,48 @@ void ShutdownKBD ()
 =============================
 */
 //void sub_0_2B28(void)
-ControlStruct ControlPlayer (int player) {IMPLEMENT_ME("ControlPlayer");}
-//{
-// ControlStruct ret;
-// int val;
-//
-// if (indemo == notdemo || indemo == recording)
-// {
-//   switch (playermode[player])
-//   {
-//     case keyboard : ret = ControlKBD (); break;
-//     case mouse    : ret = ControlMouse (); break;
-//     case joystick1: ret = ControlJoystick(1); break;
-//     case joystick2: ret = ControlJoystick(2); break;
-//   }
-//
-//   //
-//   // recording a demo?
-//   //
-//   if (indemo == recording)
-//   {
-//     val = (ret.dir << 2) | (ret.button2 << 1) | ret.button1;
-//     *demoptr++=val;
-//   }
-//
-//
-// }
-//
-// else
-//
-// //
-// // get the command from the demo buffer
-// //
-// {
-//   val = *demoptr++;
-//
-//   ret.button1 = val & 1;
-//   ret.button2 = val & 1;
-//   ret.dir = (dirtype) ( (val & (4+8+16+32) ) >> 2);
-// }
-//
-// return (ret);
-//}
+ControlStruct ControlPlayer (int player)
+{
+ ControlStruct ret;
+ int val;
+
+ if (indemo == notdemo || indemo == recording)
+ {
+   switch (playermode[player])
+   {
+     case keyboard : ret = ControlKBD (); break;
+     case mouse    : ret = ControlMouse (); break;
+     case joystick1: ret = ControlJoystick(1); break;
+     case joystick2: ret = ControlJoystick(2); break;
+   }
+
+   //
+   // recording a demo?
+   //
+   if (indemo == recording)
+   {
+     val = (ret.dir << 2) | (ret.button2 << 1) | ret.button1;
+     *demoptr++=val;
+   }
+
+
+ }
+
+ else
+
+ //
+ // get the command from the demo buffer
+ //
+ {
+   val = *demoptr++;
+
+   ret.button1 = val & 1;
+   ret.button2 = val & 1;
+   ret.dir = (dirtype) ( (val & (4+8+16+32) ) >> 2);
+ }
+
+ return (ret);
+}
 
 
 ////////////////////////
