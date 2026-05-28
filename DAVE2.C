@@ -1765,33 +1765,33 @@ void dofkeys (void) {IMPLEMENT_ME("dofkeys");}
 //}
 
 
-void sub_0_4A9(void) {IMPLEMENT_ME("sub_0_4A9");}
-//{
-//  int i;
-//  setscreenmode (grmode);
-//
-//  if (grmode == 2)
-//    sub_0_290();
-//
-//  drawpic (0,0,0x0d);
-//
-//  gamestate=intitle;
-//  for (i=0;i<300;i++)
-//  {
-//    WaitVBL ();
-//    indemo = notdemo;
-//    ctrl = ControlPlayer (1);
-//    if (ctrl.button1 || ctrl.button2 || keydown[0x39])
-//    {
-//      exitdemo = true;
-//      break;
-//    }
-//    indemo = demoplay;
-//    if (bioskey (1))
-//      dofkeys ();
-//  }
-//  gamestate=ingame;
-//}
+void sub_0_4A9(void)
+{
+  int i;
+  setscreenmode (grmode);
+
+  if (grmode == 2)
+    sub_0_290();
+
+  drawpic (0,0,0x0d);
+
+  gamestate=intitle;
+  for (i=0;i<300;i++)
+  {
+    WaitVBL ();
+    indemo = notdemo;
+    ctrl = ControlPlayer (1);
+    if (ctrl.button1 || ctrl.button2 || keydown[0x39])
+    {
+      exitdemo = true;
+      break;
+    }
+    indemo = demoplay;
+    if (bioskey (1))
+      dofkeys ();
+  }
+  gamestate=ingame;
+}
 
 
 /*=========================================================================*/
