@@ -42,7 +42,7 @@ char key[8],keyB1,keyB2;
 
 void interrupt (*oldint9) ()=NULL;
 
-//char	demobuffer[5000];
+char	demobuffer[5000];
 char	*demoptr;
 //int	democount;
 //int	lastdemoval;		// so demo can be RLE compressed
@@ -449,21 +449,21 @@ ControlStruct ControlPlayer (int player)
 //
 ////////////////////////
 //void sub_0_2C61(void)
-void LoadDemo (int demonum) {IMPLEMENT_ME("LoadDemo");}
-//{
-//  char st2[5];
-//
-//  strcpy (str,"DEMO");
-//  itoa (demonum,st2,10);
-//  strcat (str,st2);
-//  strcat (str,".");
-//  strcat (str,_extension);
-//
-//  LoadFile (str,MK_FP(_DS,&demobuffer));
-//  level=demobuffer[0];
-//  demoptr = &demobuffer[1];
-//  indemo = demoplay;
-//}
+void LoadDemo (int demonum)
+{
+  char st2[5];
+
+  strcpy (str,"DEMO");
+  itoa (demonum,st2,10);
+  strcat (str,st2);
+  strcat (str,".");
+  strcat (str,_extension);
+
+  LoadFile (str,MK_FP(_DS,&demobuffer));
+  level=demobuffer[0];
+  demoptr = &demobuffer[1];
+  indemo = demoplay;
+}
 
 //void sub_0_2CD2(void)
 //void SaveDemo (int demonum)
