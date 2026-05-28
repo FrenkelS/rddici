@@ -2,8 +2,12 @@
 ; Copyright (C) 2026 Frenkel Smeijers
 ;
 ; The code in this file is primarily based on:
-; The Catacomb Source Code
-; Copyright (C) 1993-2014 Flat Rock Software
+;  Reconstructed Commander Keen 1-3 Source Code
+;   Copyright (C) 2021-2025 K1n9_Duk3
+;  Hovertank 3-D Source Code
+;   Copyright (C) 1993-2014 Flat Rock Software
+;  The Catacomb Source Code
+;   Copyright (C) 1993-2014 Flat Rock Software
 ;
 ; This program is free software; you can redistribute it and/or modify
 ; it under the terms of the GNU General Public License as published by
@@ -23,6 +27,24 @@
 
 	locals
 	.MODEL	SMALL,C
+
+;============================================================================
+;
+;                 Gamer's Edge Library, ASM section
+;
+;============================================================================
+
+
+
+;============================================================================
+;
+;                      EGA Graphic routines
+;
+;============================================================================
+
+PORTTILESWIDE	equ	21
+PORTTILESHIGH	equ	14
+PORTTILECOUNT	=	(PORTTILESWIDE*PORTTILESHIGH)
 
 	.DATA
 
@@ -1032,11 +1054,27 @@ db  50h
 db  31h
 
 
-PUBLIC clearold
-PROC clearold
-sub_0_1D54:
-db 57h, 0B9h, 26h, 01h, 8Ch, 0D8h, 8Eh, 0C0h, 0BFh, 0D2h, 7Fh, 0B8h
-db 0FFh, 0FFh, 0F3h, 0ABh, 0B9h, 26h, 01h, 0BFh, 2Ah, 82h, 0F3h, 0ABh, 5Fh, 0C3h
+;====================
+;
+; RF_ForceRefresh
+; Forces refresh to redraw all tiles (both pages)
+;
+;====================
+
+PROC	RF_ForceRefresh
+	USES	DI
+	PUBLIC	RF_ForceRefresh
+
+	mov	cx, PORTTILECOUNT
+	mov	ax, ds
+	mov	es, ax
+	mov	di, offset drawoffs1
+	mov	ax, -1
+	rep stosw
+	mov	cx, PORTTILECOUNT
+	mov	di, offset drawoffs0
+	rep stosw
+	ret
 ENDP
 
 
@@ -1210,18 +1248,32 @@ db 3Eh, 00h, 0Ch, 8Bh, 0Eh, 0FAh, 0Bh, 8Bh, 36h, 0FCh, 0Bh, 8Bh, 2Eh, 0FEh, 0Bh,
 db 7Eh, 0AEh, 8Eh, 0D8h, 36h, 0FFh, 16h, 0F8h, 0Bh, 0B8h, 05h, 01h, 0BAh, 0CEh, 03h, 0EFh
 db 0BAh, 0C4h, 03h, 0B0h, 02h, 0B4h, 0Fh, 0EFh, 5Ah, 59h, 5Bh, 5Fh, 5Dh, 0C3h
 
+
+;===========================================================================
+;
+; sprite routines
+;
+;===========================================================================
+
+;EGAone
 sub_0_247E:
 db 8Eh, 0D0h
 db 26h, 8Ah, 05h, 22h, 46h, 00h, 0Ah, 04h, 0AAh, 46h, 45h, 83h, 0C7h, 2Fh, 0E2h, 0F0h
 mov ax, @data
 db 8Eh, 0D8h, 8Eh, 0D0h, 0C3h
 
+;=================
+
+;EGAtwo
 sub_0_2498:
 db 8Eh, 0D0h, 26h, 8Bh, 05h, 23h, 46h, 00h
 db 0Bh, 04h, 0ABh, 83h, 0C6h, 02h, 83h, 0C5h, 02h, 83h, 0C7h, 2Eh, 0E2h, 0ECh
 mov ax, @data
 db 8Eh, 0D8h, 8Eh, 0D0h, 0C3h
 
+;=================
+
+;EGAthree
 sub_0_24B6:
 db 8Eh, 0D0h, 26h, 8Bh, 05h, 23h, 46h, 00h, 0Bh, 04h
 db 0ABh, 26h, 8Ah, 05h, 22h, 46h, 02h, 0Ah, 44h, 02h, 0AAh, 83h, 0C6h, 03h, 83h, 0C5h
@@ -1229,6 +1281,9 @@ db 03h, 83h, 0C7h, 2Dh, 0E2h, 0E2h
 mov ax, @data
 db 8Eh, 0D8h, 8Eh, 0D0h, 0C3h
 
+;=================
+
+;EGAfour
 sub_0_24DE:
 db 8Eh, 0D0h
 db 26h, 8Bh, 05h, 23h, 46h, 00h, 0Bh, 04h, 0ABh, 26h, 8Bh, 05h, 23h, 46h, 02h, 0Bh
@@ -1236,6 +1291,9 @@ db 44h, 02h, 0ABh, 83h, 0C6h, 04h, 83h, 0C5h, 04h, 83h, 0C7h, 2Ch, 0E2h, 0E2h
 mov ax, @data
 db 8Eh, 0D8h, 8Eh, 0D0h, 0C3h
 
+;=================
+
+;EGAfive
 sub_0_2506:
 db 8Eh, 0D0h, 26h, 8Bh, 05h, 23h, 46h, 00h, 0Bh, 04h
 db 0ABh, 26h, 8Bh, 05h, 23h, 46h, 02h, 0Bh, 44h, 02h, 0ABh, 26h, 8Ah, 05h, 22h, 46h
@@ -1243,6 +1301,9 @@ db 04h, 0Ah, 44h, 04h, 0AAh, 83h, 0C6h, 05h, 83h, 0C5h, 05h, 83h, 0C7h, 2Bh, 0E2
 mov ax, @data
 db 8Eh, 0D8h, 8Eh, 0D0h, 0C3h
 
+;=================
+
+;EGAsix
 sub_0_2538:
 db 8Eh, 0D0h, 26h, 8Bh, 05h, 23h, 46h, 00h
 db 0Bh, 04h, 0ABh, 26h, 8Bh, 05h, 23h, 46h, 02h, 0Bh, 44h, 02h, 0ABh, 26h, 8Bh, 05h

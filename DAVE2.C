@@ -1585,15 +1585,15 @@ int word_789_94C8;
 //////////////////////////////////
 
 //void extern drawobj (void);
-//void extern clearold (void);
+void extern RF_ForceRefresh (void);
 //void extern eraseobj (void);
 //void extern doall (void);
 //void extern egamove (void);
 //void extern cgarefresh (void);
 //void extern egarefresh (void);
 //void extern sub_0_1E46 (void);
-//void sub_0_290 (void);
-//void sub_0_7B3 (void);
+void sub_0_290 (void);
+void sub_0_7B3 (void);
 void dofkeys (void);
 void help (void);
 void playloop(void);
@@ -1608,25 +1608,25 @@ void playloop(void);
 /*			        */
 /*==============================*/
 
-void sub_0_239(void) {IMPLEMENT_ME("sub_0_239");}
-//{
-//  clearold();
-//  if (gamestate == 0 || gamestate == 3)
-//  {
-//    sub_0_7B3();
-//    sub_0_290();
-//    sub_0_7B3();
-//  }
-//
-//  if (gamestate == 1)
-//    drawpic(0, 0, 13);
-//
-//  if (gamestate == 2)
-//    drawpic(0, 0, 15);
-//
-//  if (gamestate == 3)
-//    _showhighscores();
-//}
+void sub_0_239(void)
+{
+  RF_ForceRefresh();
+  if (gamestate == 0 || gamestate == 3)
+  {
+    sub_0_7B3();
+    sub_0_290();
+    sub_0_7B3();
+  }
+
+  if (gamestate == 1)
+    drawpic(0, 0, 13);
+
+  if (gamestate == 2)
+    drawpic(0, 0, 15);
+
+  if (gamestate == 3)
+    _showhighscores();
+}
 
 
 void sub_0_290(void)
@@ -1938,7 +1938,7 @@ void sub_0_71E(void) {IMPLEMENT_ME("sub_0_71E");}
 //}
 
 
-//void sub_0_7B3(void)
+void sub_0_7B3(void) {IMPLEMENT_ME("sub_0_7B3");}
 //{
 //asm    call    sub_0_1E46
 //asm    inc     word_789_94CA
@@ -2303,7 +2303,7 @@ void sub_0_71E(void) {IMPLEMENT_ME("sub_0_71E");}
 // FIXME fsm: what does break do in a switch inside a do-loop?
 //void sub_0_14CD(void)
 //{
-//  clearold();
+//  RF_ForceRefresh();
 //  do
 //  {
 //    word_789_94BC = word_789_949E = word_789_94D4 = 0;
@@ -2328,7 +2328,7 @@ void sub_0_71E(void) {IMPLEMENT_ME("sub_0_71E");}
 //          level = ch - '1';
 //          leveldone = 1;
 //        }
-//        clearold();
+//        RF_ForceRefresh();
 //        sub_0_7B3();
 //        sub_0_7B3();
 //      }
@@ -2357,7 +2357,7 @@ void sub_0_71E(void) {IMPLEMENT_ME("sub_0_71E");}
 //          ch = get ();
 //        } while (ch<'0' || ch>'9');
 //        SaveDemo(ch-'0');
-//        clearold();
+//        RF_ForceRefresh();
 //        sub_0_7B3();
 //        sub_0_7B3();
 //        return;

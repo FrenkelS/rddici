@@ -21,6 +21,8 @@
 #include "pcrlib.h"
 
 
+void RF_ForceRefresh(void) {IMPLEMENT_ME("RF_ForceRefresh");}
+
 void sub_0_53F7(void) {IMPLEMENT_ME("sub_0_53F7");}
 
 
