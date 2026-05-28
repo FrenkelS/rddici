@@ -502,15 +502,15 @@ void LoadDemo (int demonum) {IMPLEMENT_ME("LoadDemo");}
 //
 ///////////////////////////////
 //void sub_0_2D3F(void)
-//void clearkeys (void)
-//{
-//  int i;
-//  while (bioskey (1))
-//    bioskey(0);
-//
-//  for (i=0;i<128;i++)
-//    keydown [i]=0;
-//}
+void clearkeys (void)
+{
+  int i;
+  while (bioskey (1))
+    bioskey(0);
+
+  for (i=0;i<128;i++)
+    keydown [i]=0;
+}
 
 /*
 ===========================================
@@ -790,7 +790,7 @@ void huge *egaspriteptr[4];	// spriteptr for each ega plane's data
 
 unsigned crtcaddr;
 
-//int sx,sy,leftedge;
+int sx,sy,leftedge;
 
 /*
 ========================
@@ -880,9 +880,9 @@ void setscreenmode (grtype mode)
 //}
 
 
-//int win_xl,win_yl,win_xh,win_yh;
+int win_xl,win_yl,win_xh,win_yh;
 
-//int screencenterx = 19,screencentery = 11;
+int screencenterx = 19,screencentery = 11;
 
 //////////////////////////
 //
@@ -891,33 +891,33 @@ void setscreenmode (grtype mode)
 //
 //////////////////////////
 //void sub_0_3171(void)
-//void drawwindow (int xl, int yl, int xh, int yh)
-//{
-// int x,y;
-// win_xl=xl;
-// win_yl=yl;
-// win_xh=xh;
-// win_yh=yh;		// so the window can be erased
-//
-// drawchar (xl,yl,1);
-// for (x=xl+1;x<xh;x++)
-//   drawchar (x,yl,2);
-// drawchar (xh,yl,3);
-// for (y=yl+1;y<yh;y++)
-// {
-//   drawchar (xl,y,4);
-//   for (x=xl+1;x<xh;x++)
-//     drawchar (x,y,' ');
-//   drawchar (xh,y,5);
-// }
-// drawchar (xl,yh,6);
-// for (x=xl+1;x<xh;x++)
-//   drawchar (x,yh,7);
-// drawchar (xh,yh,8);
-//
-// sx = leftedge = xl+1;
-// sy = yl+1;
-//}
+void drawwindow (int xl, int yl, int xh, int yh)
+{
+ int x,y;
+ win_xl=xl;
+ win_yl=yl;
+ win_xh=xh;
+ win_yh=yh;		// so the window can be erased
+
+ drawchar (xl,yl,1);
+ for (x=xl+1;x<xh;x++)
+   drawchar (x,yl,2);
+ drawchar (xh,yl,3);
+ for (y=yl+1;y<yh;y++)
+ {
+   drawchar (xl,y,4);
+   for (x=xl+1;x<xh;x++)
+     drawchar (x,y,' ');
+   drawchar (xh,y,5);
+ }
+ drawchar (xl,yh,6);
+ for (x=xl+1;x<xh;x++)
+   drawchar (x,yh,7);
+ drawchar (xh,yh,8);
+
+ sx = leftedge = xl+1;
+ sy = yl+1;
+}
 
 ////////////////////////////
 //
@@ -948,13 +948,13 @@ void setscreenmode (grtype mode)
 //
 /////////////////////////////
 //void sub_0_32A8(void)
-//void centerwindow (int width, int height)
-//{
-//  int xl = screencenterx-width/2;
-//  int yl = screencentery-height/2;
-//
-//  drawwindow (xl,yl,xl+width+1,yl+height+1);
-//}
+void centerwindow (int width, int height)
+{
+  int xl = screencenterx-width/2;
+  int yl = screencentery-height/2;
+
+  drawwindow (xl,yl,xl+width+1,yl+height+1);
+}
 
 ///////////////////////////////
 //
@@ -963,42 +963,42 @@ void setscreenmode (grtype mode)
 //
 ///////////////////////////////
 //void sub_0_32E9(void)
-//void expwin (int width, int height)
-//{
-//  if (width > 2)
-//  {
-//    if (height >2)
-//      expwin (width-2,height-2);
-//    else
-//      expwinh (width-2,height);
-//  }
-//  else
-//    if (height >2)
-//      expwinv (width,height-2);
-//
-//  WaitVBL ();
-//  centerwindow (width,height);
-//}
+void expwin (int width, int height)
+{
+  if (width > 2)
+  {
+    if (height >2)
+      expwin (width-2,height-2);
+    else
+      expwinh (width-2,height);
+  }
+  else
+    if (height >2)
+      expwinv (width,height-2);
+
+  WaitVBL ();
+  centerwindow (width,height);
+}
 
 //void sub_0_333E(void)
-//void expwinh (int width, int height)
-//{
-//  if (width > 2)
-//    expwinh (width-2,height);
-//
-//  WaitVBL ();
-//  centerwindow (width,height);
-//}
+void expwinh (int width, int height)
+{
+  if (width > 2)
+    expwinh (width-2,height);
+
+  WaitVBL ();
+  centerwindow (width,height);
+}
 
 //void sub_0_3367(void)
-//void expwinv (int width, int height)
-//{
-//  if (height >2)
-//    expwinv (width,height-2);
-//
-//  WaitVBL ();
-//  centerwindow (width,height);
-//}
+void expwinv (int width, int height)
+{
+  if (height >2)
+    expwinv (width,height-2);
+
+  WaitVBL ();
+  centerwindow (width,height);
+}
 
 
 /////////////////////////
@@ -1008,26 +1008,26 @@ void setscreenmode (grtype mode)
 //
 /////////////////////////
 //void sub_0_3390(void)
-//int get (void)
-//{
-// int cycle,key;
-//
-// do
-// {
-//   cycle = 9;
-//   while (!(key = bioskey(1)) && cycle<13)
-//   {
-//     drawchar (sx,sy,cycle++);
-//     WaitVBL ();
-//     WaitVBL ();
-//     WaitVBL ();
-//     WaitVBL ();
-//     WaitVBL ();
-//   }
-// } while (key == 0);
-// drawchar (sx,sy,' ');
-// return bioskey(0);		// take it out of the buffer
-//}
+int get (void)
+{
+ int cycle,key;
+
+ do
+ {
+   cycle = 9;
+   while (!(key = bioskey(1)) && cycle<13)
+   {
+     drawchar (sx,sy,cycle++);
+     WaitVBL ();
+     WaitVBL ();
+     WaitVBL ();
+     WaitVBL ();
+     WaitVBL ();
+   }
+ } while (key == 0);
+ drawchar (sx,sy,' ');
+ return bioskey(0);		// take it out of the buffer
+}
 
 
 /////////////////////////
@@ -1037,21 +1037,21 @@ void setscreenmode (grtype mode)
 //
 /////////////////////////
 //void sub_0_33F1(void)
-//void print (const char *str)
-//{
-//  char ch;
-//
-//  while ((ch=*str++) != 0)
-//    if (ch == '\n')
-//    {
-//      sy++;
-//      sx=leftedge;
-//    }
-//    else if (ch == '\r')
-//      sx=leftedge;
-//    else
-//      drawchar (sx++,sy,ch);
-//}
+void print (const char *str)
+{
+  char ch;
+
+  while ((ch=*str++) != 0)
+    if (ch == '\n')
+    {
+      sy++;
+      sx=leftedge;
+    }
+    else if (ch == '\r')
+      sx=leftedge;
+    else
+      drawchar (sx++,sy,ch);
+}
 
 
 ///////////////////////////

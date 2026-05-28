@@ -1475,7 +1475,6 @@ typedef enum {ingame,intitle,inscores} statetype;
 //int word_789_bfe = 0;
 
 
-int word_789_C0E;
 int word_789_1554;
 //int word_789_1D28;
 //int word_789_1D2A;
@@ -1497,7 +1496,7 @@ int word_789_94C8;
 //int word_789_94D4;
 
 
-//  enum {quited,killed,reseted,victorious} gamexit; /*determines what to do after playloop*/
+  enum {quited,killed,reseted,victorious} gamexit; /*determines what to do after playloop*/
 
 //  int oldtiles [numtiles];		/*tile displayed last refresh*/
 //  int background[87][86];		/*base map*/
@@ -1595,8 +1594,8 @@ int word_789_94C8;
 //void extern sub_0_1E46 (void);
 //void sub_0_290 (void);
 //void sub_0_7B3 (void);
-//void dofkeys (void);
-//void help (void);
+void dofkeys (void);
+void help (void);
 void playloop(void);
 
 
@@ -1609,7 +1608,7 @@ void playloop(void);
 /*			        */
 /*==============================*/
 
-//void sub_0_239(void)
+void sub_0_239(void) {IMPLEMENT_ME("sub_0_239");}
 //{
 //  clearold();
 //  if (gamestate == 0 || gamestate == 3)
@@ -1700,69 +1699,69 @@ void sub_0_37E(void)
 
 
 //void sub_0_399(void)
-void dofkeys (void) {IMPLEMENT_ME("dofkeys");}
-//{
-//  int i,handle;
-//  char st2[10];
-//  int key=bioskey(1)/256;
-//  if (key==0)
-//    return;
-//
-//  switch (key)
-//  {
-//    case 0x3b:			// F1
-//      clearkeys ();
-//      help ();
-//      break;
-//    case 0x3c:          	// F2
-//      clearkeys ();
-//      controlpanel ();
-//      sub_0_290 ();
-//      break;
-//    case 0x3d:			// F3
-//      clearkeys ();
-//      expwin (18,1);
-//      print (aResetGameYN); // "RESET GAME (Y/N)?"
-//      ch=toupper(get());
-//      if (ch=='Y')
-//      {
-//        gamexit = quited;
-//        playdone = true;
-//      }
-//      break;
-//
-//    case 0x43:			// F9
-//      clearkeys ();
-//      expwin (7,1);
-//      print (aPaused); // "PAUSED"
-//      get ();
-//      break;
-//	case 0x01:			// ESC
-//	case 0x44:			// F10
-//      clearkeys ();
-//      expwin (12,1);
-//      print (aQuitYN); // "QUIT (Y/N)?"
-//      ch=toupper(get());
-//      if (ch=='Y')
-//
-//	_quit ("");
-//      break;
-//
-//    default:
-//      return;
-//  }
-//
-//  sub_0_239 ();
-//}
+void dofkeys (void)
+{
+  int i,handle;
+  char st2[10];
+  int key=bioskey(1)/256;
+  if (key==0)
+    return;
+
+  switch (key)
+  {
+    case 0x3b:			// F1
+      clearkeys ();
+      help ();
+      break;
+    case 0x3c:          	// F2
+      clearkeys ();
+      controlpanel ();
+      sub_0_290 ();
+      break;
+    case 0x3d:			// F3
+      clearkeys ();
+      expwin (18,1);
+      print ("RESET GAME (Y/N)?");
+      ch=toupper(get());
+      if (ch=='Y')
+      {
+        gamexit = quited;
+        playdone = true;
+      }
+      break;
+
+    case 0x43:			// F9
+      clearkeys ();
+      expwin (7,1);
+      print ("PAUSED");
+      get ();
+      break;
+	case 0x01:			// ESC
+	case 0x44:			// F10
+      clearkeys ();
+      expwin (12,1);
+      print ("QUIT (Y/N)?");
+      ch=toupper(get());
+      if (ch=='Y')
+
+	_quit ("");
+      break;
+
+    default:
+      return;
+  }
+
+  sub_0_239 ();
+}
 
 
 //void sub_0_48C(void)
-//void help (void)
-//{
-//  expwin (36,21);
-//  print (aDave2HelpScree); // "dave2 help screen"
-//  get ();
-//}
+void help (void)
+{
+  expwin (36,21);
+  print ("dave2 help screen");
+  get ();
+}
 
 
 void sub_0_4A9(void)
@@ -2458,7 +2457,7 @@ void main (void)
 
 	_setupgame();
 
-	word_789_C0E = 0x19;
+	screencenterx = 0x19;
 	word_789_8220 = 0x20;
 
 	sub_0_37E();

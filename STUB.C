@@ -21,7 +21,10 @@
 #include "pcrlib.h"
 
 
+void drawchar(int x, int y, int charnum) {IMPLEMENT_ME("drawchar");}
+
 void sub_0_53F7(void) {IMPLEMENT_ME("sub_0_53F");}
+
 
 void IMPLEMENT_ME(char *func) {
 	_quit(func);

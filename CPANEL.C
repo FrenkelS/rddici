@@ -481,7 +481,7 @@ void controlpanel (void);
 //
 ////////////////
 //void sub_0_47FC(void)
-//void controlpanel (void)
+void controlpanel (void) {IMPLEMENT_ME("controlpanel");}
 //{
 //  int chf;
 //  char chl,chh;
