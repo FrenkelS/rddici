@@ -466,24 +466,24 @@ ENDP
 ;
 ;========
 ;sub_0_53F7:
-;PROC	WaitEndSound
-;	PUBLIC WaitEndSound
-;
-;	test	[_dontplay],0ffffh
-;	je	@@dowork
-;	ret
-;@@dowork:
-;	pushf
-;	call FAR PTR UpdateSPKR	;in case a sound was just started and hasn't
-;				;been hit by an INT yet
-;@@wait:
-;	mov	ax,[sndptr]
-;	cmp	ax,0		;when the ptr is 0, nothing is on
-;	jne	@@wait
-;
-;	ret
-;
-;ENDP
+PROC	WaitEndSound
+	PUBLIC WaitEndSound
+
+	test	[_dontplay],0ffffh
+	je	@@dowork
+	ret
+@@dowork:
+	pushf
+	call FAR PTR UpdateSPKR	;in case a sound was just started and hasn't
+				;been hit by an INT yet
+@@wait:
+	mov	ax,[sndptr]
+	cmp	ax,0		;when the ptr is 0, nothing is on
+	jne	@@wait
+
+	ret
+
+ENDP
 
 ;=========================================================================
 

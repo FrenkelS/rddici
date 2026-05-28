@@ -2467,7 +2467,7 @@ void main (void)
 	while (1)
 	{
 		dodemo();
-		sub_0_53F7();
+		WaitEndSound();
 		playloop();
 		if (gamestate == 2)
 		{
