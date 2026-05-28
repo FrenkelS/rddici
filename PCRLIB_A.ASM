@@ -85,11 +85,11 @@ sndspeed	dw	?	;timer count speed
 SndPtr		dw	?	;Pointer to frequency of current sound
 SndPriority	db	?	;current sound's priority
 
-;pausesndptr	dw	?
-;pausepriority	db	?
-;pauseextraints	db	?
-;pauseintcount	db	?
-;pausespeed	dw	?
+pausesndptr	dw	?
+pausepriority	db	?
+pauseextraints	db	?
+pauseintcount	db	?
+pausespeed	dw	?
 
 _dontplay	dw	0	;set to 1 to avoid all interrupt and timer stuff
 
@@ -398,26 +398,26 @@ ENDP
 ;
 ;===========
 ;sub_0_539A:
-;PROC	PauseSound
-;	PUBLIC	PauseSound
-;
-;	test	[_dontplay],0ffffh
-;	je	@@dowork
-;	ret
-;@@dowork:
-;	mov	ax,[SndPtr]	;save off the current values
-;	mov	[pausesndptr],ax
-;	mov	al,[SndPriority]
-;	mov	[pausepriority],al
-;	mov	al,[extraints]
-;	mov	[pauseextraints],al
-;	mov	al,[intcount]
-;	mov	[pauseintcount],al
-;	mov	ax,[sndspeed]
-;	mov	[pausespeed],ax
-;	call	StopSound
-;	ret
-;ENDP
+PROC	PauseSound
+	PUBLIC	PauseSound
+
+	test	[_dontplay],0ffffh
+	je	@@dowork
+	ret
+@@dowork:
+	mov	ax,[SndPtr]	;save off the current values
+	mov	[pausesndptr],ax
+	mov	al,[SndPriority]
+	mov	[pausepriority],al
+	mov	al,[extraints]
+	mov	[pauseextraints],al
+	mov	al,[intcount]
+	mov	[pauseintcount],al
+	mov	ax,[sndspeed]
+	mov	[pausespeed],ax
+	call	StopSound
+	ret
+ENDP
 
 ;======================================================================
 
@@ -427,35 +427,35 @@ ENDP
 ;
 ;===========
 ;sub_0_53C5:
-;PROC	ContinueSound
-;	PUBLIC	ContinueSound
-;
-;	test	[_dontplay],0ffffh
-;	je	@@dowork
-;	ret
-;@@dowork:
-;	mov	ax,[pausesndptr]
-;	mov	[SndPtr],ax	;restore the old values
-;	mov	al,[pausepriority]
-;	mov	[SndPriority],al
-;	mov	al,[pauseextraints]
-;	mov	[extraints],al
-;	mov	al,[pauseintcount]
-;	mov	[intcount],al
-;
-;	mov	bx,[pausespeed]
-;
-;	mov	al,36h		;tell the timer chip we are going to
-;	out	43h,al		;change the speed of timer 0
-;
-;	mov	al,bl		;low byte of sample rate
-;	out	40h,al
-;	mov	al,bh		;high byte of sample rate
-;	out	40h,al
-;
-;
-;	ret
-;ENDP
+PROC	ContinueSound
+	PUBLIC	ContinueSound
+
+	test	[_dontplay],0ffffh
+	je	@@dowork
+	ret
+@@dowork:
+	mov	ax,[pausesndptr]
+	mov	[SndPtr],ax	;restore the old values
+	mov	al,[pausepriority]
+	mov	[SndPriority],al
+	mov	al,[pauseextraints]
+	mov	[extraints],al
+	mov	al,[pauseintcount]
+	mov	[intcount],al
+
+	mov	bx,[pausespeed]
+
+	mov	al,36h		;tell the timer chip we are going to
+	out	43h,al		;change the speed of timer 0
+
+	mov	al,bl		;low byte of sample rate
+	out	40h,al
+	mov	al,bh		;high byte of sample rate
+	out	40h,al
+
+
+	ret
+ENDP
 
 ;======================================================================
 

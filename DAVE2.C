@@ -1691,11 +1691,11 @@ void sub_0_37E(void)
 
 
 //void sub_0_38E(void)
-//void repaintscreen(void)
-//{
-//  sub_0_37E();
-//  sub_0_239();
-//}
+void repaintscreen(void)
+{
+  sub_0_37E();
+  sub_0_239();
+}
 
 
 //void sub_0_399(void)

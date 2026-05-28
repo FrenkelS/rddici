@@ -926,20 +926,20 @@ void drawwindow (int xl, int yl, int xh, int yh)
 //
 ///////////////////////////
 //void sub_0_325F(void)
-//void bar (int xl, int yl, int xh, int yh, int ch)
-//{
-//  int x,y;
-//
-//  for (y=yl;y<=yh;y++)
-//    for (x=xl;x<=xh;x++)
-//      drawchar (x,y,ch);
-//}
+void bar (int xl, int yl, int xh, int yh, int ch)
+{
+  int x,y;
+
+  for (y=yl;y<=yh;y++)
+    for (x=xl;x<=xh;x++)
+      drawchar (x,y,ch);
+}
 
 //void sub_0_3289(void)
-//void erasewindow (void)
-//{
-//  bar (win_xl,win_yl,win_xh,win_yh,' ');
-//}
+void erasewindow (void)
+{
+  bar (win_xl,win_yl,win_xh,win_yh,' ');
+}
 
 /////////////////////////////
 //
