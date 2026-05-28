@@ -2457,7 +2457,7 @@ void main (void)
 
 	_setupgame();
 
-	screencenterx = 0x19;
+	screencenterx = 25;
 	word_789_8220 = 0x20;
 
 	sub_0_37E();

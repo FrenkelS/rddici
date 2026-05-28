@@ -36,10 +36,10 @@
 ;
 ; EGA registers
 ;
-;SCindex		equ	3C4h
-;SCmapmask	equ	2
-;GCindex		equ	3CEh
-;GCmode 		equ	5
+SCindex		equ	3C4h
+SCmapmask	equ	2
+GCindex		equ	3CEh
+GCmode 		equ	5
 
 
 	DATASEG
@@ -55,7 +55,7 @@ shapeptr	dw	?
 ENDS
 
 	EXTRN pictable: picstruct	; array of picture info
-;	EXTRN charptr:WORD
+	EXTRN charptr:WORD
 ;	EXTRN tileptr:WORD
 	EXTRN picptr:WORD
 ;	EXTRN spriteptr:WORD	;paraligned pointers
@@ -882,51 +882,51 @@ ENDP
 ;
 ;============
 ;sub_0_55A1:
-;PROC	drawchar xcoordinate:WORD, ycoordinate:WORD, char:WORD
-;	PUBLIC	drawchar
-;
-;	push	si
-;	push	di
-;
-;	mov	ax,[screenseg]
-;	mov	es,ax
-;
-;	mov	si,[char]       	;low level routines get stuff in registers
-;	mov	di,[xcoordinate]
-;	mov	bx,[ycoordinate]
-;	shl	bx,1
-;	shl	bx,1
-;	shl	bx,1
-;	shl	bx,1
-;
-;	mov	ax,[grmode]
-;	cmp	ax,1		;CGA mode
-;	jne	@@notcga
-;	call    CgaCharout
-;	pop   	di
-;	pop	si
-;	ret
-;
-;
-;@@notcga:
-;	cmp	ax,2		;EGA mode
-;	jne	@@notega
-;	call	EgaCharout
-;	pop   	di
-;	pop	si
-;	ret
-;
-;
-;@@notega:
-;	cmp	ax,3		;VGA mode
-;	jne	@@done
-;	call	VgaCharout
-;@@done:
-;	pop   	di
-;	pop	si
-;	ret
-;
-;ENDP
+PROC	drawchar xcoordinate:WORD, ycoordinate:WORD, char:WORD
+	PUBLIC	drawchar
+
+	push	si
+	push	di
+
+	mov	ax,[screenseg]
+	mov	es,ax
+
+	mov	si,[char]       	;low level routines get stuff in registers
+	mov	di,[xcoordinate]
+	mov	bx,[ycoordinate]
+	shl	bx,1
+	shl	bx,1
+	shl	bx,1
+	shl	bx,1
+
+	mov	ax,[grmode]
+	cmp	ax,1		;CGA mode
+	jne	@@notcga
+	call    CgaCharout
+	pop   	di
+	pop	si
+	ret
+
+
+@@notcga:
+	cmp	ax,2		;EGA mode
+	jne	@@notega
+	call	EgaCharout
+	pop   	di
+	pop	si
+	ret
+
+
+@@notega:
+	cmp	ax,3		;VGA mode
+	jne	@@done
+	call	VgaCharout
+@@done:
+	pop   	di
+	pop	si
+	ret
+
+ENDP
 
 ;===========================================================================
 
@@ -937,60 +937,60 @@ ENDP
 ;
 ;============
 ;sub_0_55E3:
-;PROC	CgaCharOut
-;
-;	shl	si,1
-;	shl	si,1
-;	shl	si,1
-;	shl	si,1		;char * 16 = tile's offset in PICS
-;
-;	shl	di,1		;x * 2 + ylookup[y] = screen location
-;
-;	add	di,[CGAylookup+bx]	;BX is pointer into YLOOKUP
-;
-;	mov	bx,[xormask]	;so chars can be inverted
-;
-;	mov	ax,[WORD charptr+2]
-;	mov	ds,ax		;segment of tile pictures (PARA'd)
-;
-;	cld
-;
-;	lodsw			;load in a row of the tile's picture
-;	xor	ax,bx
-;	stosw
-;	add	di,1FFEh
-;	lodsw
-;	xor	ax,bx
-;	stosw
-;	sub	di,1FB2h
-;	lodsw
-;	xor	ax,bx
-;	stosw
-;	add	di,1FFEh
-;	lodsw
-;	xor	ax,bx
-;	stosw
-;	sub	di,1FB2h
-;	lodsw
-;	xor	ax,bx
-;	stosw
-;	add	di,1FFEh
-;	lodsw
-;	xor	ax,bx
-;	stosw
-;	sub	di,1FB2h
-;	lodsw
-;	xor	ax,bx
-;	stosw
-;	add	di,1FFEh
-;	lodsw
-;	xor	ax,bx
-;	stosw
-;
-;	mov	ax,_DATA
-;	mov	ds,ax		;restore turbo's data segment
-;	ret
-;ENDP
+PROC	CgaCharOut
+
+	shl	si,1
+	shl	si,1
+	shl	si,1
+	shl	si,1		;char * 16 = tile's offset in PICS
+
+	shl	di,1		;x * 2 + ylookup[y] = screen location
+
+	add	di,[CGAylookup+bx]	;BX is pointer into YLOOKUP
+
+	mov	bx,[xormask]	;so chars can be inverted
+
+	mov	ax,[WORD charptr+2]
+	mov	ds,ax		;segment of tile pictures (PARA'd)
+
+	cld
+
+	lodsw			;load in a row of the tile's picture
+	xor	ax,bx
+	stosw
+	add	di,1FFEh
+	lodsw
+	xor	ax,bx
+	stosw
+	sub	di,1FB2h
+	lodsw
+	xor	ax,bx
+	stosw
+	add	di,1FFEh
+	lodsw
+	xor	ax,bx
+	stosw
+	sub	di,1FB2h
+	lodsw
+	xor	ax,bx
+	stosw
+	add	di,1FFEh
+	lodsw
+	xor	ax,bx
+	stosw
+	sub	di,1FB2h
+	lodsw
+	xor	ax,bx
+	stosw
+	add	di,1FFEh
+	lodsw
+	xor	ax,bx
+	stosw
+
+	mov	ax,_DATA
+	mov	ds,ax		;restore turbo's data segment
+	ret
+ENDP
 
 
 ;=======================================================================
@@ -1002,212 +1002,212 @@ ENDP
 ;
 ;============
 ;sub_0_563E:
-;PROC	EgaCharOut
-;
-;	shl	si,1
-;	shl	si,1
-;	shl	si,1		;char * 8 = tile's offset in PICS
-;
-;	add	di,[EGAylookup+bx]	;BX is pointer into YLOOKUP
-;
-;	mov	cx,ds
-;
-;	mov	dx,GCindex
-;	mov	ax,GCmode
-;	out	dx,ax		;set read / write mode 0
-;
-;	cld
-;
-;	mov	bx,si		;so the planes can be drawn the same
-;	mov	cx,di
-;
-;	mov	dx,GCindex
-;	mov	ax,0*256+4	;read map select
-;	out	dx,ax
-;	mov	dx,SCindex
-;	mov	ax,1*256+SCmapmask
-;	out	dx,ax
-;	mov	dx,[xormask]	;so chars can be inverted
-;
-;	mov	ax,[charptr+2]
-;	mov	ds,ax		;segment of tile pictures (PARA'd)
-;
-;	lodsb
-;	xor	al,dl
-;	stosb
-;	add	di,39
-;	lodsb
-;	xor	al,dl
-;	stosb
-;	add	di,39
-;	lodsb
-;	xor	al,dl
-;	stosb
-;	add	di,39
-;	lodsb
-;	xor	al,dl
-;	stosb
-;	add	di,39
-;	lodsb
-;	xor	al,dl
-;	stosb
-;	add	di,39
-;	lodsb
-;	xor	al,dl
-;	stosb
-;	add	di,39
-;	lodsb
-;	xor	al,dl
-;	stosb
-;	add	di,39
-;	lodsb
-;	xor	al,dl
-;	stosb
-;	add	di,39
-;
-;	mov	si,bx
-;	mov	di,cx
-;
-;	push	dx
-;	mov	dx,GCindex
-;	mov	ax,1*256+4	;read map select
-;	out	dx,ax
-;	mov	dx,SCindex
-;	mov	ax,2*256+SCmapmask	;write mask
-;	out	dx,ax
-;	pop	dx
-;
-;	lodsb
-;	xor	al,dl
-;	stosb
-;	add	di,39
-;	lodsb
-;	xor	al,dl
-;	stosb
-;	add	di,39
-;	lodsb
-;	xor	al,dl
-;	stosb
-;	add	di,39
-;	lodsb
-;	xor	al,dl
-;	stosb
-;	add	di,39
-;	lodsb
-;	xor	al,dl
-;	stosb
-;	add	di,39
-;	lodsb
-;	xor	al,dl
-;	stosb
-;	add	di,39
-;	lodsb
-;	xor	al,dl
-;	stosb
-;	add	di,39
-;	lodsb
-;	xor	al,dl
-;	stosb
-;	add	di,39
-;
-;	mov	si,bx
-;	mov	di,cx
-;
-;	push	dx
-;	mov	dx,GCindex
-;	mov	ax,2*256+4	;read map select
-;	out	dx,ax
-;	mov	dx,SCindex
-;	mov	ax,4*256+SCmapmask	;write mask
-;	out	dx,ax
-;	pop	dx
-;
-;	lodsb
-;	xor	al,dl
-;	stosb
-;	add	di,39
-;	lodsb
-;	xor	al,dl
-;	stosb
-;	add	di,39
-;	lodsb
-;	xor	al,dl
-;	stosb
-;	add	di,39
-;	lodsb
-;	xor	al,dl
-;	stosb
-;	add	di,39
-;	lodsb
-;	xor	al,dl
-;	stosb
-;	add	di,39
-;	lodsb
-;	xor	al,dl
-;	stosb
-;	add	di,39
-;	lodsb
-;	xor	al,dl
-;	stosb
-;	add	di,39
-;	lodsb
-;	xor	al,dl
-;	stosb
-;	add	di,39
-;
-;	mov	si,bx
-;	mov	di,cx
-;
-;	push	dx
-;	mov	dx,GCindex
-;	mov	ax,3*256+4	;read map select
-;	out	dx,ax
-;	mov	dx,SCindex
-;	mov	ax,8*256+SCmapmask	;write mask
-;	out	dx,ax
-;	pop	dx
-;
-;	lodsb
-;	xor	al,dl
-;	stosb
-;	add	di,39
-;	lodsb
-;	xor	al,dl
-;	stosb
-;	add	di,39
-;	lodsb
-;	xor	al,dl
-;	stosb
-;	add	di,39
-;	lodsb
-;	xor	al,dl
-;	stosb
-;	add	di,39
-;	lodsb
-;	xor	al,dl
-;	stosb
-;	add	di,39
-;	lodsb
-;	xor	al,dl
-;	stosb
-;	add	di,39
-;	lodsb
-;	xor	al,dl
-;	stosb
-;	add	di,39
-;	lodsb
-;	xor	al,dl
-;	stosb
-;	add	di,39
-;
-;	mov	dx,SCindex
-;	mov	ax,15*256 + SCmapmask	;write to all planes
-;	out	dx,ax
-;
-;	mov	ax,_DATA
-;	mov	ds,ax		;restore turbo's data segment
-;	ret
-;ENDP
+PROC	EgaCharOut
+
+	shl	si,1
+	shl	si,1
+	shl	si,1		;char * 8 = tile's offset in PICS
+
+	add	di,[EGAylookup+bx]	;BX is pointer into YLOOKUP
+
+	mov	cx,ds
+
+	mov	dx,GCindex
+	mov	ax,GCmode
+	out	dx,ax		;set read / write mode 0
+
+	cld
+
+	mov	bx,si		;so the planes can be drawn the same
+	mov	cx,di
+
+	mov	dx,GCindex
+	mov	ax,0*256+4	;read map select
+	out	dx,ax
+	mov	dx,SCindex
+	mov	ax,1*256+SCmapmask
+	out	dx,ax
+	mov	dx,[xormask]	;so chars can be inverted
+
+	mov	ax,[charptr+2]
+	mov	ds,ax		;segment of tile pictures (PARA'd)
+
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,47
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,47
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,47
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,47
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,47
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,47
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,47
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,47
+
+	mov	si,bx
+	mov	di,cx
+
+	push	dx
+	mov	dx,GCindex
+	mov	ax,1*256+4	;read map select
+	out	dx,ax
+	mov	dx,SCindex
+	mov	ax,2*256+SCmapmask	;write mask
+	out	dx,ax
+	pop	dx
+
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,47
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,47
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,47
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,47
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,47
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,47
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,47
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,47
+
+	mov	si,bx
+	mov	di,cx
+
+	push	dx
+	mov	dx,GCindex
+	mov	ax,2*256+4	;read map select
+	out	dx,ax
+	mov	dx,SCindex
+	mov	ax,4*256+SCmapmask	;write mask
+	out	dx,ax
+	pop	dx
+
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,47
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,47
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,47
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,47
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,47
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,47
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,47
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,47
+
+	mov	si,bx
+	mov	di,cx
+
+	push	dx
+	mov	dx,GCindex
+	mov	ax,3*256+4	;read map select
+	out	dx,ax
+	mov	dx,SCindex
+	mov	ax,8*256+SCmapmask	;write mask
+	out	dx,ax
+	pop	dx
+
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,47
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,47
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,47
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,47
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,47
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,47
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,47
+	lodsb
+	xor	al,dl
+	stosb
+	add	di,47
+
+	mov	dx,SCindex
+	mov	ax,15*256 + SCmapmask	;write to all planes
+	out	dx,ax
+
+	mov	ax,_DATA
+	mov	ds,ax		;restore turbo's data segment
+	ret
+ENDP
 
 
 ;=======================================================================
@@ -1219,150 +1219,150 @@ ENDP
 ;
 ;============
 ;sub_0_5797:
-;PROC	VgaCharOut
-;
-;	shl	si,1
-;	shl	si,1
-;	shl	si,1
-;	shl	si,1
-;	shl	si,1
-;	shl	si,1		;char * 64 = tile's offset in PICS
-;
-;	shl	di,1
-;	shl	di,1
-;	shl	di,1		;x * 8 + ylookup[y] = screen location
-;
-;	add	di,[VGAylookup+bx]	;BX is pointer into YLOOKUP
-;
-;	mov	bx,[xormask]	;so chars can be inverted
-;
-;	mov	ax,[WORD charptr+2]
-;	mov	ds,ax		;segment of tile pictures (PARA'd)
-;
-;	cld
-;
-;	lodsw			;load in a row of the tile's picture
-;	xor	ax,bx
-;	stosw
-;	lodsw
-;	xor	ax,bx
-;	stosw
-;	lodsw
-;	xor	ax,bx
-;	stosw
-;	lodsw
-;	xor	ax,bx
-;	stosw
-;
-;	add	di,312
-;
-;	lodsw			;load in a row of the tile's picture
-;	xor	ax,bx
-;	stosw
-;	lodsw
-;	xor	ax,bx
-;	stosw
-;	lodsw
-;	xor	ax,bx
-;	stosw
-;	lodsw
-;	xor	ax,bx
-;	stosw
-;
-;	add	di,312
-;
-;	lodsw			;load in a row of the tile's picture
-;	xor	ax,bx
-;	stosw
-;	lodsw
-;	xor	ax,bx
-;	stosw
-;	lodsw
-;	xor	ax,bx
-;	stosw
-;	lodsw
-;	xor	ax,bx
-;	stosw
-;
-;	add	di,312
-;
-;	lodsw			;load in a row of the tile's picture
-;	xor	ax,bx
-;	stosw
-;	lodsw
-;	xor	ax,bx
-;	stosw
-;	lodsw
-;	xor	ax,bx
-;	stosw
-;	lodsw
-;	xor	ax,bx
-;	stosw
-;
-;	add	di,312
-;
-;	lodsw			;load in a row of the tile's picture
-;	xor	ax,bx
-;	stosw
-;	lodsw
-;	xor	ax,bx
-;	stosw
-;	lodsw
-;	xor	ax,bx
-;	stosw
-;	lodsw
-;	xor	ax,bx
-;	stosw
-;
-;	add	di,312
-;
-;	lodsw			;load in a row of the tile's picture
-;	xor	ax,bx
-;	stosw
-;	lodsw
-;	xor	ax,bx
-;	stosw
-;	lodsw
-;	xor	ax,bx
-;	stosw
-;	lodsw
-;	xor	ax,bx
-;	stosw
-;
-;	add	di,312
-;
-;	lodsw			;load in a row of the tile's picture
-;	xor	ax,bx
-;	stosw
-;	lodsw
-;	xor	ax,bx
-;	stosw
-;	lodsw
-;	xor	ax,bx
-;	stosw
-;	lodsw
-;	xor	ax,bx
-;	stosw
-;
-;	add	di,312
-;
-;	lodsw			;load in a row of the tile's picture
-;	xor	ax,bx
-;	stosw
-;	lodsw
-;	xor	ax,bx
-;	stosw
-;	lodsw
-;	xor	ax,bx
-;	stosw
-;	lodsw
-;	xor	ax,bx
-;	stosw
-;
-;	mov	ax,_DATA
-;	mov	ds,ax		;restore turbo's data segment
-;	ret
-;ENDP
+PROC	VgaCharOut
+
+	shl	si,1
+	shl	si,1
+	shl	si,1
+	shl	si,1
+	shl	si,1
+	shl	si,1		;char * 64 = tile's offset in PICS
+
+	shl	di,1
+	shl	di,1
+	shl	di,1		;x * 8 + ylookup[y] = screen location
+
+	add	di,[VGAylookup+bx]	;BX is pointer into YLOOKUP
+
+	mov	bx,[xormask]	;so chars can be inverted
+
+	mov	ax,[WORD charptr+2]
+	mov	ds,ax		;segment of tile pictures (PARA'd)
+
+	cld
+
+	lodsw			;load in a row of the tile's picture
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+
+	add	di,312
+
+	lodsw			;load in a row of the tile's picture
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+
+	add	di,312
+
+	lodsw			;load in a row of the tile's picture
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+
+	add	di,312
+
+	lodsw			;load in a row of the tile's picture
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+
+	add	di,312
+
+	lodsw			;load in a row of the tile's picture
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+
+	add	di,312
+
+	lodsw			;load in a row of the tile's picture
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+
+	add	di,312
+
+	lodsw			;load in a row of the tile's picture
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+
+	add	di,312
+
+	lodsw			;load in a row of the tile's picture
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+	lodsw
+	xor	ax,bx
+	stosw
+
+	mov	ax,_DATA
+	mov	ds,ax		;restore turbo's data segment
+	ret
+ENDP
 
 ;=======================================================================
 
