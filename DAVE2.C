@@ -1475,7 +1475,6 @@ typedef enum {ingame,intitle,inscores} statetype;
 //int word_789_bfe = 0;
 
 
-int word_789_1554;
 //int word_789_1D28;
 //int word_789_1D2A;
 //int word_789_1D34;
@@ -1583,6 +1582,8 @@ int word_789_94C8;
 
 int drawoffs1[BIGPORTSIZE], drawoffs0[BIGPORTSIZE];
 
+unsigned int drawpage;
+
 
 /****************************************************************************/
 
@@ -1681,12 +1682,12 @@ void sub_0_290(void)
 //void sub_0_352(void)
 void loadgrfiles(void)
 {
-  if (grmode == 1)
+  if (grmode == CGAgr)
     installgrfile("CGAPICS.DD2", 0);
   else
   {
     installgrfile("EGAPICS.DD2", 0);
-    word_789_1554 ^= 0x0001;
+    drawpage ^= 1;
   }
 }
 
@@ -1777,7 +1778,7 @@ void sub_0_4A9(void)
   int i;
   setscreenmode (grmode);
 
-  if (grmode == 2)
+  if (grmode == EGAgr)
     sub_0_290();
 
   drawpic (0,0,0x0d);
@@ -1947,10 +1948,11 @@ void sub_0_71E(void) {IMPLEMENT_ME("sub_0_71E");}
 
 
 void sub_0_7B3(void) {IMPLEMENT_ME("sub_0_7B3");}
+//void RF_Refresh(void)
 //{
 //asm    call    sub_0_1E46
 //asm    inc     word_789_94CA
-//asm    cmp     word_789_1554, 0
+//asm    cmp     drawpage, 0
 //asm    jz      short loc_0_7E2
 //asm    xor     si, si
 //asm    jmp     short loc_0_7DA
@@ -1991,9 +1993,9 @@ void sub_0_7B3(void) {IMPLEMENT_ME("sub_0_7B3");}
 //
 //loc_0_7FD:
 //
-//asm    cmp     grmode, 2
+//asm    cmp     grmode, EGAgr
 //asm    jnz     short loc_0_80A
-//asm    xor     word_789_1554, 1
+//asm    xor     drawpage, 1
 //
 //loc_0_80A:
 //

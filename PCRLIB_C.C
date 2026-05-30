@@ -1335,7 +1335,7 @@ void print (const char *str)
 
 struct scores scoreswap, highscores[5];
 
-//long score;
+long score;
 int level;
 int _numlevels, _maxplayers;
 
