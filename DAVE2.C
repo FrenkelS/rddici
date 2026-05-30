@@ -1475,24 +1475,56 @@ typedef enum {ingame,intitle,inscores} statetype;
 //int word_789_bfe = 0;
 
 
+int word_789_154C;
+int word_789_154E;
+int word_789_1550;
+int word_789_1552;
+int word_789_1556;
 //int word_789_1D28;
 //int word_789_1D2A;
+int word_789_1D30;
+int word_789_1D32;
 //int word_789_1D34;
 //int word_789_1D36;
-//int word_789_7B20;
+char unk_789_1D40[15890];
+int word_789_7B20[600];
 //int *word_789_7FD0;
-//int word_789_7FD2;
 int word_789_8220;
+int word_789_8222;
 //int word_789_8228;
-//int word_789_822A;
-//int word_789_947E;
-//int *word_789_9486;
-//int word_789_949E;
-//int word_789_94BC;
-//int word_789_94C6;
-int word_789_94C8;
-//int word_789_94CA;
-//int word_789_94D4;
+int word_789_8476;
+int word_789_847A;
+int word_789_847C;
+int word_789_947C;
+int word_789_947E;
+int word_789_9480;
+int word_789_9482;
+int word_789_9486[4];
+int word_789_9490;
+int word_789_9494;
+int word_789_949E;
+int word_789_94BC;
+int word_789_94C4;
+int word_789_94C6;
+char *word_789_94C8;
+int word_789_94CA;
+int word_789_94CC;
+int word_789_94CE;
+long dword_789_94D0;
+int word_789_94D4;
+long dword_789_94DA;
+int word_789_94D6;
+int word_789_94D8;
+int word_789_94E0;
+int word_789_94E4;
+int word_789_94E6;
+int word_789_94E8;
+int word_789_94EA;
+int word_789_94FE;
+int word_789_9500;
+int word_789_9506;
+long dword_789_ADD6;
+long dword_789_ADDA;
 
 
   enum {quited,killed,reseted,victorious} gamexit; /*determines what to do after playloop*/
@@ -1530,7 +1562,8 @@ int word_789_94C8;
 
 
 //  int i,j,k,x,y,z;
-  boolean playdone, leveldone;
+  int lives;
+  boolean leveldone;
 
 //  boolean tempb;
 //  char far *tempp;
@@ -1584,6 +1617,8 @@ int drawoffs1[BIGPORTSIZE], drawoffs0[BIGPORTSIZE];
 
 unsigned int drawpage;
 
+long lastExtraScore;
+
 
 /****************************************************************************/
 
@@ -1600,9 +1635,9 @@ void extern RF_ForceRefresh (void);
 //void extern egamove (void);
 //void extern cgarefresh (void);
 //void extern egarefresh (void);
-//void extern sub_0_1E46 (void);
+void extern sub_0_1E46 (void);
 void sub_0_290 (void);
-void sub_0_7B3 (void);
+void RF_Refresh (void);
 void dofkeys (void);
 void help (void);
 void playloop(void);
@@ -1622,9 +1657,9 @@ void sub_0_239(void)
   RF_ForceRefresh();
   if (gamestate == 0 || gamestate == 3)
   {
-    sub_0_7B3();
+    RF_Refresh();
     sub_0_290();
-    sub_0_7B3();
+    RF_Refresh();
   }
 
   if (gamestate == 1)
@@ -1735,7 +1770,7 @@ void dofkeys (void)
       if (ch=='Y')
       {
         gamexit = quited;
-        playdone = true;
+        lives = 1;
       }
       break;
 
@@ -1881,7 +1916,7 @@ void dodemo (void)
 
     i=random(NUMDEMOS)+1;
     LoadDemo (i);
-    leveldone=1;
+    leveldone=true;
     playloop ();
     if (exitdemo)
       break;
@@ -1906,7 +1941,7 @@ void dodemo (void)
   }
 
   level = 1;
-  leveldone = 1;
+  leveldone = true;
   indemo = 0;
 }
 
@@ -1927,7 +1962,7 @@ void sub_0_71E(void) {IMPLEMENT_ME("sub_0_71E");}
 //  int i;
 //
 //  expwin (11,4);
-//  print (aGameOver); // "\n GAME OVER\n     "
+//  print ("\n GAME OVER\n     ");
 //  PlaySound (7);
 //  WaitEndSound ();
 //  for (i=0;i<120;i++)
@@ -1947,8 +1982,8 @@ void sub_0_71E(void) {IMPLEMENT_ME("sub_0_71E");}
 //}
 
 
-void sub_0_7B3(void) {IMPLEMENT_ME("sub_0_7B3");}
-//void RF_Refresh(void)
+//void sub_0_7B3(void)
+void RF_Refresh(void) {IMPLEMENT_ME("RF_Refresh");}
 //{
 //asm    call    sub_0_1E46
 //asm    inc     word_789_94CA
@@ -1963,7 +1998,7 @@ void sub_0_7B3(void) {IMPLEMENT_ME("sub_0_7B3");}
 //asm    shl     bx, 1
 //asm    mov     bx, word_789_7B20[bx]
 //asm    shl     bx, 1
-//asm    mov     word_789_7FD2[bx], 0FFFFh
+//asm    mov     drawoffs1[bx], -1
 //asm    inc     si
 //
 //loc_0_7DA:
@@ -1983,7 +2018,7 @@ void sub_0_7B3(void) {IMPLEMENT_ME("sub_0_7B3");}
 //asm    shl     bx, 1
 //asm    mov     bx, word_789_7B20[bx]
 //asm    shl     bx, 1
-//asm    mov     word_789_822A[bx], -1
+//asm    mov     drawoffs0[bx], -1
 //asm    inc     si
 //
 //loc_0_7F7:
@@ -2298,6 +2333,7 @@ void sub_0_7B3(void) {IMPLEMENT_ME("sub_0_7B3");}
 //
 //
 ////void sub_0_1491(void)
+////void AddScore(int toadd)
 ////{
 ////asm {
 //db 55h, 8Bh, 0ECh
@@ -2311,7 +2347,7 @@ void sub_0_7B3(void) {IMPLEMENT_ME("sub_0_7B3");}
 
 
 // FIXME fsm: what does break do in a switch inside a do-loop?
-//void sub_0_14CD(void)
+void sub_0_14CD(void) {IMPLEMENT_ME("sub_0_14CD");}
 //{
 //  RF_ForceRefresh();
 //  do
@@ -2321,7 +2357,7 @@ void sub_0_7B3(void) {IMPLEMENT_ME("sub_0_7B3");}
 //    WaitVBL();
 //    word_789_8228 = 0x94D6;
 //    sub_0_F19();
-//    sub_0_7B3();
+//    RF_Refresh();
 //    dofkeys();
 //
 //switch (indemo)
@@ -2336,11 +2372,11 @@ void sub_0_7B3(void) {IMPLEMENT_ME("sub_0_7B3");}
 //        if (ch > '0' && ch <= '9')
 //        {
 //          level = ch - '1';
-//          leveldone = 1;
+//          leveldone = true;
 //        }
 //        RF_ForceRefresh();
-//        sub_0_7B3();
-//        sub_0_7B3();
+//        RF_Refresh();
+//        RF_Refresh();
 //      }
 //    break;
 //
@@ -2368,8 +2404,8 @@ void sub_0_7B3(void) {IMPLEMENT_ME("sub_0_7B3");}
 //        } while (ch<'0' || ch>'9');
 //        SaveDemo(ch-'0');
 //        RF_ForceRefresh();
-//        sub_0_7B3();
-//        sub_0_7B3();
+//        RF_Refresh();
+//        RF_Refresh();
 //        return;
 //      }
 //    break;
@@ -2387,63 +2423,156 @@ void sub_0_7B3(void) {IMPLEMENT_ME("sub_0_7B3");}
 /*				      */
 /*======================================*/
 //void sub_0_162C(void)
-void playloop(void) {IMPLEMENT_ME("playloop");}
-//{
-//asm {
-//db 83h
-//db 0ECh, 06h, 56h, 0C7h, 06h, 54h, 15h, 00h, 00h, 0C7h, 06h, 84h, 94h, 04h, 00h, 0C7h
-//db 06h, 0BEh, 94h, 00h, 00h, 0C7h, 06h, 0C0h, 94h, 00h, 00h, 0C7h, 06h, 0E2h, 0ADh, 00h
-//db 00h, 0C7h, 06h, 0E4h, 0ADh, 00h, 00h, 0C7h, 06h, 38h, 1Dh, 01h, 00h, 0E8h, 0F4h, 06h
-//db 0C7h, 06h, 0CAh, 94h, 00h, 00h, 83h, 3Eh, 38h, 1Dh, 00h, 75h, 03h, 0E9h, 41h, 01h
-//db 0C7h, 06h, 7Ch, 84h, 0FFh, 0FFh, 0C7h, 06h, 0C6h, 94h, 7Ch, 84h, 0C7h, 06h, 0BCh, 94h
-//db 00h, 00h, 0C7h, 06h, 9Eh, 94h, 00h, 00h, 0C7h, 06h, 0D4h, 94h, 00h, 00h, 0B8h, 66h
-//db 04h, 50h, 0B8h, 10h, 0AEh, 50h, 0E8h, 68h, 59h, 59h, 59h, 0B8h, 0Ah, 00h, 50h, 8Dh
-//db 46h, 0FAh, 50h, 0FFh, 36h, 6Eh, 0AEh, 0E8h, 0B9h, 55h, 83h, 0C4h, 06h, 8Dh, 46h, 0FAh
-//db 50h, 0B8h, 10h, 0AEh, 50h, 0E8h, 10h, 59h, 59h, 59h, 0B8h, 6Dh, 04h, 50h, 0B8h, 10h
-//db 0AEh, 50h, 0E8h, 03h, 59h, 59h, 59h, 0FFh, 36h, 46h, 0Ch, 0B8h, 10h, 0AEh, 50h, 0E8h
-//db 0F6h, 58h, 59h, 59h, 1Eh, 0FFh, 36h, 0C8h, 94h, 0B8h, 10h, 0AEh, 50h, 0E8h, 0F7h, 16h
-//db 83h, 0C4h, 06h, 33h, 0F6h, 0EBh, 1Bh, 8Bh, 1Eh, 0C8h, 94h, 8Bh, 47h, 0Eh, 0F7h, 0EEh
-//db 8Bh, 16h, 0C8h, 94h, 03h, 0D0h, 83h, 0C2h, 20h, 8Bh, 0DEh, 0D1h, 0E3h, 89h, 97h, 86h
-//db 94h, 46h, 8Bh, 1Eh, 0C8h, 94h, 39h, 77h, 04h, 7Fh, 0DCh, 0C7h, 06h, 22h, 82h, 01h
-//db 00h, 8Bh, 1Eh, 0C8h, 94h, 8Bh, 07h, 0A3h, 7Eh, 94h, 0A1h, 7Eh, 94h, 0D1h, 0E0h, 0A3h
-//db 7Ch, 94h, 0A1h, 7Ch, 94h, 05h, 0D6h, 0FFh, 0A3h, 56h, 15h, 0C7h, 06h, 4Ch, 15h, 00h
-//db 00h, 0C7h, 06h, 4Eh, 15h, 00h, 00h, 0C7h, 06h, 50h, 15h, 00h, 00h, 0C7h, 06h, 52h
-//db 15h, 00h, 00h, 8Bh, 1Eh, 0C8h, 94h, 8Bh, 07h, 05h, 0ECh, 0FFh, 99h, 0B1h, 0Ch, 0E8h
-//db 0CFh, 5Dh, 0A3h, 0D6h, 0ADh, 89h, 16h, 0D8h, 0ADh, 8Bh, 1Eh, 0C8h, 94h, 8Bh, 47h, 02h
-//db 05h, 0F3h, 0FFh, 99h, 0B1h, 0Ch, 0E8h, 0B8h, 5Dh, 0A3h, 0DAh, 0ADh, 89h, 16h, 0DCh, 0ADh
-//db 0A1h, 0DCh, 0ADh, 8Bh, 16h, 0DAh, 0ADh, 89h, 16h, 0D0h, 94h, 0A3h, 0D2h, 94h, 0C7h, 06h
-//db 0CCh, 94h, 00h, 00h, 0C7h, 06h, 0CEh, 94h, 00h, 00h, 0C7h, 06h, 30h, 1Dh, 0A0h, 00h
-//db 0C7h, 06h, 80h, 94h, 50h, 00h, 0C7h, 06h, 82h, 94h, 2Ch, 01h, 0C7h, 06h, 32h, 1Dh
-//db 0EEh, 02h, 0E8h, 0Eh, 0F0h, 0E8h, 0E8h, 0EAh, 0E8h, 08h, 0F0h, 0C7h, 06h, 38h, 1Dh, 00h
-//db 00h, 83h, 3Eh, 5Ch, 0C3h, 00h, 74h, 0Ah, 33h, 0C0h, 50h, 0E8h, 63h, 3Dh, 59h, 0E9h
-//db 0BEh, 00h, 0B8h, 01h, 00h, 50h, 0E8h, 58h, 3Dh, 59h, 0A1h, 0DCh, 0ADh, 8Bh, 16h, 0DAh
-//db 0ADh, 89h, 16h, 0D0h, 94h, 0A3h, 0D2h, 94h, 0C7h, 06h, 0CCh, 94h, 00h, 00h, 0C7h, 06h
-//db 0CEh, 94h, 00h, 00h, 0E8h, 6Dh, 05h, 0E8h, 0C9h, 0EFh, 0E8h, 0C6h, 0EFh, 0B8h, 09h, 00h
-//db 50h, 0B8h, 0Eh, 00h, 50h, 0E8h, 0F1h, 1Ah, 59h, 59h, 0B8h, 6Fh, 04h, 50h, 0E8h, 0F0h
-//db 1Bh, 59h, 0FFh, 36h, 0E4h, 0ADh, 0FFh, 36h, 0E2h, 0ADh, 0E8h, 53h, 1Ch, 59h, 59h, 0B8h
-//db 78h, 04h, 50h, 0E8h, 0DBh, 1Bh, 59h, 0FFh, 36h, 6Eh, 0AEh, 0E8h, 24h, 1Ch, 59h, 0B8h
-//db 82h, 04h, 50h, 0E8h, 0CBh, 1Bh, 59h, 0FFh, 36h, 84h, 94h, 0E8h, 14h, 1Ch, 59h, 0B8h
-//db 02h, 00h, 50h, 0E8h, 0D0h, 3Ah, 59h, 0E8h, 0BDh, 3Bh, 83h, 3Eh, 1Ch, 0AFh, 00h, 74h
-//db 3Fh, 83h, 3Eh, 0DAh, 0AEh, 00h, 74h, 38h, 0E8h, 09h, 05h, 0E8h, 65h, 0EFh, 0E8h, 62h
-//db 0EFh, 0E8h, 0EBh, 14h, 0B8h, 01h, 00h, 50h, 0B8h, 0Ch, 00h, 50h, 0E8h, 49h, 1Ah, 59h
-//db 59h, 0B8h, 91h, 04h, 50h, 0E8h, 89h, 1Bh, 59h, 0E8h, 24h, 1Bh, 0A2h, 68h, 0C3h, 80h
-//db 3Eh, 68h, 0C3h, 0Dh, 75h, 0F3h, 33h, 0C0h, 50h, 0E8h, 0A5h, 3Ch, 59h, 0E8h, 0CAh, 13h
-//db 0A1h, 0D2h, 94h, 8Bh, 16h, 0D0h, 94h, 81h, 0C2h, 00h, 96h, 15h, 00h, 00h, 89h, 16h
-//db 0DAh, 94h, 0A3h, 0DCh, 94h, 0C7h, 06h, 0D6h, 94h, 00h, 96h, 0C7h, 06h, 0D8h, 94h, 00h
-//db 00h, 0C7h, 06h, 0EAh, 94h, 00h, 00h, 0C7h, 06h, 0E8h, 94h, 00h, 00h, 0C7h, 06h, 0ECh
-//db 94h, 01h, 00h, 0C7h, 06h, 0E0h, 94h, 02h, 00h, 0B8h, 05h, 00h, 0A3h, 0E4h, 94h, 0A3h
-//db 0E6h, 94h, 0C7h, 06h, 0FEh, 94h, 00h, 00h, 0C7h, 06h, 00h, 95h, 00h, 00h, 0C7h, 06h
-//db 06h, 95h, 19h, 0Fh, 0C7h, 06h, 94h, 94h, 00h, 00h, 0C7h, 06h, 94h, 94h, 00h, 00h
-//db 0C7h, 06h, 76h, 84h, 00h, 00h, 0C7h, 06h, 0C4h, 94h, 01h, 00h, 0C7h, 06h, 90h, 94h
-//db 00h, 00h, 0C7h, 06h, 7Ah, 84h, 00h, 00h, 0A1h, 0DCh, 0ADh, 8Bh, 16h, 0DAh, 0ADh, 89h
-//db 16h, 0D0h, 94h, 0A3h, 0D2h, 94h, 0C7h, 06h, 0CCh, 94h, 00h, 00h, 0C7h, 06h, 0CEh, 94h
-//db 00h, 00h, 0E8h, 0B8h, 0FBh, 83h, 3Eh, 5Ch, 0C3h, 00h, 74h, 02h, 0EBh, 30h, 83h, 3Eh
-//db 38h, 1Dh, 00h, 75h, 06h, 0FFh, 0Eh, 84h, 94h, 0EBh, 19h, 0FFh, 06h, 6Eh, 0AEh, 0A1h
-//db 6Eh, 0AEh, 3Bh, 06h, 0E0h, 0ADh, 7Eh, 0Ch, 0C7h, 06h, 84h, 94h, 00h, 00h, 0C7h, 06h
-//db 0C2h, 94h, 02h, 00h, 83h, 3Eh, 84h, 94h, 00h, 74h, 03h, 0E9h, 18h, 0FDh, 5Eh, 8Bh
-//db 0E5h
-//}
-//}
+void playloop(void)
+{
+	char st[6];
+	int plane;
+
+	drawpage = 0;
+	lives = 4;
+	lastExtraScore = 0;
+	score = 0;
+	leveldone = true;
+
+	RF_ForceRefresh();
+
+	word_789_94CA = 0;
+
+loc_0_1666:
+	if (!leveldone)
+		goto loc_0_17B1;
+
+loc_0_1670:
+	word_789_847C = -1;
+	word_789_94C6 = 0x847C;
+	word_789_94BC = 0;
+	word_789_949E = 0;
+	word_789_94D4 = 0;
+
+	strcpy(str, "LEVEL0");
+	itoa(level, st, 10);
+	strcat(str, st);
+	strcat(str, ".");
+	strcat(str, _extension);
+
+	LoadFile(str, word_789_94C8);
+
+	for (plane = 0; (*(int*)(word_789_94C8 + 4)) > plane; plane++) {
+		word_789_9486[plane] = word_789_94C8 + (*(int*)(word_789_94C8 + 14)) * plane + 0x20;
+	}
+
+	word_789_8222 = 1;
+	word_789_947E = *(int*)word_789_94C8;
+	word_789_947C = word_789_947E << 1;
+	word_789_1556 = word_789_947C + -42;
+	word_789_154C = 0;
+	word_789_154E = 0;
+	word_789_1550 = 0;
+	word_789_1552 = 0;
+
+	dword_789_ADD6 = ((long)((*(int*)(word_789_94C8 + 0)) + -20)) << 12;
+	dword_789_ADDA = ((long)((*(int*)(word_789_94C8 + 2)) + -13)) << 12;
+
+	dword_789_94D0 = dword_789_ADDA;
+	word_789_94CC = 0;
+	word_789_94CE = 0;
+	word_789_1D30 = 160;
+	word_789_9480 = 80;
+	word_789_9482 = 300;
+	word_789_1D32 = 750;
+	RF_Refresh();
+	sub_0_290();
+	RF_Refresh();
+	leveldone = false;
+
+loc_0_17B1:
+	if (indemo != 0)
+	{
+		initrndt(false);
+		goto loc_0_1880;
+	}
+
+loc_0_17C2:
+	initrndt(true);
+	dword_789_94D0 = dword_789_ADDA;
+	word_789_94CC = 0;
+	word_789_94CE = 0;
+	RF_ForceRefresh();
+	RF_Refresh();
+	RF_Refresh();
+	expwin(14, 9);
+	print("\n SCORE:");
+	printlong(score);
+	print("\n\n WORLD:");
+	printint(level);
+	print("\n\n DAVES LEFT:");
+	printint(lives);
+	PlaySound(2);
+	WaitEndSound();
+	if (keydown[0x41] && keydown[0x20]) // 'D+F7' to record a demo
+	{
+		RF_ForceRefresh();
+		RF_Refresh();
+		RF_Refresh();
+		clearkeys();
+		centerwindow(12, 1);
+		print("RECORD DEMO");
+		do
+		{
+			ch=get ();
+		} while (ch!=13);
+
+		initrndt(false);
+		RecordDemo();
+	}
+
+loc_0_1880:
+	dword_789_94DA = dword_789_94D0 + 0x9600;
+	word_789_94D6 = 0x9600;
+	word_789_94D8 = 0;
+	word_789_94EA = 0;
+	word_789_94E8 = 0;
+	gamexit = 1;
+	word_789_94E0 = 2;
+	word_789_94E6 = word_789_94E4 = 5;
+	word_789_94FE = 0;
+	word_789_9500 = 0;
+	word_789_9506 = 0xF19;
+	word_789_9494 = 0;
+	word_789_9494 = 0;
+	word_789_8476 = 0;
+	word_789_94C4 = 1;
+	word_789_9490 = 0;
+	word_789_847A = 0;
+	dword_789_94D0 = dword_789_ADDA;
+	word_789_94CC = 0;
+	word_789_94CE = 0;
+	sub_0_14CD();
+	if (indemo != 0)
+		goto loc_0_194E;
+
+loc_0_191E:
+	if (!leveldone)
+	{
+		lives--;
+		goto loc_0_1944;
+	}
+
+loc_0_192B:
+	level++;
+	if (level > _numlevels)
+	{
+		lives = 0;
+		gamestate = 2;
+	}
+
+loc_0_1944:
+	if (lives != 0)
+		goto loc_0_1666;
+
+loc_0_194E:
+	;
+}
 
 /***************************************************************************/
 /***************************************************************************/
@@ -2472,7 +2601,7 @@ void main (void)
 
 	sub_0_37E();
 
-	word_789_94C8 = 0x1D40;
+	word_789_94C8 = unk_789_1D40;
 
 	while (1)
 	{
