@@ -433,12 +433,12 @@ ControlStruct ControlPlayer (int player)
 //
 ////////////////////////
 //void sub_0_2C4A(void)
-//void RecordDemo (void)
-//{
-//  demobuffer[0]=level;
-//  demoptr = &demobuffer[1];
-//  indemo = recording;
-//}
+void RecordDemo (void)
+{
+  demobuffer[0]=level;
+  demoptr = &demobuffer[1];
+  indemo = recording;
+}
 
 
 ////////////////////////
@@ -1061,17 +1061,17 @@ void print (const char *str)
 //
 ///////////////////////////
 //void sub_0_3442(void)
-//void printint (int val)
-//{
-//  itoa(val,str,10);
-//  print (str);
-//}
+void printint (int val)
+{
+  itoa(val,str,10);
+  print (str);
+}
 //void sub_0_3460(void)
-//void printlong (long val)
-//{
-//  ltoa(val,str,10);
-//  print (str);
-//}
+void printlong (long val)
+{
+  ltoa(val,str,10);
+  print (str);
+}
 
 /*========================================================================*/
 
@@ -1626,14 +1626,6 @@ void _setupgame (void)
 //void sub_0_3E65(void)
 void _quit (char *error)
 {
-static int stackoverflow = 0;
-stackoverflow++;
-if (stackoverflow > 1)
-{
-	printf("%s not again", error);
-	exit(0);
-}
-
   setscreenmode (text);
   if (!(*error))
   {

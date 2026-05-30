@@ -27,9 +27,9 @@
 ;
 ;sound records each take up 16 bytes, and start at $10, and continue to $3F0
 
-;snd_start	equ	0
-;snd_priority	equ	2
-;snd_samples	equ	3
+snd_start	equ	0
+snd_priority	equ	2
+snd_samples	equ	3
 ;snd_name	equ	4
 
 
@@ -292,64 +292,64 @@ ENDP
 ;
 ;===========
 ;sub_0_5306:
-;PROC	PlaySound playnum:WORD
-;	PUBLIC PlaySound
-;
-;	test	[_dontplay],0ffffh
-;	je	@@dowork
-;	ret
-;@@dowork:
-;	mov	ax,[playnum]	;index into the sound headers
-;	push	si
-;
-;	mov	si,ax
-;	shl	si,1
-;	shl	si,1
-;	shl	si,1
-;	shl	si,1
-;
-;	mov	ax,[WORD SoundData+2]
-;	mov	es,ax		;point es: to the spkr file
-;
-;	mov	al,[es:si+snd_Priority]	;priority table (one byte each)
-;	cmp	al,[SndPriority]
-;	jb	@@playdone	;current sound has higher priority
-;	mov	[SndPriority],al
-;	mov	ax,[es:si+snd_Start]	;offset in .SPK file
-;	mov	[SndPtr],ax	;store it in the sound playing table
-;
-;	mov	bl,[es:si+snd_samples]	;samples / regular timer tick (1-255)
-;	mov	[extraints],bl	;an OldInt8 will be called after this
-;	mov	[intcount],bl	;many UpdateSPKR times have been called
-;
-;	cmp	bl,1		;sample rate of 0 or 1 = 0000 for timer
-;	ja	@@oktodiv
-;	xor	bx,bx
-;	jmp	@@settimer
-;
-;@@oktodiv:
-;	xor	bh,bh
-;	xor	ax,ax
-;	mov	dx,1
-;	div	bx		;$10000 / samples = timer rate
-;
-;	mov	bx,ax
-;	mov	[sndspeed],bx	;save off the timer rate
-;
-;@@settimer:
-;	mov	al,36h		;tell the timer chip we are going to
-;	out	43h,al		;change the speed of timer 0
-;
-;	mov	al,bl		;low byte of sample rate
-;	out	40h,al
-;	mov	al,bh		;high byte of sample rate
-;	out	40h,al
-;
-;@@playdone:
-;	pop	si
-;	ret
-;
-;ENDP
+PROC	PlaySound playnum:WORD
+	PUBLIC PlaySound
+
+	test	[_dontplay],0ffffh
+	je	@@dowork
+	ret
+@@dowork:
+	mov	ax,[playnum]	;index into the sound headers
+	push	si
+
+	mov	si,ax
+	shl	si,1
+	shl	si,1
+	shl	si,1
+	shl	si,1
+
+	mov	ax,[WORD SoundData+2]
+	mov	es,ax		;point es: to the spkr file
+
+	mov	al,[es:si+snd_Priority]	;priority table (one byte each)
+	cmp	al,[SndPriority]
+	jb	@@playdone	;current sound has higher priority
+	mov	[SndPriority],al
+	mov	ax,[es:si+snd_Start]	;offset in .SPK file
+	mov	[SndPtr],ax	;store it in the sound playing table
+
+	mov	bl,[es:si+snd_samples]	;samples / regular timer tick (1-255)
+	mov	[extraints],bl	;an OldInt8 will be called after this
+	mov	[intcount],bl	;many UpdateSPKR times have been called
+
+	cmp	bl,1		;sample rate of 0 or 1 = 0000 for timer
+	ja	@@oktodiv
+	xor	bx,bx
+	jmp	@@settimer
+
+@@oktodiv:
+	xor	bh,bh
+	xor	ax,ax
+	mov	dx,1
+	div	bx		;$10000 / samples = timer rate
+
+	mov	bx,ax
+	mov	[sndspeed],bx	;save off the timer rate
+
+@@settimer:
+	mov	al,36h		;tell the timer chip we are going to
+	out	43h,al		;change the speed of timer 0
+
+	mov	al,bl		;low byte of sample rate
+	out	40h,al
+	mov	al,bh		;high byte of sample rate
+	out	40h,al
+
+@@playdone:
+	pop	si
+	ret
+
+ENDP
 
 
 ;======================================================================
