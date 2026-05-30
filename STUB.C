@@ -21,6 +21,9 @@
 #include "pcrlib.h"
 
 
+void sub_0_1E46(void) {IMPLEMENT_ME("sub_0_1E46");}
+
+
 void IMPLEMENT_ME(char *func) {
 	_quit(func);
 }

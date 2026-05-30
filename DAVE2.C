@@ -1983,60 +1983,60 @@ void sub_0_71E(void) {IMPLEMENT_ME("sub_0_71E");}
 
 
 //void sub_0_7B3(void)
-void RF_Refresh(void) {IMPLEMENT_ME("RF_Refresh");}
-//{
-//asm    call    sub_0_1E46
-//asm    inc     word_789_94CA
-//asm    cmp     drawpage, 0
-//asm    jz      short loc_0_7E2
-//asm    xor     si, si
-//asm    jmp     short loc_0_7DA
-//
-//loc_0_7C9:
-//
-//asm    mov     bx, si
-//asm    shl     bx, 1
-//asm    mov     bx, word_789_7B20[bx]
-//asm    shl     bx, 1
-//asm    mov     drawoffs1[bx], -1
-//asm    inc     si
-//
-//loc_0_7DA:
-//
-//asm    cmp     si, word_789_949E
-//asm    jl      short loc_0_7C9
-//asm    jmp     short loc_0_7FD
-//
-//loc_0_7E2:
-//
-//asm    xor     si, si
-//asm    jmp     short loc_0_7F7
-//
-//loc_0_7E6:
-//
-//asm    mov     bx, si
-//asm    shl     bx, 1
-//asm    mov     bx, word_789_7B20[bx]
-//asm    shl     bx, 1
-//asm    mov     drawoffs0[bx], -1
-//asm    inc     si
-//
-//loc_0_7F7:
-//
-//asm    cmp     si, word_789_949E
-//asm    jl      short loc_0_7E6
-//
-//loc_0_7FD:
-//
-//asm    cmp     grmode, EGAgr
-//asm    jnz     short loc_0_80A
-//asm    xor     drawpage, 1
-//
-//loc_0_80A:
-//
-//asm    pop     si
-//
-//}
+void RF_Refresh(void)
+{
+asm    call    sub_0_1E46
+asm    inc     word_789_94CA
+asm    cmp     drawpage, 0
+asm    jz      short loc_0_7E2
+asm    xor     si, si
+asm    jmp     short loc_0_7DA
+
+loc_0_7C9:
+
+asm    mov     bx, si
+asm    shl     bx, 1
+asm    mov     bx, word_789_7B20[bx]
+asm    shl     bx, 1
+asm    mov     drawoffs1[bx], -1
+asm    inc     si
+
+loc_0_7DA:
+
+asm    cmp     si, word_789_949E
+asm    jl      short loc_0_7C9
+asm    jmp     short loc_0_7FD
+
+loc_0_7E2:
+
+asm    xor     si, si
+asm    jmp     short loc_0_7F7
+
+loc_0_7E6:
+
+asm    mov     bx, si
+asm    shl     bx, 1
+asm    mov     bx, word_789_7B20[bx]
+asm    shl     bx, 1
+asm    mov     drawoffs0[bx], -1
+asm    inc     si
+
+loc_0_7F7:
+
+asm    cmp     si, word_789_949E
+asm    jl      short loc_0_7E6
+
+loc_0_7FD:
+
+asm    cmp     grmode, EGAgr
+asm    jnz     short loc_0_80A
+asm    xor     drawpage, 1
+
+loc_0_80A:
+
+asm    pop     si
+
+}
 
 
 //void sub_0_80D(void)
