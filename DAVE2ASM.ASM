@@ -54,6 +54,9 @@ PORTTILECOUNT	=	(PORTTILESWIDE*PORTTILESHIGH)
 	EXTRN	obj, altobj: objtype
 	EXTRN	pics:WORD
 
+EXTRN drawoffs1:WORD
+EXTRN drawoffs0:WORD
+
 
 objtype	STRUC
 

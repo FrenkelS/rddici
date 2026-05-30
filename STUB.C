@@ -21,9 +21,6 @@
 #include "pcrlib.h"
 
 
-void RF_ForceRefresh(void) {IMPLEMENT_ME("RF_ForceRefresh");}
-
-
 void IMPLEMENT_ME(char *func) {
 	_quit(func);
 }

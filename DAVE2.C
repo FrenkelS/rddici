@@ -1576,6 +1576,14 @@ int word_789_94C8;
 //#define OBJECT_POOL ((objtype *)0x9508)
 
 
+#define PORTTILESWIDE 21
+#define PORTTILESHIGH 14
+#define BIGPORTSIZE (PORTTILESHIGH*PORTTILESWIDE)
+
+
+int drawoffs1[BIGPORTSIZE], drawoffs0[BIGPORTSIZE];
+
+
 /****************************************************************************/
 
 //////////////////////////////////
