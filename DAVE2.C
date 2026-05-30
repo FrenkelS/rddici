@@ -1956,30 +1956,30 @@ void dodemo (void)
 =
 ============
 */
-void sub_0_71E(void) {IMPLEMENT_ME("sub_0_71E");}
-//void gameover (void)
-//{
-//  int i;
-//
-//  expwin (11,4);
-//  print ("\n GAME OVER\n     ");
-//  PlaySound (7);
-//  WaitEndSound ();
-//  for (i=0;i<120;i++)
-//    WaitVBL ();
-//  gamestate=3;
-//  _checkhighscore ();
-//
-//  for (i=0;i<500;i++)
-//  {
-//	 WaitVBL ();
-//	 ctrl = ControlPlayer (1);
-//	 if (ctrl.button1 || ctrl.button2 || keydown[0x39])
-//		break;
-//	 if (bioskey (1))
-//		dofkeys ();
-//  }
-//}
+//void sub_0_71E(void)
+void gameover (void)
+{
+  int i;
+
+  expwin (11,4);
+  print ("\n GAME OVER\n     ");
+  PlaySound (7);
+  WaitEndSound ();
+  for (i=0;i<120;i++)
+    WaitVBL ();
+  gamestate=3;
+  _checkhighscore ();
+
+  for (i=0;i<500;i++)
+  {
+	 WaitVBL ();
+	 ctrl = ControlPlayer (1);
+	 if (ctrl.button1 || ctrl.button2 || keydown[0x39])
+		break;
+	 if (bioskey (1))
+		dofkeys ();
+  }
+}
 
 
 //void sub_0_7B3(void)
@@ -2612,7 +2612,7 @@ void main (void)
 		{
 			sub_0_548();
 		}
-		sub_0_71E();
+		gameover();
 	}
 }
 

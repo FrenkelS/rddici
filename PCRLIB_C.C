@@ -1468,44 +1468,44 @@ void _savehighscores (void)
 //
 ////////////////////////
 //void sub_0_3B41(void)
-void _showhighscores (void) {IMPLEMENT_ME("_showhighscores");}
-//{
-//  int i;
-//  long h;
-//  char st2[10];
-//
-//  centerwindow (17,17);
-//  print ("\n   HIGH SCORES\n\n");
-//  print (" #  SCORE LV  BY\n");
-//  print (" - ------ -- ---\n");
-//  for (i=0;i<5;i++)
-//  {
-//    sx++;
-//    drawchar (sx,sy,'1'+i);
-//    sx+=2;
-//    h=highscores[i].score;
-//    if (h<100000l)
-//      sx++;
-//    if (h<10000l)
-//      sx++;
-//    if (h<1000l)
-//      sx++;
-//    if (h<100l)
-//      sx++;
-//    if (h<10l)
-//      sx++;
-//    ltoa(h,str,10);
-//    print (str);
-//    sx++;
-//    if (highscores[i].level<10)
-//      sx++;
-//    itoa(highscores[i].level,str,10);
-//    print (str);
-//    sx++;
-//    print (highscores[i].initials);
-//    print ("\n\n");
-//  }
-//}
+void _showhighscores (void)
+{
+  int i;
+  long h;
+  char st2[10];
+
+  centerwindow (17,17);
+  print ("\n   HIGH SCORES\n\n");
+  print (" #  SCORE LV  BY\n");
+  print (" - ------ -- ---\n");
+  for (i=0;i<5;i++)
+  {
+    sx++;
+    drawchar (sx,sy,'1'+i);
+    sx+=2;
+    h=highscores[i].score;
+    if (h<100000l)
+      sx++;
+    if (h<10000l)
+      sx++;
+    if (h<1000l)
+      sx++;
+    if (h<100l)
+      sx++;
+    if (h<10l)
+      sx++;
+    ltoa(h,str,10);
+    print (str);
+    sx++;
+    if (highscores[i].level<10)
+      sx++;
+    itoa(highscores[i].level,str,10);
+    print (str);
+    sx++;
+    print (highscores[i].initials);
+    print ("\n\n");
+  }
+}
 
 
 //////////////////////////
@@ -1516,55 +1516,55 @@ void _showhighscores (void) {IMPLEMENT_ME("_showhighscores");}
 //
 //////////////////////////
 //void sub_0_3C83(void)
-//void _checkhighscore (void)
-//{
-//  int i,j,k;
-//
-//  for (i=0;i<5;i++)
-//    if (score>highscores[i].score)
-//    {
-//      for (j=4;i<j;j--)
-//      {
-//	k=j-1;
-//	highscores[j] = highscores[k];
-//      }
-//      highscores[i].score = score;
-//      highscores[i].level = level;
-//      strcpy(highscores[i].initials,"   ");
-//      break;
-//    }
-//
-//  _showhighscores ();
-//
-//  //
-//  // did get a high score
-//  //
-//  if (i<5)
-//  {
-//    PlaySound (1);
-//    clearkeys ();
-//    sx = screencenterx-17/2+14;
-//    sy = screencentery-1+i*2;
-//    j=0;
-//    do
-//    {
-//      ch = k = get();
-//      if (ch>=' ' && j<3)
-//      {
-//	drawchar (sx,sy,ch);
-//	sx++;
-//	highscores[i].initials[j]=ch;
-//	j++;
-//      }
-//      if (ch==8 || k==19200)
-//	if (j>0)
-//	{
-//	  sx--;
-//	  j--;
-//	}
-//    } while (ch != 13);
-//  }
-//}
+void _checkhighscore (void)
+{
+  int i,j,k;
+
+  for (i=0;i<5;i++)
+    if (score>highscores[i].score)
+    {
+      for (j=4;i<j;j--)
+      {
+	k=j-1;
+	highscores[j] = highscores[k];
+      }
+      highscores[i].score = score;
+      highscores[i].level = level;
+      strcpy(highscores[i].initials,"   ");
+      break;
+    }
+
+  _showhighscores ();
+
+  //
+  // did get a high score
+  //
+  if (i<5)
+  {
+    PlaySound (1);
+    clearkeys ();
+    sx = screencenterx-17/2+14;
+    sy = screencentery-1+i*2;
+    j=0;
+    do
+    {
+      ch = k = get();
+      if (ch>=' ' && j<3)
+      {
+	drawchar (sx,sy,ch);
+	sx++;
+	highscores[i].initials[j]=ch;
+	j++;
+      }
+      if (ch==8 || k==19200)
+	if (j>0)
+	{
+	  sx--;
+	  j--;
+	}
+    } while (ch != 13);
+  }
+}
 
 
 ////////////////////
