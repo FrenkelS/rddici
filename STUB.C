@@ -16,14 +16,6 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include <stdio.h>
-#include <stdlib.h>
 #include "pcrlib.h"
 
-
 void sub_0_1E46(void) {IMPLEMENT_ME("sub_0_1E46");}
-
-
-void IMPLEMENT_ME(char *func) {
-	_quit(func);
-}

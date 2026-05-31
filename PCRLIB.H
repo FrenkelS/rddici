@@ -325,4 +325,4 @@ void extern RLEExpand
 //NOLAN ADDED
 extern boolean GODMODE;
 
-void IMPLEMENT_ME(char *func);
+#define IMPLEMENT_ME _quit
