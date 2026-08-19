@@ -1720,13 +1720,13 @@ void sub_0_290(void)
 }
 
 
-//void sub_0_31E(void)
-//{
-//  xormask = 0xffff;
-//  bar(0, 0, 39, 24, 32);
-//  xormask = 0;
-//  sx = sy = leftedge = 0;
-//}
+void sub_0_31E_TODO(void)
+{
+  xormask = 0xffff;
+  bar(0, 0, 39, 24, 32);
+  xormask = 0;
+  sx = sy = leftedge = 0;
+}
 
 
 //void sub_0_352(void)
@@ -1738,6 +1738,7 @@ void loadgrfiles(void)
   {
     installgrfile("EGAPICS.DD2", 0);
     drawpage ^= 1;
+    asm nop; // TODO
   }
 }
 
