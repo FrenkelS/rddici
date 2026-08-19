@@ -58,6 +58,8 @@ EXTRN drawoffs1:WORD
 EXTRN drawoffs0:WORD
 EXTRN drawpage:WORD
 
+EXTRN screenseg:WORD
+
 EXTRN word_789_238:WORD
 EXTRN word_789_4A2:WORD
 EXTRN word_789_4A4:WORD
@@ -106,10 +108,10 @@ objtype	ENDS
 obp	dw	?		;temporary for turbo's BP
 
 
-pel dw 0
+pel			dw	0
+screenstart	dw	0
 
 
-IMPLEMENT_ME_sub_0_1F42 db 'sub_0_1F42', 0
 IMPLEMENT_ME_sub_0_202F db 'sub_0_202F', 0
 IMPLEMENT_ME_sub_0_2383 db 'sub_0_2383', 0
 
@@ -1247,16 +1249,66 @@ db 10h, 0C3h
 PROC	sub_0_1F42
 	PUBLIC	sub_0_1F42
 
-	push offset IMPLEMENT_ME_sub_0_1F42
-	call _quit
-db 0FAh, 8Bh, 0Eh, 0F6h, 0Bh, 0BAh, 0D4h, 03h, 0B0h, 0Ch, 0EEh, 42h, 8Ah, 0C5h
-db 0EEh, 4Ah, 0B0h, 0Dh, 0EEh, 42h, 8Ah, 0C1h, 0EEh, 0FBh, 0A1h, 0F6h, 0Bh, 0D1h, 0E8h, 0D1h
-db 0E8h, 0D1h, 0E8h, 0D1h, 0E8h, 05h, 00h, 0A0h, 0A3h, 0EAh, 10h, 0C7h, 06h, 0F6h, 0Bh, 04h
-db 00h, 0A0h, 0CDh, 94h, 0A8h, 08h, 74h, 04h, 0FFh, 06h, 0F6h, 0Bh, 24h, 07h, 0A3h, 0F4h
-db 0Bh, 0A1h, 54h, 15h, 0Bh, 0C0h, 75h, 18h, 0B9h, 00h, 0A3h, 8Eh, 0C1h, 0A0h, 0D1h, 94h
-db 24h, 0Fh, 0B3h, 30h, 0F6h, 0E3h, 05h, 00h, 36h, 01h, 06h, 0F6h, 0Bh, 0EBh, 16h, 90h
-db 0B9h, 00h, 0A0h, 8Eh, 0C1h, 0A0h, 0D1h, 94h, 24h, 0Fh, 0B3h, 30h, 0F6h, 0E3h, 05h, 00h
-db 06h, 01h, 06h, 0F6h, 0Bh, 0B8h, 05h, 01h, 0BAh, 0CEh, 03h, 0EFh, 0C3h
+cli
+mov     cx, screenstart
+mov     dx, 3D4h
+mov     al, 0Ch
+out     dx, al
+inc     dx
+mov     al, ch
+out     dx, al
+dec     dx
+mov     al, 0Dh
+out     dx, al
+inc     dx
+mov     al, cl
+out     dx, al
+sti
+mov     ax, screenstart
+shr     ax, 1
+shr     ax, 1
+shr     ax, 1
+shr     ax, 1
+add     ax, 0A000h
+mov     screenseg, ax
+mov     screenstart, 4
+mov     al, byte ptr word_789_94CC+1
+test    al, 8
+jz      short loc_0_1F7C
+inc     screenstart
+
+loc_0_1F7C:
+and     al, 7
+mov     pel, ax
+mov     ax, drawpage
+or      ax, ax
+jnz     short loc_0_1FA0
+mov     cx, 0A300h
+mov     es, cx
+mov     al, byte ptr dword_789_94D0+1
+and     al, 0Fh
+mov     bl, 48
+mul     bl
+add     ax, 3600h
+add     screenstart, ax
+jmp     short loc_0_1FB5
+nop
+
+loc_0_1FA0:
+mov     cx, 0A000h
+mov     es, cx
+mov     al, byte ptr dword_789_94D0+1
+and     al, 0Fh
+mov     bl, 48
+mul     bl
+add     ax, 600h
+add     screenstart, ax
+
+loc_0_1FB5:
+mov     ax, 105h
+mov     dx, 3CEh
+out     dx, ax
+retn
 ENDP
 
 
