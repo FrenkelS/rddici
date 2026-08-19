@@ -91,6 +91,9 @@ objtype	ENDS
 obp	dw	?		;temporary for turbo's BP
 
 
+IMPLEMENT_ME_sub_0_1E46 db 'sub_0_1E46', 0
+
+
 	.CODE
 
 ;========================================================================
@@ -1099,7 +1102,12 @@ db 0EBh, 0E4h, 0A1h, 0A4h, 04h, 05h, 02h, 00h, 0A3h, 0A4h, 04h, 3Dh, 18h, 00h, 7
 db 0EBh, 86h, 5Dh, 5Fh, 5Eh, 0C3h
 
 
-sub_0_1E46:
+EXTRN	_quit:NEAR
+PROC	sub_0_1E46
+	PUBLIC	sub_0_1E46
+
+	push offset IMPLEMENT_ME_sub_0_1E46
+	call _quit
 db 8Ah, 1Eh, 0F4h, 0Bh, 53h, 0E8h, 0F4h, 00h, 0E8h, 05h
 db 37h, 0BAh, 0DAh, 03h, 0ECh, 0BAh, 0C0h, 03h, 0B0h, 33h, 0EEh, 58h, 0EEh, 0FCh, 33h, 0FFh
 db 89h, 3Eh, 0A2h, 04h, 89h, 3Eh, 0A4h, 04h, 0B2h, 20h, 0A1h, 0D4h, 94h, 0F6h, 0E2h, 8Bh
@@ -1115,6 +1123,7 @@ db 0A9h, 8Bh, 0CBh, 0A1h, 0A2h, 04h, 8Bh, 1Eh, 0A4h, 04h, 3Bh, 87h, 0A2h, 94h, 8
 db 73h, 0Bh, 2Eh, 0FFh, 16h, 0B2h, 19h, 0FFh, 06h, 0A2h, 04h, 0EBh, 0E4h, 03h, 1Eh, 56h
 db 15h, 0A1h, 0A4h, 04h, 05h, 02h, 00h, 0A3h, 0A4h, 04h, 3Dh, 1Ch, 00h, 74h, 03h, 0E9h
 db 75h, 0FFh, 0C3h
+ENDP
 
 
 sub_0_1F23:
