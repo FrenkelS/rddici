@@ -2000,6 +2000,7 @@ void gameover (void)
 //void sub_0_7B3(void)
 void RF_Refresh(void)
 {
+asm    push    si
 asm    call    sub_0_1E46
 asm    inc     word_789_94CA
 asm    cmp     drawpage, 0
