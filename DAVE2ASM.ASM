@@ -56,7 +56,22 @@ PORTTILECOUNT	=	(PORTTILESWIDE*PORTTILESHIGH)
 
 EXTRN drawoffs1:WORD
 EXTRN drawoffs0:WORD
+EXTRN drawpage:WORD
 
+EXTRN word_789_238:WORD
+EXTRN word_789_4A2:WORD
+EXTRN word_789_4A4:WORD
+EXTRN word_789_1556:WORD
+EXTRN word_789_8478:WORD
+EXTRN word_789_847C:WORD
+EXTRN word_789_848E:WORD
+EXTRN word_789_947C:WORD
+EXTRN word_789_9486:WORD
+EXTRN word_789_94A2:WORD
+EXTRN word_789_94CA:WORD
+EXTRN word_789_94CC:WORD
+EXTRN dword_789_94D0:DWORD
+EXTRN word_789_94D4:WORD
 
 objtype	STRUC
 
@@ -91,10 +106,20 @@ objtype	ENDS
 obp	dw	?		;temporary for turbo's BP
 
 
-IMPLEMENT_ME_sub_0_1E46 db 'sub_0_1E46', 0
+pel dw 0
+
+
+IMPLEMENT_ME_sub_0_1F42 db 'sub_0_1F42', 0
+IMPLEMENT_ME_sub_0_202F db 'sub_0_202F', 0
+IMPLEMENT_ME_sub_0_2383 db 'sub_0_2383', 0
 
 
 	.CODE
+
+
+EXTRN	WaitVBL:NEAR
+EXTRN	_quit:NEAR
+
 
 ;========================================================================
 
@@ -1102,27 +1127,114 @@ db 0EBh, 0E4h, 0A1h, 0A4h, 04h, 05h, 02h, 00h, 0A3h, 0A4h, 04h, 3Dh, 18h, 00h, 7
 db 0EBh, 86h, 5Dh, 5Fh, 5Eh, 0C3h
 
 
-EXTRN	_quit:NEAR
 PROC	sub_0_1E46
 	PUBLIC	sub_0_1E46
 
-	push offset IMPLEMENT_ME_sub_0_1E46
-	call _quit
-db 8Ah, 1Eh, 0F4h, 0Bh, 53h, 0E8h, 0F4h, 00h, 0E8h, 05h
-db 37h, 0BAh, 0DAh, 03h, 0ECh, 0BAh, 0C0h, 03h, 0B0h, 33h, 0EEh, 58h, 0EEh, 0FCh, 33h, 0FFh
-db 89h, 3Eh, 0A2h, 04h, 89h, 3Eh, 0A4h, 04h, 0B2h, 20h, 0A1h, 0D4h, 94h, 0F6h, 0E2h, 8Bh
-db 0E8h, 0A1h, 0D1h, 94h, 0D1h, 0E8h, 0D1h, 0E8h, 0D1h, 0E8h, 0D1h, 0E8h, 8Bh, 1Eh, 7Ch, 94h
-db 0F7h, 0E3h, 8Bh, 0D8h, 0A1h, 0CDh, 94h, 0D1h, 0E8h, 0D1h, 0E8h, 0D1h, 0E8h, 0D1h, 0E8h, 0D1h
-db 0E0h, 03h, 0D8h, 03h, 1Eh, 86h, 94h, 0B9h, 15h, 00h, 8Bh, 31h, 0F7h, 06h, 0CAh, 94h
-db 03h, 00h, 75h, 08h, 0D1h, 0E6h, 8Bh, 0B4h, 38h, 02h, 89h, 31h, 0A1h, 54h, 15h, 0Bh
-db 0C0h, 75h, 0Dh, 3Bh, 0B5h, 2Ah, 82h, 74h, 18h, 89h, 0B5h, 2Ah, 82h, 0EBh, 0Bh, 90h
-db 3Bh, 0B5h, 0D2h, 7Fh, 74h, 0Bh, 89h, 0B5h, 0D2h, 7Fh, 0FFh, 06h, 0A2h, 04h, 0E8h, 5Eh
-db 01h, 3Bh, 0BEh, 7Ch, 84h, 75h, 16h, 0E8h, 0A9h, 04h, 0B2h, 20h, 8Bh, 86h, 8Eh, 84h
-db 0F6h, 0E2h, 8Bh, 0E8h, 0A1h, 78h, 84h, 01h, 06h, 0A2h, 04h, 0EBh, 0E4h, 47h, 47h, 0E2h
-db 0A9h, 8Bh, 0CBh, 0A1h, 0A2h, 04h, 8Bh, 1Eh, 0A4h, 04h, 3Bh, 87h, 0A2h, 94h, 8Bh, 0D9h
-db 73h, 0Bh, 2Eh, 0FFh, 16h, 0B2h, 19h, 0FFh, 06h, 0A2h, 04h, 0EBh, 0E4h, 03h, 1Eh, 56h
-db 15h, 0A1h, 0A4h, 04h, 05h, 02h, 00h, 0A3h, 0A4h, 04h, 3Dh, 1Ch, 00h, 74h, 03h, 0E9h
-db 75h, 0FFh, 0C3h
+mov     bl, byte ptr pel
+push    bx
+call    sub_0_1F42
+call    WaitVBL
+mov     dx, 3DAh
+in      al, dx
+mov     dx, 3C0h
+mov     al, 33h
+out     dx, al
+pop     ax
+out     dx, al
+cld
+xor     di, di
+mov     word_789_4A2, di
+mov     word_789_4A4, di
+mov     dl, 20h
+mov     ax, word_789_94D4
+mul     dl
+mov     bp, ax
+mov     ax, word ptr dword_789_94D0+1
+shr     ax, 1
+shr     ax, 1
+shr     ax, 1
+shr     ax, 1
+mov     bx, word_789_947C
+mul     bx
+mov     bx, ax
+mov     ax, word_789_94CC+1
+shr     ax, 1
+shr     ax, 1
+shr     ax, 1
+shr     ax, 1
+shl     ax, 1
+add     bx, ax
+add     bx, word_789_9486
+
+loc_0_1E97:
+mov     cx, 21
+
+loc_0_1E9A:
+mov     si, [bx+di]
+test    word_789_94CA, 3
+jnz     short loc_0_1EAC
+shl     si, 1
+mov     si, word_789_238[si]
+mov     [bx+di], si
+
+loc_0_1EAC:
+mov     ax, drawpage
+or      ax, ax
+jnz     short loc_0_1EC0
+cmp     si, drawoffs0[di]
+jz      short loc_0_1ED1
+mov     drawoffs0[di], si
+jmp     short loc_0_1ECA
+nop
+
+loc_0_1EC0:
+cmp     si, drawoffs1[di]
+jz      short loc_0_1ED1
+mov     drawoffs1[di], si
+
+loc_0_1ECA:
+inc     word_789_4A2
+call    sub_0_202F
+
+loc_0_1ED1:
+cmp     di, word_789_847C[bp]
+jnz     short loc_0_1EED
+call    sub_0_2383
+mov     dl, 20h
+mov     ax, word_789_848E[bp]
+mul     dl
+mov     bp, ax
+mov     ax, word_789_8478
+add     word_789_4A2, ax
+jmp     short loc_0_1ED1
+
+loc_0_1EED:
+inc     di
+inc     di
+loop    loc_0_1E9A
+
+loc_0_1EF1:
+mov     cx, bx
+mov     ax, word_789_4A2
+mov     bx, word_789_4A4
+cmp     ax, word_789_94A2[bx]
+mov     bx, cx
+jnb     short loc_0_1F0D
+call    cs:word_0_19B2
+inc     word_789_4A2
+jmp     short loc_0_1EF1
+
+loc_0_1F0D:
+add     bx, word_789_1556
+mov     ax, word_789_4A4
+add     ax, 2
+mov     word_789_4A4, ax
+cmp     ax, 1Ch
+jz      short locret_0_1F22
+jmp     loc_0_1E97
+
+locret_0_1F22:
+retn
 ENDP
 
 
@@ -1131,7 +1243,12 @@ db 0B8h, 00h, 0B8h, 8Eh, 0C0h, 0A0h, 0D1h, 94h, 0D0h, 0E8h, 24h, 07h, 0B3h
 db 28h, 0F6h, 0E3h, 8Bh, 0C8h, 0D1h, 0E8h, 0D1h, 0E8h, 0D1h, 0E8h, 05h, 00h, 0B8h, 0A3h, 0EAh
 db 10h, 0C3h
 
-sub_0_1F42:
+
+PROC	sub_0_1F42
+	PUBLIC	sub_0_1F42
+
+	push offset IMPLEMENT_ME_sub_0_1F42
+	call _quit
 db 0FAh, 8Bh, 0Eh, 0F6h, 0Bh, 0BAh, 0D4h, 03h, 0B0h, 0Ch, 0EEh, 42h, 8Ah, 0C5h
 db 0EEh, 4Ah, 0B0h, 0Dh, 0EEh, 42h, 8Ah, 0C1h, 0EEh, 0FBh, 0A1h, 0F6h, 0Bh, 0D1h, 0E8h, 0D1h
 db 0E8h, 0D1h, 0E8h, 0D1h, 0E8h, 05h, 00h, 0A0h, 0A3h, 0EAh, 10h, 0C7h, 06h, 0F6h, 0Bh, 04h
@@ -1140,6 +1257,8 @@ db 0Bh, 0A1h, 54h, 15h, 0Bh, 0C0h, 75h, 18h, 0B9h, 00h, 0A3h, 8Eh, 0C1h, 0A0h, 0
 db 24h, 0Fh, 0B3h, 30h, 0F6h, 0E3h, 05h, 00h, 36h, 01h, 06h, 0F6h, 0Bh, 0EBh, 16h, 90h
 db 0B9h, 00h, 0A0h, 8Eh, 0C1h, 0A0h, 0D1h, 94h, 24h, 0Fh, 0B3h, 30h, 0F6h, 0E3h, 05h, 00h
 db 06h, 01h, 06h, 0F6h, 0Bh, 0B8h, 05h, 01h, 0BAh, 0CEh, 03h, 0EFh, 0C3h
+ENDP
+
 
 sub_0_1FBD:
 db 57h, 0D1h, 0E6h
@@ -1151,7 +1270,12 @@ db 0C7h, 0FCh, 1Fh, 0A5h, 0A5h, 81h, 0EFh, 0B4h, 1Fh, 0A5h, 0A5h, 81h, 0C7h, 0FC
 db 0A5h, 81h, 0EFh, 0B4h, 1Fh, 0A5h, 0A5h, 81h, 0C7h, 0FCh, 1Fh, 0A5h, 0A5h, 81h, 0EFh, 0B4h
 db 1Fh, 0A5h, 0A5h, 81h, 0C7h, 0FCh, 1Fh, 0A5h, 0A5h, 8Ch, 0D0h, 8Eh, 0D8h, 5Fh, 0C3h
 
-sub_0_202F:
+
+PROC	sub_0_202F
+	PUBLIC	sub_0_202F
+
+	push offset IMPLEMENT_ME_sub_0_202F
+	call _quit
 db 57h
 db 0D1h, 0E6h, 8Bh, 0B4h, 0C8h, 06h, 8Bh, 0BDh, 0A8h, 09h, 0A1h, 98h, 0AEh, 8Eh, 0D8h, 0A4h
 db 0A4h, 83h, 0C7h, 2Eh, 0A4h, 0A4h, 83h, 0C7h, 2Eh, 0A4h, 0A4h, 83h, 0C7h, 2Eh, 0A4h, 0A4h
@@ -1160,6 +1284,8 @@ db 0C7h, 2Eh, 0A4h, 0A4h, 83h, 0C7h, 2Eh, 0A4h, 0A4h, 83h, 0C7h, 2Eh, 0A4h, 0A4h
 db 2Eh, 0A4h, 0A4h, 83h, 0C7h, 2Eh, 0A4h, 0A4h, 83h, 0C7h, 2Eh, 0A4h, 0A4h, 83h, 0C7h, 2Eh
 db 0A4h, 0A4h, 83h, 0C7h, 2Eh, 0A4h, 0A4h, 83h, 0C7h, 2Eh, 0A4h, 0A4h, 8Ch, 0D0h, 8Eh, 0D8h
 db 5Fh, 0C3h
+ENDP
+
 
 sub_0_2092:
 db 57h, 0D1h, 0E6h, 8Bh, 0B4h, 0C8h, 04h, 0D1h, 0E6h, 0BEh, 00h, 00h, 0BFh, 00h
@@ -1240,7 +1366,12 @@ mov ax, @data
 db 8Eh, 0D8h, 8Eh, 0D0h, 5Ah, 59h, 5Bh
 db 5Fh, 5Dh, 0C3h
 
-sub_0_2383:
+
+PROC	sub_0_2383
+	PUBLIC	sub_0_2383
+
+	push offset IMPLEMENT_ME_sub_0_2383
+	call _quit
 db 55h, 57h, 53h, 51h, 52h, 0BAh, 0CEh, 03h, 0B8h, 05h, 00h, 0EFh, 0B8h
 db 03h, 00h, 0A3h, 02h, 0Ch, 8Bh, 86h, 84h, 84h, 0A3h, 0FAh, 0Bh, 8Bh, 86h, 86h, 84h
 db 0A3h, 0FCh, 0Bh, 8Bh, 86h, 8Ah, 84h, 0A3h, 0FEh, 0Bh, 8Bh, 9Eh, 82h, 84h, 0D1h, 0E3h
@@ -1257,6 +1388,7 @@ db 0Bh, 0BAh, 0CEh, 03h, 0B8h, 04h, 03h, 0EFh, 0BAh, 0C4h, 03h, 0B8h, 02h, 08h, 
 db 3Eh, 00h, 0Ch, 8Bh, 0Eh, 0FAh, 0Bh, 8Bh, 36h, 0FCh, 0Bh, 8Bh, 2Eh, 0FEh, 0Bh, 0A1h
 db 7Eh, 0AEh, 8Eh, 0D8h, 36h, 0FFh, 16h, 0F8h, 0Bh, 0B8h, 05h, 01h, 0BAh, 0CEh, 03h, 0EFh
 db 0BAh, 0C4h, 03h, 0B0h, 02h, 0B4h, 0Fh, 0EFh, 5Ah, 59h, 5Bh, 5Fh, 5Dh, 0C3h
+ENDP
 
 
 ;===========================================================================

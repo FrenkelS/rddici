@@ -1475,6 +1475,19 @@ typedef enum {ingame,intitle,inscores} statetype;
 //int word_789_bfe = 0;
 
 
+const int word_789_238[78] = {
+0,1,2,3,4,5,6,7,8,9,
+0x0A,0x0B,0x0C,0x0E,0x0F,
+0x10,
+0x0D,
+0x11,0x12,0x13,0x14,0x15,0x16,0x17,0x18,0x19,0x1A,0x1B,0x1C,0x1D,0x1E,0x1F,
+0x20,0x21,0x22,0x23,0x24,0x25,0x26,0x27,0x28,0x29,0x2A,0x2B,0x2C,0x2D,0x2E,0x2F,
+0x30,0x31,0x32,0x33,0x34,0x35,0x36,0x37,0x38,0x39,0x3A,0x3B,0x3D,0x3E,0x3F,0x3C,
+0x41,0x42,0x43,0x40,0x44,0x45,0x46,0x47,0x48,0x49,0x4A,0x4B,0x4C,0x4D
+};
+
+int word_789_4A2;
+int word_789_4A4;
 int word_789_154C;
 int word_789_154E;
 int word_789_1550;
@@ -1490,11 +1503,12 @@ char unk_789_1D40[15890];
 int word_789_7B20[600];
 //int *word_789_7FD0;
 int word_789_8220;
-int word_789_8222;
 //int word_789_8228;
 int word_789_8476;
+int word_789_8478;
 int word_789_847A;
 int word_789_847C;
+int word_789_848E;
 int word_789_947C;
 int word_789_947E;
 int word_789_9480;
@@ -1503,6 +1517,7 @@ int word_789_9486[4];
 int word_789_9490;
 int word_789_9494;
 int word_789_949E;
+int word_789_94A2[12];
 int word_789_94BC;
 int word_789_94C4;
 int word_789_94C6;
@@ -1512,9 +1527,9 @@ int word_789_94CC;
 int word_789_94CE;
 long dword_789_94D0;
 int word_789_94D4;
-long dword_789_94DA;
 int word_789_94D6;
 int word_789_94D8;
+long dword_789_94DA;
 int word_789_94E0;
 int word_789_94E4;
 int word_789_94E6;
@@ -1602,7 +1617,7 @@ long dword_789_ADDA;
 
 
 // objtype *new;
-// int lastobj;
+int lastobj;
 
 
 //#define OBJECT_POOL ((objtype *)0x9508)
@@ -2461,7 +2476,7 @@ loc_0_1670:
 		word_789_9486[plane] = word_789_94C8 + (*(int*)(word_789_94C8 + 14)) * plane + 0x20;
 	}
 
-	word_789_8222 = 1;
+	lastobj = 1;
 	word_789_947E = *(int*)word_789_94C8;
 	word_789_947C = word_789_947E << 1;
 	word_789_1556 = word_789_947C + -42;
