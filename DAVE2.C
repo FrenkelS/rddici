@@ -1862,38 +1862,37 @@ void sub_0_4A9(void)
 =
 =============
 */
-void sub_0_548(void) {IMPLEMENT_ME("sub_0_548");}
-//void dotitlepage (void)
-//{
-//  int i;
-//  setscreenmode (grmode);
-//  gamestate = 2;
-//  sx = 0;
-//  sy = 0;
-//  print (aDave2TitleScre); // "Dave 2 title screen"
-//
-//  for (i=0;i<300;i++)
-//  {
-//    WaitVBL ();
-//    indemo = 0;
-//    ctrl = ControlPlayer(1);
-//    if (ctrl.button1 || ctrl.button2 || keydown[0x39])
-//    {
-//      exitdemo = true;
-//      break;
-//    }
-//    indemo = 1;
-//    if (bioskey (1))
-//      dofkeys ();
-//  }
-//
-//  clearkeys ();
-//  sx = 20;
-//  sy = 24;
-//  get ();
-//  indemo = 1;
-//  gamestate = 0;
-//}
+void sub_0_548(void)
+{
+  int i;
+  setscreenmode (grmode);
+  gamestate = 2;
+  sx = 0;
+  sy = 0;
+  print ("Dave 2 title screen");
+
+  for (i=0;i<300;i++)
+  {
+    WaitVBL ();
+    indemo = 0;
+    ctrl = ControlPlayer(1);
+    if (ctrl.button1 || ctrl.button2 || keydown[0x39])
+    {
+      exitdemo = true;
+      break;
+    }
+    indemo = 1;
+    if (bioskey (1))
+      dofkeys ();
+  }
+
+  clearkeys ();
+  sx = 20;
+  sy = 24;
+  get ();
+  indemo = 1;
+  gamestate = 0;
+}
 
 
 /*=========================================================================*/
@@ -2001,7 +2000,6 @@ void gameover (void)
 //void sub_0_7B3(void)
 void RF_Refresh(void)
 {
-asm    push    si
 asm    call    sub_0_1E46
 asm    inc     word_789_94CA
 asm    cmp     drawpage, 0
@@ -2048,11 +2046,10 @@ loc_0_7FD:
 asm    cmp     grmode, EGAgr
 asm    jnz     short loc_0_80A
 asm    xor     drawpage, 1
+asm    nop; // TODO
 
 loc_0_80A:
-
-asm    pop     si
-
+;
 }
 
 
