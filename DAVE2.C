@@ -2053,60 +2053,60 @@ loc_0_80A:
 }
 
 
-//void sub_0_80D(void)
-//{
-//asm {
-//db 83h, 0ECh, 0Eh, 56h, 57h, 33h, 0C0h, 0BAh, 00h, 01h, 50h, 52h, 0FFh, 36h, 0D2h, 94h
-//db 0FFh, 36h, 0D0h, 94h, 0E8h, 4Ch, 6Ch, 8Bh, 16h, 2Eh, 1Dh, 2Bh, 0D0h, 89h, 16h, 2Eh
-//db 1Dh, 33h, 0C0h, 0BAh, 00h, 01h, 50h, 52h, 0FFh, 36h, 0CEh, 94h, 0FFh, 36h, 0CCh, 94h
-//db 0E8h, 30h, 6Ch, 8Bh, 16h, 2Ch, 1Dh, 2Bh, 0D0h, 89h, 16h, 2Ch, 1Dh, 83h, 3Eh, 9Ch
-//db 0AFh, 02h, 74h, 03h, 0E9h, 0Eh, 01h, 33h, 0C0h, 0BAh, 10h, 00h, 50h, 52h, 33h, 0C0h
-//db 0BAh, 00h, 01h, 50h, 52h, 0FFh, 36h, 0D2h, 94h, 0FFh, 36h, 0D0h, 94h, 0E8h, 03h, 6Ch
-//db 52h, 50h, 0E8h, 0Dh, 6Ch, 8Bh, 16h, 2Eh, 1Dh, 03h, 0D0h, 89h, 16h, 2Eh, 1Dh, 33h
-//db 0C0h, 0BAh, 10h, 00h, 50h, 52h, 33h, 0C0h, 0BAh, 00h, 01h, 50h, 52h, 0FFh, 36h, 0CEh
-//db 94h, 0FFh, 36h, 0CCh, 94h, 0E8h, 0DBh, 6Bh, 52h, 50h, 0E8h, 0E5h, 6Bh, 8Bh, 16h, 2Ch
-//db 1Dh, 03h, 0D0h, 89h, 16h, 2Ch, 1Dh, 83h, 06h, 2Eh, 1Dh, 20h, 0A1h, 2Ch, 1Dh, 0BBh
-//db 10h, 00h, 99h, 0F7h, 0FBh, 89h, 46h, 0F4h, 83h, 7Eh, 0F4h, 00h, 7Dh, 07h, 0C7h, 46h
-//db 0F4h, 00h, 00h, 0EBh, 0Bh, 83h, 7Eh, 0F4h, 17h, 7Eh, 05h, 33h, 0C0h, 0E9h, 0D1h, 01h
-//db 0A1h, 0A4h, 0C3h, 0D1h, 0E0h, 0D1h, 0E0h, 0D1h, 0E0h, 50h, 0A1h, 2Ch, 1Dh, 5Ah, 03h, 0C2h
-//db 48h, 0BBh, 10h, 00h, 99h, 0F7h, 0FBh, 8Bh, 0F8h, 83h, 0FFh, 14h, 7Eh, 05h, 0BFh, 14h
-//db 00h, 0EBh, 09h, 0Bh, 0FFh, 7Dh, 05h, 33h, 0C0h, 0E9h, 0A5h, 01h, 0A1h, 2Eh, 1Dh, 05h
-//db 0E0h, 0FFh, 0BBh, 10h, 00h, 99h, 0F7h, 0FBh, 89h, 46h, 0F2h, 83h, 7Eh, 0F2h, 00h, 7Dh
-//db 07h, 0C7h, 46h, 0F2h, 00h, 00h, 0EBh, 0Bh, 83h, 7Eh, 0F2h, 0Dh, 7Eh, 05h, 33h, 0C0h
-//db 0E9h, 7Eh, 01h, 0A1h, 2Eh, 1Dh, 03h, 06h, 0A6h, 0C3h, 05h, 0DFh, 0FFh, 0BBh, 10h, 00h
-//db 99h, 0F7h, 0FBh, 8Bh, 0F0h, 83h, 0FEh, 0Dh, 7Eh, 05h, 0BEh, 0Dh, 00h, 0EBh, 09h, 0Bh
-//db 0F6h, 7Dh, 05h, 33h, 0C0h, 0E9h, 59h, 01h, 0A1h, 2Ch, 1Dh, 0D1h, 0F8h, 0D1h, 0F8h, 0D1h
-//db 0F8h, 05h, 04h, 00h, 0A3h, 2Ch, 1Dh, 8Bh, 0C6h, 0BAh, 15h, 00h, 0F7h, 0EAh, 03h, 0C7h
-//db 0D1h, 0E0h, 89h, 46h, 0FEh, 8Bh, 46h, 0F2h, 89h, 46h, 0F6h, 0EBh, 2Ch, 8Bh, 46h, 0F4h
-//db 89h, 46h, 0F8h, 0EBh, 1Ch, 8Bh, 46h, 0F6h, 0BAh, 15h, 00h, 0F7h, 0EAh, 03h, 46h, 0F8h
-//db 8Bh, 1Eh, 9Eh, 94h, 0D1h, 0E3h, 89h, 87h, 20h, 7Bh, 0FFh, 06h, 9Eh, 94h, 0FFh, 46h
-//db 0F8h, 39h, 7Eh, 0F8h, 7Eh, 0DFh, 0FFh, 46h, 0F6h, 39h, 76h, 0F6h, 7Eh, 0CFh, 0FFh, 06h
-//db 0BCh, 94h, 83h, 06h, 0C6h, 94h, 20h, 8Bh, 1Eh, 0C6h, 94h, 8Bh, 46h, 0FEh, 89h, 07h
-//db 8Bh, 1Eh, 0C6h, 94h, 0A1h, 2Ch, 1Dh, 89h, 47h, 02h, 8Bh, 1Eh, 0C6h, 94h, 0A1h, 2Eh
-//db 1Dh, 89h, 47h, 04h, 8Bh, 1Eh, 0C6h, 94h, 0A1h, 0A4h, 0C3h, 89h, 47h, 06h, 8Bh, 1Eh
-//db 0C6h, 94h, 0A1h, 0A6h, 0C3h, 89h, 47h, 08h, 8Bh, 1Eh, 0C6h, 94h, 0A1h, 0AAh, 0C3h, 8Bh
-//db 16h, 0A8h, 0C3h, 89h, 57h, 0Ah, 89h, 47h, 0Ch, 8Bh, 1Eh, 0C6h, 94h, 0A1h, 0AEh, 0C3h
-//db 8Bh, 16h, 0ACh, 0C3h, 89h, 57h, 0Eh, 89h, 47h, 10h, 8Bh, 1Eh, 0C6h, 94h, 0C7h, 47h
-//db 12h, 00h, 00h, 8Bh, 1Eh, 28h, 82h, 0A1h, 34h, 1Dh, 89h, 47h, 1Ch, 8Bh, 1Eh, 28h
-//db 82h, 0A1h, 28h, 1Dh, 89h, 47h, 20h, 8Bh, 1Eh, 28h, 82h, 0A1h, 36h, 1Dh, 89h, 47h
-//db 1Eh, 8Bh, 1Eh, 28h, 82h, 0A1h, 2Ah, 1Dh, 89h, 47h, 22h, 8Bh, 1Eh, 0D4h, 94h, 0B1h
-//db 05h, 0D3h, 0E3h, 8Bh, 87h, 7Ch, 84h, 3Bh, 46h, 0FEh, 72h, 17h, 8Bh, 1Eh, 0BCh, 94h
-//db 0B1h, 05h, 0D3h, 0E3h, 0A1h, 0D4h, 94h, 89h, 87h, 8Eh, 84h, 0A1h, 0BCh, 94h, 0A3h, 0D4h
-//db 94h, 0EBh, 49h, 0A1h, 0D4h, 94h, 89h, 46h, 0FCh, 0EBh, 14h, 8Bh, 46h, 0FCh, 89h, 46h
-//db 0FAh, 8Bh, 5Eh, 0FCh, 0B1h, 05h, 0D3h, 0E3h, 8Bh, 87h, 8Eh, 84h, 89h, 46h, 0FCh, 8Bh
-//db 5Eh, 0FCh, 0B1h, 05h, 0D3h, 0E3h, 8Bh, 87h, 7Ch, 84h, 3Bh, 46h, 0FEh, 72h, 0DCh, 8Bh
-//db 5Eh, 0FAh, 0B1h, 05h, 0D3h, 0E3h, 0A1h, 0BCh, 94h, 89h, 87h, 8Eh, 84h, 8Bh, 1Eh, 0BCh
-//db 94h, 0B1h, 05h, 0D3h, 0E3h, 8Bh, 46h, 0FCh, 89h, 87h, 8Eh, 84h, 0B8h, 01h, 00h, 0EBh
-//db 00h, 5Fh, 5Eh, 8Bh, 0E5h
-//}
-//}
+void sub_0_80D_TODO(void)
+{
+asm {
+db 83h, 0ECh, 0Eh, 56h, 57h, 33h, 0C0h, 0BAh, 00h, 01h, 50h, 52h, 0FFh, 36h, 0D2h, 94h
+db 0FFh, 36h, 0D0h, 94h, 0E8h, 4Ch, 6Ch, 8Bh, 16h, 2Eh, 1Dh, 2Bh, 0D0h, 89h, 16h, 2Eh
+db 1Dh, 33h, 0C0h, 0BAh, 00h, 01h, 50h, 52h, 0FFh, 36h, 0CEh, 94h, 0FFh, 36h, 0CCh, 94h
+db 0E8h, 30h, 6Ch, 8Bh, 16h, 2Ch, 1Dh, 2Bh, 0D0h, 89h, 16h, 2Ch, 1Dh, 83h, 3Eh, 9Ch
+db 0AFh, 02h, 74h, 03h, 0E9h, 0Eh, 01h, 33h, 0C0h, 0BAh, 10h, 00h, 50h, 52h, 33h, 0C0h
+db 0BAh, 00h, 01h, 50h, 52h, 0FFh, 36h, 0D2h, 94h, 0FFh, 36h, 0D0h, 94h, 0E8h, 03h, 6Ch
+db 52h, 50h, 0E8h, 0Dh, 6Ch, 8Bh, 16h, 2Eh, 1Dh, 03h, 0D0h, 89h, 16h, 2Eh, 1Dh, 33h
+db 0C0h, 0BAh, 10h, 00h, 50h, 52h, 33h, 0C0h, 0BAh, 00h, 01h, 50h, 52h, 0FFh, 36h, 0CEh
+db 94h, 0FFh, 36h, 0CCh, 94h, 0E8h, 0DBh, 6Bh, 52h, 50h, 0E8h, 0E5h, 6Bh, 8Bh, 16h, 2Ch
+db 1Dh, 03h, 0D0h, 89h, 16h, 2Ch, 1Dh, 83h, 06h, 2Eh, 1Dh, 20h, 0A1h, 2Ch, 1Dh, 0BBh
+db 10h, 00h, 99h, 0F7h, 0FBh, 89h, 46h, 0F4h, 83h, 7Eh, 0F4h, 00h, 7Dh, 07h, 0C7h, 46h
+db 0F4h, 00h, 00h, 0EBh, 0Bh, 83h, 7Eh, 0F4h, 17h, 7Eh, 05h, 33h, 0C0h, 0E9h, 0D1h, 01h
+db 0A1h, 0A4h, 0C3h, 0D1h, 0E0h, 0D1h, 0E0h, 0D1h, 0E0h, 50h, 0A1h, 2Ch, 1Dh, 5Ah, 03h, 0C2h
+db 48h, 0BBh, 10h, 00h, 99h, 0F7h, 0FBh, 8Bh, 0F8h, 83h, 0FFh, 14h, 7Eh, 05h, 0BFh, 14h
+db 00h, 0EBh, 09h, 0Bh, 0FFh, 7Dh, 05h, 33h, 0C0h, 0E9h, 0A5h, 01h, 0A1h, 2Eh, 1Dh, 05h
+db 0E0h, 0FFh, 0BBh, 10h, 00h, 99h, 0F7h, 0FBh, 89h, 46h, 0F2h, 83h, 7Eh, 0F2h, 00h, 7Dh
+db 07h, 0C7h, 46h, 0F2h, 00h, 00h, 0EBh, 0Bh, 83h, 7Eh, 0F2h, 0Dh, 7Eh, 05h, 33h, 0C0h
+db 0E9h, 7Eh, 01h, 0A1h, 2Eh, 1Dh, 03h, 06h, 0A6h, 0C3h, 05h, 0DFh, 0FFh, 0BBh, 10h, 00h
+db 99h, 0F7h, 0FBh, 8Bh, 0F0h, 83h, 0FEh, 0Dh, 7Eh, 05h, 0BEh, 0Dh, 00h, 0EBh, 09h, 0Bh
+db 0F6h, 7Dh, 05h, 33h, 0C0h, 0E9h, 59h, 01h, 0A1h, 2Ch, 1Dh, 0D1h, 0F8h, 0D1h, 0F8h, 0D1h
+db 0F8h, 05h, 04h, 00h, 0A3h, 2Ch, 1Dh, 8Bh, 0C6h, 0BAh, 15h, 00h, 0F7h, 0EAh, 03h, 0C7h
+db 0D1h, 0E0h, 89h, 46h, 0FEh, 8Bh, 46h, 0F2h, 89h, 46h, 0F6h, 0EBh, 2Ch, 8Bh, 46h, 0F4h
+db 89h, 46h, 0F8h, 0EBh, 1Ch, 8Bh, 46h, 0F6h, 0BAh, 15h, 00h, 0F7h, 0EAh, 03h, 46h, 0F8h
+db 8Bh, 1Eh, 9Eh, 94h, 0D1h, 0E3h, 89h, 87h, 20h, 7Bh, 0FFh, 06h, 9Eh, 94h, 0FFh, 46h
+db 0F8h, 39h, 7Eh, 0F8h, 7Eh, 0DFh, 0FFh, 46h, 0F6h, 39h, 76h, 0F6h, 7Eh, 0CFh, 0FFh, 06h
+db 0BCh, 94h, 83h, 06h, 0C6h, 94h, 20h, 8Bh, 1Eh, 0C6h, 94h, 8Bh, 46h, 0FEh, 89h, 07h
+db 8Bh, 1Eh, 0C6h, 94h, 0A1h, 2Ch, 1Dh, 89h, 47h, 02h, 8Bh, 1Eh, 0C6h, 94h, 0A1h, 2Eh
+db 1Dh, 89h, 47h, 04h, 8Bh, 1Eh, 0C6h, 94h, 0A1h, 0A4h, 0C3h, 89h, 47h, 06h, 8Bh, 1Eh
+db 0C6h, 94h, 0A1h, 0A6h, 0C3h, 89h, 47h, 08h, 8Bh, 1Eh, 0C6h, 94h, 0A1h, 0AAh, 0C3h, 8Bh
+db 16h, 0A8h, 0C3h, 89h, 57h, 0Ah, 89h, 47h, 0Ch, 8Bh, 1Eh, 0C6h, 94h, 0A1h, 0AEh, 0C3h
+db 8Bh, 16h, 0ACh, 0C3h, 89h, 57h, 0Eh, 89h, 47h, 10h, 8Bh, 1Eh, 0C6h, 94h, 0C7h, 47h
+db 12h, 00h, 00h, 8Bh, 1Eh, 28h, 82h, 0A1h, 34h, 1Dh, 89h, 47h, 1Ch, 8Bh, 1Eh, 28h
+db 82h, 0A1h, 28h, 1Dh, 89h, 47h, 20h, 8Bh, 1Eh, 28h, 82h, 0A1h, 36h, 1Dh, 89h, 47h
+db 1Eh, 8Bh, 1Eh, 28h, 82h, 0A1h, 2Ah, 1Dh, 89h, 47h, 22h, 8Bh, 1Eh, 0D4h, 94h, 0B1h
+db 05h, 0D3h, 0E3h, 8Bh, 87h, 7Ch, 84h, 3Bh, 46h, 0FEh, 72h, 17h, 8Bh, 1Eh, 0BCh, 94h
+db 0B1h, 05h, 0D3h, 0E3h, 0A1h, 0D4h, 94h, 89h, 87h, 8Eh, 84h, 0A1h, 0BCh, 94h, 0A3h, 0D4h
+db 94h, 0EBh, 49h, 0A1h, 0D4h, 94h, 89h, 46h, 0FCh, 0EBh, 14h, 8Bh, 46h, 0FCh, 89h, 46h
+db 0FAh, 8Bh, 5Eh, 0FCh, 0B1h, 05h, 0D3h, 0E3h, 8Bh, 87h, 8Eh, 84h, 89h, 46h, 0FCh, 8Bh
+db 5Eh, 0FCh, 0B1h, 05h, 0D3h, 0E3h, 8Bh, 87h, 7Ch, 84h, 3Bh, 46h, 0FEh, 72h, 0DCh, 8Bh
+db 5Eh, 0FAh, 0B1h, 05h, 0D3h, 0E3h, 0A1h, 0BCh, 94h, 89h, 87h, 8Eh, 84h, 8Bh, 1Eh, 0BCh
+db 94h, 0B1h, 05h, 0D3h, 0E3h, 8Bh, 46h, 0FCh, 89h, 87h, 8Eh, 84h, 0B8h, 01h, 00h, 0EBh
+db 00h, 5Fh, 5Eh, 8Bh, 0E5h
+}
+}
 
 
 //void sub_0_AA7(void)
-//void BadThink(void)
-//{
-//  _quit(aBadthink); // "badTHINK!"
-//}
+void BadThink_TODO(void)
+{
+  _quit("badTHINK!");
+}
 
 
 //void sub_0_AB4(void)
