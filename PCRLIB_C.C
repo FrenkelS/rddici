@@ -466,19 +466,19 @@ void LoadDemo (int demonum)
 }
 
 //void sub_0_2CD2(void)
-//void SaveDemo (int demonum)
-//{
-//  char st2[5];
-//
-//  strcpy (str,"DEMO");
-//  itoa (demonum,st2,10);
-//  strcat (str,st2);
-//  strcat (str,".");
-//  strcat (str,_extension);
-//
-//  SaveFile (str,MK_FP(_DS,&demobuffer),(demoptr-&demobuffer[0]));
-//  indemo = notdemo;
-//}
+void SaveDemo_TODO (int demonum)
+{
+  char st2[5];
+
+  strcpy (str,"DEMO");
+  itoa (demonum,st2,10);
+  strcat (str,st2);
+  strcat (str,".");
+  strcat (str,_extension);
+
+  SaveFile (str,MK_FP(_DS,&demobuffer),(demoptr-&demobuffer[0]));
+  indemo = notdemo;
+}
 
 
 ////////////////////////
@@ -745,7 +745,24 @@ void huge *bloadin (char *filename)
 
 
 //void sub_0_2F64(void)
-void huge *bloadinRLE (char *filename) {IMPLEMENT_ME("bloadinRLE");}
+void huge *bloadinRLE (char *filename)
+{
+	IMPLEMENT_ME("bloadinRLE");
+asm {
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+}
+}
 //{
 // int handle;
 // long length;
@@ -845,21 +862,21 @@ void setscreenmode (grtype mode)
 ========================
 */
 //void sub_0_30A5(void)
-//void egasplitscreen (int linenum)
-//{
-//  WaitVBL ();
-//  if (_videocard==VGAcard)
-//    linenum*=2;
-//  outportb (crtcaddr,CRTCLINECOMPARE);
-//  outportb (crtcaddr+1,linenum % 256);
-//  outportb (crtcaddr,CRTCOVERFLOW);
-//  outportb (crtcaddr+1, 1+16*(linenum/256));
-//  if (_videocard==VGAcard)
-//  {
-//    outportb (crtcaddr,CRTCMAXSCANLINE);
-//    outportb (crtcaddr+1,inportb(crtcaddr+1) & (255-64));
-//  }
-//}
+void egasplitscreen_TODO (int linenum)
+{
+  WaitVBL ();
+  if (_videocard==VGAcard)
+    linenum*=2;
+  outportb (crtcaddr,CRTCLINECOMPARE);
+  outportb (crtcaddr+1,linenum % 256);
+  outportb (crtcaddr,CRTCOVERFLOW);
+  outportb (crtcaddr+1, 1+16*(linenum/256));
+  if (_videocard==VGAcard)
+  {
+    outportb (crtcaddr,CRTCMAXSCANLINE);
+    outportb (crtcaddr+1,inportb(crtcaddr+1) & (255-64));
+  }
+}
 
 
 /*
@@ -870,14 +887,14 @@ void setscreenmode (grtype mode)
 ========================
 */
 //void sub_0_312F(void)
-//void crtcstart (unsigned start)
-//{
-//  WaitVBL ();
-//  outportb (crtcaddr,CRTCSTARTL);
-//  outportb (crtcaddr+1,start % 256);
-//  outportb (crtcaddr,CRTCSTARTH);
-//  outportb (crtcaddr+1,start / 256);
-//}
+void crtcstart_TODO (unsigned start)
+{
+  WaitVBL ();
+  outportb (crtcaddr,CRTCSTARTL);
+  outportb (crtcaddr+1,start % 256);
+  outportb (crtcaddr,CRTCSTARTH);
+  outportb (crtcaddr+1,start / 256);
+}
 
 
 int win_xl,win_yl,win_xh,win_yh;
@@ -1075,7 +1092,7 @@ void printlong (long val)
 
 /*========================================================================*/
 
-//int _MouseStatus;
+int _MouseStatus;
 
 ////////////////////////////////////////////////////////////////////
 //
@@ -1083,71 +1100,71 @@ void printlong (long val)
 //
 ////////////////////////////////////////////////////////////////////
 //void sub_0_3481(void)
-//int _MouseInit(void)
-//{
-// union REGS regs;
-// unsigned char far *vector;
-//
-// if ((vector=MK_FP(peek(0,0x33*4+2),peek(0,0x33*4)))==NULL) return 0;
-//
-// if (*vector == 207)
-//   return _MouseStatus = 0;
-//
-// _AX=0;
-// geninterrupt(0x33);
-// return _MouseStatus = 1;
-//}
+int _MouseInit_TODO(void)
+{
+ union REGS regs;
+ unsigned char far *vector;
+
+ if ((vector=MK_FP(peek(0,0x33*4+2),peek(0,0x33*4)))==NULL) return 0;
+
+ if (*vector == 207)
+   return _MouseStatus = 0;
+
+ _AX=0;
+ geninterrupt(0x33);
+ return _MouseStatus = 1;
+}
 
 
 //void sub_0_34C6(void)
-//void _MouseHide(void)
-//{
-// if (!_MouseStatus) return;
-//
-// _AX=2;
-// geninterrupt(0x33);
-//}
+void _MouseHide_TODO(void)
+{
+ if (!_MouseStatus) return;
+
+ _AX=2;
+ geninterrupt(0x33);
+}
 
 
 
 //void sub_0_34D9(void)
-//void _MouseShow(void)
-//{
-// if (!_MouseStatus) return;
-//
-// _AX=1;
-// geninterrupt(0x33);
-//}
+void _MouseShow_TODO(void)
+{
+ if (!_MouseStatus) return;
+
+ _AX=1;
+ geninterrupt(0x33);
+}
 
 
 //void sub_0_34EC(void)
-//int _MouseButton(void)
-//{
-// union REGS regs;
-//
-// if (!_MouseStatus) return 0;
-//
-// regs.x.ax=3;
-// int86(0x33,&regs,&regs);
-// return(regs.x.bx);
-//}
+int _MouseButton_TODO(void)
+{
+ union REGS regs;
+
+ if (!_MouseStatus) return 0;
+
+ regs.x.ax=3;
+ int86(0x33,&regs,&regs);
+ return(regs.x.bx);
+}
 
 
 
 //void sub_0_351D(void)
-//void _MouseCoords(int *x,int *y)
-//{
-// union REGS regs;
-//
-// if (!_MouseStatus) return;
-//
-// regs.x.ax=3;
-// int86(0x33,&regs,&regs);
-// *x=regs.x.cx;
-// *y=regs.x.dx;
-//
-// *x/=2;
-//}
+void _MouseCoords_TODO(int *x,int *y)
+{
+ union REGS regs;
+
+ if (!_MouseStatus) return;
+
+ regs.x.ax=3;
+ int86(0x33,&regs,&regs);
+ *x=regs.x.cx;
+ *y=regs.x.dx;
+
+ *x/=2;
+}
 
 
 
@@ -1158,16 +1175,16 @@ void printlong (long val)
 //
 ////////////////////////////////////////////////////////////////////
 //void sub_0_3563
-//long _Verify(char *filename)
-//{
-// int handle;
-// long size;
-//
-// if ((handle=open(filename,O_BINARY))==-1) return 0;
-// size=filelength(handle);
-// close(handle);
-// return size;
-//}
+long _Verify_TODO(char *filename)
+{
+ int handle;
+ long size;
+
+ if ((handle=open(filename,O_BINARY))==-1) return 0;
+ size=filelength(handle);
+ close(handle);
+ return size;
+}
 
 
 
@@ -1179,17 +1196,17 @@ void printlong (long val)
 //
 ////////////////////////////////////////////////////////////////////
 //void sub_0_35A0(void)
-//void _printhexb(unsigned char value)
-//{
-// int loop;
-// char hexstr[16]="0123456789ABCDEF",str[2]="";
-//
-// for (loop=0;loop<2;loop++)
-//   {
-//    str[0]=hexstr[(value>>(1-loop)*4)&15];
-//    print(str);
-//   }
-//}
+void _printhexb_TODO(unsigned char value)
+{
+ int loop;
+ char hexstr[16]="0123456789ABCDEF",str[2]="";
+
+ for (loop=0;loop<2;loop++)
+   {
+    str[0]=hexstr[(value>>(1-loop)*4)&15];
+    print(str);
+   }
+}
 
 
 
@@ -1200,12 +1217,12 @@ void printlong (long val)
 //
 ////////////////////////////////////////////////////////////////////
 //void sub_0_3603(void)
-//void _printhex(unsigned value)
-//{
-// print("$");
-// _printhexb(value>>8);
-// _printhexb(value&0xff);
-//}
+void _printhex_TODO(unsigned value)
+{
+ print("$");
+ _printhexb(value>>8);
+ _printhexb(value&0xff);
+}
 
 
 
@@ -1216,14 +1233,14 @@ void printlong (long val)
 //
 ////////////////////////////////////////////////////////////////////
 //void sub_0_3626(void)
-//void _printbin(unsigned value)
-//{
-// int loop;
-//
-// print("%");
-// for (loop=0;loop<16;loop++)
-//    if ((value>>15-loop)&1) print("1"); else print("0");
-//}
+void _printbin_TODO(unsigned value)
+{
+ int loop;
+
+ print("%");
+ for (loop=0;loop<16;loop++)
+    if ((value>>15-loop)&1) print("1"); else print("0");
+}
 
 
 
@@ -1234,11 +1251,11 @@ void printlong (long val)
 //
 ////////////////////////////////////////////////////////////////////
 //void sub_0_3668(void)
-//void _printc(char *string)
-//{
-// sx=1+screencenterx-((int)strlen(string)/2);
-// print(string);
-//}
+void _printc_TODO(char *string)
+{
+ sx=1+screencenterx-((int)strlen(string)/2);
+ print(string);
+}
 
 
 
@@ -1249,46 +1266,46 @@ void printlong (long val)
 //
 ////////////////////////////////////////////////////////////////////
 //void sub_0_368C(void)
-//unsigned _inputint(void)
-//{
-// char string[18]="",digit,hexstr[16]="0123456789ABCDEF";
-// unsigned value,loop,loop1;
-//
-// _input(string,17);
-// if (string[0]=='$')
-//   {
-//    int digits;
-//
-//    digits=strlen(string)+-2;
-//    if (digits<0) return 0;
-//
-//    for (value=0,loop1=0;loop1<=digits;loop1++)
-//      {
-//       digit=toupper(string[loop1+1]);
-//       for (loop=0;loop<16;loop++)
-//	  if (digit==hexstr[loop])
-//	    {
-//	     value|=(loop<<(digits-loop1)*4);
-//	     break;
-//	    }
-//      }
-//   }
-// else if (string[0]=='%')
-//   {
-//    int digits;
-//
-//    digits=strlen(string)+-2;
-//    if (digits<0) return 0;
-//
-//    for (value=0,loop1=0;loop1<=digits;loop1++)
-//      {
-//       if (string[loop1+1]<'0' || string[loop1+1]>'1') return 0;
-//       value|=(string[loop1+1]-'0')<<(digits-loop1);
-//      }
-//   }
-// else value=atoi(string);
-// return value;
-//}
+unsigned _inputint_TODO(void)
+{
+ char string[18]="",digit,hexstr[16]="0123456789ABCDEF";
+ unsigned value,loop,loop1;
+
+ _input(string,17);
+ if (string[0]=='$')
+   {
+    int digits;
+
+    digits=strlen(string)+-2;
+    if (digits<0) return 0;
+
+    for (value=0,loop1=0;loop1<=digits;loop1++)
+      {
+       digit=toupper(string[loop1+1]);
+       for (loop=0;loop<16;loop++)
+	  if (digit==hexstr[loop])
+	    {
+	     value|=(loop<<(digits-loop1)*4);
+	     break;
+	    }
+      }
+   }
+ else if (string[0]=='%')
+   {
+    int digits;
+
+    digits=strlen(string)+-2;
+    if (digits<0) return 0;
+
+    for (value=0,loop1=0;loop1<=digits;loop1++)
+      {
+       if (string[loop1+1]<'0' || string[loop1+1]>'1') return 0;
+       value|=(string[loop1+1]-'0')<<(digits-loop1);
+      }
+   }
+ else value=atoi(string);
+ return value;
+}
 
 
 
@@ -1299,33 +1316,33 @@ void printlong (long val)
 //
 ////////////////////////////////////////////////////////////////////
 //void sub_0_37B1(void)
-//int _input(char *string,int max)
-//{
-// char key;
-// int count=0,loop;
-//
-// do {
-//     key=toupper(get()&0xff);
-//     if ((key==127 || key==8)&&count>0)
-//       {
-//	count--;
-//	drawchar(sx,sy,' ');
-//	sx--;
-//       }
-//
-//     if (key>=' ' && key<='z' && count<max)
-//       {
-//	*(string+count++)=key;
-//	drawchar(sx++,sy,key);
-//       }
-//
-//    } while (key!=27 && key!=13);
-//
-// for (loop=count;loop<max;loop++) *(string+loop)=0;
-//
-// if (key==13) return 1;
-// return 0;
-//}
+int _input_TODO(char *string,int max)
+{
+ char key;
+ int count=0,loop;
+
+ do {
+     key=toupper(get()&0xff);
+     if ((key==127 || key==8)&&count>0)
+       {
+	count--;
+	drawchar(sx,sy,' ');
+	sx--;
+       }
+
+     if (key>=' ' && key<='z' && count<max)
+       {
+	*(string+count++)=key;
+	drawchar(sx++,sy,key);
+       }
+
+    } while (key!=27 && key!=13);
+
+ for (loop=count;loop<max;loop++) *(string+loop)=0;
+
+ if (key==13) return 1;
+ return 0;
+}
 
 /*========================================================================*/
 

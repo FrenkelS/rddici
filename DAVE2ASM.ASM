@@ -1495,7 +1495,7 @@ PROC	sub_0_2383
 
 	push offset IMPLEMENT_ME_sub_0_2383
 	call _quit
-db 55h, 57h, 53h, 51h, 52h, 0BAh, 0CEh, 03h, 0B8h, 05h, 00h, 0EFh, 0B8h
+;db 55h, 57h, 53h, 51h, 52h, 0BAh, 0CEh, 03h, 0B8h, 05h, 00h, 0EFh, 0B8h
 db 03h, 00h, 0A3h, 02h, 0Ch, 8Bh, 86h, 84h, 84h, 0A3h, 0FAh, 0Bh, 8Bh, 86h, 86h, 84h
 db 0A3h, 0FCh, 0Bh, 8Bh, 86h, 8Ah, 84h, 0A3h, 0FEh, 0Bh, 8Bh, 9Eh, 82h, 84h, 0D1h, 0E3h
 db 8Bh, 87h, 0BAh, 04h, 0A3h, 0F8h, 0Bh, 8Bh, 9Eh, 80h, 84h, 0D1h, 0E3h, 2Eh, 8Bh, 87h
