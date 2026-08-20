@@ -2130,23 +2130,23 @@ void FindFreeObj_TODO (void)
 }
 
 
-//void sub_0_B0D(void)
-//{
-//asm {
-//db 33h, 0C0h, 0BAh, 00h, 01h, 50h, 52h, 8Bh, 1Eh, 28h, 82h, 0FFh, 77h, 02h, 0FFh, 37h
-//db 0E8h, 50h, 69h, 0A3h, 2Ch, 1Dh, 33h, 0C0h, 0BAh, 00h, 01h, 50h, 52h, 8Bh, 1Eh, 28h
-//db 82h, 0FFh, 77h, 06h, 0FFh, 77h, 04h, 0E8h, 39h, 69h, 0A3h, 2Eh, 1Dh, 83h, 3Eh, 9Ch
-//db 0AFh, 01h, 75h, 1Dh, 0A1h, 0A0h, 94h, 0D1h, 0E0h, 50h, 0A1h, 2Ch, 1Dh, 0BBh, 02h, 00h
-//db 99h, 0F7h, 0FBh, 0BBh, 02h, 00h, 99h, 0F7h, 0FBh, 58h, 03h, 0C2h, 0A3h, 26h, 82h, 0EBh
-//db 23h, 0A1h, 0A0h, 94h, 0D1h, 0E0h, 0D1h, 0E0h, 50h, 0A1h, 2Ch, 1Dh, 0BBh, 02h, 00h, 99h
-//db 0F7h, 0FBh, 0BBh, 04h, 00h, 99h, 0F7h, 0FBh, 58h, 03h, 0C2h, 0A3h, 26h, 82h, 81h, 26h
-//db 2Ch, 1Dh, 0F9h, 0FFh, 8Bh, 1Eh, 28h, 82h, 0A1h, 26h, 82h, 89h, 47h, 18h, 0B8h, 0A4h
-//db 0C3h, 1Eh, 50h, 0A1h, 26h, 82h, 0B1h, 05h, 0D3h, 0E0h, 05h, 0C8h, 0C3h, 1Eh, 50h, 0B9h
-//db 20h, 00h, 0E8h, 0FDh, 69h, 0A1h, 2Ch, 1Dh, 03h, 06h, 0B0h, 0C3h, 0A3h, 34h, 1Dh, 0A1h
-//db 2Ch, 1Dh, 03h, 06h, 0B4h, 0C3h, 0A3h, 28h, 1Dh, 0A1h, 2Eh, 1Dh, 03h, 06h, 0B2h, 0C3h
-//db 0A3h, 36h, 1Dh, 0A1h, 2Eh, 1Dh, 03h, 06h, 0B6h, 0C3h, 0A3h, 2Ah, 1Dh
-//}
-//}
+void sub_0_B0D_TODO(void)
+{
+asm {
+db 33h, 0C0h, 0BAh, 00h, 01h, 50h, 52h, 8Bh, 1Eh, 28h, 82h, 0FFh, 77h, 02h, 0FFh, 37h
+db 0E8h, 50h, 69h, 0A3h, 2Ch, 1Dh, 33h, 0C0h, 0BAh, 00h, 01h, 50h, 52h, 8Bh, 1Eh, 28h
+db 82h, 0FFh, 77h, 06h, 0FFh, 77h, 04h, 0E8h, 39h, 69h, 0A3h, 2Eh, 1Dh, 83h, 3Eh, 9Ch
+db 0AFh, 01h, 75h, 1Dh, 0A1h, 0A0h, 94h, 0D1h, 0E0h, 50h, 0A1h, 2Ch, 1Dh, 0BBh, 02h, 00h
+db 99h, 0F7h, 0FBh, 0BBh, 02h, 00h, 99h, 0F7h, 0FBh, 58h, 03h, 0C2h, 0A3h, 26h, 82h, 0EBh
+db 23h, 0A1h, 0A0h, 94h, 0D1h, 0E0h, 0D1h, 0E0h, 50h, 0A1h, 2Ch, 1Dh, 0BBh, 02h, 00h, 99h
+db 0F7h, 0FBh, 0BBh, 04h, 00h, 99h, 0F7h, 0FBh, 58h, 03h, 0C2h, 0A3h, 26h, 82h, 81h, 26h
+db 2Ch, 1Dh, 0F9h, 0FFh, 8Bh, 1Eh, 28h, 82h, 0A1h, 26h, 82h, 89h, 47h, 18h, 0B8h, 0A4h
+db 0C3h, 1Eh, 50h, 0A1h, 26h, 82h, 0B1h, 05h, 0D3h, 0E0h, 05h, 0C8h, 0C3h, 1Eh, 50h, 0B9h
+db 20h, 00h, 0E8h, 0FDh, 69h, 0A1h, 2Ch, 1Dh, 03h, 06h, 0B0h, 0C3h, 0A3h, 34h, 1Dh, 0A1h
+db 2Ch, 1Dh, 03h, 06h, 0B4h, 0C3h, 0A3h, 28h, 1Dh, 0A1h, 2Eh, 1Dh, 03h, 06h, 0B2h, 0C3h
+db 0A3h, 36h, 1Dh, 0A1h, 2Eh, 1Dh, 03h, 06h, 0B6h, 0C3h, 0A3h, 2Ah, 1Dh
+}
+}
 
 
 //boolean sub_0_BCF(void)
