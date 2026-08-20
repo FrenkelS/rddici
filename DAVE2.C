@@ -51,9 +51,9 @@
 
 //typedef enum {benign,monster,pshot,mshot,nukeshot} tagtype;
 
-//typedef enum {nothing,player,goblin,skeleton,ogre,gargoyle,dragon,turbogre,
-//    wallhit,shot,bigshot,rock,dead1,dead2,dead3,dead4,dead5,dead6,teleporter,
-//    torch,secretgate,gune,guns,lastclass} classtype;
+typedef enum {nothing,player,goblin,skeleton,ogre,gargoyle,dragon,turbogre,
+    wallhit,shot,bigshot,rock,dead1,dead2,dead3,dead4,dead5,dead6,teleporter,
+    torch,secretgate,gune,guns,lastclass} classtype;
 
 typedef enum {ingame,intitle,inscores} statetype;
 
@@ -1603,24 +1603,24 @@ long dword_789_ADDA;
 //  long savescore;
 
 
-//typedef struct {
-//  char      unk0[0x16];
-//  int       class;
-//  char      unk18[0x04];
-//  int       x1;
-//  int       y1;
-//  int       x2;
-//  int       y2;
-//  char      unk24[0x0C];
-//  void      (*think)();
-//} objtype;
+typedef struct {
+  char      unk0[0x16];
+  classtype class;
+  char      unk18[0x04];
+  int       x1;
+  int       y1;
+  int       x2;
+  int       y2;
+  char      unk24[0x0C];
+  void      (*think)();
+} objtype;
 
 
-// objtype *new;
+objtype *new;
 int lastobj;
 
 
-//#define OBJECT_POOL ((objtype *)0x9508)
+#define OBJECT_POOL ((objtype *)0x9508)
 
 
 #define PORTTILESWIDE 21
@@ -2110,24 +2110,24 @@ void BadThink_TODO(void)
 
 
 //void sub_0_AB4(void)
-//void FindFreeObj (void)
-//{
-//  int si = 1;
-//  new = OBJECT_POOL;
-//
-//  while (new->class != nothing && si < lastobj)
-//  {
-//    si++;
-//    new++;
-//  }
-//
-//  if (si >= lastobj)
-//    lastobj++;
-//
-//  new->x1 = new->y1 = new->y2 = new->x2 = 0;
-//
-//  new->think = BadThink;
-//}
+void FindFreeObj_TODO (void)
+{
+  int si = 1;
+  new = OBJECT_POOL; // TODO
+
+  while (new->class != nothing && si < lastobj)
+  {
+    si++;
+    new++;
+  }
+
+  if (si >= lastobj)
+    lastobj++;
+
+  new->x1 = new->y1 = new->y2 = new->x2 = 0;
+
+  new->think = BadThink_TODO;
+}
 
 
 //void sub_0_B0D(void)
