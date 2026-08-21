@@ -116,7 +116,7 @@ pel			dw	0
 screenstart	dw	0
 
 
-IMPLEMENT_ME_sub_0_2383 db 'sub_0_2383', 0
+IMPLEMENT_ME_sub_0_2383 db 'Implement me: sub_0_2383', 0
 
 
 LABEL word_789_6C8 WORD
