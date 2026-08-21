@@ -93,8 +93,8 @@ void controlpanel (void);
 // either joystick1 or joystick2
 //
 ////////////////
-//void sub_0_3E97(void)
-void calibratejoy (int joynum)
+
+void calibratejoy (int joynum) // sub_0_3E97
 {
   int stage,dx,dy,xl,yl,xh,yh;
   ControlStruct ctr;
@@ -166,14 +166,12 @@ done:
   erasewindow ();
 }
 
-
 ////////////////////////////
 //
 // calibratemouse
 //
 ////////////////////////////
-//void sub_0_407E(void)
-void calibratemouse (void)
+void calibratemouse (void) //sub_0_407E
 {
   char ch;
 
@@ -205,8 +203,7 @@ void calibratemouse (void)
 // print a representation of the scan code key
 //
 ////////////////////////////
-//void sub_0_4100(void)
-void printscan (int sc)
+void printscan (int sc) // sub_0_4100
 {
  char static chartable[128] =
  {'?','?','1','2','3','4','5','6','7','8','9','0','-','+','?','?',
@@ -278,8 +275,7 @@ void printscan (int sc)
 // calibratekeys
 //
 ////////////////////////////
-//void sub_0_42A8(void)
-void calibratekeys (void)
+void calibratekeys (void) // sub_0_42A8
 {
   char ch;
   int hx,hy,i,select,new;
@@ -357,8 +353,8 @@ void calibratekeys (void)
 // Checks video cards, mouse, and joysticks
 //
 ////////////////////
-//void sub_0_4461(void)
-void getconfig (void)
+
+void getconfig (void) // sub_0_4461
 {
   int x,y;
   int far *vect;
@@ -412,8 +408,8 @@ void getconfig (void)
 // Used to refresh under dialogs.
 //
 ////////////////
-//void sub_0_4547(void)
-void drawpanel (void)
+
+void drawpanel (void) // sub_0_4547
 {
   leftedge=1;
 
@@ -480,8 +476,8 @@ void drawpanel (void)
 // controlpanel
 //
 ////////////////
-//void sub_0_47FC(void)
-void controlpanel (void)
+
+void controlpanel (void) // sub_0_47FC
 {
   int chf;
   char chl,chh;
@@ -634,8 +630,7 @@ void far *lastgrpic;
 
 int numchars,numtiles,numpics,numsprites;
 
-//void sub_0_4AD6(void)
-void installgrfile (char *filename, int unpack)
+void installgrfile (char *filename, int unpack) // sub_0_4AD6
 {
   int i;
   unsigned long a,b,c,d;
@@ -678,10 +673,10 @@ void installgrfile (char *filename, int unpack)
 
   if (grmode==EGAgr)		// EGA is special because of bit plane grief!
   {
-    charptr = MK_FP(0xa900,0);
-    tileptr = MK_FP(0xa900+FP_SEG(picfile->tileptr)-FP_SEG(picfile->charptr),0);
-    picptr = MK_FP(0xa900+FP_SEG(picfile->picptr)-FP_SEG(picfile->charptr),0);
-    spriteptr = MK_FP(0xa900+FP_SEG(picfile->spriteptr)-FP_SEG(picfile->charptr),0);
+    charptr = MK_FP(EGADATASTART,0);
+    tileptr = MK_FP(EGADATASTART+FP_SEG(picfile->tileptr)-FP_SEG(picfile->charptr),0);
+    picptr = MK_FP(EGADATASTART+FP_SEG(picfile->picptr)-FP_SEG(picfile->charptr),0);
+    spriteptr = MK_FP(EGADATASTART+FP_SEG(picfile->spriteptr)-FP_SEG(picfile->charptr),0);
 
     for (i=0;i<4;i++)
     {
@@ -723,8 +718,7 @@ void installgrfile (char *filename, int unpack)
 // needs to be called after each setgrmode to ega to refill memory
 //
 //////////////////////////
-//void sub_0_4CEF(void)
-void moveega (void)
+void moveega (void) // sub_0_4CEF
 {
   int plane;
 
@@ -733,7 +727,7 @@ void moveega (void)
     outportb (SCindex,SCmapmask);
     outportb (SCindex+1,1<<plane);	// write plane #
 
-    movedata (egaplane[plane],0,0xa900,0,0xffff-0xa900);
+    movedata (egaplane[plane],0,EGADATASTART,0,0xffff-EGADATASTART);
   }
   outportb (SCindex,SCmapmask);		// read map select
   outportb (SCindex+1,15);	// all planes

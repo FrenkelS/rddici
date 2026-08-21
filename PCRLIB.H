@@ -193,7 +193,7 @@ cardtype VideoID (void);
 #define NUMPICS 64
 #define NUMSPRITES 256
 
-unsigned extern EGADATASTART;
+#define EGADATASTART 0xa900
 
 typedef struct {
 		 int width;

@@ -234,8 +234,6 @@ long dword_789_ADDA;
 
 //  char far *pics, far *picsexact;
 
-//  unsigned EGADATASTART;
-
 //  long savescore;
 
 
