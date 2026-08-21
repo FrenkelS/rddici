@@ -78,8 +78,8 @@ EndByte	dw	?
 ;	Initialize our variables & buffers
 ;
 ;==========================================================
-;sub_0_5D34:
-PROC	InitRLE		;internal
+
+PROC	InitRLE ; sub_0_5D34		;internal
 
 	mov	[ss:ByteCnt],0
 	mov	[ss:DifCnt],1
@@ -98,8 +98,8 @@ ENDP
 ;
 ;==========================================================
 
-;sub_0_5D5B:
-PROC	OutputRep
+
+PROC	OutputRep ; sub_0_5D5B
 
 	push	SI
 	push	ES	;save needed registers
@@ -141,8 +141,8 @@ PROC	OutputRep
 ;
 ;==========================================================
 
-;sub_0_5D96:
-PROC	OutputDif
+
+PROC	OutputDif ; sub_0_5D96
 
 	push	ES	;save important registers
 	push	AX
@@ -184,9 +184,9 @@ PROC	OutputDif
 ;
 ;==========================================================
 
-;sub_0_5DD6:
+
 	PUBLIC	Expand
-PROC	Expand
+PROC	Expand ; sub_0_5DD6
 
 	call	InitRLE	;init our vars & buffers
 
@@ -252,9 +252,9 @@ PROC	Expand
 ;	COMPRESS data buffer using RLE
 ;
 ;==========================================================
-;sub_0_5E43:
+
 	PUBLIC	Compress
-PROC	Compress
+PROC	Compress ; sub_0_5E43
 
 	call	InitRLE	;init vars
 @@bank:
@@ -308,8 +308,8 @@ PROC	Compress
 @@same:
 	mov	[ss:DifCnt],0	;force even if not output!
 	cmp	[ss:ByteCnt],MaxCnt
-	;fsm jb	@@get	;have we gotten too big?
-	db 72h, 10h ;fsm
+	;TODO jb	@@get	;have we gotten too big?
+	db 72h, 10h ;TODO
 
 	call	OutputRep	; yes, save string & continue
 
@@ -405,9 +405,9 @@ timees		dw	?
 ; are possible in 1/18 second
 ;
 ;=============
-;sub_0_5F5B:
-	EXTRN	StopSound:NEAR
-PROC	timesub	ticks:WORD
+
+	EXTRN	stopsound:NEAR
+PROC	timesub	ticks:WORD ; sub_0_5F5B
 	USES	si,di,bp
 	PUBLIC	timesub
 
@@ -430,7 +430,7 @@ PROC	timesub	ticks:WORD
 
 	pop	ds
 
-	call	StopSound	;make sure the timer is going normal speed
+	call	stopsound	;make sure the timer is going normal speed
 	xor	ax,ax
 	mov	[cs:@@counter],ax	;set counter to 0
 	mov	[cs:@@mark],ax	;will be inc to 1 after int 1c
