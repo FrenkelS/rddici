@@ -27,8 +27,6 @@
 */
 
 #include "pcrlib.h"
-//#include "NGRABCA2.H"
-//#include "SOUNDS.H"
 
 #define NUMDEMOS 1
 
