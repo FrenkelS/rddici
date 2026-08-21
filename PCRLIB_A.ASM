@@ -30,7 +30,7 @@
 snd_start	equ	0
 snd_priority	equ	2
 snd_samples	equ	3
-;snd_name	equ	4
+snd_name	equ	4
 
 
 ;
@@ -58,20 +58,20 @@ ENDS
 	EXTRN charptr:WORD
 	EXTRN tileptr:WORD
 	EXTRN picptr:WORD
-;	EXTRN spriteptr:WORD	;paraligned pointers
+	EXTRN spriteptr:WORD	;paraligned pointers
 	EXTRN grmode:WORD
 	EXTRN crtcaddr:WORD
 
 ;
 ; stuff for pics and sprites
 ;
-;STRUC	picstruct		; sprite info extracted by refresh
-;width		dw	?
-;height		dw	?
-;shapeptr	dw	?
-;ENDS
+STRUC	picstruct		; sprite info extracted by refresh
+width		dw	?
+height		dw	?
+shapeptr	dw	?
+ENDS
 
-;	EXTRN	imageinfo: picstruct	; array of picture info
+	EXTRN	imageinfo: picstruct	; array of picture info
 
 SPKactive dw    0                   ;set non zero when started
 
@@ -176,8 +176,8 @@ VGAylookup dw    0, 320, 640, 960,1280,1600,1920,2240,2560,2880,3200,3520,3840,4
 ; meaningful...
 ;
 ;========
-;sub_0_528C:
-PROC StartupSound
+
+PROC StartupSound ; sub_0_528C
 	PUBLIC	StartupSound
 
 	test	[_dontplay],0ffffh
@@ -226,8 +226,8 @@ ENDP
 ; ShutdownSound
 ;
 ;========
-;sub_0_52CE:
-PROC	ShutdownSound
+
+PROC	ShutdownSound ; sub_0_52CE
 	PUBLIC ShutdownSound
 
 	test	[_dontplay],0ffffh
@@ -275,8 +275,8 @@ ENDP
 ; and the timer speed are changed
 ;
 ;===========
-;sub_0_5306:
-PROC	PlaySound playnum:WORD
+
+PROC	PlaySound playnum:WORD ; sub_0_5306
 	PUBLIC PlaySound
 
 	test	[_dontplay],0ffffh
@@ -343,8 +343,8 @@ ENDP
 ; StopSound
 ;
 ;===========
-;sub_0_536D:
-PROC	StopSound
+
+PROC	StopSound ; sub_0_536D
 	PUBLIC	StopSound
 
 	test	[_dontplay],0ffffh
@@ -381,8 +381,8 @@ ENDP
 ; PauseSound
 ;
 ;===========
-;sub_0_539A:
-PROC	PauseSound
+
+PROC	PauseSound ; sub_0_539A
 	PUBLIC	PauseSound
 
 	test	[_dontplay],0ffffh
@@ -410,8 +410,8 @@ ENDP
 ; ContinueSound
 ;
 ;===========
-;sub_0_53C5:
-PROC	ContinueSound
+
+PROC	ContinueSound ; sub_0_53C5
 	PUBLIC	ContinueSound
 
 	test	[_dontplay],0ffffh
@@ -449,8 +449,8 @@ ENDP
 ; Just waits around until the current sound stops playing
 ;
 ;========
-;sub_0_53F7:
-PROC	WaitEndSound
+
+PROC	WaitEndSound ; sub_0_53F7
 	PUBLIC WaitEndSound
 
 	test	[_dontplay],0ffffh
@@ -477,8 +477,8 @@ ENDP
 ; only called by interrupt $8!
 ;
 ;=========
-;sub_0_540F:
-PROC	UpdateSPKR FAR
+
+PROC	UpdateSPKR FAR ; sub_0_540F
 
 	push	ax
 	push	bx
@@ -606,9 +606,9 @@ baseRndArray	dw	1,1,2,3,5,8,13,21,54,75,129,204
 ;
 ; 11-Sep-90	LR	FIX initialization to use TIME!
 ;=================================================
-;sub_0_5482:
-PROC	initrnd_TODO	randomize:word
-	public	initrnd_TODO
+
+PROC	initrnd	randomize:word ; sub_0_5482
+	public	initrnd
 
 	push	si
 	push	di
@@ -639,7 +639,7 @@ PROC	initrnd_TODO	randomize:word
 @@setit:
 	mov	ax,0ffffh
 	push	ax
-	call	Random_TODO			;warm up generator!
+	call	Random			;warm up generator!
 	pop	ax
 
 	pop	di
@@ -655,9 +655,8 @@ ENDP
 ;
 ; 11-Sep-90 LR -modify to save registers!
 ;=================================================
-;sub_0_54CB:
-PROC	random_TODO maxval:WORD
-	public	random_TODO
+PROC	random maxval:WORD ; sub_0_54CB
+	public	random
 
 	push	si
 	push	bx			;save registers so we work OK!
@@ -722,8 +721,8 @@ ENDP
 ; if randomize is false, the counter is set to 0
 ;
 ;=================================================
-;sub_0_5521:
-PROC	initrndt	randomize:word
+
+PROC	initrndt	randomize:word ; sub_0_5521
 	uses	si,di
 	public	initrndt
 
@@ -752,9 +751,8 @@ ENDP
 ; Exit : AX = value
 ;
 ;=================================================
-;sub_0_5542:
-PROC	rndt_TODO
-	public	rndt_TODO
+PROC	rndt ; sub_0_5542
+	public	rndt
 
 	mov	bx,[rndindex]
 	inc	bx
@@ -776,8 +774,8 @@ ENDP
 ; WAITVBL
 ;
 ;========
-;sub_0_5556:
-PROC	WaitVBL
+
+PROC	WaitVBL ; sub_0_5556
 	PUBLIC	WaitVBL
 
 	push	si
@@ -813,8 +811,8 @@ ENDP
 ;
 ;====================
 
-PROC	EGAplane_TODO plane:WORD
-	PUBLIC	EGAplane_TODO
+PROC	EGAplane plane:WORD ; sub_0_556C
+	PUBLIC	EGAplane
 
 	mov	dx,GCindex
 	mov	ax,GCmode
@@ -843,8 +841,8 @@ ENDP
 ;
 ;====================
 
-PROC	EGAlatch_TODO plane:WORD
-	PUBLIC	EGAlatch_TODO
+PROC	EGAlatch plane:WORD ; sub_0_558E
+	PUBLIC	EGAlatch
 
 	mov	dx,GCindex
 	mov	ax,1*256 + GCmode
@@ -865,8 +863,8 @@ ENDP
 ; based on grmode
 ;
 ;============
-;sub_0_55A1:
-PROC	drawchar xcoordinate:WORD, ycoordinate:WORD, char:WORD
+
+PROC	drawchar xcoordinate:WORD, ycoordinate:WORD, char:WORD ; sub_0_55A1
 	PUBLIC	drawchar
 
 	push	si
@@ -920,8 +918,8 @@ ENDP
 ; SI= character; DI= xcoordinate; BX= ycoordinate*2
 ;
 ;============
-;sub_0_55E3:
-PROC	CgaCharOut
+
+PROC	CgaCharOut ; sub_0_55E3
 
 	shl	si,1
 	shl	si,1
@@ -985,8 +983,8 @@ ENDP
 ; SI= character; DI= xcoordinate; BX= ycoordinate
 ;
 ;============
-;sub_0_563E:
-PROC	EgaCharOut
+
+PROC	EgaCharOut ; sub_0_563E
 
 	shl	si,1
 	shl	si,1
@@ -1202,8 +1200,8 @@ ENDP
 ; SI= character; DI= xcoordinate; BX= ycoordinate
 ;
 ;============
-;sub_0_5797:
-PROC	VgaCharOut
+
+PROC	VgaCharOut ; sub_0_5797
 
 	shl	si,1
 	shl	si,1
@@ -1358,9 +1356,9 @@ ENDP
 ; based on grmode
 ;
 ;============
-;sub_0_585A:
-PROC	drawtile_TODO xcoordinate:WORD, ycoordinate:WORD, tile:WORD
-	PUBLIC	drawtile_TODO
+
+PROC	drawtile xcoordinate:WORD, ycoordinate:WORD, tile:WORD ; sub_0_585A
+	PUBLIC	drawtile
 
 	push	si
 	push	di
@@ -1382,19 +1380,19 @@ PROC	drawtile_TODO xcoordinate:WORD, ycoordinate:WORD, tile:WORD
 
 	cmp	ax,1		;CGA mode
 	jne	@@notcga
-	call    CGAtileout_TODO
+	call    CGAtileout
 	jmp	@@done
 
 @@notcga:
 	cmp	ax,2		;EGA mode
 	jne	@@notega
-	call	EGAtileout_TODO
+	call	EGAtileout
 	jmp	@@done
 
 @@notega:
 	cmp	ax,3		;VGA mode
 	jne	@@done
-	call	VGAtileout_TODO
+	call	VGAtileout
 @@done:
 
 	mov	ax,_DATA
@@ -1412,8 +1410,8 @@ ENDP
 ; SI= tile #, BX=y, DI=x
 ;
 ;=======================
-PROC	CGAtileout_TODO
-	PUBLIC	CGAtileout_TODO
+PROC	CGAtileout ; sub_0_58A0
+	PUBLIC	CGAtileout
 
 	shl	si,1
 	shl	si,1
@@ -1483,8 +1481,8 @@ ENDP
 ; SI= tile #, BX=y, DI=x
 ;
 ;=======================
-PROC	EGAtileout_TODO
-	PUBLIC	EGAtileout_TODO
+PROC	EGAtileout ; sub_0_5910
+	PUBLIC	EGAtileout
 
 	shl	si,1
 	shl	si,1
@@ -1565,8 +1563,8 @@ ENDP
 ; SI= tile #, BX=y, DI=x
 ;
 ;=======================
-PROC	VGAtileout_TODO
-	PUBLIC	VGAtileout_TODO
+PROC	VGAtileout ; sub_0_5981
+	PUBLIC	VGAtileout
 
 	mov	ah,al
 	xor	al,al			;fast multiply by 256
@@ -1731,8 +1729,8 @@ ENDP
 ; based on grmode
 ;
 ;============
-;sub_0_5A47:
-PROC	drawpic xcoordinate:WORD, ycoordinate:WORD, pic:WORD
+
+PROC	drawpic xcoordinate:WORD, ycoordinate:WORD, pic:WORD ; sub_0_5A47
 	PUBLIC	drawpic
 
 	push	si
@@ -1801,7 +1799,7 @@ picheight	dw	?
 ;
 ;============
 
-PROC	CgaDrawpic
+PROC	CgaDrawpic ; sub_0_5AAF
 
 	shr	di,1		;x / 4 + ylookup[y] = screen location
 	shr	di,1
@@ -1832,7 +1830,7 @@ ENDP
 ;
 ;============
 
-PROC	EgaDrawpic
+PROC	EgaDrawpic ; sub_0_5AD5
 
 	mov	ax,105h
 	mov	dx,3ceh		;set write mode 1
@@ -1870,7 +1868,7 @@ ENDP
 ;
 ;============
 
-PROC	VgaDrawpic
+PROC	VgaDrawpic ; sub_0_5B09
 
 	mov	[WORD cs:picxcoord],di
 
@@ -1994,7 +1992,7 @@ Monoflag	DB	?
 NumberOfTests	EQU	($-TestSequence)/3
 
 
-	PUBLIC	VideoID
+	PUBLIC	VideoID ; sub_0_5B5B
 VideoID	PROC	near
 
 	push	bp	; preserve caller registers
@@ -2062,7 +2060,7 @@ VideoID	ENDP
 ; Display Combination Code (DCC) for each video subsystem present.
 ;
 
-FindPS2	PROC	near
+FindPS2	PROC	near ; sub_0_5BA1
 
 	mov	ax,1A00h
 	int	10h	; call video BIOS for info
@@ -2121,7 +2119,7 @@ FindPS2	ENDP
 ; Look for an EGA.  This is done by making a call to an EGA BIOS function
 ;  which doesn't exist in the default (MDA, CGA) BIOS.
 
-FindEGA	PROC	near	; Caller:	AH = flags
+FindEGA	PROC	near ; sub_0_5BF1	; Caller:	AH = flags
 			; Returns:	AH = flags
 			;		Video0Type and
 			;		 Display0Type updated
@@ -2160,7 +2158,7 @@ FindEGA	ENDP
 ;
 ; This is done by looking for the CGA's 6845 CRTC at I/O port 3D4H.
 ;
-FindCGA	PROC	near	; Returns:	VIDstruct updated
+FindCGA	PROC	near ; sub_0_5C1D	; Returns:	VIDstruct updated
 
 	mov	dx,3D4h	; DX := CRTC address port
 	call	Find6845
@@ -2190,7 +2188,7 @@ FindCGA	ENDP
 ; 101b = InColor card
 ;
 
-FindMono	PROC	near	; Returns:	VIDstruct updated
+FindMono	PROC	near ; sub_0_5C2D	; Returns:	VIDstruct updated
 
 	mov	dx,3B4h	; DX := CRTC address port
 	call	Find6845
@@ -2245,7 +2243,7 @@ FindMono	ENDP
 ; present at the specified port addr.
 ;
 
-Find6845	PROC	near	; Caller:  DX = port addr
+Find6845	PROC	near ; sub_0_5C6F	; Caller:  DX = port addr
 			; Returns: cf set if not present
 	mov	al,0Fh
 	out	dx,al	; select 6845 reg 0Fh (Cursor Low)
@@ -2280,7 +2278,7 @@ Find6845	ENDP
 ; current video mode determines which subsystem is active.
 ;
 
-FindActive	PROC	near
+FindActive	PROC	near ; sub_0_5C89
 
 	cmp	word ptr Device1,0
 	je	@@L63	; exit if only one subsystem
