@@ -55,7 +55,7 @@ typedef enum {nothing,player,goblin,skeleton,ogre,gargoyle,dragon,turbogre,
     wallhit,shot,bigshot,rock,dead1,dead2,dead3,dead4,dead5,dead6,teleporter,
     torch,secretgate,gune,guns,lastclass} classtype;
 
-typedef enum {ingame,intitle,inscores} statetype;
+typedef enum {ingame,intitle,inTODO,inscores} statetype;
 
 
 //typedef struct {
@@ -304,20 +304,20 @@ void playloop(void);
 void sub_0_239(void)
 {
   RF_ForceRefresh();
-  if (gamestate == 0 || gamestate == 3)
+  if (gamestate == ingame || gamestate == inscores)
   {
     RF_Refresh();
     sub_0_290();
     RF_Refresh();
   }
 
-  if (gamestate == 1)
+  if (gamestate == intitle)
     drawpic(0, 0, 13);
 
-  if (gamestate == 2)
+  if (gamestate == inTODO)
     drawpic(0, 0, 15);
 
-  if (gamestate == 3)
+  if (gamestate == inscores)
     _showhighscores();
 }
 
@@ -363,8 +363,7 @@ void sub_0_31E_TODO(void)
 }
 
 
-//void sub_0_352(void)
-void loadgrfiles(void)
+void loadgrfiles(void) // sub_0_352
 {
   if (grmode == CGAgr)
     installgrfile("CGAPICS.DD2", 0);
@@ -384,16 +383,14 @@ void sub_0_37E(void)
 }
 
 
-//void sub_0_38E(void)
-void repaintscreen(void)
+void repaintscreen(void) // sub_0_38E
 {
   sub_0_37E();
   sub_0_239();
 }
 
 
-//void sub_0_399(void)
-void dofkeys (void)
+void dofkeys (void) // sub_0_399
 {
   int i,handle;
   char st2[10];
@@ -449,8 +446,7 @@ void dofkeys (void)
 }
 
 
-//void sub_0_48C(void)
-void help (void)
+void help (void) // sub_0_48C
 {
   expwin (36,21);
   print ("dave2 help screen");
@@ -496,11 +492,12 @@ void sub_0_4A9(void)
 =
 =============
 */
+
 void sub_0_548(void)
 {
   int i;
   setscreenmode (grmode);
-  gamestate = 2;
+  gamestate = inTODO;
   sx = 0;
   sy = 0;
   print ("Dave 2 title screen");
@@ -525,7 +522,7 @@ void sub_0_548(void)
   sy = 24;
   get ();
   indemo = 1;
-  gamestate = 0;
+  gamestate = ingame;
 }
 
 
@@ -541,8 +538,8 @@ void sub_0_548(void)
 =
 =============
 */
-//void sub_0_5F9(void)
-void dodemo (void)
+
+void dodemo (void) // sub_0_5F9
 {
   int i;
 
@@ -570,7 +567,7 @@ void dodemo (void)
     if (exitdemo)
       break;
 
-    gamestate=3;
+    gamestate=inscores;
     _showhighscores ();
     for (i=0;i<500;i++)
     {
@@ -605,8 +602,8 @@ void dodemo (void)
 =
 ============
 */
-//void sub_0_71E(void)
-void gameover (void)
+
+void gameover (void) // sub_0_71E
 {
   int i;
 
@@ -616,7 +613,7 @@ void gameover (void)
   WaitEndSound ();
   for (i=0;i<120;i++)
     WaitVBL ();
-  gamestate=3;
+  gamestate=inscores;
   _checkhighscore ();
 
   for (i=0;i<500;i++)
@@ -631,8 +628,7 @@ void gameover (void)
 }
 
 
-//void sub_0_7B3(void)
-void RF_Refresh(void)
+void RF_Refresh(void) // sub_0_7B3
 {
 asm    call    sub_0_1E46
 asm    inc     word_789_94CA
@@ -736,15 +732,13 @@ db 00h, 5Fh, 5Eh, 8Bh, 0E5h
 }
 
 
-//void sub_0_AA7(void)
-void BadThink_TODO(void)
+void BadThink_TODO(void) // sub_0_AA7
 {
   _quit("badTHINK!");
 }
 
 
-//void sub_0_AB4(void)
-void FindFreeObj_TODO (void)
+void FindFreeObj_TODO (void) // sub_0_AB4
 {
   int si = 1;
   new = OBJECT_POOL; // TODO
@@ -989,8 +983,7 @@ db 7Ch, 10h
 db 7Ch, 10h
 
 
-//void sub_0_1491(void)
-//void AddScore(int toadd)
+//void AddScore(int toadd) // sub_0_1491
 //{
 //asm {
 db 55h, 8Bh, 0ECh
@@ -1077,8 +1070,8 @@ void sub_0_14CD(void)
 /* all the action is directed from here */
 /*				      */
 /*======================================*/
-//void sub_0_162C(void)
-void playloop(void)
+
+void playloop(void) // sub_0_162C
 {
 	char st[6];
 	int plane;
@@ -1218,7 +1211,7 @@ loc_0_192B:
 	if (level > _numlevels)
 	{
 		lives = 0;
-		gamestate = 2;
+		gamestate = inTODO;
 	}
 
 loc_0_1944:
@@ -1237,15 +1230,15 @@ loc_0_194E:
 /* m a i n   p r o g r a m */
 /*			   */
 /*=========================*/
-//void sub_0_1953(void)
-void main (void)
+
+void main (void) // sub_0_1953
 {
 	_numlevels = 1;
 	_maxplayers = 1;
 
-	_cgaok = 0;
-	_egaok = 1;
-	_vgaok = 0;
+	_cgaok = false;
+	_egaok = true;
+	_vgaok = false;
 
 	_extension = "DD2";
 
@@ -1258,12 +1251,12 @@ void main (void)
 
 	word_789_94C8 = unk_789_1D40;
 
-	while (1)
+	while (1)			// go until quit () is called
 	{
 		dodemo();
 		WaitEndSound();
 		playloop();
-		if (gamestate == 2)
+		if (gamestate == inTODO)
 		{
 			sub_0_548();
 		}

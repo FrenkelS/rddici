@@ -41,8 +41,7 @@ db 36h, 8Bh, 16h, 46h, 12h
 }
 
 
-//void sub_0_5D02(void)
-void RLEExpand_TODO(char far *source, char far *dest, long length)
+void RLEExpand_TODO(char far *source, char far *dest, long length) // sub_0_5D02
 {
 asm {
 db 8Bh, 46h, 04h
