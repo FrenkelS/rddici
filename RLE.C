@@ -19,7 +19,7 @@
 #include "pcrlib.h"
 
 //long RLEcompress(void far *source, long length, void far *dest)
-void sub_0_5CC7(void)
+void sub_0_5CC7_TODO(void)
 {
 asm {
 db 8Bh, 46h, 04h
@@ -42,7 +42,7 @@ db 36h, 8Bh, 16h, 46h, 12h
 
 
 //void sub_0_5D02(void)
-void RLEExpand(char far *source, char far *dest, long length)
+void RLEExpand_TODO(char far *source, char far *dest, long length)
 {
 asm {
 db 8Bh, 46h, 04h

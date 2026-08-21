@@ -56,7 +56,7 @@ ENDS
 
 	EXTRN pictable: picstruct	; array of picture info
 	EXTRN charptr:WORD
-;	EXTRN tileptr:WORD
+	EXTRN tileptr:WORD
 	EXTRN picptr:WORD
 ;	EXTRN spriteptr:WORD	;paraligned pointers
 	EXTRN grmode:WORD
@@ -566,36 +566,36 @@ ENDP
 
 rndindex	dw	?
 
-;rndtable db    0,   8, 109, 220, 222, 241, 149, 107,  75, 248, 254, 140,  16,  66
-;    db   74,  21, 211,  47,  80, 242, 154,  27, 205, 128, 161,  89,  77,  36
-;    db   95, 110,  85,  48, 212, 140, 211, 249,  22,  79, 200,  50,  28, 188
-;    db   52, 140, 202, 120,  68, 145,  62,  70, 184, 190,  91, 197, 152, 224
-;    db  149, 104,  25, 178, 252, 182, 202, 182, 141, 197,   4,  81, 181, 242
-;    db  145,  42,  39, 227, 156, 198, 225, 193, 219,  93, 122, 175, 249,   0
-;    db  175, 143,  70, 239,  46, 246, 163,  53, 163, 109, 168, 135,   2, 235
-;    db   25,  92,  20, 145, 138,  77,  69, 166,  78, 176, 173, 212, 166, 113
-;    db   94, 161,  41,  50, 239,  49, 111, 164,  70,  60,   2,  37, 171,  75
-;    db  136, 156,  11,  56,  42, 146, 138, 229,  73, 146,  77,  61,  98, 196
-;    db  135, 106,  63, 197, 195,  86,  96, 203, 113, 101, 170, 247, 181, 113
-;    db   80, 250, 108,   7, 255, 237, 129, 226,  79, 107, 112, 166, 103, 241
-;    db   24, 223, 239, 120, 198,  58,  60,  82, 128,   3, 184,  66, 143, 224
-;    db  145, 224,  81, 206, 163,  45,  63,  90, 168, 114,  59,  33, 159,  95
-;    db   28, 139, 123,  98, 125, 196,  15,  70, 194, 253,  54,  14, 109, 226
-;    db   71,  17, 161,  93, 186,  87, 244, 138,  20,  52, 123, 251,  26,  36
-;    db   17,  46,  52, 231, 232,  76,  31, 221,  84,  37, 216, 165, 212, 106
-;    db  197, 242,  98,  43,  39, 175, 254, 145, 190,  84, 118, 222, 187, 136
-;    db  120, 163, 236, 249
+rndtable db    0,   8, 109, 220, 222, 241, 149, 107,  75, 248, 254, 140,  16,  66
+    db   74,  21, 211,  47,  80, 242, 154,  27, 205, 128, 161,  89,  77,  36
+    db   95, 110,  85,  48, 212, 140, 211, 249,  22,  79, 200,  50,  28, 188
+    db   52, 140, 202, 120,  68, 145,  62,  70, 184, 190,  91, 197, 152, 224
+    db  149, 104,  25, 178, 252, 182, 202, 182, 141, 197,   4,  81, 181, 242
+    db  145,  42,  39, 227, 156, 198, 225, 193, 219,  93, 122, 175, 249,   0
+    db  175, 143,  70, 239,  46, 246, 163,  53, 163, 109, 168, 135,   2, 235
+    db   25,  92,  20, 145, 138,  77,  69, 166,  78, 176, 173, 212, 166, 113
+    db   94, 161,  41,  50, 239,  49, 111, 164,  70,  60,   2,  37, 171,  75
+    db  136, 156,  11,  56,  42, 146, 138, 229,  73, 146,  77,  61,  98, 196
+    db  135, 106,  63, 197, 195,  86,  96, 203, 113, 101, 170, 247, 181, 113
+    db   80, 250, 108,   7, 255, 237, 129, 226,  79, 107, 112, 166, 103, 241
+    db   24, 223, 239, 120, 198,  58,  60,  82, 128,   3, 184,  66, 143, 224
+    db  145, 224,  81, 206, 163,  45,  63,  90, 168, 114,  59,  33, 159,  95
+    db   28, 139, 123,  98, 125, 196,  15,  70, 194, 253,  54,  14, 109, 226
+    db   71,  17, 161,  93, 186,  87, 244, 138,  20,  52, 123, 251,  26,  36
+    db   17,  46,  52, 231, 232,  76,  31, 221,  84,  37, 216, 165, 212, 106
+    db  197, 242,  98,  43,  39, 175, 254, 145, 190,  84, 118, 222, 187, 136
+    db  120, 163, 236, 249
 
 ;
 ; Random # Generator vars
 ;
-;indexi		dw	?	;Rnd#Generator
-;indexj		dw	?
-;LastRnd		dw	?
-;RndArray	dw	17 dup (?)
+indexi		dw	?	;Rnd#Generator
+indexj		dw	?
+LastRnd		dw	?
+RndArray	dw	17 dup (?)
 
-;baseRndArray	dw	1,1,2,3,5,8,13,21,54,75,129,204
-;   		dw	323,527,850,1377,2227
+baseRndArray	dw	1,1,2,3,5,8,13,21,54,75,129,204
+   		dw	323,527,850,1377,2227
 
 	CODESEG
 
@@ -607,46 +607,46 @@ rndindex	dw	?
 ; 11-Sep-90	LR	FIX initialization to use TIME!
 ;=================================================
 ;sub_0_5482:
-;PROC	initrnd	randomize:word
-;	public	initrnd
-;
-;	push	si
-;	push	di
-;
-;	mov	ax,ds
-;	mov	es,ax
-;	mov	di,offset RndArray
-;	mov	si,offset baseRndArray
-;	mov	cx,17
-;	cld
-;	rep	movsw		;set up the table (which is constantly changed)
-;
-;	mov	[LastRnd],0
-;	mov	[indexi],17*2
-;	mov	[indexj],5*2
-;
-;	mov	ax,[randomize]
-;	cmp	ax,0
-;	je	@@setit		;if randomize is true, really random
-;
-;	mov	ah,2ch
-;	int	21h			;GetSystemTime
-;
-;	mov	[RndArray+34-2],dx
-;	xor dx,cx				;init w/seconds values
-;	mov	[RndArray+10-2],dx
-;
-;@@setit:
-;	mov	ax,0ffffh
-;	push	ax
-;	call	Random			;warm up generator!
-;	pop	ax
-;
-;	pop	di
-;	pop	si
-;	ret
-;
-;ENDP
+PROC	initrnd_TODO	randomize:word
+	public	initrnd_TODO
+
+	push	si
+	push	di
+
+	mov	ax,ds
+	mov	es,ax
+	mov	di,offset RndArray
+	mov	si,offset baseRndArray
+	mov	cx,17
+	cld
+	rep	movsw		;set up the table (which is constantly changed)
+
+	mov	[LastRnd],0
+	mov	[indexi],17*2
+	mov	[indexj],5*2
+
+	mov	ax,[randomize]
+	cmp	ax,0
+	je	@@setit		;if randomize is true, really random
+
+	mov	ah,2ch
+	int	21h			;GetSystemTime
+
+	mov	[RndArray+34-2],dx
+	xor dx,cx				;init w/seconds values
+	mov	[RndArray+10-2],dx
+
+@@setit:
+	mov	ax,0ffffh
+	push	ax
+	call	Random_TODO			;warm up generator!
+	pop	ax
+
+	pop	di
+	pop	si
+	ret
+
+ENDP
 
 ;=================================================
 ;
@@ -656,61 +656,61 @@ rndindex	dw	?
 ; 11-Sep-90 LR -modify to save registers!
 ;=================================================
 ;sub_0_54CB:
-;PROC	random maxval:WORD
-;	public	random
+PROC	random_TODO maxval:WORD
+	public	random_TODO
+
+	push	si
+	push	bx			;save registers so we work OK!
+	push	cx
+	push	dx
+
+	mov	ax,[maxval]
+
+	push	ax			;save max value
 ;
-;	push	si
-;	push	bx			;save registers so we work OK!
-;	push	cx
-;	push	dx
+; create a mask to cut down on the # of SUBTRACTS!
 ;
-;	mov	ax,[maxval]
-;
-;	push	ax			;save max value
-;;
-;; create a mask to cut down on the # of SUBTRACTS!
-;;
-;	mov	dx,0ffffh		;full-mask
-;@@0:
-;	shl	ax,1
-;	jc	@@0a
-;	shr	dx,1
-;	jmp	@@0
-;@@0a:
-;	mov	bx,[indexi]		;this routine was converted from
-;	mov	si,[indexj]		;the Random macro on Merlin GS
-;	mov	ax,[RndArray-2+bx]
-;	adc	ax,[RndArray-2+si]
-;	mov	[RndArray-2+bx],ax
-;	add	ax,[LastRnd]
-;	mov	[LastRnd],ax
-;	dec	bx
-;	dec	bx
-;	jne	@@1
-;	mov	bx,17*2
-;@@1:
-;	dec	si
-;	dec	si
-;	jne	@@2
-;	mov	si,17*2
-;@@2:
-;	mov	[indexi],bx
-;	mov	[indexj],si
-;	pop	cx                      ;loop -- returns value in range
-;	and	ax,dx			;AND our mask!
-;@@3:
-;	cmp	ax,cx			;SUBTRACT to be within range
-;	jbe	@@4
-;	shr	ax,1
-;@@4:
-;	pop	dx
-;	pop	cx				;restore registers
-;	pop	bx
-;	pop	si
-;
-;	ret
-;
-;ENDP
+	mov	dx,0ffffh		;full-mask
+@@0:
+	shl	ax,1
+	jc	@@0a
+	shr	dx,1
+	jmp	@@0
+@@0a:
+	mov	bx,[indexi]		;this routine was converted from
+	mov	si,[indexj]		;the Random macro on Merlin GS
+	mov	ax,[RndArray-2+bx]
+	adc	ax,[RndArray-2+si]
+	mov	[RndArray-2+bx],ax
+	add	ax,[LastRnd]
+	mov	[LastRnd],ax
+	dec	bx
+	dec	bx
+	jne	@@1
+	mov	bx,17*2
+@@1:
+	dec	si
+	dec	si
+	jne	@@2
+	mov	si,17*2
+@@2:
+	mov	[indexi],bx
+	mov	[indexj],si
+	pop	cx                      ;loop -- returns value in range
+	and	ax,dx			;AND our mask!
+@@3:
+	cmp	ax,cx			;SUBTRACT to be within range
+	jbe	@@4
+	shr	ax,1
+@@4:
+	pop	dx
+	pop	cx				;restore registers
+	pop	bx
+	pop	si
+
+	ret
+
+ENDP
 
 
 
@@ -753,19 +753,19 @@ ENDP
 ;
 ;=================================================
 ;sub_0_5542:
-;PROC	rndt
-;	public	rndt
-;
-;	mov	bx,[rndindex]
-;	inc	bx
-;	and	bx,0ffh
-;	mov	[rndindex],bx
-;	mov	al,[rndtable+BX]
-;	xor	ah,ah
-;
-;	ret
-;
-;ENDP
+PROC	rndt_TODO
+	public	rndt_TODO
+
+	mov	bx,[rndindex]
+	inc	bx
+	and	bx,0ffh
+	mov	[rndindex],bx
+	mov	al,[rndtable+BX]
+	xor	ah,ah
+
+	ret
+
+ENDP
 
 
 
@@ -813,26 +813,26 @@ ENDP
 ;
 ;====================
 
-;PROC	EGAplane plane:WORD
-;	PUBLIC	EGAplane
-;
-;	mov	dx,GCindex
-;	mov	ax,GCmode
-;	out	dx,ax		;set read / write mode 0
-;
-;	mov	dx,GCindex
-;	mov	al,4		;read map select
-;	mov	ah,[BYTE plane] ;read from this plane number
-;	out	dx,ax
-;	mov	dx,SCindex
-;	mov	al,SCmapmask
-;	mov	ah,1
-;	mov	cl,[BYTE plane]	;write to this plane only
-;	shl	ah,cl
-;	out	dx,ax
-;	ret
-;
-;ENDP
+PROC	EGAplane_TODO plane:WORD
+	PUBLIC	EGAplane_TODO
+
+	mov	dx,GCindex
+	mov	ax,GCmode
+	out	dx,ax		;set read / write mode 0
+
+	mov	dx,GCindex
+	mov	al,4		;read map select
+	mov	ah,[BYTE plane] ;read from this plane number
+	out	dx,ax
+	mov	dx,SCindex
+	mov	al,SCmapmask
+	mov	ah,1
+	mov	cl,[BYTE plane]	;write to this plane only
+	shl	ah,cl
+	out	dx,ax
+	ret
+
+ENDP
 
 ;=======================================================================
 
@@ -843,18 +843,18 @@ ENDP
 ;
 ;====================
 
-;PROC	EGAlatch plane:WORD
-;	PUBLIC	EGAlatch
-;
-;	mov	dx,GCindex
-;	mov	ax,1*256 + GCmode
-;	out	dx,ax		;set read 0 / write mode 1
-;
-;	mov	dx,SCindex
-;	mov	ax,15*256 + SCmapmask	;write to all planes
-;	out	dx,ax
-;	ret
-;ENDP
+PROC	EGAlatch_TODO plane:WORD
+	PUBLIC	EGAlatch_TODO
+
+	mov	dx,GCindex
+	mov	ax,1*256 + GCmode
+	out	dx,ax		;set read 0 / write mode 1
+
+	mov	dx,SCindex
+	mov	ax,15*256 + SCmapmask	;write to all planes
+	out	dx,ax
+	ret
+ENDP
 
 ;=======================================================================
 
@@ -1359,51 +1359,51 @@ ENDP
 ;
 ;============
 ;sub_0_585A:
-;PROC	drawtile xcoordinate:WORD, ycoordinate:WORD, tile:WORD
-;	PUBLIC	drawtile
-;
-;	push	si
-;	push	di
-;
-;	cld
-;
-;	mov	ax,[screenseg]
-;	mov	es,ax
-;
-;	mov	si,[tile]
-;	mov	di,[xcoordinate] ;low level routines get stuff in registers
-;	mov	bx,[ycoordinate]
-;	shl	bx,1
-;
-;	mov	ax,[grmode]
-;
-;	mov	cx,[WORD tileptr+2]
-;	mov	ds,cx		;segment of pictures (PARA'd)
-;
-;	cmp	ax,1		;CGA mode
-;	jne	@@notcga
-;	call    CGAtileout
-;	jmp	@@done
-;
-;@@notcga:
-;	cmp	ax,2		;EGA mode
-;	jne	@@notega
-;	call	EGAtileout
-;	jmp	@@done
-;
-;@@notega:
-;	cmp	ax,3		;VGA mode
-;	jne	@@done
-;	call	VGAtileout
-;@@done:
-;
-;	mov	ax,_DATA
-;	mov	ds,ax		;restore turbo's data segment
-;	pop   	di
-;	pop	si
-;	ret
-;
-;ENDP
+PROC	drawtile_TODO xcoordinate:WORD, ycoordinate:WORD, tile:WORD
+	PUBLIC	drawtile_TODO
+
+	push	si
+	push	di
+
+	cld
+
+	mov	ax,[screenseg]
+	mov	es,ax
+
+	mov	si,[tile]
+	mov	di,[xcoordinate] ;low level routines get stuff in registers
+	mov	bx,[ycoordinate]
+	shl	bx,1
+
+	mov	ax,[grmode]
+
+	mov	cx,[WORD tileptr+2]
+	mov	ds,cx		;segment of pictures (PARA'd)
+
+	cmp	ax,1		;CGA mode
+	jne	@@notcga
+	call    CGAtileout_TODO
+	jmp	@@done
+
+@@notcga:
+	cmp	ax,2		;EGA mode
+	jne	@@notega
+	call	EGAtileout_TODO
+	jmp	@@done
+
+@@notega:
+	cmp	ax,3		;VGA mode
+	jne	@@done
+	call	VGAtileout_TODO
+@@done:
+
+	mov	ax,_DATA
+	mov	ds,ax		;restore turbo's data segment
+	pop   	di
+	pop	si
+	ret
+
+ENDP
 
 
 ;=======================
@@ -1412,70 +1412,70 @@ ENDP
 ; SI= tile #, BX=y, DI=x
 ;
 ;=======================
-;PROC	CGAtileout
-;	PUBLIC	CGAtileout
-;
-;	shl	si,1
-;	shl	si,1
-;	shl	si,1
-;	shl	si,1
-;	shl	si,1
-;	shl	si,1
-;
-;	shl	bx,1
-;
-;	add	di,[CGAylookup + BX]	;destination on screen
-;
-;	movsw
-;	movsw
-;	add	di,8188
-;	movsw
-;	movsw
-;	sub	di,8116
-;	movsw
-;	movsw
-;	add	di,8188
-;	movsw
-;	movsw
-;	sub	di,8116
-;	movsw
-;	movsw
-;	add	di,8188
-;	movsw
-;	movsw
-;	sub	di,8116
-;	movsw
-;	movsw
-;	add	di,8188
-;	movsw
-;	movsw
-;	sub	di,8116
-;	movsw
-;	movsw
-;	add	di,8188
-;	movsw
-;	movsw
-;	sub	di,8116
-;	movsw
-;	movsw
-;	add	di,8188
-;	movsw
-;	movsw
-;	sub	di,8116
-;	movsw
-;	movsw
-;	add	di,8188
-;	movsw
-;	movsw
-;	sub	di,8116
-;	movsw
-;	movsw
-;	add	di,8188
-;	movsw
-;	movsw
-;
-;	ret
-;ENDP
+PROC	CGAtileout_TODO
+	PUBLIC	CGAtileout_TODO
+
+	shl	si,1
+	shl	si,1
+	shl	si,1
+	shl	si,1
+	shl	si,1
+	shl	si,1
+
+	shl	bx,1
+
+	add	di,[CGAylookup + BX]	;destination on screen
+
+	movsw
+	movsw
+	add	di,8188
+	movsw
+	movsw
+	sub	di,8116
+	movsw
+	movsw
+	add	di,8188
+	movsw
+	movsw
+	sub	di,8116
+	movsw
+	movsw
+	add	di,8188
+	movsw
+	movsw
+	sub	di,8116
+	movsw
+	movsw
+	add	di,8188
+	movsw
+	movsw
+	sub	di,8116
+	movsw
+	movsw
+	add	di,8188
+	movsw
+	movsw
+	sub	di,8116
+	movsw
+	movsw
+	add	di,8188
+	movsw
+	movsw
+	sub	di,8116
+	movsw
+	movsw
+	add	di,8188
+	movsw
+	movsw
+	sub	di,8116
+	movsw
+	movsw
+	add	di,8188
+	movsw
+	movsw
+
+	ret
+ENDP
 
 ;=======================
 ;
@@ -1483,80 +1483,80 @@ ENDP
 ; SI= tile #, BX=y, DI=x
 ;
 ;=======================
-;PROC	EGAtileout
-;	PUBLIC	EGAtileout
-;
-;	shl	si,1
-;	shl	si,1
-;	shl	si,1
-;	shl	si,1
-;	shl	si,1
-;	add	di,[EGAylookup + BX]	;destination on screen
-;
-;	mov	dx,SCindex
-;	mov	al,SCmapmask
-;	out	dx,al
-;	mov	al,1111b
-;	inc	dx
-;	out	dx,al
-;
-;	mov	dx,GCindex
-;	mov	al,GCmode
-;	out	dx,al
-;	mov	al,1
-;	inc	dx
-;	out	dx,al
-;
-;	movsb
-;	movsb
-;	add	di,46
-;	movsb
-;	movsb
-;	add	di,46
-;	movsb
-;	movsb
-;	add	di,46
-;	movsb
-;	movsb
-;	add	di,46
-;	movsb
-;	movsb
-;	add	di,46
-;	movsb
-;	movsb
-;	add	di,46
-;	movsb
-;	movsb
-;	add	di,46
-;	movsb
-;	movsb
-;	add	di,46
-;	movsb
-;	movsb
-;	add	di,46
-;	movsb
-;	movsb
-;	add	di,46
-;	movsb
-;	movsb
-;	add	di,46
-;	movsb
-;	movsb
-;	add	di,46
-;	movsb
-;	movsb
-;	add	di,46
-;	movsb
-;	movsb
-;	add	di,46
-;	movsb
-;	movsb
-;	add	di,46
-;	movsb
-;	movsb
-;
-;	ret
-;ENDP
+PROC	EGAtileout_TODO
+	PUBLIC	EGAtileout_TODO
+
+	shl	si,1
+	shl	si,1
+	shl	si,1
+	shl	si,1
+	shl	si,1
+	add	di,[EGAylookup + BX]	;destination on screen
+
+	mov	dx,SCindex
+	mov	al,SCmapmask
+	out	dx,al
+	mov	al,1111b
+	inc	dx
+	out	dx,al
+
+	mov	dx,GCindex
+	mov	al,GCmode
+	out	dx,al
+	mov	al,1
+	inc	dx
+	out	dx,al
+
+	movsb
+	movsb
+	add	di,46
+	movsb
+	movsb
+	add	di,46
+	movsb
+	movsb
+	add	di,46
+	movsb
+	movsb
+	add	di,46
+	movsb
+	movsb
+	add	di,46
+	movsb
+	movsb
+	add	di,46
+	movsb
+	movsb
+	add	di,46
+	movsb
+	movsb
+	add	di,46
+	movsb
+	movsb
+	add	di,46
+	movsb
+	movsb
+	add	di,46
+	movsb
+	movsb
+	add	di,46
+	movsb
+	movsb
+	add	di,46
+	movsb
+	movsb
+	add	di,46
+	movsb
+	movsb
+	add	di,46
+	movsb
+	movsb
+	add	di,46
+	movsb
+	movsb
+
+	ret
+ENDP
 
 
 ;=======================
@@ -1565,159 +1565,159 @@ ENDP
 ; SI= tile #, BX=y, DI=x
 ;
 ;=======================
-;PROC	VGAtileout
-;	PUBLIC	VGAtileout
-;
-;	mov	ah,al
-;	xor	al,al			;fast multiply by 256
-;	add	di,[VGAylookup + BX]	;destination on screen
-;
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	add	di,304
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	add	di,304
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	add	di,304
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	add	di,304
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	add	di,304
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	add	di,304
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	add	di,304
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	add	di,304
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	add	di,304
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	add	di,304
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	add	di,304
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	add	di,304
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	add	di,304
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	add	di,304
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	add	di,304
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;	movsw
-;
-;	ret
-;ENDP
+PROC	VGAtileout_TODO
+	PUBLIC	VGAtileout_TODO
+
+	mov	ah,al
+	xor	al,al			;fast multiply by 256
+	add	di,[VGAylookup + BX]	;destination on screen
+
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	add	di,304
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	add	di,304
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	add	di,304
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	add	di,304
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	add	di,304
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	add	di,304
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	add	di,304
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	add	di,304
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	add	di,304
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	add	di,304
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	add	di,304
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	add	di,304
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	add	di,304
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	add	di,304
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	add	di,304
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+	movsw
+
+	ret
+ENDP
 
 
 
