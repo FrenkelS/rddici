@@ -1,20 +1,11 @@
-The Catacomb
-============
+RDDICI
+======
 
-This repository contains the source code for The Catacomb (also known as
-Catacomb II). The source code is designed for Borland C++ 2.0, but compiled
-fine with Borland C++ 3.1 at the time of this release.
+THIS IS A WORK IN PROGRESS.
 
-It is released under the GNU GPLv2. Please see COPYING for license details.
+Reconstructed Dangerous Dave in Copyright Infringement Source Code.
 
-This release does not affect the licensing for the game data files. You will
-need to legally acquire the game data in order to use the exe built from this
-source code.
+The source code of the game before it ([Catacomb II](https://github.com/CatacombGames/TheCatacomb)) and the game that came after it ([Commander Keen 1](https://pckf.com/viewtopic.php?t=18248)) are available.
+How hard can it be to combine the two to recreate the source code of Dangerous Dave in Copyright Infringement, the tech demo that started id Software?
 
-Editor
-------
-
-The editor for this game is the same as the original. Requiring the maps to be
-uncompressed before editing. The CATED.C contains the editor code, which is
-only referenced by OLDCAT.C. So it's disabled in this source tree and may or
-may not be functional.
+You need to supply your own copy of Turbo C++ 1.00, Turbo Assembler 2.0, [LZEXE](https://bellard.org/lzexe) and UNLZEXE.
