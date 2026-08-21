@@ -139,7 +139,7 @@ char unk_789_1D40[15890];
 int word_789_7B20[600];
 int *word_789_7FD0;
 int word_789_8220;
-//int word_789_8228;
+int word_789_8228_TODO;
 int word_789_8476;
 int word_789_8478;
 int word_789_847A;
@@ -880,9 +880,14 @@ db 0EBh, 05h, 0E8h, 33h, 0FDh, 0EBh, 00h
 
 void sub_0_F19_TODO(void)
 {
+	IMPLEMENT_ME("sub_0_F19");
 asm {
-db 83h, 0ECh, 24h, 56h
-db 57h, 33h, 0FFh, 33h, 0F6h, 8Bh, 1Eh, 28h, 82h, 83h, 7Fh, 02h, 00h, 7Fh, 15h, 7Ch
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+}
+
+asm {
+//db 83h, 0ECh, 24h, 56h
+//db 57h, 33h, 0FFh, 33h, 0F6h, 8Bh, 1Eh, 28h, 82h, 83h, 7Fh, 02h, 00h, 7Fh, 15h, 7Ch
 db 06h, 81h, 3Fh, 00h, 10h, 73h, 0Dh, 8Bh, 1Eh, 28h, 82h, 0C7h, 07h, 00h, 10h, 0C7h
 db 47h, 02h, 00h, 00h, 8Bh, 1Eh, 0C8h, 94h, 8Bh, 07h, 48h, 99h, 0B1h, 08h, 0E8h, 0D0h
 db 65h, 0B1h, 04h, 0E8h, 0CBh, 65h, 8Bh, 1Eh, 28h, 82h, 3Bh, 57h, 02h, 7Fh, 21h, 7Ch
@@ -998,101 +1003,72 @@ db 10h, 27h, 83h, 16h, 0C0h, 94h, 00h, 0FFh, 06h, 84h, 94h
 }
 
 
-// FIXME fsm: what does break do in a switch inside a do-loop?
 void sub_0_14CD(void)
 {
-	IMPLEMENT_ME("sub_0_14CD");
-asm {
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h
+  RF_ForceRefresh();
+  do
+  {
+    word_789_94BC = word_789_949E = word_789_94D4 = 0;
+    word_789_94C6_TODO = 0x847C;
+    WaitVBL();
+    word_789_8228_TODO = 0x94D6;
+    sub_0_F19_TODO();
+    RF_Refresh();
+    dofkeys();
+
+    switch (indemo)
+    {
+      case notdemo:
+          if (keydown[0x2e] && keydown[0x14] && keydown[0x39])
+          {
+            clearkeys();
+            centerwindow(15, 1);
+            print("Warp to level:");
+            ch = get();
+            if (ch > '0' && ch <= '9')
+            {
+              level = ch - '1';
+              leveldone = true;
+            }
+            RF_ForceRefresh();
+            RF_Refresh();
+            RF_Refresh();
+          }
+        break;
+
+      case recording:
+          if (!gamexit || (keydown[0x42] && keydown[0x20]))
+          {
+            clearkeys();
+            centerwindow(15, 1);
+            print("SAVE AS DEMO#:");
+            ch = get ();
+            if (ch<='0' || ch<='9')
+            {
+            }
+            SaveDemo(ch-'0');
+            RF_ForceRefresh();
+            RF_Refresh();
+            RF_Refresh();
+            return;
+          }
+        break;
+
+      case demoplay:
+          indemo = 0;
+          ctrl = ControlPlayer (1);
+          if (ctrl.button1 || ctrl.button2 || keydown[0x39])
+          {
+            indemo = 1;
+            exitdemo = true;
+            break;
+          }
+          indemo = 1;
+        break;
+    }
+
+  } while (!leveldone && gamexit);
 }
-}
-//{
-//  RF_ForceRefresh();
-//  do
-//  {
-//    word_789_94BC = word_789_949E = word_789_94D4 = 0;
-//    word_789_94C6_TODO = 0x847C;
-//    WaitVBL();
-//    word_789_8228 = 0x94D6;
-//    sub_0_F19();
-//    RF_Refresh();
-//    dofkeys();
-//
-//switch (indemo)
-//{
-//  case 0:
-//      if (keydown[0x2e] && keydown[0x14] && keydown[0x39])
-//      {
-//        clearkeys();
-//        centerwindow(15, 1);
-//        print("Warp to level:");
-//        ch = get();
-//        if (ch > '0' && ch <= '9')
-//        {
-//          level = ch - '1';
-//          leveldone = true;
-//        }
-//        RF_ForceRefresh();
-//        RF_Refresh();
-//        RF_Refresh();
-//      }
-//    break;
-//
-//  case 1:
-//      indemo = 0;
-//      ctrl = ControlPlayer (1);
-//      if (ctrl.button1 || ctrl.button2 || keydown[0x39])
-//      {
-//        indemo = 1;
-//        exitdemo = true;
-//        break;
-//      }
-//      indemo = 1;
-//    break;
-//
-//  case 2:
-//      if (!gamexit || (keydown[0x42] && keydown[0x20]))
-//      {
-//        clearkeys();
-//        centerwindow(15, 1);
-//        print("SAVE AS DEMO#:");
-//        do
-//        {
-//          ch = get ();
-//        } while (ch<'0' || ch>'9');
-//        SaveDemo(ch-'0');
-//        RF_ForceRefresh();
-//        RF_Refresh();
-//        RF_Refresh();
-//        return;
-//      }
-//    break;
-//}
-//
-//
-//  } while (!leveldone && gamexit);
-//}
 
 
 /*======================================*/
