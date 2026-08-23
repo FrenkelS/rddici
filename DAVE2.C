@@ -20,13 +20,12 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-//#define CATALOG
-
 /*
-** catacomb II -- the c translation...
+** Dangerous Dave in Copyright Infringement
 */
 
 #include "pcrlib.h"
+#include "NGRABDD2.H"
 
 #define NUMDEMOS 1
 
@@ -290,6 +289,7 @@ void help (void);
 void playloop(void);
 
 
+
 /*==============================*/
 /*			        */
 /* xxxrefresh                   */
@@ -310,10 +310,10 @@ void sub_0_239(void)
   }
 
   if (gamestate == intitle)
-    drawpic(0, 0, 13);
+    drawpic (0,0,TITLEPIC);
 
   if (gamestate == in_TODO)
-    drawpic(0, 0, 15);
+    drawpic (0,0,15);
 
   if (gamestate == inscores)
     _showhighscores();
@@ -360,14 +360,23 @@ void sub_0_31E(void)
   sx = sy = leftedge = 0;
 }
 
+/*
+===================
+=
+= loadgrfiles
+=
+= Loads the tiles and sprites, and sets up the pointers and tables
+=
+===================
+*/
 
-void loadgrfiles(void) // sub_0_352
+void loadgrfiles () // sub_0_352
 {
   if (grmode == CGAgr)
-    installgrfile("CGAPICS.DD2", 0);
+    installgrfile ("CGAPICS.DD2",0);
   else
   {
-    installgrfile("EGAPICS.DD2", 0);
+    installgrfile ("EGAPICS.DD2",0);
     drawpage ^= 1;
     asm nop; // TODO
   }
@@ -381,12 +390,22 @@ void sub_0_37E(void)
 }
 
 
-void repaintscreen(void) // sub_0_38E
+void repaintscreen () // sub_0_38E
 {
   sub_0_37E();
   sub_0_239();
 }
 
+
+/*
+=============
+=
+= dofkeys
+=
+= Checks to see if an F-key is being pressed and handles it
+=
+=============
+*/
 
 void dofkeys (void) // sub_0_399
 {
@@ -452,7 +471,18 @@ void help (void) // sub_0_48C
 }
 
 
-void sub_0_4A9(void)
+
+/*=========================================================================*/
+
+/*
+=============
+=
+= dotitlepage
+=
+=============
+*/
+
+void dotitlepage (void) // sub_0_4A9
 {
   int i;
   setscreenmode (grmode);
@@ -460,7 +490,7 @@ void sub_0_4A9(void)
   if (grmode == EGAgr)
     sub_0_290();
 
-  drawpic (0,0,13);
+  drawpic (0,0,TITLEPIC);
 
   gamestate=intitle;
   for (i=0;i<300;i++)
@@ -491,7 +521,7 @@ void sub_0_4A9(void)
 =============
 */
 
-void sub_0_548(void)
+void doendpage (void) // sub_0_548
 {
   int i;
   setscreenmode (grmode);
@@ -553,7 +583,7 @@ void dodemo (void) // sub_0_5F9
 
   while (!exitdemo)
   {
-    sub_0_4A9 ();
+    dotitlepage ();
 
     if (exitdemo)
       break;
@@ -1256,7 +1286,7 @@ void main (void) // sub_0_1953
 		playloop();
 		if (gamestate == in_TODO)
 		{
-			sub_0_548();
+			doendpage ();		// finished all levels
 		}
 		gameover();
 	}
