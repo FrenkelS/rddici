@@ -109,8 +109,7 @@ typedef struct {
 
 
 typedef struct {
-  int       word_789_94D6;  /* +00 */
-  int       word_789_94D8;  /* +02 */
+  long      dword_789_94D6; /* +00 */
   long      dword_789_94DA; /* +04 */
   int       word_789_94DE;  /* +08 */
   int       word_789_94E0;  /* +0A */
@@ -197,7 +196,7 @@ int word_789_94D4;
 type94D6 type94D6_789_94D6;
 int word_789_94FE;
 int word_789_9500;
-int word_789_9506_TODO;
+void (*word_789_9506)();
 long dword_789_ADD6;
 long dword_789_ADDA;
 
@@ -912,18 +911,25 @@ db 0EBh, 05h, 0E8h, 33h, 0FDh, 0EBh, 00h
 }
 
 
-void sub_0_F19_TODO(void)
+void sub_0_F19(void)
 {
+	asm db 83h, 0ECh, 24h; // sub sp, 24h
+	asm db 56h;            // push si
+	asm db 57h;            // push di
+	asm db 33h, 0FFh;      // xor di, di
+	asm db 33h, 0F6h;      // xor si, si
+
+	if (word_789_8228->dword_789_94D6 < 0x00001000)
+		word_789_8228->dword_789_94D6 = 0x00001000;
+
 	IMPLEMENT_ME("sub_0_F19");
-asm {
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-}
 
 asm {
 //db 83h, 0ECh, 24h, 56h
 //db 57h, 33h, 0FFh, 33h, 0F6h, 8Bh, 1Eh, 28h, 82h, 83h, 7Fh, 02h, 00h, 7Fh, 15h, 7Ch
-db 06h, 81h, 3Fh, 00h, 10h, 73h, 0Dh, 8Bh, 1Eh, 28h, 82h, 0C7h, 07h, 00h, 10h, 0C7h
-db 47h, 02h, 00h, 00h, 8Bh, 1Eh, 0C8h, 94h, 8Bh, 07h, 48h, 99h, 0B1h, 08h, 0E8h, 0D0h
+//db 06h, 81h, 3Fh, 00h, 10h, 73h, 0Dh, 8Bh, 1Eh, 28h, 82h, 0C7h, 07h, 00h, 10h, 0C7h
+//db 47h, 02h, 00h, 00h, 8Bh, 1Eh, 0C8h, 94h, 8Bh, 07h, 48h, 99h
+db 0B1h, 08h, 0E8h, 0D0h
 db 65h, 0B1h, 04h, 0E8h, 0CBh, 65h, 8Bh, 1Eh, 28h, 82h, 3Bh, 57h, 02h, 7Fh, 21h, 7Ch
 db 04h, 3Bh, 07h, 73h, 1Bh, 8Bh, 1Eh, 0C8h, 94h, 8Bh, 07h, 48h, 99h, 0B1h, 08h, 0E8h
 db 0AFh, 65h, 0B1h, 04h, 0E8h, 0AAh, 65h, 8Bh, 1Eh, 28h, 82h, 89h, 07h, 89h, 57h, 02h
@@ -1045,7 +1051,7 @@ void sub_0_14CD(void)
     word_789_94C6_TODO = 0x847C;
     WaitVBL();
     word_789_8228 = &type94D6_789_94D6;
-    sub_0_F19_TODO();
+    sub_0_F19();
     RF_Refresh();
     dofkeys();
 
@@ -1216,8 +1222,7 @@ loc_0_17C2:
 
 loc_0_1880:
 	type94D6_789_94D6.dword_789_94DA = dword_789_94D0 + 0x9600;
-	type94D6_789_94D6.word_789_94D6 = 0x9600;
-	type94D6_789_94D6.word_789_94D8 = 0;
+	type94D6_789_94D6.dword_789_94D6 = 0x00009600;
 	type94D6_789_94D6.word_789_94EA = 0;
 	type94D6_789_94D6.word_789_94E8 = 0;
 	type94D6_789_94D6.gamexit = 1;
@@ -1225,7 +1230,7 @@ loc_0_1880:
 	type94D6_789_94D6.word_789_94E6 = type94D6_789_94D6.word_789_94E4 = 5;
 	word_789_94FE = 0;
 	word_789_9500 = 0;
-	word_789_9506_TODO = 0xF19;
+	word_789_9506 = sub_0_F19;
 	word_789_9494 = 0;
 	word_789_9494 = 0;
 	word_789_8476 = 0;
