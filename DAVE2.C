@@ -53,7 +53,7 @@ typedef enum {nothing,player,goblin,skeleton,ogre,gargoyle,dragon,turbogre,
     wallhit,shot,bigshot,rock,dead1,dead2,dead3,dead4,dead5,dead6,teleporter,
     torch,secretgate,gune,guns,lastclass} classtype;
 
-typedef enum {ingame,intitle,inTODO,inscores} statetype;
+typedef enum {ingame,intitle,in_TODO,inscores} statetype;
 
 
 //typedef struct {
@@ -251,8 +251,8 @@ typedef struct {
 objtype *new;
 int lastobj;
 
-
-#define OBJECT_POOL ((objtype *)0x9508)
+#define MAXOBJECTS	60
+objtype objlist[MAXOBJECTS];
 
 
 #define PORTTILESWIDE 21
@@ -312,7 +312,7 @@ void sub_0_239(void)
   if (gamestate == intitle)
     drawpic(0, 0, 13);
 
-  if (gamestate == inTODO)
+  if (gamestate == in_TODO)
     drawpic(0, 0, 15);
 
   if (gamestate == inscores)
@@ -352,7 +352,7 @@ void sub_0_290(void)
 }
 
 
-void sub_0_31E_TODO(void)
+void sub_0_31E(void)
 {
   xormask = 0xffff;
   bar(0, 0, 39, 24, 32);
@@ -460,7 +460,7 @@ void sub_0_4A9(void)
   if (grmode == EGAgr)
     sub_0_290();
 
-  drawpic (0,0,0x0d);
+  drawpic (0,0,13);
 
   gamestate=intitle;
   for (i=0;i<300;i++)
@@ -495,7 +495,7 @@ void sub_0_548(void)
 {
   int i;
   setscreenmode (grmode);
-  gamestate = inTODO;
+  gamestate = in_TODO;
   sx = 0;
   sy = 0;
   print ("Dave 2 title screen");
@@ -730,29 +730,29 @@ db 00h, 5Fh, 5Eh, 8Bh, 0E5h
 }
 
 
-void BadThink_TODO(void) // sub_0_AA7
+void BadThink(void) // sub_0_AA7
 {
   _quit("badTHINK!");
 }
 
 
-void FindFreeObj_TODO (void) // sub_0_AB4
+void FindFreeObj (void) // sub_0_AB4
 {
-  int si = 1;
-  new = OBJECT_POOL; // TODO
+  int i = 1;
+  new = &objlist[1];
 
-  while (new->class != nothing && si < lastobj)
+  while (new->class != nothing && i < lastobj)
   {
-    si++;
+    i++;
     new++;
   }
 
-  if (si >= lastobj)
+  if (i >= lastobj)
     lastobj++;
 
   new->x1 = new->y1 = new->y2 = new->x2 = 0;
 
-  new->think = BadThink_TODO;
+  new->think = BadThink;
 }
 
 
@@ -775,7 +775,7 @@ db 0A3h, 36h, 1Dh, 0A1h, 2Eh, 1Dh, 03h, 06h, 0B6h, 0C3h, 0A3h, 2Ah, 1Dh
 }
 
 
-boolean sub_0_BCF_TODO(void)
+boolean sub_0_BCF(void)
 {
   if (word_789_7FD0[14] > word_789_1D28)
     return false;
@@ -850,7 +850,7 @@ db 33h, 0C0h, 89h, 47h, 14h, 8Bh, 1Eh, 28h, 82h, 89h, 47h, 12h, 5Fh, 5Eh, 8Bh, 0
 }
 
 
-void sub_0_E52_TODO(void)
+void sub_0_E52_TODO(int arg_0, int arg_2)
 {
 asm {
 db 8Bh, 46h, 04h, 99h, 8Bh, 1Eh, 28h, 82h, 01h, 07h, 11h
@@ -1209,7 +1209,7 @@ loc_0_192B:
 	if (level > _numlevels)
 	{
 		lives = 0;
-		gamestate = inTODO;
+		gamestate = in_TODO;
 	}
 
 loc_0_1944:
@@ -1254,7 +1254,7 @@ void main (void) // sub_0_1953
 		dodemo();
 		WaitEndSound();
 		playloop();
-		if (gamestate == inTODO)
+		if (gamestate == in_TODO)
 		{
 			sub_0_548();
 		}
