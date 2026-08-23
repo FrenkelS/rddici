@@ -95,6 +95,40 @@ typedef enum {ingame,intitle,in_TODO,inscores} statetype;
 //  } objdesc;
 
 
+typedef struct {
+  char      unk0[0x16];
+  classtype class;
+  char      unk18[0x04];
+  int       x1;
+  int       y1;
+  int       x2;
+  int       y2;
+  char      unk24[0x0C];
+  void      (*think)();
+} objtype;
+
+
+typedef struct {
+  int       word_789_94D6;  /* +00 */
+  int       word_789_94D8;  /* +02 */
+  long      dword_789_94DA; /* +04 */
+  int       word_789_94DE;  /* +08 */
+  int       word_789_94E0;  /* +0A */
+  int       word_789_94E2;  /* +0C */
+  int       word_789_94E4;  /* +0E */
+  int       word_789_94E6;  /* +10 */
+  int       word_789_94E8;  /* +12 */
+  int       word_789_94EA;  /* +14 */
+  int       gamexit;        /* +16 */ /* enum {quited,killed,reseted,victorious} */ /*determines what to do after playloop*/
+  int       word_789_94EE;  /* +18 */
+  int       word_789_94F0;  /* +1A */
+  int       word_789_94F2;  /* +1C */
+  int       word_789_94F4;  /* +1E */
+  int       word_789_94F6;  /* +20 */
+  int       word_789_94F8;  /* +22 */
+} type94D6;
+
+
 /*=================*/
 /*		   */
 /* typed constants */
@@ -136,7 +170,7 @@ char unk_789_1D40[15890];
 int word_789_7B20[600];
 int *word_789_7FD0;
 int word_789_8220;
-int word_789_8228_TODO;
+type94D6 *word_789_8228;
 int word_789_8476;
 int word_789_8478;
 int word_789_847A;
@@ -160,22 +194,13 @@ int word_789_94CC;
 int word_789_94CE;
 long dword_789_94D0;
 int word_789_94D4;
-int word_789_94D6_TODO;
-int word_789_94D8;
-long dword_789_94DA_TODO;
-int word_789_94E0;
-int word_789_94E4;
-int word_789_94E6;
-int word_789_94E8;
-int word_789_94EA;
+type94D6 type94D6_789_94D6;
 int word_789_94FE;
 int word_789_9500;
 int word_789_9506_TODO;
 long dword_789_ADD6;
 long dword_789_ADDA;
 
-
-  enum {quited,killed,reseted,victorious} gamexit; /*determines what to do after playloop*/
 
 //  int oldtiles [numtiles];		/*tile displayed last refresh*/
 //  int background[87][86];		/*base map*/
@@ -232,19 +257,6 @@ long dword_789_ADDA;
 //  char far *pics, far *picsexact;
 
 //  long savescore;
-
-
-typedef struct {
-  char      unk0[0x16];
-  classtype class;
-  char      unk18[0x04];
-  int       x1;
-  int       y1;
-  int       x2;
-  int       y2;
-  char      unk24[0x0C];
-  void      (*think)();
-} objtype;
 
 
 objtype *new;
@@ -433,7 +445,7 @@ void dofkeys (void) // sub_0_399
       ch=toupper(get());
       if (ch=='Y')
       {
-        gamexit = quited;
+        type94D6_789_94D6.gamexit = 0;
         lives = 1;
       }
       break;
@@ -1032,7 +1044,7 @@ void sub_0_14CD(void)
     word_789_94BC = word_789_949E = word_789_94D4 = 0;
     word_789_94C6_TODO = 0x847C;
     WaitVBL();
-    word_789_8228_TODO = 0x94D6;
+    word_789_8228 = &type94D6_789_94D6;
     sub_0_F19_TODO();
     RF_Refresh();
     dofkeys();
@@ -1058,7 +1070,7 @@ void sub_0_14CD(void)
         break;
 
       case recording:
-          if (!gamexit || (keydown[0x42] && keydown[0x20]))
+          if (!type94D6_789_94D6.gamexit || (keydown[0x42] && keydown[0x20]))
           {
             clearkeys();
             centerwindow(15, 1);
@@ -1088,7 +1100,7 @@ void sub_0_14CD(void)
         break;
     }
 
-  } while (!leveldone && gamexit);
+  } while (!leveldone && type94D6_789_94D6.gamexit);
 }
 
 
@@ -1203,14 +1215,14 @@ loc_0_17C2:
 	}
 
 loc_0_1880:
-	dword_789_94DA_TODO = dword_789_94D0 + 0x9600;
-	word_789_94D6_TODO = 0x9600;
-	word_789_94D8 = 0;
-	word_789_94EA = 0;
-	word_789_94E8 = 0;
-	gamexit = 1;
-	word_789_94E0 = 2;
-	word_789_94E6 = word_789_94E4 = 5;
+	type94D6_789_94D6.dword_789_94DA = dword_789_94D0 + 0x9600;
+	type94D6_789_94D6.word_789_94D6 = 0x9600;
+	type94D6_789_94D6.word_789_94D8 = 0;
+	type94D6_789_94D6.word_789_94EA = 0;
+	type94D6_789_94D6.word_789_94E8 = 0;
+	type94D6_789_94D6.gamexit = 1;
+	type94D6_789_94D6.word_789_94E0 = 2;
+	type94D6_789_94D6.word_789_94E6 = type94D6_789_94D6.word_789_94E4 = 5;
 	word_789_94FE = 0;
 	word_789_9500 = 0;
 	word_789_9506_TODO = 0xF19;
