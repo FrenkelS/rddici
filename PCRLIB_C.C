@@ -745,47 +745,30 @@ void huge *bloadin (char *filename) // sub_0_2F05
 
 void huge *bloadinRLE (char *filename) // sub_0_2F64
 {
-	IMPLEMENT_ME("bloadinRLE");
-asm {
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+ int handle;
+ long length;
+ long expanded;
+ void far *oldlastparalloc;
+ char huge *buffer;
+ char huge *location;
+
+ if ( (handle = open (filename,O_BINARY)) != -1 )
+   {
+    length = filelength (handle);
+    read(handle, &expanded, sizeof(expanded));
+    close(handle);
+    location = paralloc (expanded);
+    oldlastparalloc = lastparalloc;
+    buffer = paralloc(length);
+    LoadFile (filename,buffer);
+    RLEExpand(buffer + 4, location, expanded);
+    farfree(lastparalloc);
+    lastparalloc = oldlastparalloc;
+    return location;
+   }
+ else
+   return NULL;
 }
-}
-//{
-// int handle;
-// long length;
-// long expanded;
-// void far *oldlastparalloc;
-// char huge *buffer;
-// char huge *location;
-//
-// if ( (handle = open (filename,O_BINARY)) != -1 )
-//   {
-//    length = filelength (handle);
-//    read(handle, &expanded, sizeof(expanded));
-//    close(handle);
-//    location = paralloc (expanded);
-//    oldlastparalloc = lastparalloc;
-//    buffer = paralloc(length);
-//    LoadFile (filename,buffer);
-//    RLEExpand(buffer + 4, location, expanded);
-//    farfree(lastparalloc);
-//    lastparalloc = oldlastparalloc;
-//    return location;
-//   }
-// else
-//   return NULL;
-//}
 
 
 /*==================================================================================*/

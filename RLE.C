@@ -41,12 +41,16 @@ db 36h, 8Bh, 16h, 46h, 12h
 }
 
 
-void RLEExpand_TODO(char far *source, char far *dest, long length) // sub_0_5D02
+void RLEExpand(char far *source, char far *dest, long length) // sub_0_5D02
 {
+	IMPLEMENT_ME("RLEExpand");
+	asm nop
+	asm nop
+
 asm {
-db 8Bh, 46h, 04h
-db 36h, 0A3h, 3Ch, 12h
-db 8Bh, 46h, 06h
+//db 8Bh, 46h, 04h
+//db 36h, 0A3h, 3Ch, 12h
+//db 8Bh, 46h, 06h
 db 36h, 0A3h, 38h, 12h
 db 8Bh, 46h, 08h
 db 36h, 0A3h, 3Eh, 12h
