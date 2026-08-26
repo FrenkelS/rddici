@@ -69,8 +69,8 @@ EXTRN word_789_4A2:WORD
 EXTRN word_789_4A4:WORD
 EXTRN word_789_1556:WORD
 EXTRN word_789_8478:WORD
-EXTRN word_789_847C:WORD
-EXTRN word_789_848E:WORD
+EXTRN word_789_847C_TODO:WORD
+EXTRN word_789_848E_TODO:WORD
 EXTRN word_789_947C:WORD
 EXTRN word_789_9486:WORD
 EXTRN word_789_94A2:WORD
@@ -1266,11 +1266,11 @@ inc     word_789_4A2
 call    sub_0_202F
 
 loc_0_1ED1:
-cmp     di, word_789_847C[bp]
+cmp     di, word_789_847C_TODO[bp]
 jnz     short loc_0_1EED
 call    sub_0_2383
 mov     dl, 20h
-mov     ax, word_789_848E[bp]
+mov     ax, word_789_848E_TODO[bp]
 mul     dl
 mov     bp, ax
 mov     ax, word_789_8478

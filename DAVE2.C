@@ -173,8 +173,8 @@ type94D6 *word_789_8228;
 int word_789_8476;
 int word_789_8478;
 int word_789_847A;
-int word_789_847C;
-int word_789_848E;
+int word_789_847C_TODO;
+int word_789_848E_TODO;
 int word_789_947C;
 int word_789_947E;
 int word_789_9480;
@@ -1137,7 +1137,7 @@ loc_0_1666:
 		goto loc_0_17B1;
 
 loc_0_1670:
-	word_789_847C = -1;
+	word_789_847C_TODO = -1;
 	word_789_94C6_TODO = 0x847C;
 	word_789_94BC = 0;
 	word_789_949E = 0;
