@@ -182,8 +182,9 @@ int word_789_9480;
 int word_789_9482;
 int word_789_9486[4];
 boolean word_789_9490;
-int word_789_9494;
+ControlStruct word_789_9492;
 int word_789_949E;
+int word_789_94A0;
 int word_789_94A2[12];
 int word_789_94BA;
 int word_789_94BC;
@@ -915,10 +916,10 @@ db 0EBh, 05h, 0E8h, 33h, 0FDh, 0EBh, 00h
 
 void sub_0_F19(void)
 {
-	int si;
+	int di, si;
 	ControlStruct c;
+	int var_4;
 
-	asm db 57h;            // push di
 	asm db 33h, 0FFh;      // xor di, di
 	asm db 33h, 0F6h;      // xor si, si
 
@@ -961,103 +962,119 @@ void sub_0_F19(void)
 			word_789_9490 = false;
 	}
 
+	if (c.button1)
+		var_4 = 3;
+	else
+		var_4 = 2;
+
+	word_789_9492 = c;
+	switch (c.dir)
+	{
+		case northeast:
+		case east:
+		case southeast:
+			di = word_789_9480 * var_4;
+			word_789_847A = false;
+			break;
+
+		case southwest:
+		case west:
+		case northwest:
+			di = -word_789_9480 * var_4;
+			word_789_847A = true;
+			break;
+	}
+
+	si += word_789_1D30;
+	if (word_789_94C4)
+	{
+		if (word_789_847A)
+			word_789_94A0 = 10;
+		else
+			word_789_94A0 = 9;
+	}
+	else
+	{
+	}
+
 	IMPLEMENT_ME("sub_0_F19");
 
 asm {
-db 0FCh, 03h, 00h, 0EBh, 05h, 0C7h, 46h, 0FCh, 02h, 00h, 0B8h, 92h, 94h, 1Eh
-db 50h, 8Dh, 46h, 0F0h, 16h, 50h, 0B9h, 06h, 00h, 0E8h, 46h, 65h, 8Bh, 5Eh, 0F0h, 4Bh
-db 83h, 0FBh, 06h, 77h, 29h, 0D1h, 0E3h, 2Eh, 0FFh, 0A7h, 83h, 14h, 0A1h, 80h, 94h, 0F7h
-db 6Eh, 0FCh, 8Bh, 0F8h, 0C7h, 06h, 7Ah, 84h, 00h, 00h, 0EBh, 12h, 0A1h, 80h, 94h, 0F7h
-db 0D8h, 0F7h, 6Eh, 0FCh, 8Bh, 0F8h, 0C7h, 06h, 7Ah, 84h, 01h, 00h, 0EBh, 00h, 03h, 36h
-db 30h, 1Dh, 83h, 3Eh, 0C4h, 94h, 00h, 74h, 17h, 83h, 3Eh, 7Ah, 84h, 00h, 74h, 08h
-db 0C7h, 06h, 0A0h, 94h, 0Ah, 00h, 0EBh, 06h, 0C7h, 06h, 0A0h, 94h, 09h, 00h, 0EBh, 6Fh
-db 8Bh, 1Eh, 28h, 82h, 8Bh, 47h, 0Eh, 0FFh, 4Fh, 0Eh, 0Bh, 0C0h, 75h, 26h, 8Bh, 1Eh
-db 28h, 82h, 8Bh, 47h, 10h, 8Bh, 1Eh, 28h, 82h, 89h, 47h, 0Eh, 8Bh, 1Eh, 28h, 82h
-db 0FFh, 47h, 0Ah, 8Bh, 47h, 0Ah, 3Dh, 04h, 00h, 75h, 09h, 8Bh, 1Eh, 28h, 82h, 0C7h
-db 47h, 0Ah, 00h, 00h, 0Bh, 0FFh, 75h, 17h, 8Bh, 1Eh, 28h, 82h, 0C7h, 47h, 0Ah, 01h
-db 00h, 8Bh, 1Eh, 28h, 82h, 8Bh, 47h, 10h, 8Bh, 1Eh, 28h, 82h, 89h, 47h, 0Eh, 83h
-db 3Eh, 7Ah, 84h, 00h, 74h, 0Fh, 8Bh, 1Eh, 28h, 82h, 8Bh, 47h, 0Ah, 05h, 05h, 00h
-db 0A3h, 0A0h, 94h, 0EBh, 0Ah, 8Bh, 1Eh, 28h, 82h, 8Bh, 47h, 0Ah, 0A3h, 0A0h, 94h, 0E8h
-db 0EBh, 0F9h, 0A1h, 2Ah, 1Dh, 40h, 50h, 0FFh, 36h, 34h, 1Dh, 0E8h, 0EFh, 0FAh, 59h, 59h
-db 89h, 46h, 0FAh, 0A1h, 2Ah, 1Dh, 40h, 50h, 0FFh, 36h, 28h, 1Dh, 0E8h, 0DEh, 0FAh, 59h
-db 59h, 89h, 46h, 0F8h, 8Bh, 5Eh, 0FAh, 0D1h, 0E3h, 83h, 0BFh, 00h, 03h, 00h, 74h, 25h
-db 83h, 3Eh, 76h, 84h, 00h, 75h, 12h, 8Bh, 5Eh, 0FAh, 0D1h, 0E3h, 83h, 0BFh, 0A8h, 00h
-db 00h, 74h, 06h, 0C7h, 06h, 0C4h, 94h, 00h, 00h, 8Bh, 5Eh, 0FAh, 0D1h, 0E3h, 8Bh, 87h
-db 00h, 03h, 89h, 46h, 0F6h, 8Bh, 5Eh, 0F8h, 0D1h, 0E3h, 83h, 0BFh, 00h, 03h, 00h, 74h
-db 25h, 83h, 3Eh, 76h, 84h, 00h, 75h, 12h, 8Bh, 5Eh, 0F8h, 0D1h, 0E3h, 83h, 0BFh, 0A8h
-db 00h, 00h, 74h, 06h, 0C7h, 06h, 0C4h, 94h, 00h, 00h, 8Bh, 5Eh, 0F8h, 0D1h, 0E3h, 8Bh
-db 87h, 00h, 03h, 89h, 46h, 0F6h, 8Bh, 1Eh, 28h, 82h, 01h, 7Fh, 12h, 8Bh, 1Eh, 28h
-db 82h, 01h, 77h, 14h, 33h, 0C0h, 0BAh, 00h, 01h, 50h, 52h, 8Bh, 1Eh, 28h, 82h, 8Bh
-db 47h, 12h, 99h, 50h, 8Bh, 46h, 0F6h, 52h, 99h, 59h, 5Bh, 0E8h, 75h, 66h, 52h, 50h
-db 0E8h, 0A0h, 62h, 8Bh, 1Eh, 28h, 82h, 89h, 47h, 12h, 8Bh, 1Eh, 28h, 82h, 8Bh, 47h
-db 14h, 0BAh, 09h, 00h, 0F7h, 0EAh, 0BBh, 0Ah, 00h, 99h, 0F7h, 0FBh, 8Bh, 1Eh, 28h, 82h
-db 89h, 47h, 14h, 8Bh, 1Eh, 28h, 82h, 8Bh, 77h, 14h, 0E8h, 0C1h, 0FAh, 8Bh, 1Eh, 28h
-db 82h, 83h, 7Fh, 14h, 00h, 75h, 0Ch, 0Bh, 0F6h, 7Dh, 08h, 0B8h, 03h, 00h, 50h, 0E8h
-db 0F4h, 40h, 59h, 8Bh, 1Eh, 28h, 82h, 83h, 7Fh, 14h, 00h, 74h, 06h, 0C7h, 06h, 0C4h
-db 94h, 01h, 00h, 8Bh, 1Eh, 28h, 82h, 83h, 7Fh, 14h, 00h, 7Ch, 06h, 0C7h, 06h, 76h
-db 84h, 00h, 00h, 8Bh, 1Eh, 28h, 82h, 8Bh, 7Fh, 12h, 8Bh, 1Eh, 28h, 82h, 8Bh, 77h
-db 14h, 8Bh, 0C7h, 99h, 8Bh, 1Eh, 28h, 82h, 01h, 07h, 11h, 57h, 02h, 8Bh, 0C6h, 99h
-db 8Bh, 1Eh, 28h, 82h, 01h, 47h, 04h, 11h, 57h, 06h, 0Bh, 0FFh, 7Eh, 4Dh, 8Bh, 1Eh
-db 28h, 82h, 8Bh, 47h, 02h, 8Bh, 17h, 2Bh, 16h, 0CCh, 94h, 1Bh, 06h, 0CEh, 94h, 0Bh
-db 0C0h, 7Ch, 38h, 7Fh, 06h, 81h, 0FAh, 00h, 0B4h, 76h, 30h, 8Bh, 0C7h, 99h, 01h, 06h
-db 0CCh, 94h, 11h, 16h, 0CEh, 94h, 0A1h, 0CEh, 94h, 8Bh, 16h, 0CCh, 94h, 3Bh, 06h, 0D8h
-db 0ADh, 7Ch, 16h, 7Fh, 06h, 3Bh, 16h, 0D6h, 0ADh, 76h, 0Eh, 0A1h, 0D8h, 0ADh, 8Bh, 16h
-db 0D6h, 0ADh, 89h, 16h, 0CCh, 94h, 0A3h, 0CEh, 94h, 0EBh, 4Fh, 0Bh, 0FFh, 7Dh, 4Bh, 8Bh
-db 1Eh, 28h, 82h, 8Bh, 47h, 02h, 8Bh, 17h, 2Bh, 16h, 0CCh, 94h, 1Bh, 06h, 0CEh, 94h
-db 0Bh, 0C0h, 7Fh, 36h, 7Ch, 06h, 81h, 0FAh, 00h, 8Ch, 73h, 2Eh, 8Bh, 0C7h, 99h, 01h
-db 06h, 0CCh, 94h, 11h, 16h, 0CEh, 94h, 0A1h, 0CEh, 94h, 8Bh, 16h, 0CCh, 94h, 3Bh, 06h
-db 4Eh, 15h, 7Fh, 16h, 7Ch, 06h, 3Bh, 16h, 4Ch, 15h, 73h, 0Eh, 0A1h, 4Eh, 15h, 8Bh
-db 16h, 4Ch, 15h, 89h, 16h, 0CCh, 94h, 0A3h, 0CEh, 94h, 0Bh, 0F6h, 7Eh, 4Eh, 8Bh, 1Eh
-db 28h, 82h, 8Bh, 47h, 06h, 8Bh, 57h, 04h, 2Bh, 16h, 0D0h, 94h, 1Bh, 06h, 0D2h, 94h
-db 0Bh, 0C0h, 7Ch, 38h, 7Fh, 06h, 81h, 0FAh, 00h, 0A0h, 76h, 30h, 8Bh, 0C6h, 99h, 01h
-db 06h, 0D0h, 94h, 11h, 16h, 0D2h, 94h, 0A1h, 0D2h, 94h, 8Bh, 16h, 0D0h, 94h, 3Bh, 06h
-db 0DCh, 0ADh, 7Ch, 16h, 7Fh, 06h, 3Bh, 16h, 0DAh, 0ADh, 76h, 0Eh, 0A1h, 0DCh, 0ADh, 8Bh
-db 16h, 0DAh, 0ADh, 89h, 16h, 0D0h, 94h, 0A3h, 0D2h, 94h, 0EBh, 50h, 0Bh, 0F6h, 7Dh, 4Ch
-db 8Bh, 1Eh, 28h, 82h, 8Bh, 47h, 06h, 8Bh, 57h, 04h, 2Bh, 16h, 0D0h, 94h, 1Bh, 06h
-db 0D2h, 94h, 0Bh, 0C0h, 7Fh, 36h, 7Ch, 06h, 81h, 0FAh, 00h, 28h, 73h, 2Eh, 8Bh, 0C6h
-db 99h, 01h, 06h, 0D0h, 94h, 11h, 16h, 0D2h, 94h, 0A1h, 0D2h, 94h, 8Bh, 16h, 0D0h, 94h
-db 3Bh, 06h, 52h, 15h, 7Fh, 16h, 7Ch, 06h, 3Bh, 16h, 50h, 15h, 73h, 0Eh, 0A1h, 52h
-db 15h, 8Bh, 16h, 50h, 15h, 89h, 16h, 0D0h, 94h, 0A3h, 0D2h, 94h, 0E8h, 6Eh, 0F7h, 0E8h
-db 6Bh, 0F4h, 0A1h, 34h, 1Dh, 0BBh, 10h, 00h, 99h, 0F7h, 0FBh, 89h, 46h, 0E4h, 0A1h, 36h
-db 1Dh, 0BBh, 10h, 00h, 99h, 0F7h, 0FBh, 89h, 46h, 0E2h, 0A1h, 28h, 1Dh, 0BBh, 10h, 00h
-db 99h, 0F7h, 0FBh, 89h, 46h, 0E0h, 0A1h, 2Ah, 1Dh, 0BBh, 10h, 00h, 99h, 0F7h, 0FBh, 89h
-db 46h, 0DEh, 8Bh, 46h, 0E2h, 89h, 46h, 0E6h, 0EBh, 65h, 8Bh, 46h, 0E4h, 89h, 46h, 0E8h
-db 0EBh, 52h, 8Bh, 46h, 0E6h, 0F7h, 2Eh, 7Eh, 94h, 03h, 46h, 0E8h, 0D1h, 0E0h, 8Bh, 1Eh
-db 86h, 94h, 03h, 0D8h, 8Bh, 07h, 89h, 46h, 0DCh, 8Bh, 5Eh, 0DCh, 0D1h, 0E3h, 8Bh, 87h
-db 70h, 01h, 3Dh, 01h, 00h, 74h, 02h, 0EBh, 28h, 0B8h, 06h, 00h, 50h, 0E8h, 0F6h, 3Eh
-db 59h, 0B8h, 64h, 00h, 50h, 0E8h, 79h, 00h, 59h, 8Bh, 46h, 0E6h, 0F7h, 2Eh, 7Eh, 94h
-db 03h, 46h, 0E8h, 0D1h, 0E0h, 8Bh, 1Eh, 86h, 94h, 03h, 0D8h, 0C7h, 07h, 00h, 00h, 0EBh
-db 00h, 0FFh, 46h, 0E8h, 8Bh, 46h, 0E8h, 3Bh, 46h, 0E0h, 7Eh, 0A6h, 0FFh, 46h, 0E6h, 8Bh
-db 46h, 0E6h, 3Bh, 46h, 0DEh, 7Eh, 93h, 0C7h, 06h, 0D0h, 7Fh, 08h, 95h, 0C7h, 46h, 0FEh
-db 01h, 00h, 0EBh, 20h, 8Bh, 1Eh, 0D0h, 7Fh, 83h, 7Fh, 28h, 00h, 74h, 0Eh, 0E8h, 6Eh
-db 0F7h, 0Bh, 0C0h, 74h, 07h, 8Bh, 1Eh, 0D0h, 7Fh, 0FFh, 57h, 2Ch, 0FFh, 46h, 0FEh, 83h
-db 06h, 0D0h, 7Fh, 32h, 8Bh, 46h, 0FEh, 3Bh, 06h, 22h, 82h, 7Ch, 0D7h, 5Fh, 5Eh, 8Bh
-db 0E5h
-
-db 5Dh, 0C3h
-//}
-//}
-
-
-db 6Ch, 10h
-db 6Ch, 10h
-db 6Ch, 10h
-db 8Eh, 10h
-db 7Ch, 10h
-db 7Ch, 10h
-db 7Ch, 10h
-
-
-//void AddScore(int toadd) // sub_0_1491
-//{
-//asm {
-db 55h, 8Bh, 0ECh
-
-db 8Bh, 46h, 04h, 99h, 01h, 06h, 0E2h, 0ADh, 11h, 16h, 0E4h, 0ADh
-db 0A1h, 0E4h, 0ADh, 8Bh, 16h, 0E2h, 0ADh, 81h, 0C2h, 0F0h, 0D8h, 15h, 0FFh, 0FFh, 3Bh, 06h
-db 0C0h, 94h, 7Ch, 17h, 75h, 06h, 3Bh, 16h, 0BEh, 94h, 72h, 0Fh, 81h, 06h, 0BEh, 94h
-db 10h, 27h, 83h, 16h, 0C0h, 94h, 00h, 0FFh, 06h, 84h, 94h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
+db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
 }
+}
+
+
+#define EXTRASCORE 10000
+
+void AddScore(int toadd) // sub_0_1491
+{
+	score += toadd;
+	if (score - EXTRASCORE >= lastExtraScore)
+	{
+		lastExtraScore += EXTRASCORE;
+		lives++;
+	}
 }
 
 
@@ -1248,8 +1265,8 @@ void playloop(void) // sub_0_162C
 		word_789_94FE = 0;
 		word_789_9500 = 0;
 		word_789_9506 = sub_0_F19;
-		word_789_9494 = 0;
-		word_789_9494 = 0;
+		word_789_9492.button1 = 0;
+		word_789_9492.button1 = 0;
 		word_789_8476 = 0;
 		word_789_94C4 = true;
 		word_789_9490 = false;
