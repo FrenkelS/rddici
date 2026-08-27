@@ -26,6 +26,7 @@
 
 #include "pcrlib.h"
 #include "NGRABDD2.H"
+#include "SOUNDS.H"
 
 #define NUMDEMOS 1
 
@@ -545,7 +546,7 @@ void doendpage (void) // sub_0_548
   {
     WaitVBL ();
     indemo = 0;
-    ctrl = ControlPlayer(1);
+    ctrl = ControlPlayer (1);
     if (ctrl.button1 || ctrl.button2 || keydown[0x39])
     {
       exitdemo = true;
@@ -648,7 +649,7 @@ void gameover (void) // sub_0_71E
 
   expwin (11,4);
   print ("\n GAME OVER\n     ");
-  PlaySound (7);
+  PlaySound (GAMEOVERSND);
   WaitEndSound ();
   for (i=0;i<120;i++)
     WaitVBL ();
@@ -928,7 +929,7 @@ void sub_0_F19(void)
 	if ((long)(*(int*)(word_789_94C8 + 2)) << 8 << 4 < word_789_8228->dword_789_94DA)
 	{
 		word_789_8228->gamexit = 0;
-		PlaySound(5);
+		PlaySound(PLUMMETSND);
 		WaitEndSound();
 		return;
 	}
@@ -1200,7 +1201,7 @@ loc_0_17C2:
 	printint(level);
 	print("\n\n DAVES LEFT:");
 	printint(lives);
-	PlaySound(2);
+	PlaySound(STARTSOUNDSND);
 	WaitEndSound();
 	if (keydown[0x41] && keydown[0x20]) // 'D+F7' to record a demo
 	{
