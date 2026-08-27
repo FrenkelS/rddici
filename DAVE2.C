@@ -922,22 +922,21 @@ void sub_0_F19(void)
 	if (word_789_8228->dword_789_94D6 < 0x00001000)
 		word_789_8228->dword_789_94D6 = 0x00001000;
 
+	if ((long)((*(int*)word_789_94C8) - 1) << 8 << 4 < word_789_8228->dword_789_94D6)
+		word_789_8228->dword_789_94D6 = (long)((*(int*)word_789_94C8) - 1) << 8 << 4;
+
+	if ((long)(*(int*)(word_789_94C8 + 2)) << 8 << 4 < word_789_8228->dword_789_94DA)
+	{
+		word_789_8228->gamexit = 0;
+		PlaySound(5);
+		WaitEndSound();
+		return;
+	}
+
 	IMPLEMENT_ME("sub_0_F19");
 
 asm {
-//db 83h, 0ECh, 24h, 56h
-//db 57h, 33h, 0FFh, 33h, 0F6h, 8Bh, 1Eh, 28h, 82h, 83h, 7Fh, 02h, 00h, 7Fh, 15h, 7Ch
-//db 06h, 81h, 3Fh, 00h, 10h, 73h, 0Dh, 8Bh, 1Eh, 28h, 82h, 0C7h, 07h, 00h, 10h, 0C7h
-//db 47h, 02h, 00h, 00h, 8Bh, 1Eh, 0C8h, 94h, 8Bh, 07h, 48h, 99h
-db 0B1h, 08h, 0E8h, 0D0h
-db 65h, 0B1h, 04h, 0E8h, 0CBh, 65h, 8Bh, 1Eh, 28h, 82h, 3Bh, 57h, 02h, 7Fh, 21h, 7Ch
-db 04h, 3Bh, 07h, 73h, 1Bh, 8Bh, 1Eh, 0C8h, 94h, 8Bh, 07h, 48h, 99h, 0B1h, 08h, 0E8h
-db 0AFh, 65h, 0B1h, 04h, 0E8h, 0AAh, 65h, 8Bh, 1Eh, 28h, 82h, 89h, 07h, 89h, 57h, 02h
-db 8Bh, 1Eh, 0C8h, 94h, 8Bh, 47h, 02h, 99h, 0B1h, 08h, 0E8h, 94h, 65h, 0B1h, 04h, 0E8h
-db 8Fh, 65h, 8Bh, 1Eh, 28h, 82h, 3Bh, 57h, 06h, 7Fh, 1Eh, 7Ch, 05h, 3Bh, 47h, 04h
-db 73h, 17h, 8Bh, 1Eh, 28h, 82h, 0C7h, 47h, 16h, 00h, 00h, 0B8h, 05h, 00h, 50h, 0E8h
-db 54h, 43h, 59h, 0E8h, 41h, 44h, 0E9h, 0C4h, 04h, 8Dh, 46h, 0F0h, 16h, 50h, 0A1h, 0BAh
-db 94h, 40h, 50h, 16h, 8Dh, 46h, 0EAh, 50h, 0E8h, 5Dh, 1Bh, 83h, 0C4h, 06h, 8Dh, 46h
+db 50h, 16h, 8Dh, 46h, 0EAh, 50h, 0E8h, 5Dh, 1Bh, 83h, 0C4h, 06h, 8Dh, 46h
 db 0EAh, 16h, 50h, 0B9h, 06h, 00h, 0E8h, 0C9h, 65h, 83h, 7Eh, 0F2h, 00h, 74h, 48h, 83h
 db 3Eh, 0C4h, 94h, 00h, 75h, 28h, 83h, 3Eh, 90h, 94h, 00h, 75h, 21h, 0B8h, 04h, 00h
 db 50h, 0E8h, 12h, 43h, 59h, 0A1h, 32h, 1Dh, 0F7h, 0D8h, 8Bh, 0F0h, 0C7h, 06h, 0C4h, 94h
