@@ -173,7 +173,7 @@ int word_789_8220;
 type94D6 *word_789_8228;
 int word_789_8476;
 int word_789_8478;
-int word_789_847A;
+boolean word_789_847A;
 int word_789_847C_TODO;
 int word_789_848E_TODO;
 int word_789_947C;
@@ -181,12 +181,13 @@ int word_789_947E;
 int word_789_9480;
 int word_789_9482;
 int word_789_9486[4];
-int word_789_9490;
+boolean word_789_9490;
 int word_789_9494;
 int word_789_949E;
 int word_789_94A2[12];
+int word_789_94BA;
 int word_789_94BC;
-int word_789_94C4;
+boolean word_789_94C4;
 int word_789_94C6_TODO;
 char *word_789_94C8;
 int word_789_94CA;
@@ -914,8 +915,9 @@ db 0EBh, 05h, 0E8h, 33h, 0FDh, 0EBh, 00h
 
 void sub_0_F19(void)
 {
-	asm db 83h, 0ECh, 24h; // sub sp, 24h
-	asm db 56h;            // push si
+	int si;
+	ControlStruct c;
+
 	asm db 57h;            // push di
 	asm db 33h, 0FFh;      // xor di, di
 	asm db 33h, 0F6h;      // xor si, si
@@ -934,18 +936,35 @@ void sub_0_F19(void)
 		return;
 	}
 
+	c = ControlPlayer (word_789_94BA + 1);
+	if (c.button2)
+	{
+		if (!word_789_94C4 && !word_789_9490)
+		{
+			PlaySound(JUMPSND);
+			si = -word_789_1D32;
+			word_789_94C4 = true;
+			word_789_9490 = true;
+			word_789_8476 = word_789_9482;
+		}
+
+		if (word_789_9490 && word_789_8476 > 0)
+		{
+			si -= word_789_8476;
+			word_789_8476 -= 7;
+		}
+	}
+	else
+	{
+		word_789_8476 = 0;
+		if (!word_789_94C4)
+			word_789_9490 = false;
+	}
+
 	IMPLEMENT_ME("sub_0_F19");
 
 asm {
-db 50h, 16h, 8Dh, 46h, 0EAh, 50h, 0E8h, 5Dh, 1Bh, 83h, 0C4h, 06h, 8Dh, 46h
-db 0EAh, 16h, 50h, 0B9h, 06h, 00h, 0E8h, 0C9h, 65h, 83h, 7Eh, 0F2h, 00h, 74h, 48h, 83h
-db 3Eh, 0C4h, 94h, 00h, 75h, 28h, 83h, 3Eh, 90h, 94h, 00h, 75h, 21h, 0B8h, 04h, 00h
-db 50h, 0E8h, 12h, 43h, 59h, 0A1h, 32h, 1Dh, 0F7h, 0D8h, 8Bh, 0F0h, 0C7h, 06h, 0C4h, 94h
-db 01h, 00h, 0C7h, 06h, 90h, 94h, 01h, 00h, 0A1h, 82h, 94h, 0A3h, 76h, 84h, 83h, 3Eh
-db 90h, 94h, 00h, 74h, 10h, 83h, 3Eh, 76h, 84h, 00h, 7Eh, 09h, 2Bh, 36h, 76h, 84h
-db 83h, 2Eh, 76h, 84h, 07h, 0EBh, 13h, 0C7h, 06h, 76h, 84h, 00h, 00h, 83h, 3Eh, 0C4h
-db 94h, 00h, 75h, 06h, 0C7h, 06h, 90h, 94h, 00h, 00h, 83h, 7Eh, 0F4h, 00h, 74h, 07h
-db 0C7h, 46h, 0FCh, 03h, 00h, 0EBh, 05h, 0C7h, 46h, 0FCh, 02h, 00h, 0B8h, 92h, 94h, 1Eh
+db 0FCh, 03h, 00h, 0EBh, 05h, 0C7h, 46h, 0FCh, 02h, 00h, 0B8h, 92h, 94h, 1Eh
 db 50h, 8Dh, 46h, 0F0h, 16h, 50h, 0B9h, 06h, 00h, 0E8h, 46h, 65h, 8Bh, 5Eh, 0F0h, 4Bh
 db 83h, 0FBh, 06h, 77h, 29h, 0D1h, 0E3h, 2Eh, 0FFh, 0A7h, 83h, 14h, 0A1h, 80h, 94h, 0F7h
 db 6Eh, 0FCh, 8Bh, 0F8h, 0C7h, 06h, 7Ah, 84h, 00h, 00h, 0EBh, 12h, 0A1h, 80h, 94h, 0F7h
@@ -1234,9 +1253,9 @@ loc_0_1880:
 	word_789_9494 = 0;
 	word_789_9494 = 0;
 	word_789_8476 = 0;
-	word_789_94C4 = 1;
-	word_789_9490 = 0;
-	word_789_847A = 0;
+	word_789_94C4 = true;
+	word_789_9490 = false;
+	word_789_847A = false;
 	dword_789_94D0 = dword_789_ADDA;
 	word_789_94CC = 0;
 	word_789_94CE = 0;
