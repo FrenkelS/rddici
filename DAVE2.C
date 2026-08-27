@@ -1151,139 +1151,130 @@ void playloop(void) // sub_0_162C
 
 	word_789_94CA = 0;
 
-loc_0_1666:
-	if (!leveldone)
-		goto loc_0_17B1;
-
-loc_0_1670:
-	word_789_847C_TODO = -1;
-	word_789_94C6_TODO = 0x847C;
-	word_789_94BC = 0;
-	word_789_949E = 0;
-	word_789_94D4 = 0;
-
-	strcpy(str, "LEVEL0");
-	itoa(level, st, 10);
-	strcat(str, st);
-	strcat(str, ".");
-	strcat(str, _extension);
-
-	LoadFile(str, word_789_94C8);
-
-	for (plane = 0; (*(int*)(word_789_94C8 + 4)) > plane; plane++) {
-		word_789_9486[plane] = word_789_94C8 + (*(int*)(word_789_94C8 + 14)) * plane + 0x20;
-	}
-
-	lastobj = 1;
-	word_789_947E = *(int*)word_789_94C8;
-	word_789_947C = word_789_947E << 1;
-	word_789_1556 = word_789_947C + -42;
-	word_789_154C = 0;
-	word_789_154E = 0;
-	word_789_1550 = 0;
-	word_789_1552 = 0;
-
-	dword_789_ADD6 = ((long)((*(int*)(word_789_94C8 + 0)) + -20)) << 12;
-	dword_789_ADDA = ((long)((*(int*)(word_789_94C8 + 2)) + -13)) << 12;
-
-	dword_789_94D0 = dword_789_ADDA;
-	word_789_94CC = 0;
-	word_789_94CE = 0;
-	word_789_1D30 = 160;
-	word_789_9480 = 80;
-	word_789_9482 = 300;
-	word_789_1D32 = 750;
-	RF_Refresh();
-	sub_0_290();
-	RF_Refresh();
-	leveldone = false;
-
-loc_0_17B1:
-	if (indemo != 0)
+	do
 	{
-		initrndt(false);
-		goto loc_0_1880;
-	}
-
-loc_0_17C2:
-	initrndt(true);
-	dword_789_94D0 = dword_789_ADDA;
-	word_789_94CC = 0;
-	word_789_94CE = 0;
-	RF_ForceRefresh();
-	RF_Refresh();
-	RF_Refresh();
-	expwin(14, 9);
-	print("\n SCORE:");
-	printlong(score);
-	print("\n\n WORLD:");
-	printint(level);
-	print("\n\n DAVES LEFT:");
-	printint(lives);
-	PlaySound(STARTSOUNDSND);
-	WaitEndSound();
-	if (keydown[0x41] && keydown[0x20]) // 'D+F7' to record a demo
-	{
-		RF_ForceRefresh();
-		RF_Refresh();
-		RF_Refresh();
-		clearkeys();
-		centerwindow(12, 1);
-		print("RECORD DEMO");
-		do
+		if (leveldone)
 		{
-			ch=get ();
-		} while (ch!=13);
+			word_789_847C_TODO = -1;
+			word_789_94C6_TODO = 0x847C;
+			word_789_94BC = 0;
+			word_789_949E = 0;
+			word_789_94D4 = 0;
 
-		initrndt(false);
-		RecordDemo();
-	}
+			strcpy(str, "LEVEL0");
+			itoa(level, st, 10);
+			strcat(str, st);
+			strcat(str, ".");
+			strcat(str, _extension);
 
-loc_0_1880:
-	type94D6_789_94D6.dword_789_94DA = dword_789_94D0 + 0x9600;
-	type94D6_789_94D6.dword_789_94D6 = 0x00009600;
-	type94D6_789_94D6.word_789_94EA = 0;
-	type94D6_789_94D6.word_789_94E8 = 0;
-	type94D6_789_94D6.gamexit = 1;
-	type94D6_789_94D6.word_789_94E0 = 2;
-	type94D6_789_94D6.word_789_94E6 = type94D6_789_94D6.word_789_94E4 = 5;
-	word_789_94FE = 0;
-	word_789_9500 = 0;
-	word_789_9506 = sub_0_F19;
-	word_789_9494 = 0;
-	word_789_9494 = 0;
-	word_789_8476 = 0;
-	word_789_94C4 = true;
-	word_789_9490 = false;
-	word_789_847A = false;
-	dword_789_94D0 = dword_789_ADDA;
-	word_789_94CC = 0;
-	word_789_94CE = 0;
-	sub_0_14CD();
-	if (indemo != 0)
-		goto loc_0_194E;
+			LoadFile(str, word_789_94C8);
 
-loc_0_191E:
-	if (!leveldone)
-	{
-		lives--;
-		goto loc_0_1944;
-	}
+			for (plane = 0; (*(int*)(word_789_94C8 + 4)) > plane; plane++) {
+				word_789_9486[plane] = word_789_94C8 + (*(int*)(word_789_94C8 + 14)) * plane + 0x20;
+			}
 
-loc_0_192B:
-	level++;
-	if (level > _numlevels)
-	{
-		lives = 0;
-		gamestate = in_TODO;
-	}
+			lastobj = 1;
+			word_789_947E = *(int*)word_789_94C8;
+			word_789_947C = word_789_947E << 1;
+			word_789_1556 = word_789_947C + -42;
+			word_789_154C = 0;
+			word_789_154E = 0;
+			word_789_1550 = 0;
+			word_789_1552 = 0;
 
-loc_0_1944:
-	if (lives != 0)
-		goto loc_0_1666;
+			dword_789_ADD6 = ((long)((*(int*)(word_789_94C8 + 0)) + -20)) << 12;
+			dword_789_ADDA = ((long)((*(int*)(word_789_94C8 + 2)) + -13)) << 12;
 
-loc_0_194E:
-	;
+			dword_789_94D0 = dword_789_ADDA;
+			word_789_94CC = 0;
+			word_789_94CE = 0;
+			word_789_1D30 = 160;
+			word_789_9480 = 80;
+			word_789_9482 = 300;
+			word_789_1D32 = 750;
+			RF_Refresh();
+			sub_0_290();
+			RF_Refresh();
+			leveldone = false;
+		}
+
+		if (indemo != 0)
+		{
+			initrndt(false);
+		}
+		else
+		{
+			initrndt(true);
+			dword_789_94D0 = dword_789_ADDA;
+			word_789_94CC = 0;
+			word_789_94CE = 0;
+			RF_ForceRefresh();
+			RF_Refresh();
+			RF_Refresh();
+			expwin(14, 9);
+			print("\n SCORE:");
+			printlong(score);
+			print("\n\n WORLD:");
+			printint(level);
+			print("\n\n DAVES LEFT:");
+			printint(lives);
+			PlaySound(STARTSOUNDSND);
+			WaitEndSound();
+			if (keydown[0x41] && keydown[0x20]) // 'D+F7' to record a demo
+			{
+				RF_ForceRefresh();
+				RF_Refresh();
+				RF_Refresh();
+				clearkeys();
+				centerwindow(12, 1);
+				print("RECORD DEMO");
+				do
+				{
+					ch=get ();
+				} while (ch!=13);
+
+				initrndt(false);
+				RecordDemo();
+			}
+		}
+
+		type94D6_789_94D6.dword_789_94DA = dword_789_94D0 + 0x9600;
+		type94D6_789_94D6.dword_789_94D6 = 0x00009600;
+		type94D6_789_94D6.word_789_94EA = 0;
+		type94D6_789_94D6.word_789_94E8 = 0;
+		type94D6_789_94D6.gamexit = 1;
+		type94D6_789_94D6.word_789_94E0 = 2;
+		type94D6_789_94D6.word_789_94E6 = type94D6_789_94D6.word_789_94E4 = 5;
+		word_789_94FE = 0;
+		word_789_9500 = 0;
+		word_789_9506 = sub_0_F19;
+		word_789_9494 = 0;
+		word_789_9494 = 0;
+		word_789_8476 = 0;
+		word_789_94C4 = true;
+		word_789_9490 = false;
+		word_789_847A = false;
+		dword_789_94D0 = dword_789_ADDA;
+		word_789_94CC = 0;
+		word_789_94CE = 0;
+		sub_0_14CD();
+		if (indemo != 0)
+			return;
+
+		if (!leveldone)
+		{
+			lives--;
+		}
+		else
+		{
+			level++;
+			if (level > _numlevels)
+			{
+				lives = 0;
+				gamestate = in_TODO;
+			}
+		}
+	} while (lives != 0);
 }
 
 /***************************************************************************/
