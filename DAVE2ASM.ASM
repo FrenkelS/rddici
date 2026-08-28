@@ -75,7 +75,7 @@ EXTRN word_789_947C:WORD
 EXTRN word_789_9486:WORD
 EXTRN word_789_94A2:WORD
 EXTRN word_789_94CA:WORD
-EXTRN word_789_94CC:WORD
+EXTRN dword_789_94CC:DWORD
 EXTRN dword_789_94D0:DWORD
 EXTRN word_789_94D4:WORD
 
@@ -1226,7 +1226,7 @@ shr     ax, 1
 mov     bx, word_789_947C
 mul     bx
 mov     bx, ax
-mov     ax, word_789_94CC+1
+mov     ax, word ptr dword_789_94CC+1
 shr     ax, 1
 shr     ax, 1
 shr     ax, 1
@@ -1338,7 +1338,7 @@ shr     ax, 1
 add     ax, 0A000h
 mov     screenseg, ax
 mov     screenstart, 4
-mov     al, byte ptr word_789_94CC+1
+mov     al, byte ptr dword_789_94CC+1
 test    al, 8
 jz      short loc_0_1F7C
 inc     screenstart

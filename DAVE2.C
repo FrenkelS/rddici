@@ -192,8 +192,7 @@ boolean bool_789_94C4;
 int word_789_94C6_TODO;
 char *word_789_94C8;
 int word_789_94CA;
-int word_789_94CC;
-int word_789_94CE;
+long dword_789_94CC;
 long dword_789_94D0;
 int word_789_94D4;
 type94D6 type94D6_789_94D6;
@@ -1203,8 +1202,7 @@ void playloop(void) // sub_0_162C
 			dword_789_ADDA = ((long)((*(int*)(word_789_94C8 + 2)) + -13)) << 12;
 
 			dword_789_94D0 = dword_789_ADDA;
-			word_789_94CC = 0;
-			word_789_94CE = 0;
+			dword_789_94CC = 0;
 			word_789_1D30 = 160;
 			word_789_9480 = 80;
 			word_789_9482 = 300;
@@ -1223,8 +1221,7 @@ void playloop(void) // sub_0_162C
 		{
 			initrndt(true);
 			dword_789_94D0 = dword_789_ADDA;
-			word_789_94CC = 0;
-			word_789_94CE = 0;
+			dword_789_94CC = 0;
 			RF_ForceRefresh();
 			RF_Refresh();
 			RF_Refresh();
@@ -1272,8 +1269,7 @@ void playloop(void) // sub_0_162C
 		bool_789_9490 = false;
 		bool_789_847A = false;
 		dword_789_94D0 = dword_789_ADDA;
-		word_789_94CC = 0;
-		word_789_94CE = 0;
+		dword_789_94CC = 0;
 		sub_0_14CD();
 		if (indemo != 0)
 			return;
