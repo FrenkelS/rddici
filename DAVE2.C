@@ -168,7 +168,7 @@ int word_789_1D34;
 int word_789_1D36;
 char unk_789_1D40[15890];
 int word_789_7B20[600];
-int *word_789_7FD0;
+objtype *objptr_789_7FD0;
 int word_789_8220;
 type94D6 *word_789_8228;
 int word_789_8476;
@@ -820,16 +820,16 @@ db 0A3h, 36h, 1Dh, 0A1h, 2Eh, 1Dh, 03h, 06h, 0B6h, 0C3h, 0A3h, 2Ah, 1Dh
 
 boolean sub_0_BCF(void)
 {
-  if (word_789_7FD0[14] > word_789_1D28)
+  if (objptr_789_7FD0->x1 > word_789_1D28)
     return false;
 
-  if (word_789_7FD0[15] > word_789_1D2A)
+  if (objptr_789_7FD0->y1 > word_789_1D2A)
     return false;
 
-  if (word_789_7FD0[16] < word_789_1D34)
+  if (objptr_789_7FD0->x2 < word_789_1D34)
     return false;
 
-  if (word_789_7FD0[17] < word_789_1D36)
+  if (objptr_789_7FD0->y2 < word_789_1D36)
     return false;
 
   return true;
