@@ -173,7 +173,7 @@ int word_789_8220;
 type94D6 *word_789_8228;
 int word_789_8476;
 int word_789_8478;
-boolean word_789_847A;
+boolean bool_789_847A;
 int word_789_847C_TODO;
 int word_789_848E_TODO;
 int word_789_947C;
@@ -181,14 +181,14 @@ int word_789_947E;
 int word_789_9480;
 int word_789_9482;
 int word_789_9486[4];
-boolean word_789_9490;
+boolean bool_789_9490;
 ControlStruct word_789_9492;
 int word_789_949E;
 int word_789_94A0;
 int word_789_94A2[12];
 int word_789_94BA;
 int word_789_94BC;
-boolean word_789_94C4;
+boolean bool_789_94C4;
 int word_789_94C6_TODO;
 char *word_789_94C8;
 int word_789_94CA;
@@ -940,16 +940,16 @@ void sub_0_F19(void)
 	c = ControlPlayer (word_789_94BA + 1);
 	if (c.button2)
 	{
-		if (!word_789_94C4 && !word_789_9490)
+		if (!bool_789_94C4 && !bool_789_9490)
 		{
 			PlaySound(JUMPSND);
 			si = -word_789_1D32;
-			word_789_94C4 = true;
-			word_789_9490 = true;
+			bool_789_94C4 = true;
+			bool_789_9490 = true;
 			word_789_8476 = word_789_9482;
 		}
 
-		if (word_789_9490 && word_789_8476 > 0)
+		if (bool_789_9490 && word_789_8476 > 0)
 		{
 			si -= word_789_8476;
 			word_789_8476 -= 7;
@@ -958,8 +958,8 @@ void sub_0_F19(void)
 	else
 	{
 		word_789_8476 = 0;
-		if (!word_789_94C4)
-			word_789_9490 = false;
+		if (!bool_789_94C4)
+			bool_789_9490 = false;
 	}
 
 	if (c.button1)
@@ -974,21 +974,21 @@ void sub_0_F19(void)
 		case east:
 		case southeast:
 			di = word_789_9480 * var_4;
-			word_789_847A = false;
+			bool_789_847A = false;
 			break;
 
 		case southwest:
 		case west:
 		case northwest:
 			di = -word_789_9480 * var_4;
-			word_789_847A = true;
+			bool_789_847A = true;
 			break;
 	}
 
 	si += word_789_1D30;
-	if (word_789_94C4)
+	if (bool_789_94C4)
 	{
-		if (word_789_847A)
+		if (bool_789_847A)
 			word_789_94A0 = 10;
 		else
 			word_789_94A0 = 9;
@@ -1268,9 +1268,9 @@ void playloop(void) // sub_0_162C
 		word_789_9492.button1 = 0;
 		word_789_9492.button1 = 0;
 		word_789_8476 = 0;
-		word_789_94C4 = true;
-		word_789_9490 = false;
-		word_789_847A = false;
+		bool_789_94C4 = true;
+		bool_789_9490 = false;
+		bool_789_847A = false;
 		dword_789_94D0 = dword_789_ADDA;
 		word_789_94CC = 0;
 		word_789_94CE = 0;
