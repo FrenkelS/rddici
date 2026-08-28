@@ -182,7 +182,7 @@ int word_789_9480;
 int word_789_9482;
 int word_789_9486[4];
 boolean bool_789_9490;
-ControlStruct word_789_9492;
+ControlStruct ctrl_789_9492;
 int word_789_949E;
 int word_789_94A0;
 int word_789_94A2[12];
@@ -967,7 +967,7 @@ void sub_0_F19(void)
 	else
 		var_4 = 2;
 
-	word_789_9492 = c;
+	ctrl_789_9492 = c;
 	switch (c.dir)
 	{
 		case northeast:
@@ -1265,8 +1265,8 @@ void playloop(void) // sub_0_162C
 		word_789_94FE = 0;
 		word_789_9500 = 0;
 		word_789_9506 = sub_0_F19;
-		word_789_9492.button1 = 0;
-		word_789_9492.button1 = 0;
+		ctrl_789_9492.button1 = 0;
+		ctrl_789_9492.button1 = 0;
 		word_789_8476 = 0;
 		bool_789_94C4 = true;
 		bool_789_9490 = false;
