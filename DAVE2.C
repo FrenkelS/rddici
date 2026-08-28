@@ -199,7 +199,7 @@ int word_789_94D4;
 type94D6 type94D6_789_94D6;
 int word_789_94FE;
 int word_789_9500;
-void (*word_789_9506)();
+void (*func_789_9506)();
 long dword_789_ADD6;
 long dword_789_ADDA;
 
@@ -1264,7 +1264,7 @@ void playloop(void) // sub_0_162C
 		type94D6_789_94D6.word_789_94E6 = type94D6_789_94D6.word_789_94E4 = 5;
 		word_789_94FE = 0;
 		word_789_9500 = 0;
-		word_789_9506 = sub_0_F19;
+		func_789_9506 = sub_0_F19;
 		ctrl_789_9492.button1 = 0;
 		ctrl_789_9492.button1 = 0;
 		word_789_8476 = 0;
