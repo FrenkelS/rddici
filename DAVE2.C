@@ -938,10 +938,10 @@ void sub_0_F19(void)
 	if (word_789_8228->dword_789_94D6 < 0x00001000)
 		word_789_8228->dword_789_94D6 = 0x00001000;
 
-	if ((long)((*(int*)word_789_94C8) - 1) << 8 << 4 < word_789_8228->dword_789_94D6)
-		word_789_8228->dword_789_94D6 = (long)((*(int*)word_789_94C8) - 1) << 8 << 4;
+	if ((long)(((LevelDef *)word_789_94C8)->width - 1) << 8 << 4 < word_789_8228->dword_789_94D6)
+		word_789_8228->dword_789_94D6 = (long)(((LevelDef *)word_789_94C8)->width - 1) << 8 << 4;
 
-	if ((long)(*(int*)(word_789_94C8 + 2)) << 8 << 4 < word_789_8228->dword_789_94DA)
+	if ((long)((LevelDef *)word_789_94C8)->height << 8 << 4 < word_789_8228->dword_789_94DA)
 	{
 		word_789_8228->gamexit = 0;
 		PlaySound(PLUMMETSND);
