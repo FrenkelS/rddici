@@ -162,6 +162,8 @@ int word_789_1552;
 int word_789_1556;
 int word_789_1D28;
 int word_789_1D2A;
+int word_789_1D2C;
+int word_789_1D2E;
 int word_789_1D30;
 int word_789_1D32;
 int word_789_1D34;
@@ -170,6 +172,7 @@ char unk_789_1D40[15890];
 int word_789_7B20[600];
 objtype *objptr_789_7FD0;
 int word_789_8220;
+int word_789_8226;
 type94D6 *word_789_8228;
 int word_789_8476;
 int word_789_8478;
@@ -801,22 +804,26 @@ void FindFreeObj (void) // sub_0_AB4
 
 void sub_0_B0D(void)
 {
-	IMPLEMENT_ME("sub_0_B0D");
+	word_789_1D2C = word_789_8228->dword_789_94D6 / 256;
+	word_789_1D2E = word_789_8228->dword_789_94DA / 256;
 
-asm {
-db 1Eh, 28h, 82h, 0FFh, 77h, 02h, 0FFh, 37h
-db 0E8h, 50h, 69h, 0A3h, 2Ch, 1Dh, 33h, 0C0h, 0BAh, 00h, 01h, 50h, 52h, 8Bh, 1Eh, 28h
-db 82h, 0FFh, 77h, 06h, 0FFh, 77h, 04h, 0E8h, 39h, 69h, 0A3h, 2Eh, 1Dh, 83h, 3Eh, 9Ch
-db 0AFh, 01h, 75h, 1Dh, 0A1h, 0A0h, 94h, 0D1h, 0E0h, 50h, 0A1h, 2Ch, 1Dh, 0BBh, 02h, 00h
-db 99h, 0F7h, 0FBh, 0BBh, 02h, 00h, 99h, 0F7h, 0FBh, 58h, 03h, 0C2h, 0A3h, 26h, 82h, 0EBh
-db 23h, 0A1h, 0A0h, 94h, 0D1h, 0E0h, 0D1h, 0E0h, 50h, 0A1h, 2Ch, 1Dh, 0BBh, 02h, 00h, 99h
-db 0F7h, 0FBh, 0BBh, 04h, 00h, 99h, 0F7h, 0FBh, 58h, 03h, 0C2h, 0A3h, 26h, 82h, 81h, 26h
-db 2Ch, 1Dh, 0F9h, 0FFh, 8Bh, 1Eh, 28h, 82h, 0A1h, 26h, 82h, 89h, 47h, 18h, 0B8h, 0A4h
-db 0C3h, 1Eh, 50h, 0A1h, 26h, 82h, 0B1h, 05h, 0D3h, 0E0h, 05h, 0C8h, 0C3h, 1Eh, 50h, 0B9h
-db 20h, 00h, 0E8h, 0FDh, 69h, 0A1h, 2Ch, 1Dh, 03h, 06h, 0B0h, 0C3h, 0A3h, 34h, 1Dh, 0A1h
-db 2Ch, 1Dh, 03h, 06h, 0B4h, 0C3h, 0A3h, 28h, 1Dh, 0A1h, 2Eh, 1Dh, 03h, 06h, 0B2h, 0C3h
-db 0A3h, 36h, 1Dh, 0A1h, 2Eh, 1Dh, 03h, 06h, 0B6h, 0C3h, 0A3h, 2Ah, 1Dh
-}
+	if (grmode == CGAgr)
+		word_789_8226 = word_789_94A0 * 2 + ((word_789_1D2C / 2) % 2);
+	else
+	{
+		word_789_8226 = word_789_94A0 * 4 + ((word_789_1D2C / 2) % 4);
+		word_789_1D2C &= ~6;
+		asm nop; // TODO
+	}
+
+	word_789_8228->word_789_94EE = word_789_8226;
+
+	image = spritetable[word_789_8226];
+
+	word_789_1D34 = word_789_1D2C + image.xl;
+	word_789_1D28 = word_789_1D2C + image.xh;
+	word_789_1D36 = word_789_1D2E + image.yl;
+	word_789_1D2A = word_789_1D2E + image.yh;
 }
 
 
