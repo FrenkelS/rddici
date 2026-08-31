@@ -1183,7 +1183,7 @@ void sub_0_14CD(void)
 void playloop(void) // sub_0_162C
 {
 	char st[6];
-	int plane;
+	int i;
 
 	drawpage = 0;
 	lives = 4;
@@ -1213,21 +1213,21 @@ void playloop(void) // sub_0_162C
 
 			LoadFile(str, word_789_94C8);
 
-			for (plane = 0; (*(int*)(word_789_94C8 + 4)) > plane; plane++) {
-				word_789_9486[plane] = word_789_94C8 + (*(int*)(word_789_94C8 + 14)) * plane + 0x20;
+			for (i = 0; i < ((LevelDef *)word_789_94C8)->planes; i++) {
+				word_789_9486[i] = word_789_94C8 + ((LevelDef *)word_789_94C8)->planesize * i + 32;
 			}
 
 			lastobj = 1;
-			word_789_947E = *(int*)word_789_94C8;
-			word_789_947C = word_789_947E << 1;
-			word_789_1556 = word_789_947C + -42;
+			word_789_947E = ((LevelDef *)word_789_94C8)->width;
+			word_789_947C = word_789_947E * 2;
+			word_789_1556 = word_789_947C + -(2 * PORTTILESWIDE);
 			word_789_154C = 0;
 			word_789_154E = 0;
 			word_789_1550 = 0;
 			word_789_1552 = 0;
 
-			dword_789_ADD6 = ((long)((*(int*)(word_789_94C8 + 0)) + -20)) << 12;
-			dword_789_ADDA = ((long)((*(int*)(word_789_94C8 + 2)) + -13)) << 12;
+			dword_789_ADD6 = ((long)(((LevelDef *)word_789_94C8)->width  + -(PORTTILESWIDE - 1))) << 12;
+			dword_789_ADDA = ((long)(((LevelDef *)word_789_94C8)->height + -(PORTTILESHIGH - 1))) << 12;
 
 			dword_789_94D0 = dword_789_ADDA;
 			dword_789_94CC = 0;
