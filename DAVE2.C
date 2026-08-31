@@ -799,10 +799,12 @@ void FindFreeObj (void) // sub_0_AB4
 }
 
 
-void sub_0_B0D_TODO(void)
+void sub_0_B0D(void)
 {
+	IMPLEMENT_ME("sub_0_B0D");
+
 asm {
-db 33h, 0C0h, 0BAh, 00h, 01h, 50h, 52h, 8Bh, 1Eh, 28h, 82h, 0FFh, 77h, 02h, 0FFh, 37h
+db 1Eh, 28h, 82h, 0FFh, 77h, 02h, 0FFh, 37h
 db 0E8h, 50h, 69h, 0A3h, 2Ch, 1Dh, 33h, 0C0h, 0BAh, 00h, 01h, 50h, 52h, 8Bh, 1Eh, 28h
 db 82h, 0FFh, 77h, 06h, 0FFh, 77h, 04h, 0E8h, 39h, 69h, 0A3h, 2Eh, 1Dh, 83h, 3Eh, 9Ch
 db 0AFh, 01h, 75h, 1Dh, 0A1h, 0A0h, 94h, 0D1h, 0E0h, 50h, 0A1h, 2Ch, 1Dh, 0BBh, 02h, 00h
@@ -836,10 +838,12 @@ boolean sub_0_BCF(void)
 }
 
 
-int sub_0_C1D_TODO(int arg_0, int arg_2)
+int sub_0_C1D(int arg_0, int arg_2)
 {
+	IMPLEMENT_ME("sub_0_C1D");
+
 asm {
-db 8Bh, 46h, 06h, 0BBh, 10h, 00h, 99h, 0F7h, 0FBh, 0F7h, 2Eh, 7Eh, 94h, 50h, 8Bh, 46h
+db 0FBh, 0F7h, 2Eh, 7Eh, 94h, 50h, 8Bh, 46h
 db 04h, 0BBh, 10h, 00h, 99h, 0F7h, 0FBh, 5Ah, 03h, 0D0h, 0D1h, 0E2h, 8Bh, 1Eh, 86h, 94h
 db 03h, 0DAh, 8Bh, 07h, 0EBh, 00h
 }
@@ -917,10 +921,12 @@ void sub_0_F19(void)
 {
 	int di, si;
 	ControlStruct c;
+	int var_8;
+	int var_6;
 	int var_4;
 
-	asm db 33h, 0FFh;      // xor di, di
-	asm db 33h, 0F6h;      // xor si, si
+	di = 0;
+	si = 0;
 
 	if (word_789_8228->dword_789_94D6 < 0x00001000)
 		word_789_8228->dword_789_94D6 = 0x00001000;
@@ -967,6 +973,7 @@ void sub_0_F19(void)
 		var_4 = 2;
 
 	ctrl_789_9492 = c;
+
 	switch (c.dir)
 	{
 		case northeast:
@@ -985,6 +992,7 @@ void sub_0_F19(void)
 	}
 
 	si += word_789_1D30;
+
 	if (bool_789_94C4)
 	{
 		if (bool_789_847A)
@@ -994,7 +1002,30 @@ void sub_0_F19(void)
 	}
 	else
 	{
+		if (word_789_8228->word_789_94E4-- == 0)
+		{
+			word_789_8228->word_789_94E4 = word_789_8228->word_789_94E6;
+
+			if (++word_789_8228->word_789_94E0 == 4)
+				word_789_8228->word_789_94E0 = 0;
+		}
+
+		if (di == 0)
+		{
+			word_789_8228->word_789_94E0 = 1;
+			word_789_8228->word_789_94E4 = word_789_8228->word_789_94E6;
+		}
+
+		if (bool_789_847A)
+			word_789_94A0 = word_789_8228->word_789_94E0 + 5;
+		else
+			word_789_94A0 = word_789_8228->word_789_94E0;
 	}
+
+	sub_0_B0D();
+
+	var_6 = sub_0_C1D(word_789_1D34, word_789_1D2A + 1);
+	var_8 = sub_0_C1D(word_789_1D28, word_789_1D2A + 1);
 
 	IMPLEMENT_ME("sub_0_F19");
 
@@ -1050,16 +1081,6 @@ db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90
 db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
 db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
 db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
 }
 }
 
