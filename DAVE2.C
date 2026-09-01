@@ -189,7 +189,6 @@ int word_789_94BA;
 int word_789_94BC;
 boolean bool_789_94C4;
 int word_789_94C6_TODO;
-char *word_789_94C8;
 int word_789_94CA;
 long dword_789_94CC;
 int word_789_94D4;
@@ -267,11 +266,13 @@ int lastobj;
 int drawoffs1[BIGPORTSIZE], drawoffs0[BIGPORTSIZE];
 
 
-int mapplane[4];		// points into map
+unsigned int *mapplane[4];		// points into map
 int mapbwide,mapwwide,mapbytesextra;
 long originyglobal;
 long originxmax, originymax;
 unsigned int drawpage;
+
+char *bigbuffer;
 
 long lastExtraScore;
 
@@ -936,10 +937,10 @@ void sub_0_F19(void)
 	if (word_789_8228->dword_789_94D6 < 0x00001000)
 		word_789_8228->dword_789_94D6 = 0x00001000;
 
-	if ((long)(((LevelDef *)word_789_94C8)->width - 1) << 8 << 4 < word_789_8228->dword_789_94D6)
-		word_789_8228->dword_789_94D6 = (long)(((LevelDef *)word_789_94C8)->width - 1) << 8 << 4;
+	if ((long)(((LevelDef *)bigbuffer)->width - 1) << 8 << 4 < word_789_8228->dword_789_94D6)
+		word_789_8228->dword_789_94D6 = (long)(((LevelDef *)bigbuffer)->width - 1) << 8 << 4;
 
-	if ((long)((LevelDef *)word_789_94C8)->height << 8 << 4 < word_789_8228->dword_789_94DA)
+	if ((long)((LevelDef *)bigbuffer)->height << 8 << 4 < word_789_8228->dword_789_94DA)
 	{
 		word_789_8228->gamexit = 0;
 		PlaySound(PLUMMETSND);
@@ -1209,14 +1210,14 @@ void playloop(void) // sub_0_162C
 			strcat(str, ".");
 			strcat(str, _extension);
 
-			LoadFile(str, word_789_94C8);
+			LoadFile(str, bigbuffer);
 
-			for (i = 0; i < ((LevelDef *)word_789_94C8)->planes; i++) {
-				mapplane[i] = word_789_94C8 + ((LevelDef *)word_789_94C8)->planesize * i + 32;
+			for (i = 0; i < ((LevelDef *)bigbuffer)->planes; i++) {
+				mapplane[i] = (unsigned int *)(bigbuffer + i * ((LevelDef *)bigbuffer)->planesize + 32);
 			}
 
 			lastobj = 1;
-			mapwwide = ((LevelDef *)word_789_94C8)->width;
+			mapwwide = ((LevelDef *)bigbuffer)->width;
 			mapbwide = mapwwide * 2;
 			mapbytesextra = mapbwide + -(2 * PORTTILESWIDE);
 			word_789_154C = 0;
@@ -1224,8 +1225,8 @@ void playloop(void) // sub_0_162C
 			word_789_1550 = 0;
 			word_789_1552 = 0;
 
-			originxmax = ((long)(((LevelDef *)word_789_94C8)->width  + -(PORTTILESWIDE - 1))) << 12;
-			originymax = ((long)(((LevelDef *)word_789_94C8)->height + -(PORTTILESHIGH - 1))) << 12;
+			originxmax = ((long)(((LevelDef *)bigbuffer)->width  + -(PORTTILESWIDE - 1))) << 12;
+			originymax = ((long)(((LevelDef *)bigbuffer)->height + -(PORTTILESHIGH - 1))) << 12;
 
 			originyglobal = originymax;
 			dword_789_94CC = 0;
@@ -1343,7 +1344,7 @@ void main (void) // sub_0_1953
 
 	sub_0_37E();
 
-	word_789_94C8 = unk_789_1D40;
+	bigbuffer = unk_789_1D40;
 
 	while (1)			// go until quit () is called
 	{
