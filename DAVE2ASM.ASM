@@ -58,6 +58,10 @@ PORTTILECOUNT	=	(PORTTILESWIDE*PORTTILESHIGH)
 
 EXTRN drawoffs1:WORD
 EXTRN drawoffs0:WORD
+EXTRN originyglobal:DWORD
+EXTRN mapplane:WORD
+EXTRN mapbwide:WORD
+EXTRN mapbytesextra:WORD
 EXTRN drawpage:WORD
 
 EXTRN screenseg:WORD
@@ -67,16 +71,12 @@ EXTRN tileptr:WORD
 EXTRN word_789_238:WORD
 EXTRN word_789_4A2:WORD
 EXTRN word_789_4A4:WORD
-EXTRN word_789_1556:WORD
 EXTRN word_789_8478:WORD
 EXTRN word_789_847C_TODO:WORD
 EXTRN word_789_848E_TODO:WORD
-EXTRN word_789_947C:WORD
-EXTRN word_789_9486:WORD
 EXTRN word_789_94A2:WORD
 EXTRN word_789_94CA:WORD
 EXTRN dword_789_94CC:DWORD
-EXTRN dword_789_94D0:DWORD
 EXTRN word_789_94D4:WORD
 
 objtype	STRUC
@@ -1218,12 +1218,12 @@ mov     dl, 20h
 mov     ax, word_789_94D4
 mul     dl
 mov     bp, ax
-mov     ax, word ptr dword_789_94D0+1
+mov     ax, word ptr originyglobal+1
 shr     ax, 1
 shr     ax, 1
 shr     ax, 1
 shr     ax, 1
-mov     bx, word_789_947C
+mov     bx, mapbwide
 mul     bx
 mov     bx, ax
 mov     ax, word ptr dword_789_94CC+1
@@ -1233,7 +1233,7 @@ shr     ax, 1
 shr     ax, 1
 shl     ax, 1
 add     bx, ax
-add     bx, word_789_9486
+add     bx, mapplane
 
 loc_0_1E97:
 mov     cx, 21
@@ -1294,7 +1294,7 @@ inc     word_789_4A2
 jmp     short loc_0_1EF1
 
 loc_0_1F0D:
-add     bx, word_789_1556
+add     bx, mapbytesextra
 mov     ax, word_789_4A4
 add     ax, 2
 mov     word_789_4A4, ax
@@ -1351,7 +1351,7 @@ or      ax, ax
 jnz     short loc_0_1FA0
 mov     cx, 0A300h
 mov     es, cx
-mov     al, byte ptr dword_789_94D0+1
+mov     al, byte ptr originyglobal+1
 and     al, 0Fh
 mov     bl, 48
 mul     bl
@@ -1363,7 +1363,7 @@ nop
 loc_0_1FA0:
 mov     cx, 0A000h
 mov     es, cx
-mov     al, byte ptr dword_789_94D0+1
+mov     al, byte ptr originyglobal+1
 and     al, 0Fh
 mov     bl, 48
 mul     bl

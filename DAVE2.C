@@ -159,7 +159,6 @@ int word_789_154C;
 int word_789_154E;
 int word_789_1550;
 int word_789_1552;
-int word_789_1556;
 int word_789_1D28;
 int word_789_1D2A;
 int word_789_1D2C;
@@ -179,11 +178,8 @@ int word_789_8478;
 boolean bool_789_847A;
 int word_789_847C_TODO;
 int word_789_848E_TODO;
-int word_789_947C;
-int word_789_947E;
 int word_789_9480;
 int word_789_9482;
-int word_789_9486[4];
 boolean bool_789_9490;
 ControlStruct ctrl_789_9492;
 int word_789_949E;
@@ -196,14 +192,11 @@ int word_789_94C6_TODO;
 char *word_789_94C8;
 int word_789_94CA;
 long dword_789_94CC;
-long dword_789_94D0;
 int word_789_94D4;
 type94D6 type94D6_789_94D6;
 int word_789_94FE;
 int word_789_9500;
 void (*func_789_9506)();
-long dword_789_ADD6;
-long dword_789_ADDA;
 
 
 //  int oldtiles [numtiles];		/*tile displayed last refresh*/
@@ -266,20 +259,25 @@ long dword_789_ADDA;
 objtype *new;
 int lastobj;
 
-#define MAXOBJECTS	60
-objtype objlist[MAXOBJECTS];
-
 
 #define PORTTILESWIDE 21
 #define PORTTILESHIGH 14
 #define BIGPORTSIZE (PORTTILESHIGH*PORTTILESWIDE)
 
-
 int drawoffs1[BIGPORTSIZE], drawoffs0[BIGPORTSIZE];
 
+
+int mapplane[4];		// points into map
+int mapbwide,mapwwide,mapbytesextra;
+long originyglobal;
+long originxmax, originymax;
 unsigned int drawpage;
 
 long lastExtraScore;
+
+
+#define MAXOBJECTS	60
+objtype objlist[MAXOBJECTS];
 
 
 /****************************************************************************/
@@ -1214,22 +1212,22 @@ void playloop(void) // sub_0_162C
 			LoadFile(str, word_789_94C8);
 
 			for (i = 0; i < ((LevelDef *)word_789_94C8)->planes; i++) {
-				word_789_9486[i] = word_789_94C8 + ((LevelDef *)word_789_94C8)->planesize * i + 32;
+				mapplane[i] = word_789_94C8 + ((LevelDef *)word_789_94C8)->planesize * i + 32;
 			}
 
 			lastobj = 1;
-			word_789_947E = ((LevelDef *)word_789_94C8)->width;
-			word_789_947C = word_789_947E * 2;
-			word_789_1556 = word_789_947C + -(2 * PORTTILESWIDE);
+			mapwwide = ((LevelDef *)word_789_94C8)->width;
+			mapbwide = mapwwide * 2;
+			mapbytesextra = mapbwide + -(2 * PORTTILESWIDE);
 			word_789_154C = 0;
 			word_789_154E = 0;
 			word_789_1550 = 0;
 			word_789_1552 = 0;
 
-			dword_789_ADD6 = ((long)(((LevelDef *)word_789_94C8)->width  + -(PORTTILESWIDE - 1))) << 12;
-			dword_789_ADDA = ((long)(((LevelDef *)word_789_94C8)->height + -(PORTTILESHIGH - 1))) << 12;
+			originxmax = ((long)(((LevelDef *)word_789_94C8)->width  + -(PORTTILESWIDE - 1))) << 12;
+			originymax = ((long)(((LevelDef *)word_789_94C8)->height + -(PORTTILESHIGH - 1))) << 12;
 
-			dword_789_94D0 = dword_789_ADDA;
+			originyglobal = originymax;
 			dword_789_94CC = 0;
 			word_789_1D30 = 160;
 			word_789_9480 = 80;
@@ -1248,7 +1246,7 @@ void playloop(void) // sub_0_162C
 		else
 		{
 			initrndt(true);
-			dword_789_94D0 = dword_789_ADDA;
+			originyglobal = originymax;
 			dword_789_94CC = 0;
 			RF_ForceRefresh();
 			RF_Refresh();
@@ -1280,7 +1278,7 @@ void playloop(void) // sub_0_162C
 			}
 		}
 
-		type94D6_789_94D6.dword_789_94DA = dword_789_94D0 + 0x9600;
+		type94D6_789_94D6.dword_789_94DA = originyglobal + 0x9600;
 		type94D6_789_94D6.dword_789_94D6 = 0x00009600;
 		type94D6_789_94D6.word_789_94EA = 0;
 		type94D6_789_94D6.word_789_94E8 = 0;
@@ -1296,7 +1294,7 @@ void playloop(void) // sub_0_162C
 		bool_789_94C4 = true;
 		bool_789_9490 = false;
 		bool_789_847A = false;
-		dword_789_94D0 = dword_789_ADDA;
+		originyglobal = originymax;
 		dword_789_94CC = 0;
 		sub_0_14CD();
 		if (indemo != 0)
