@@ -846,13 +846,7 @@ boolean sub_0_BCF(void)
 
 int sub_0_C1D(int arg_0, int arg_2)
 {
-	IMPLEMENT_ME("sub_0_C1D");
-
-asm {
-db 0FBh, 0F7h, 2Eh, 7Eh, 94h, 50h, 8Bh, 46h
-db 04h, 0BBh, 10h, 00h, 99h, 0F7h, 0FBh, 5Ah, 03h, 0D0h, 0D1h, 0E2h, 8Bh, 1Eh, 86h, 94h
-db 03h, 0DAh, 8Bh, 07h, 0EBh, 00h
-}
+	return mapplane[0][(arg_2 / 16) * mapwwide + (arg_0 / 16)];
 }
 
 
