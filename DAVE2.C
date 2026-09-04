@@ -890,11 +890,12 @@ int sub_0_C1D(int arg_0, int arg_2)
 }
 
 
-void sub_0_C48_TODO(void)
+boolean sub_0_C48(void)
 {
+	IMPLEMENT_ME("sub_0_C48");
+
 asm {
-db 83h, 0ECh, 06h, 56h, 57h
-db 0A1h, 34h, 1Dh, 0BBh, 10h, 00h, 99h, 0F7h, 0FBh, 89h, 46h, 0FEh, 0A1h, 36h, 1Dh, 0BBh
+db 0BBh, 10h, 00h, 99h, 0F7h, 0FBh, 89h, 46h, 0FEh, 0A1h, 36h, 1Dh, 0BBh
 db 10h, 00h, 99h, 0F7h, 0FBh, 89h, 46h, 0FCh, 0A1h, 28h, 1Dh, 0BBh, 10h, 00h, 99h, 0F7h
 db 0FBh, 89h, 46h, 0FAh, 0A1h, 2Ah, 1Dh, 0BBh, 10h, 00h, 99h, 0F7h, 0FBh, 8Bh, 0C8h, 8Bh
 db 76h, 0FCh, 0EBh, 2Ch, 8Bh, 7Eh, 0FEh, 0EBh, 21h, 8Bh, 0C6h, 0F7h, 2Eh, 7Eh, 94h, 03h
@@ -907,35 +908,96 @@ db 3Bh, 0F1h, 7Eh, 0D0h, 33h, 0C0h, 0EBh, 00h, 5Fh, 5Eh, 8Bh, 0E5h
 
 void sub_0_CBE(void)
 {
-	IMPLEMENT_ME("sub_0_CBE");
+	int di, si;
+	boolean var_2;
+	boolean var_4;
 
-asm {
-db 82h, 8Bh, 7Fh, 12h, 8Bh, 1Eh, 28h
-db 82h, 8Bh, 77h, 14h, 0E8h, 36h, 0FEh, 0Bh, 0FFh, 7Dh, 0Fh, 8Bh, 0C7h, 05h, 01h, 0FFh
-db 0BBh, 00h, 01h, 99h, 0F7h, 0FBh, 8Bh, 0F8h, 0EBh, 11h, 0Bh, 0FFh, 7Eh, 0Dh, 8Bh, 0C7h
-db 05h, 0FFh, 00h, 0BBh, 00h, 01h, 99h, 0F7h, 0FBh, 8Bh, 0F8h, 0Bh, 0F6h, 7Dh, 0Fh, 8Bh
-db 0C6h, 05h, 01h, 0FFh, 0BBh, 00h, 01h, 99h, 0F7h, 0FBh, 8Bh, 0F0h, 0EBh, 11h, 0Bh, 0F6h
-db 7Eh, 0Dh, 8Bh, 0C6h, 05h, 0FFh, 00h, 0BBh, 00h, 01h, 99h, 0F7h, 0FBh, 8Bh, 0F0h, 01h
-db 36h, 36h, 1Dh, 01h, 36h, 2Ah, 1Dh, 01h, 3Eh, 34h, 1Dh, 01h, 3Eh, 28h, 1Dh, 0E8h
-db 16h, 0FFh, 89h, 46h, 0FEh, 29h, 36h, 36h, 1Dh, 29h, 36h, 2Ah, 1Dh, 29h, 3Eh, 34h
-db 1Dh, 29h, 3Eh, 28h, 1Dh, 83h, 7Eh, 0FEh, 00h, 75h, 03h, 0E9h, 0FEh, 00h, 0Bh, 0FFh
-db 7Dh, 34h, 01h, 3Eh, 34h, 1Dh, 01h, 3Eh, 28h, 1Dh, 0E8h, 0EBh, 0FEh, 89h, 46h, 0FEh
-db 29h, 3Eh, 34h, 1Dh, 29h, 3Eh, 28h, 1Dh, 83h, 7Eh, 0FEh, 01h, 75h, 16h, 0A1h, 34h
-db 1Dh, 0F7h, 0D8h, 0BBh, 10h, 00h, 99h, 0F7h, 0FBh, 0B1h, 08h, 0D3h, 0E2h, 8Bh, 1Eh, 28h
-db 82h, 89h, 57h, 12h, 0EBh, 39h, 0Bh, 0FFh, 7Eh, 35h, 01h, 3Eh, 34h, 1Dh, 01h, 3Eh
-db 28h, 1Dh, 0E8h, 0B3h, 0FEh, 89h, 46h, 0FEh, 29h, 3Eh, 34h, 1Dh, 29h, 3Eh, 28h, 1Dh
-db 83h, 7Eh, 0FEh, 01h, 75h, 19h, 0A1h, 28h, 1Dh, 0BBh, 10h, 00h, 99h, 0F7h, 0FBh, 0B8h
-db 0Fh, 00h, 2Bh, 0C2h, 0B1h, 08h, 0D3h, 0E0h, 8Bh, 1Eh, 28h, 82h, 89h, 47h, 12h, 0Bh
-db 0F6h, 7Dh, 34h, 01h, 36h, 36h, 1Dh, 01h, 36h, 2Ah, 1Dh, 0E8h, 7Ah, 0FEh, 89h, 46h
-db 0FCh, 29h, 36h, 36h, 1Dh, 29h, 36h, 2Ah, 1Dh, 83h, 7Eh, 0FCh, 01h, 75h, 16h, 0A1h
-db 36h, 1Dh, 0F7h, 0D8h, 0BBh, 10h, 00h, 99h, 0F7h, 0FBh, 0B1h, 08h, 0D3h, 0E2h, 8Bh, 1Eh
-db 28h, 82h, 89h, 57h, 14h, 0EBh, 39h, 0Bh, 0F6h, 7Eh, 35h, 01h, 36h, 36h, 1Dh, 01h
-db 36h, 2Ah, 1Dh, 0E8h, 42h, 0FEh, 89h, 46h, 0FCh, 29h, 36h, 36h, 1Dh, 29h, 36h, 2Ah
-db 1Dh, 83h, 7Eh, 0FCh, 01h, 75h, 19h, 0A1h, 2Ah, 1Dh, 0BBh, 10h, 00h, 99h, 0F7h, 0FBh
-db 0B8h, 0Fh, 00h, 2Bh, 0C2h, 0B1h, 08h, 0D3h, 0E0h, 8Bh, 1Eh, 28h, 82h, 89h, 47h, 14h
-db 83h, 7Eh, 0FEh, 00h, 75h, 16h, 83h, 7Eh, 0FCh, 00h, 75h, 10h, 8Bh, 1Eh, 28h, 82h
-db 33h, 0C0h, 89h, 47h, 14h, 8Bh, 1Eh, 28h, 82h, 89h, 47h, 12h, 5Fh, 5Eh, 8Bh, 0E5h
-}
+	di = word_789_8228->word_789_94E8;
+	si = word_789_8228->word_789_94EA;
+
+	sub_0_B0D();
+
+	if (di < 0)
+		di = (di - 255) / 256;
+	else if (di > 0)
+		di = (di + 255) / 256;
+
+	if (si < 0)
+		si = (si - 255) / 256;
+	else if (si > 0)
+		si = (si + 255) / 256;
+
+	word_789_1D36 += si;
+	word_789_1D2A += si;
+	word_789_1D34 += di;
+	word_789_1D28 += di;
+
+	var_2 = sub_0_C48();
+
+	word_789_1D36 -= si;
+	word_789_1D2A -= si;
+	word_789_1D34 -= di;
+	word_789_1D28 -= di;
+
+	if (!var_2)
+		return;
+
+	if (di < 0)
+	{
+		word_789_1D34 += di;
+		word_789_1D28 += di;
+
+		var_2 = sub_0_C48();
+
+		word_789_1D34 -= di;
+		word_789_1D28 -= di;
+
+		if (var_2 == true)
+			word_789_8228->word_789_94E8 = (-word_789_1D34 % 16) << 8;
+	}
+	else if (di > 0)
+	{
+		word_789_1D34 += di;
+		word_789_1D28 += di;
+
+		var_2 = sub_0_C48();
+
+		word_789_1D34 -= di;
+		word_789_1D28 -= di;
+
+		if (var_2 == true)
+			word_789_8228->word_789_94E8 = (15 - (word_789_1D28 % 16)) << 8;
+	}
+
+	if (si < 0)
+	{
+		word_789_1D36 += si;
+		word_789_1D2A += si;
+
+		var_4 = sub_0_C48();
+
+		word_789_1D36 -= si;
+		word_789_1D2A -= si;
+
+		if (var_4 == true)
+			word_789_8228->word_789_94EA = (-word_789_1D36 % 16) << 8;
+	}
+	else if (si > 0)
+	{
+		word_789_1D36 += si;
+		word_789_1D2A += si;
+
+		var_4 = sub_0_C48();
+
+		word_789_1D36 -= si;
+		word_789_1D2A -= si;
+
+		if (var_4 == true)
+			word_789_8228->word_789_94EA = (15 - (word_789_1D2A % 16)) << 8;
+	}
+
+	if (!var_2 && !var_4)
+		word_789_8228->word_789_94E8 = word_789_8228->word_789_94EA = 0;
 }
 
 
