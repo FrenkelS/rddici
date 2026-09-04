@@ -155,10 +155,8 @@ const int word_789_238[78] = {
 
 int word_789_4A2;
 int word_789_4A4;
-int word_789_154C;
-int word_789_154E;
-int word_789_1550;
-int word_789_1552;
+long dword_789_154C;
+long dword_789_1550;
 int word_789_1D28;
 int word_789_1D2A;
 int word_789_1D2C;
@@ -281,6 +279,45 @@ long lastExtraScore;
 objtype objlist[MAXOBJECTS];
 
 
+int tile_numframes[100] =
+{
+0,0,0,0,0,0,0,0,0,0,0,0,0,
+1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+0,0,
+1,1,1,1,1,1,1,1,1,1,1,1,
+0,0,0,0,0,0,
+1,1,1,
+0,0,0,0,
+1,1,1,1,1,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+};
+
+
+int tile_behavior[100] =
+{
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+1,1,1,1,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+};
+
+
+int tile_block[100] =
+{
+0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,
+0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,
+0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,
+0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,
+0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,
+0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,
+0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,
+0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,
+0xF5,0xF5,0xF5,0xF5,
+0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,
+0,0,0,0,0,0,0,0,0
+};
+
+
 /****************************************************************************/
 
 //////////////////////////////////
@@ -301,6 +338,7 @@ void sub_0_290 (void);
 void RF_Refresh (void);
 void dofkeys (void);
 void help (void);
+void AddScore(int toadd);
 void playloop(void);
 
 
@@ -726,10 +764,12 @@ loc_0_80A:
 }
 
 
-void sub_0_80D_TODO(void)
+void sub_0_80D(void)
 {
+	IMPLEMENT_ME("sub_0_80D");
+
 asm {
-db 83h, 0ECh, 0Eh, 56h, 57h, 33h, 0C0h, 0BAh, 00h, 01h, 50h, 52h, 0FFh, 36h, 0D2h, 94h
+db 00h, 01h, 50h, 52h, 0FFh, 36h, 0D2h, 94h
 db 0FFh, 36h, 0D0h, 94h, 0E8h, 4Ch, 6Ch, 8Bh, 16h, 2Eh, 1Dh, 2Bh, 0D0h, 89h, 16h, 2Eh
 db 1Dh, 33h, 0C0h, 0BAh, 00h, 01h, 50h, 52h, 0FFh, 36h, 0CEh, 94h, 0FFh, 36h, 0CCh, 94h
 db 0E8h, 30h, 6Ch, 8Bh, 16h, 2Ch, 1Dh, 2Bh, 0D0h, 89h, 16h, 2Ch, 1Dh, 83h, 3Eh, 9Ch
@@ -865,10 +905,12 @@ db 3Bh, 0F1h, 7Eh, 0D0h, 33h, 0C0h, 0EBh, 00h, 5Fh, 5Eh, 8Bh, 0E5h
 }
 
 
-void sub_0_CBE_TODO(void)
+void sub_0_CBE(void)
 {
+	IMPLEMENT_ME("sub_0_CBE");
+
 asm {
-db 83h, 0ECh, 04h, 56h, 57h, 8Bh, 1Eh, 28h, 82h, 8Bh, 7Fh, 12h, 8Bh, 1Eh, 28h
+db 82h, 8Bh, 7Fh, 12h, 8Bh, 1Eh, 28h
 db 82h, 8Bh, 77h, 14h, 0E8h, 36h, 0FEh, 0Bh, 0FFh, 7Dh, 0Fh, 8Bh, 0C7h, 05h, 01h, 0FFh
 db 0BBh, 00h, 01h, 99h, 0F7h, 0FBh, 8Bh, 0F8h, 0EBh, 11h, 0Bh, 0FFh, 7Eh, 0Dh, 8Bh, 0C7h
 db 05h, 0FFh, 00h, 0BBh, 00h, 01h, 99h, 0F7h, 0FBh, 8Bh, 0F8h, 0Bh, 0F6h, 7Dh, 0Fh, 8Bh
@@ -919,14 +961,23 @@ db 0EBh, 05h, 0E8h, 33h, 0FDh, 0EBh, 00h
 
 void sub_0_F19(void)
 {
-	int di, si;
-	ControlStruct c;
-	int var_8;
-	int var_6;
+	// TODO order of variables
+	int var_2;
 	int var_4;
+	int var_6;
+	int var_8;
+	ControlStruct c;
+	int var_A;
+	int var_18;
+	int var_1A;
+	int var_1C;
+	int var_1E;
+	int var_20;
+	int var_22;
+	int var_24;
 
-	di = 0;
-	si = 0;
+	int di = 0;
+	int si = 0;
 
 	if (word_789_8228->dword_789_94D6 < 0x00001000)
 		word_789_8228->dword_789_94D6 = 0x00001000;
@@ -1027,61 +1078,118 @@ void sub_0_F19(void)
 	var_6 = sub_0_C1D(word_789_1D34, word_789_1D2A + 1);
 	var_8 = sub_0_C1D(word_789_1D28, word_789_1D2A + 1);
 
-	IMPLEMENT_ME("sub_0_F19");
+	if (tile_block[var_6])
+	{
+		if (word_789_8476 == 0 && tile_numframes[var_6])
+			bool_789_94C4 = false;
 
-asm {
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-db 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h, 90h
-}
+		var_A = tile_block[var_6];
+	}
+
+	if (tile_block[var_8])
+	{
+		if (word_789_8476 == 0 && tile_numframes[var_8])
+			bool_789_94C4 = false;
+
+		var_A = tile_block[var_8];
+	}
+
+	word_789_8228->word_789_94E8 += di;
+	word_789_8228->word_789_94EA += si;
+
+	word_789_8228->word_789_94E8 = (long)word_789_8228->word_789_94E8 * var_A / 256;
+	word_789_8228->word_789_94EA = word_789_8228->word_789_94EA * 9 / 10;
+
+	si = word_789_8228->word_789_94EA;
+
+	sub_0_CBE();
+
+	if (word_789_8228->word_789_94EA == 0 && si < 0)
+		PlaySound(BUMPSND);
+
+	if (word_789_8228->word_789_94EA != 0)
+		bool_789_94C4 = true;
+
+	if (word_789_8228->word_789_94EA >= 0)
+		word_789_8476 = 0;
+
+	di = word_789_8228->word_789_94E8;
+	si = word_789_8228->word_789_94EA;
+
+	word_789_8228->dword_789_94D6 += di;
+	word_789_8228->dword_789_94DA += si;
+
+	if (di > 0)
+	{
+		if (word_789_8228->dword_789_94D6 - dword_789_94CC > 0xB400L)
+		{
+			dword_789_94CC += di;
+			if (dword_789_94CC > originxmax)
+				dword_789_94CC = originxmax;
+		}
+	}
+	else if (di < 0)
+	{
+		if (word_789_8228->dword_789_94D6 - dword_789_94CC < 0x8C00L)
+		{
+			dword_789_94CC += di;
+			if (dword_789_94CC < dword_789_154C)
+				dword_789_94CC = dword_789_154C;
+		}
+	}
+
+	if (si > 0)
+	{
+		if (word_789_8228->dword_789_94DA - originyglobal > 0xA000L)
+		{
+			originyglobal += si;
+			if (originyglobal > originymax)
+				originyglobal = originymax;
+		}
+	}
+	else if (si < 0)
+	{
+		if (word_789_8228->dword_789_94DA - originyglobal < 0x2800L)
+		{
+			originyglobal += si;
+			if (originyglobal < dword_789_1550)
+				originyglobal = dword_789_1550;
+		}
+	}
+
+	sub_0_B0D();
+	sub_0_80D();
+
+	var_1C = word_789_1D34 / 16;
+	var_1E = word_789_1D36 / 16;
+	var_20 = word_789_1D28 / 16;
+	var_22 = word_789_1D2A / 16;
+
+	for (var_1A = var_1E; var_1A <= var_22; var_1A++)
+	{
+		for (var_18 = var_1C; var_18 <= var_20; var_18++)
+		{
+			var_24 = mapplane[0][var_1A * mapwwide + var_18];
+
+			switch (tile_behavior[var_24])
+			{
+				case 1:
+					PlaySound(GRABCOINSND);
+					AddScore(100);
+					mapplane[0][var_1A * mapwwide + var_18] = 0;
+					break;
+			}
+		}
+	}
+
+	for (objptr_789_7FD0 = objlist,	var_2 = 1; var_2 < lastobj; var_2++, objptr_789_7FD0++)
+	{
+		if (objptr_789_7FD0->think != NULL)
+		{
+			if (sub_0_BCF())
+				objptr_789_7FD0->think();
+		}
+	}
 }
 
 
@@ -1214,10 +1322,8 @@ void playloop(void) // sub_0_162C
 			mapwwide = ((LevelDef *)bigbuffer)->width;
 			mapbwide = mapwwide * 2;
 			mapbytesextra = mapbwide + -(2 * PORTTILESWIDE);
-			word_789_154C = 0;
-			word_789_154E = 0;
-			word_789_1550 = 0;
-			word_789_1552 = 0;
+			dword_789_154C = 0;
+			dword_789_1550 = 0;
 
 			originxmax = ((long)(((LevelDef *)bigbuffer)->width  + -(PORTTILESWIDE - 1))) << 12;
 			originymax = ((long)(((LevelDef *)bigbuffer)->height + -(PORTTILESHIGH - 1))) << 12;
