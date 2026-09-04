@@ -892,17 +892,28 @@ int sub_0_C1D(int arg_0, int arg_2)
 
 boolean sub_0_C48(void)
 {
-	IMPLEMENT_ME("sub_0_C48");
+	int var_2;
+	int var_4;
+	int var_6;
+	int cx;
+	int di;
+	int si;
 
-asm {
-db 0BBh, 10h, 00h, 99h, 0F7h, 0FBh, 89h, 46h, 0FEh, 0A1h, 36h, 1Dh, 0BBh
-db 10h, 00h, 99h, 0F7h, 0FBh, 89h, 46h, 0FCh, 0A1h, 28h, 1Dh, 0BBh, 10h, 00h, 99h, 0F7h
-db 0FBh, 89h, 46h, 0FAh, 0A1h, 2Ah, 1Dh, 0BBh, 10h, 00h, 99h, 0F7h, 0FBh, 8Bh, 0C8h, 8Bh
-db 76h, 0FCh, 0EBh, 2Ch, 8Bh, 7Eh, 0FEh, 0EBh, 21h, 8Bh, 0C6h, 0F7h, 2Eh, 7Eh, 94h, 03h
-db 0C7h, 0D1h, 0E0h, 8Bh, 1Eh, 86h, 94h, 03h, 0D8h, 8Bh, 1Fh, 0D1h, 0E3h, 83h, 0BFh, 0A8h
-db 00h, 00h, 74h, 05h, 0B8h, 01h, 00h, 0EBh, 0Fh, 47h, 3Bh, 7Eh, 0FAh, 7Eh, 0DAh, 46h
-db 3Bh, 0F1h, 7Eh, 0D0h, 33h, 0C0h, 0EBh, 00h, 5Fh, 5Eh, 8Bh, 0E5h
-}
+	var_2 = word_789_1D34 / 16;
+	var_4 = word_789_1D36 / 16;
+	var_6 = word_789_1D28 / 16;
+	cx = word_789_1D2A / 16;
+
+	for (si = var_4; si <= cx; si++)
+	{
+		for (di = var_2; di <= var_6; di++)
+		{
+			if (tile_numframes[mapplane[0][si * mapwwide + di]])
+				return true;
+		}
+	}
+
+	return false;
 }
 
 
