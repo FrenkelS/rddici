@@ -159,8 +159,6 @@ long dword_789_154C;
 long dword_789_1550;
 int word_789_1D28;
 int word_789_1D2A;
-int word_789_1D2C;
-int word_789_1D2E;
 int word_789_1D30;
 int word_789_1D32;
 int word_789_1D34;
@@ -268,6 +266,8 @@ int mapbwide,mapwwide,mapbytesextra;
 long originxglobal, originyglobal;
 long originxmax, originymax;
 unsigned int drawpage;
+
+int px, py;
 
 char *bigbuffer;
 
@@ -763,60 +763,60 @@ loc_0_80A:
 }
 
 
-boolean sub_0_80D(void)
+boolean RF_PlaceSprite(void)
 {
 	int var_2;
-	int var_8;
-	int var_A;
-	int var_C;
-	int var_E;
-	int di;
-	int si;
+	int tx;
+	int ty;
+	int tx_min;
+	int ty_min;
+	int tx_max;
+	int ty_max;
 
-	word_789_1D2E -= originyglobal / 256;
-	word_789_1D2C -= originxglobal / 256;
+	py -= originyglobal / 256;
+	px -= originxglobal / 256;
 
 	if (grmode == EGAgr)
 	{
-		word_789_1D2E += (originyglobal / 256) % 16;
-		word_789_1D2C += (originxglobal / 256) % 16;
+		py += (originyglobal / 256) % 16;
+		px += (originxglobal / 256) % 16;
 
-		word_789_1D2E += 32;
+		py += 32;
 
-		var_C = word_789_1D2C / 16;
-		if (var_C < 0)
-			var_C = 0;
-		else if (var_C > 23)
+		tx_min = px / 16;
+		if (tx_min < 0)
+			tx_min = 0;
+		else if (tx_min > 23)
 			return false;
 
-		di = (word_789_1D2C + image.width * 8 - 1) / 16;
-		if (di > PORTTILESWIDE - 1)
-			di = PORTTILESWIDE - 1;
-		else if (di < 0)
+		tx_max = (px + image.width * 8 - 1) / 16;
+		if (tx_max > PORTTILESWIDE - 1)
+			tx_max = PORTTILESWIDE - 1;
+		else if (tx_max < 0)
 			return false;
 
-		var_E = (word_789_1D2E - 32) / 16;
-		if (var_E < 0)
-			var_E = 0;
-		else if (var_E > PORTTILESHIGH - 1)
+		ty_min = (py - 32) / 16;
+		if (ty_min < 0)
+			ty_min = 0;
+		else if (ty_min > PORTTILESHIGH - 1)
 			return false;
 
-		si = (word_789_1D2E + image.height - 33) / 16;
-		if (si > PORTTILESHIGH - 1)
-			si = PORTTILESHIGH - 1;
-		else if (si < 0)
+		ty_max = (py + image.height - 33) / 16;
+		if (ty_max > PORTTILESHIGH - 1)
+			ty_max = PORTTILESHIGH - 1;
+		else if (ty_max < 0)
 			return false;
 
-		word_789_1D2C = (word_789_1D2C >> 3) + 4;
+		px = (px >> 3) + 4;
 
-		var_2 = (si * PORTTILESWIDE + di) * 2;
+		var_2 = (ty_max * PORTTILESWIDE + tx_max) * 2;
 	}
 
-	for (var_A = var_E; var_A <= si; var_A++)
+	for (ty = ty_min; ty <= ty_max; ty++)
 	{
-		for (var_8 = var_C; var_8 <= di; var_8++)
+		for (tx = tx_min; tx <= tx_max; tx++)
 		{
-			word_789_7B20[word_789_949E] = var_A * PORTTILESWIDE + var_8;
+			word_789_7B20[word_789_949E] = ty * PORTTILESWIDE + tx;
 			word_789_949E++;
 		}
 	}
@@ -824,7 +824,7 @@ boolean sub_0_80D(void)
 	word_789_94BC++;
 	word_789_94C6_TODO += 32;
 
-	IMPLEMENT_ME("sub_0_80D");
+	IMPLEMENT_ME("RF_PlaceSprite");
 
 asm {
 db 07h
@@ -876,15 +876,15 @@ void FindFreeObj (void) // sub_0_AB4
 
 void sub_0_B0D(void)
 {
-	word_789_1D2C = word_789_8228->dword_789_94D6 / 256;
-	word_789_1D2E = word_789_8228->dword_789_94DA / 256;
+	px = word_789_8228->dword_789_94D6 / 256;
+	py = word_789_8228->dword_789_94DA / 256;
 
 	if (grmode == CGAgr)
-		word_789_8226 = word_789_94A0 * 2 + ((word_789_1D2C / 2) % 2);
+		word_789_8226 = word_789_94A0 * 2 + ((px / 2) % 2);
 	else
 	{
-		word_789_8226 = word_789_94A0 * 4 + ((word_789_1D2C / 2) % 4);
-		word_789_1D2C &= ~6;
+		word_789_8226 = word_789_94A0 * 4 + ((px / 2) % 4);
+		px &= ~6;
 		asm nop; // TODO
 	}
 
@@ -892,10 +892,10 @@ void sub_0_B0D(void)
 
 	image = spritetable[word_789_8226];
 
-	word_789_1D34 = word_789_1D2C + image.xl;
-	word_789_1D28 = word_789_1D2C + image.xh;
-	word_789_1D36 = word_789_1D2E + image.yl;
-	word_789_1D2A = word_789_1D2E + image.yh;
+	word_789_1D34 = px + image.xl;
+	word_789_1D28 = px + image.xh;
+	word_789_1D36 = py + image.yl;
+	word_789_1D2A = py + image.yh;
 }
 
 
@@ -1265,7 +1265,7 @@ void sub_0_F19(void)
 	}
 
 	sub_0_B0D();
-	sub_0_80D();
+	RF_PlaceSprite();
 
 	var_1C = word_789_1D34 / 16;
 	var_1E = word_789_1D36 / 16;
