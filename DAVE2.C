@@ -188,7 +188,6 @@ int word_789_94BC;
 boolean bool_789_94C4;
 int word_789_94C6_TODO;
 int word_789_94CA;
-long dword_789_94CC;
 int word_789_94D4;
 type94D6 type94D6_789_94D6;
 int word_789_94FE;
@@ -266,7 +265,7 @@ int drawoffs1[BIGPORTSIZE], drawoffs0[BIGPORTSIZE];
 
 unsigned int *mapplane[4];		// points into map
 int mapbwide,mapwwide,mapbytesextra;
-long originyglobal;
+long originxglobal, originyglobal;
 long originxmax, originymax;
 unsigned int drawpage;
 
@@ -774,13 +773,13 @@ boolean sub_0_80D(void)
 	int di;
 	int si;
 
-	word_789_1D2E -= originyglobal  / 256;
-	word_789_1D2C -= dword_789_94CC / 256;
+	word_789_1D2E -= originyglobal / 256;
+	word_789_1D2C -= originxglobal / 256;
 
 	if (grmode == EGAgr)
 	{
-		word_789_1D2E += (originyglobal  / 256) % 16;
-		word_789_1D2C += (dword_789_94CC / 256) % 16;
+		word_789_1D2E += (originyglobal / 256) % 16;
+		word_789_1D2C += (originxglobal / 256) % 16;
 
 		word_789_1D2E += 32;
 
@@ -1229,20 +1228,20 @@ void sub_0_F19(void)
 
 	if (di > 0)
 	{
-		if (word_789_8228->dword_789_94D6 - dword_789_94CC > 0xB400L)
+		if (word_789_8228->dword_789_94D6 - originxglobal > 0xB400L)
 		{
-			dword_789_94CC += di;
-			if (dword_789_94CC > originxmax)
-				dword_789_94CC = originxmax;
+			originxglobal += di;
+			if (originxglobal > originxmax)
+				originxglobal = originxmax;
 		}
 	}
 	else if (di < 0)
 	{
-		if (word_789_8228->dword_789_94D6 - dword_789_94CC < 0x8C00L)
+		if (word_789_8228->dword_789_94D6 - originxglobal < 0x8C00L)
 		{
-			dword_789_94CC += di;
-			if (dword_789_94CC < dword_789_154C)
-				dword_789_94CC = dword_789_154C;
+			originxglobal += di;
+			if (originxglobal < dword_789_154C)
+				originxglobal = dword_789_154C;
 		}
 	}
 
@@ -1437,7 +1436,7 @@ void playloop(void) // sub_0_162C
 			originymax = ((long)(((LevelDef *)bigbuffer)->height + -(PORTTILESHIGH - 1))) << 12;
 
 			originyglobal = originymax;
-			dword_789_94CC = 0;
+			originxglobal = 0;
 			word_789_1D30 = 160;
 			word_789_9480 = 80;
 			word_789_9482 = 300;
@@ -1456,7 +1455,7 @@ void playloop(void) // sub_0_162C
 		{
 			initrndt(true);
 			originyglobal = originymax;
-			dword_789_94CC = 0;
+			originxglobal = 0;
 			RF_ForceRefresh();
 			RF_Refresh();
 			RF_Refresh();
@@ -1504,7 +1503,7 @@ void playloop(void) // sub_0_162C
 		bool_789_9490 = false;
 		bool_789_847A = false;
 		originyglobal = originymax;
-		dword_789_94CC = 0;
+		originxglobal = 0;
 		sub_0_14CD();
 		if (indemo != 0)
 			return;

@@ -58,6 +58,7 @@ PORTTILECOUNT	=	(PORTTILESWIDE*PORTTILESHIGH)
 
 EXTRN drawoffs1:WORD
 EXTRN drawoffs0:WORD
+EXTRN originxglobal:DWORD
 EXTRN originyglobal:DWORD
 EXTRN mapplane:WORD
 EXTRN mapbwide:WORD
@@ -76,7 +77,6 @@ EXTRN word_789_847C_TODO:WORD
 EXTRN word_789_848E_TODO:WORD
 EXTRN word_789_94A2:WORD
 EXTRN word_789_94CA:WORD
-EXTRN dword_789_94CC:DWORD
 EXTRN word_789_94D4:WORD
 
 objtype	STRUC
@@ -1226,7 +1226,7 @@ shr     ax, 1
 mov     bx, mapbwide
 mul     bx
 mov     bx, ax
-mov     ax, word ptr dword_789_94CC+1
+mov     ax, word ptr originxglobal+1
 shr     ax, 1
 shr     ax, 1
 shr     ax, 1
@@ -1338,7 +1338,7 @@ shr     ax, 1
 add     ax, 0A000h
 mov     screenseg, ax
 mov     screenstart, 4
-mov     al, byte ptr dword_789_94CC+1
+mov     al, byte ptr originxglobal+1
 test    al, 8
 jz      short loc_0_1F7C
 inc     screenstart
