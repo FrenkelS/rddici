@@ -123,14 +123,24 @@ pel			dw	0
 screenstart	dw	0
 
 
-EXTRN word_789_238:WORD
-EXTRN word_789_4A2:WORD
-EXTRN word_789_4A4:WORD
-EXTRN word_789_8478:WORD
 EXTRN type847C_789_847C:type847C
 EXTRN word_789_94A2:WORD
 EXTRN word_789_94CA:WORD
 EXTRN word_789_94D4:WORD
+
+
+word_789_238 dw 0,1,2,3,4,5,6,7,8,9
+	dw 0Ah,0Bh,0Ch,0Eh,0Fh
+	dw 10h
+	dw 0Dh
+	dw 11h,12h,13h,14h,15h,16h,17h,18h,19h,1Ah,1Bh,1Ch,1Dh,1Eh,1Fh
+	dw 20h,21h,22h,23h,24h,25h,26h,27h,28h,29h,2Ah,2Bh,2Ch,2Dh,2Eh,2Fh
+	dw 30h,31h,32h,33h,34h,35h,36h,37h,38h,39h,3Ah,3Bh,3Dh,3Eh,3Fh,3Ch
+	dw 41h,42h,43h,40h,44h,45h,46h,47h,48h,49h,4Ah,4Bh,4Ch,4Dh
+
+word_789_4A2 dw 0
+word_789_4A4 dw 0
+word_789_8478 dw 0
 
 
 IMPLEMENT_ME_DrawSprite db 'Implement me: DrawSprite', 0
