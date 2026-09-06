@@ -133,7 +133,7 @@ EXTRN word_789_94CA:WORD
 EXTRN word_789_94D4:WORD
 
 
-IMPLEMENT_ME_sub_0_2383 db 'Implement me: sub_0_2383', 0
+IMPLEMENT_ME_DrawSprite db 'Implement me: DrawSprite', 0
 
 
 LABEL word_789_6C8 WORD
@@ -393,7 +393,7 @@ call    sub_0_202F
 loc_0_1ED1:
 cmp     di, type847C_789_847C[bp].word_789_847C
 jnz     short loc_0_1EED
-call    sub_0_2383
+call    DrawSprite
 mov     dl, 20h
 mov     ax, type847C_789_847C[bp].word_789_848E
 mul     dl
@@ -616,9 +616,9 @@ db 8Eh, 0D8h, 8Eh, 0D0h, 5Ah, 59h, 5Bh
 db 5Fh, 5Dh, 0C3h
 
 
-PROC	sub_0_2383
+PROC	DrawSprite ; sub_0_2383
 
-	push offset IMPLEMENT_ME_sub_0_2383
+	push offset IMPLEMENT_ME_DrawSprite
 	call _quit
 ;db 55h, 57h, 53h, 51h, 52h, 0BAh, 0CEh, 03h, 0B8h, 05h, 00h, 0EFh, 0B8h
 db 03h, 00h, 0A3h, 02h, 0Ch, 8Bh, 86h, 84h, 84h, 0A3h, 0FAh, 0Bh, 8Bh, 86h, 86h, 84h
