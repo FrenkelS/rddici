@@ -1,8 +1,6 @@
 RDDICI
 ======
 
-THIS IS A WORK IN PROGRESS.
-
 Reconstructed Dangerous Dave in Copyright Infringement Source Code.
 
 The source code of the game before it ([Catacomb II](https://github.com/CatacombGames/TheCatacomb)) and the game that came after it ([Commander Keen 1](https://pckf.com/viewtopic.php?t=18248)) are available.
