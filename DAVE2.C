@@ -110,15 +110,15 @@ typedef struct {
 
 
 typedef struct {
-  int       word_789_847C; /* +00 */
-  int       px;            /* +02 */
-  int       py;            /* +04 */
-  int       imagewidth;    /* +06 */
-  int       imageheight;   /* +08 */
-  void far *shapeptr;      /* +0A */
-  void far *maskptr;       /* +0E */
-  int       word_789_848E; /* +12 */
-  char      unk12[12];     /* +14 */
+  unsigned int word_789_847C; /* +00 */
+  int          px;            /* +02 */
+  int          py;            /* +04 */
+  int          imagewidth;    /* +06 */
+  int          imageheight;   /* +08 */
+  void far    *shapeptr;      /* +0A */
+  void far    *maskptr;       /* +0E */
+  int          word_789_848E; /* +12 */
+  char         unk12[12];     /* +14 */
 } type847C;
 
 
@@ -751,9 +751,11 @@ void RF_Refresh(void) // sub_0_7B3
 }
 
 
-boolean RF_PlaceSprite(void)
+boolean RF_PlaceSprite(void) // sub_0_80D
 {
-	int var_2;
+	unsigned int var_2;
+	int var_4;
+	int var_6;
 	int tx;
 	int ty;
 	int tx_min;
@@ -812,27 +814,40 @@ boolean RF_PlaceSprite(void)
 	word_789_94BC++;
 	word_789_94C6++;
 
-	IMPLEMENT_ME("RF_PlaceSprite");
+	word_789_94C6->word_789_847C = var_2;
+	word_789_94C6->px            = px;
+	word_789_94C6->py            = py;
+	word_789_94C6->imagewidth    = image.width;
+	word_789_94C6->imageheight   = image.height;
+	word_789_94C6->shapeptr      = image.shapeptr;
+	word_789_94C6->maskptr       = image.maskptr;
+	word_789_94C6->word_789_848E = 0;
 
-asm {
-db 07h
-db 8Bh, 1Eh, 0C6h, 94h, 0A1h, 2Ch, 1Dh, 89h, 47h, 02h, 8Bh, 1Eh, 0C6h, 94h, 0A1h, 2Eh
-db 1Dh, 89h, 47h, 04h, 8Bh, 1Eh, 0C6h, 94h, 0A1h, 0A4h, 0C3h, 89h, 47h, 06h, 8Bh, 1Eh
-db 0C6h, 94h, 0A1h, 0A6h, 0C3h, 89h, 47h, 08h, 8Bh, 1Eh, 0C6h, 94h, 0A1h, 0AAh, 0C3h, 8Bh
-db 16h, 0A8h, 0C3h, 89h, 57h, 0Ah, 89h, 47h, 0Ch, 8Bh, 1Eh, 0C6h, 94h, 0A1h, 0AEh, 0C3h
-db 8Bh, 16h, 0ACh, 0C3h, 89h, 57h, 0Eh, 89h, 47h, 10h, 8Bh, 1Eh, 0C6h, 94h, 0C7h, 47h
-db 12h, 00h, 00h, 8Bh, 1Eh, 28h, 82h, 0A1h, 34h, 1Dh, 89h, 47h, 1Ch, 8Bh, 1Eh, 28h
-db 82h, 0A1h, 28h, 1Dh, 89h, 47h, 20h, 8Bh, 1Eh, 28h, 82h, 0A1h, 36h, 1Dh, 89h, 47h
-db 1Eh, 8Bh, 1Eh, 28h, 82h, 0A1h, 2Ah, 1Dh, 89h, 47h, 22h, 8Bh, 1Eh, 0D4h, 94h, 0B1h
-db 05h, 0D3h, 0E3h, 8Bh, 87h, 7Ch, 84h, 3Bh, 46h, 0FEh, 72h, 17h, 8Bh, 1Eh, 0BCh, 94h
-db 0B1h, 05h, 0D3h, 0E3h, 0A1h, 0D4h, 94h, 89h, 87h, 8Eh, 84h, 0A1h, 0BCh, 94h, 0A3h, 0D4h
-db 94h, 0EBh, 49h, 0A1h, 0D4h, 94h, 89h, 46h, 0FCh, 0EBh, 14h, 8Bh, 46h, 0FCh, 89h, 46h
-db 0FAh, 8Bh, 5Eh, 0FCh, 0B1h, 05h, 0D3h, 0E3h, 8Bh, 87h, 8Eh, 84h, 89h, 46h, 0FCh, 8Bh
-db 5Eh, 0FCh, 0B1h, 05h, 0D3h, 0E3h, 8Bh, 87h, 7Ch, 84h, 3Bh, 46h, 0FEh, 72h, 0DCh, 8Bh
-db 5Eh, 0FAh, 0B1h, 05h, 0D3h, 0E3h, 0A1h, 0BCh, 94h, 89h, 87h, 8Eh, 84h, 8Bh, 1Eh, 0BCh
-db 94h, 0B1h, 05h, 0D3h, 0E3h, 8Bh, 46h, 0FCh, 89h, 87h, 8Eh, 84h, 0B8h, 01h, 00h, 0EBh
-db 00h
-}
+	word_789_8228->word_789_94F2 = word_789_1D34;
+	word_789_8228->word_789_94F6 = word_789_1D28;
+	word_789_8228->word_789_94F4 = word_789_1D36;
+	word_789_8228->word_789_94F8 = word_789_1D2A;
+
+	if (type847C_789_847C[word_789_94D4].word_789_847C >= var_2)
+	{
+		type847C_789_847C[word_789_94BC].word_789_848E = word_789_94D4;
+		word_789_94D4 = word_789_94BC;
+	}
+	else
+	{
+		var_4 = word_789_94D4;
+
+		while (type847C_789_847C[var_4].word_789_847C < var_2)
+		{
+			var_6 = var_4;
+			var_4 = type847C_789_847C[var_4].word_789_848E;
+		}
+
+		type847C_789_847C[var_6        ].word_789_848E = word_789_94BC;
+		type847C_789_847C[word_789_94BC].word_789_848E = var_4;
+	}
+
+	return true;
 }
 
 
@@ -1395,7 +1410,7 @@ void playloop(void) // sub_0_162C
 	{
 		if (leveldone)
 		{
-			type847C_789_847C[0].word_789_847C = -1;
+			type847C_789_847C[0].word_789_847C = 0xffff;
 			word_789_94C6 = &type847C_789_847C[0];
 			word_789_94BC = 0;
 			word_789_949E = 0;
