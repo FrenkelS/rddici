@@ -67,7 +67,8 @@ EXTRN drawpage:WORD
 
 EXTRN screenseg:WORD
 
-EXTRN tileptr:WORD
+EXTRN tileptr:DWORD
+EXTRN egaspriteptr:DWORD
 
 
 objtype	STRUC
@@ -123,6 +124,14 @@ pel			dw	0
 screenstart	dw	0
 
 
+EGAdraws	dw	0,EGAone,EGAtwo,EGAthree,EGAfour,EGAfive,EGAsix
+
+spriteroutine 	dw 	0
+
+blockheight	dw	0
+_three		dw	0	; is written to but never used for anything
+
+
 EXTRN type847C_789_847C:type847C
 EXTRN word_789_94A2:WORD
 EXTRN word_789_94CA:WORD
@@ -140,10 +149,10 @@ word_789_238 dw 0,1,2,3,4,5,6,7,8,9
 
 word_789_4A2 dw 0
 word_789_4A4 dw 0
+word_789_BFC dw 0
+word_789_BFE dw 0
+word_789_C00 dw 0
 word_789_8478 dw 0
-
-
-IMPLEMENT_ME_DrawSprite db 'Implement me: DrawSprite', 0
 
 
 LABEL word_789_6C8 WORD
@@ -398,7 +407,7 @@ mov     drawoffs1[di], si
 
 loc_0_1ECA:
 inc     word_789_4A2
-call    sub_0_202F
+call    DrawTile16
 
 loc_0_1ED1:
 cmp     di, type847C_789_847C[bp].word_789_847C
@@ -524,13 +533,13 @@ db 0A5h, 81h, 0EFh, 0B4h, 1Fh, 0A5h, 0A5h, 81h, 0C7h, 0FCh, 1Fh, 0A5h, 0A5h, 81h
 db 1Fh, 0A5h, 0A5h, 81h, 0C7h, 0FCh, 1Fh, 0A5h, 0A5h, 8Ch, 0D0h, 8Eh, 0D8h, 5Fh, 0C3h
 
 
-PROC	sub_0_202F
+PROC	DrawTile16 ; sub_0_202F
 	push    di
 
 	shl     si, 1
 	mov     si, word_789_6C8[si]
 	mov     di, EGAtileloc[di]
-	mov     ax, tileptr+2
+	mov     ax, word ptr tileptr+2
 	mov     ds, ax
 	movsb
 	movsb
@@ -627,25 +636,101 @@ db 5Fh, 5Dh, 0C3h
 
 
 PROC	DrawSprite ; sub_0_2383
+push bp
+push di
+push bx
+push cx
+push dx
+mov dx, 3CEh
+mov ax, 5
+out dx, ax
+mov ax, 3
+mov _three, ax
+mov ax, type847C_789_847C[bp].imageheight
+mov blockheight, ax
+mov ax, word ptr type847C_789_847C[bp].shapeptr
+mov word_789_BFC, ax
+mov ax, word ptr type847C_789_847C[bp].maskptr
+mov word_789_BFE, ax
+mov bx, type847C_789_847C[bp].imagewidth
+shl bx, 1
+mov ax, EGAdraws[bx]
+mov spriteroutine, ax
+mov bx, type847C_789_847C[bp].py
+shl bx, 1
+mov ax, cs:EGAylookup_0[bx]
+add ax, type847C_789_847C[bp].px
+mov word_789_C00, ax
 
-	push offset IMPLEMENT_ME_DrawSprite
-	call _quit
-;db 55h, 57h, 53h, 51h, 52h, 0BAh, 0CEh, 03h, 0B8h, 05h, 00h, 0EFh, 0B8h
-db 03h, 00h, 0A3h, 02h, 0Ch, 8Bh, 86h, 84h, 84h, 0A3h, 0FAh, 0Bh, 8Bh, 86h, 86h, 84h
-db 0A3h, 0FCh, 0Bh, 8Bh, 86h, 8Ah, 84h, 0A3h, 0FEh, 0Bh, 8Bh, 9Eh, 82h, 84h, 0D1h, 0E3h
-db 8Bh, 87h, 0BAh, 04h, 0A3h, 0F8h, 0Bh, 8Bh, 9Eh, 80h, 84h, 0D1h, 0E3h, 2Eh, 8Bh, 87h
-db 44h, 1Bh, 03h, 86h, 7Eh, 84h, 0A3h, 00h, 0Ch, 0BAh, 0CEh, 03h, 0B8h, 04h, 00h, 0EFh
-db 0BAh, 0C4h, 03h, 0B8h, 02h, 01h, 0EFh, 8Bh, 3Eh, 00h, 0Ch, 8Bh, 0Eh, 0FAh, 0Bh, 8Bh
-db 36h, 0FCh, 0Bh, 8Bh, 2Eh, 0FEh, 0Bh, 0A1h, 72h, 0AEh, 8Eh, 0D8h, 36h, 0FFh, 16h, 0F8h
-db 0Bh, 0BAh, 0CEh, 03h, 0B8h, 04h, 01h, 0EFh, 0BAh, 0C4h, 03h, 0B8h, 02h, 02h, 0EFh, 8Bh
-db 3Eh, 00h, 0Ch, 8Bh, 0Eh, 0FAh, 0Bh, 8Bh, 36h, 0FCh, 0Bh, 8Bh, 2Eh, 0FEh, 0Bh, 0A1h
-db 76h, 0AEh, 8Eh, 0D8h, 36h, 0FFh, 16h, 0F8h, 0Bh, 0BAh, 0CEh, 03h, 0B8h, 04h, 02h, 0EFh
-db 0BAh, 0C4h, 03h, 0B8h, 02h, 04h, 0EFh, 8Bh, 3Eh, 00h, 0Ch, 8Bh, 0Eh, 0FAh, 0Bh, 8Bh
-db 36h, 0FCh, 0Bh, 8Bh, 2Eh, 0FEh, 0Bh, 0A1h, 7Ah, 0AEh, 8Eh, 0D8h, 36h, 0FFh, 16h, 0F8h
-db 0Bh, 0BAh, 0CEh, 03h, 0B8h, 04h, 03h, 0EFh, 0BAh, 0C4h, 03h, 0B8h, 02h, 08h, 0EFh, 8Bh
-db 3Eh, 00h, 0Ch, 8Bh, 0Eh, 0FAh, 0Bh, 8Bh, 36h, 0FCh, 0Bh, 8Bh, 2Eh, 0FEh, 0Bh, 0A1h
-db 7Eh, 0AEh, 8Eh, 0D8h, 36h, 0FFh, 16h, 0F8h, 0Bh, 0B8h, 05h, 01h, 0BAh, 0CEh, 03h, 0EFh
-db 0BAh, 0C4h, 03h, 0B0h, 02h, 0B4h, 0Fh, 0EFh, 5Ah, 59h, 5Bh, 5Fh, 5Dh, 0C3h
+mov dx, 3CEh
+mov ax, 4
+out dx, ax
+mov dx, 3C4h
+mov ax, 102h
+out dx, ax
+mov di, word_789_C00
+mov cx, blockheight
+mov si, word_789_BFC
+mov bp, word_789_BFE
+mov ax, word ptr egaspriteptr[0]+2
+mov ds, ax
+call ss:spriteroutine
+
+mov dx, 3CEh
+mov ax, 104h
+out dx, ax
+mov dx, 3C4h
+mov ax, 202h
+out dx, ax
+mov di, ds:word_789_C00
+mov cx, ds:blockheight
+mov si, ds:word_789_BFC
+mov bp, ds:word_789_BFE
+mov ax, word ptr ds:egaspriteptr[1] + 2
+mov ds, ax
+call ss:spriteroutine
+
+mov dx, 3CEh
+mov ax, 204h
+out dx, ax
+mov dx, 3C4h
+mov ax, 402h
+out dx, ax
+mov di, ds:word_789_C00
+mov cx, ds:blockheight
+mov si, ds:word_789_BFC
+mov bp, ds:word_789_BFE
+mov ax, word ptr ds:egaspriteptr[2] + 2
+mov ds, ax
+call ss:spriteroutine
+
+mov dx, 3CEh
+mov ax, 304h
+out dx, ax
+mov dx, 3C4h
+mov ax, 802h
+out dx, ax
+mov di, word_789_C00
+mov cx, blockheight
+mov si, word_789_BFC
+mov bp, word_789_BFE
+mov ax, word ptr ds:egaspriteptr[3] + 2
+mov ds, ax
+call ss:spriteroutine
+
+mov ax, 105h
+mov dx, 3CEh
+out dx, ax
+mov dx, 3C4h
+mov al, 2
+mov ah, 0Fh
+out dx, ax
+pop dx
+pop cx
+pop bx
+pop di
+pop bp
+retn
 ENDP
 
 
@@ -655,61 +740,146 @@ ENDP
 ;
 ;===========================================================================
 
-;EGAone
-sub_0_247E:
-db 8Eh, 0D0h
-db 26h, 8Ah, 05h, 22h, 46h, 00h, 0Ah, 04h, 0AAh, 46h, 45h, 83h, 0C7h, 2Fh, 0E2h, 0F0h
-mov ax, @data
-db 8Eh, 0D8h, 8Eh, 0D0h, 0C3h
+PROC EGAone ; sub_0_247E
+	mov	ss,ax
+@@lineloop:
+	mov	al,[es:di]
+	and	al,[bp+0]
+	or	al,[si]
+	stosb
+	inc si
+	inc bp
+	add di, SCREENWIDTH-1
+	loop	@@lineloop
+
+	mov	ax,@Data
+	mov	ds,ax
+	mov	ss,ax
+	ret
+ENDP
 
 ;=================
 
-;EGAtwo
-sub_0_2498:
-db 8Eh, 0D0h, 26h, 8Bh, 05h, 23h, 46h, 00h
-db 0Bh, 04h, 0ABh, 83h, 0C6h, 02h, 83h, 0C5h, 02h, 83h, 0C7h, 2Eh, 0E2h, 0ECh
-mov ax, @data
-db 8Eh, 0D8h, 8Eh, 0D0h, 0C3h
+PROC EGAtwo ; sub_0_2498
+	mov	ss,ax
+@@lineloop:
+	mov	ax,[es:di]
+	and	ax,[bp+0]
+	or	ax,[si]
+	stosw
+	add	si,2
+	add bp,2
+	add	di,SCREENWIDTH-2
+	loop	@@lineloop
+
+	mov	ax,@Data
+	mov	ds,ax
+	mov	ss,ax
+	ret
+ENDP
 
 ;=================
 
-;EGAthree
-sub_0_24B6:
-db 8Eh, 0D0h, 26h, 8Bh, 05h, 23h, 46h, 00h, 0Bh, 04h
-db 0ABh, 26h, 8Ah, 05h, 22h, 46h, 02h, 0Ah, 44h, 02h, 0AAh, 83h, 0C6h, 03h, 83h, 0C5h
-db 03h, 83h, 0C7h, 2Dh, 0E2h, 0E2h
-mov ax, @data
-db 8Eh, 0D8h, 8Eh, 0D0h, 0C3h
+PROC EGAthree ; sub_0_24B6
+	mov	ss,ax
+@@lineloop:
+	mov	ax,[es:di]
+	and	ax,[bp+0]
+	or	ax,[si]
+	stosw
+	mov	al,[es:di]
+	and	al,[bp+2]
+	or	al,[si+2]
+	stosb
+	add	si,3
+	add bp,3
+	add	di,SCREENWIDTH-3
+	loop	@@lineloop
+
+	mov	ax,@Data
+	mov	ds,ax
+	mov	ss,ax
+	ret
+ENDP
 
 ;=================
 
-;EGAfour
-sub_0_24DE:
-db 8Eh, 0D0h
-db 26h, 8Bh, 05h, 23h, 46h, 00h, 0Bh, 04h, 0ABh, 26h, 8Bh, 05h, 23h, 46h, 02h, 0Bh
-db 44h, 02h, 0ABh, 83h, 0C6h, 04h, 83h, 0C5h, 04h, 83h, 0C7h, 2Ch, 0E2h, 0E2h
-mov ax, @data
-db 8Eh, 0D8h, 8Eh, 0D0h, 0C3h
+PROC EGAfour ; sub_0_24DE
+	mov	ss,ax
+@@lineloop:
+	mov	ax,[es:di]
+	and	ax,[bp+0]
+	or	ax,[si]
+	stosw
+	mov	ax,[es:di]
+	and	ax,[bp+2]
+	or	ax,[si+2]
+	stosw
+	add	si,4
+	add bp,4
+	add	di,SCREENWIDTH-4
+	loop	@@lineloop
+
+	mov	ax,@Data
+	mov	ds,ax
+	mov	ss,ax
+	ret
+ENDP
 
 ;=================
 
-;EGAfive
-sub_0_2506:
-db 8Eh, 0D0h, 26h, 8Bh, 05h, 23h, 46h, 00h, 0Bh, 04h
-db 0ABh, 26h, 8Bh, 05h, 23h, 46h, 02h, 0Bh, 44h, 02h, 0ABh, 26h, 8Ah, 05h, 22h, 46h
-db 04h, 0Ah, 44h, 04h, 0AAh, 83h, 0C6h, 05h, 83h, 0C5h, 05h, 83h, 0C7h, 2Bh, 0E2h, 0D8h
-mov ax, @data
-db 8Eh, 0D8h, 8Eh, 0D0h, 0C3h
+PROC EGAfive ; sub_0_2506
+	mov	ss,ax
+@@lineloop:
+	mov	ax,[es:di]
+	and	ax,[bp+0]
+	or	ax,[si]
+	stosw
+	mov	ax,[es:di]
+	and	ax,[bp+2]
+	or	ax,[si+2]
+	stosw
+	mov	al,[es:di]
+	and	al,[bp+4]
+	or	al,[si+4]
+	stosb
+	add	si,5
+	add bp,5
+	add	di,SCREENWIDTH-5
+	loop	@@lineloop
+
+	mov	ax,@Data
+	mov	ds,ax
+	mov	ss,ax
+	ret
+ENDP
 
 ;=================
 
-;EGAsix
-sub_0_2538:
-db 8Eh, 0D0h, 26h, 8Bh, 05h, 23h, 46h, 00h
-db 0Bh, 04h, 0ABh, 26h, 8Bh, 05h, 23h, 46h, 02h, 0Bh, 44h, 02h, 0ABh, 26h, 8Bh, 05h
-db 23h, 46h, 04h, 0Bh, 44h, 04h, 0ABh, 83h, 0C6h, 06h, 83h, 0C5h, 06h, 83h, 0C7h, 2Ah
-db 0E2h, 0D8h
-mov ax, @data
-db 8Eh, 0D8h, 8Eh, 0D0h, 0C3h
+PROC EGAsix ; sub_0_2538
+	mov	ss,ax
+@@lineloop:
+	mov	ax,[es:di]
+	and	ax,[bp+0]
+	or	ax,[si]
+	stosw
+	mov	ax,[es:di]
+	and	ax,[bp+2]
+	or	ax,[si+2]
+	stosw
+	mov	ax,[es:di]
+	and	ax,[bp+4]
+	or	ax,[si+4]
+	stosw
+	add	si,6
+	add bp,6
+	add	di,SCREENWIDTH-6
+	loop	@@lineloop
+
+	mov	ax,@Data
+	mov	ds,ax
+	mov	ss,ax
+	ret
+ENDP
 
 	END
