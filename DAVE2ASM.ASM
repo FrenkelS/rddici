@@ -672,7 +672,7 @@ mov di, word_789_C00
 mov cx, blockheight
 mov si, word_789_BFC
 mov bp, word_789_BFE
-mov ax, word ptr egaspriteptr[0]+2
+mov ax, word ptr egaspriteptr[0 * 4] + 2
 mov ds, ax
 call ss:spriteroutine
 
@@ -686,7 +686,7 @@ mov di, ds:word_789_C00
 mov cx, ds:blockheight
 mov si, ds:word_789_BFC
 mov bp, ds:word_789_BFE
-mov ax, word ptr ds:egaspriteptr[1] + 2
+mov ax, word ptr ds:egaspriteptr[1 * 4] + 2
 mov ds, ax
 call ss:spriteroutine
 
@@ -700,7 +700,7 @@ mov di, ds:word_789_C00
 mov cx, ds:blockheight
 mov si, ds:word_789_BFC
 mov bp, ds:word_789_BFE
-mov ax, word ptr ds:egaspriteptr[2] + 2
+mov ax, word ptr ds:egaspriteptr[2 * 4] + 2
 mov ds, ax
 call ss:spriteroutine
 
@@ -714,7 +714,7 @@ mov di, word_789_C00
 mov cx, blockheight
 mov si, word_789_BFC
 mov bp, word_789_BFE
-mov ax, word ptr ds:egaspriteptr[3] + 2
+mov ax, word ptr ds:egaspriteptr[3 * 4] + 2
 mov ds, ax
 call ss:spriteroutine
 
