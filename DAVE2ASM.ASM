@@ -69,15 +69,6 @@ EXTRN screenseg:WORD
 
 EXTRN tileptr:WORD
 
-EXTRN word_789_238:WORD
-EXTRN word_789_4A2:WORD
-EXTRN word_789_4A4:WORD
-EXTRN word_789_8478:WORD
-EXTRN word_789_847C_TODO:WORD
-EXTRN word_789_848E_TODO:WORD
-EXTRN word_789_94A2:WORD
-EXTRN word_789_94CA:WORD
-EXTRN word_789_94D4:WORD
 
 objtype	STRUC
 
@@ -109,11 +100,38 @@ filler2	db	?,?
 
 objtype	ENDS
 
+
+type847C STRUC
+
+word_789_847C	dw	?
+px				dw	?
+py				dw	?
+imagewidth		dw	?
+imageheight		dw	?
+shapeptr		dd	?
+maskptr			dd	?
+word_789_848E	dw	?
+unk12			db	12 dup (?)
+
+type847C ENDS
+
+
 obp	dw	?		;temporary for turbo's BP
 
 
 pel			dw	0
 screenstart	dw	0
+
+
+EXTRN word_789_238:WORD
+EXTRN word_789_4A2:WORD
+EXTRN word_789_4A4:WORD
+EXTRN word_789_8478:WORD
+EXTRN type847C_789_847C:type847C
+EXTRN word_789_848E_TODO:WORD
+EXTRN word_789_94A2:WORD
+EXTRN word_789_94CA:WORD
+EXTRN word_789_94D4:WORD
 
 
 IMPLEMENT_ME_sub_0_2383 db 'Implement me: sub_0_2383', 0
@@ -1266,7 +1284,7 @@ inc     word_789_4A2
 call    sub_0_202F
 
 loc_0_1ED1:
-cmp     di, word_789_847C_TODO[bp]
+cmp     di, type847C_789_847C[bp].word_789_847C
 jnz     short loc_0_1EED
 call    sub_0_2383
 mov     dl, 20h

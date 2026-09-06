@@ -110,6 +110,19 @@ typedef struct {
 
 
 typedef struct {
+  int       word_789_847C; /* +00 */
+  int       px;            /* +02 */
+  int       py;            /* +04 */
+  int       imagewidth;    /* +06 */
+  int       imageheight;   /* +08 */
+  void far *shapeptr;      /* +0A */
+  void far *maskptr;       /* +0E */
+  int       word_789_848E; /* +12 */
+  char      unk12[12];     /* +14 */
+} type847C;
+
+
+typedef struct {
   long      dword_789_94D6; /* +00 */
   long      dword_789_94DA; /* +04 */
   int       word_789_94DE;  /* +08 */
@@ -172,7 +185,7 @@ type94D6 *word_789_8228;
 int word_789_8476;
 int word_789_8478;
 boolean bool_789_847A;
-int word_789_847C_TODO;
+type847C type847C_789_847C[128];
 int word_789_848E_TODO;
 int word_789_9480;
 int word_789_9482;
@@ -184,7 +197,7 @@ int word_789_94A2[12];
 int word_789_94BA;
 int word_789_94BC;
 boolean bool_789_94C4;
-int word_789_94C6_TODO;
+type847C *word_789_94C6;
 int word_789_94CA;
 int word_789_94D4;
 type94D6 type94D6_789_94D6;
@@ -798,7 +811,7 @@ boolean RF_PlaceSprite(void)
 	}
 
 	word_789_94BC++;
-	word_789_94C6_TODO += 32;
+	word_789_94C6++;
 
 	IMPLEMENT_ME("RF_PlaceSprite");
 
@@ -1295,7 +1308,7 @@ void sub_0_14CD(void)
   do
   {
     word_789_94BC = word_789_949E = word_789_94D4 = 0;
-    word_789_94C6_TODO = 0x847C;
+    word_789_94C6 = &type847C_789_847C[0];
     WaitVBL();
     word_789_8228 = &type94D6_789_94D6;
     sub_0_F19();
@@ -1383,8 +1396,8 @@ void playloop(void) // sub_0_162C
 	{
 		if (leveldone)
 		{
-			word_789_847C_TODO = -1;
-			word_789_94C6_TODO = 0x847C;
+			type847C_789_847C[0].word_789_847C = -1;
+			word_789_94C6 = &type847C_789_847C[0];
 			word_789_94BC = 0;
 			word_789_949E = 0;
 			word_789_94D4 = 0;
