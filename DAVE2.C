@@ -1088,7 +1088,7 @@ void sub_0_F19(void)
 	}
 
 	c = ControlPlayer (word_789_94A2[12] + 1);
-	if (c.button2)
+	if (c.button1)
 	{
 		if (!bool_789_94C4 && !bool_789_9490)
 		{
@@ -1112,7 +1112,7 @@ void sub_0_F19(void)
 			bool_789_9490 = false;
 	}
 
-	if (c.button1)
+	if (c.button2)
 		var_4 = 3;
 	else
 		var_4 = 2;
