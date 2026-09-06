@@ -186,7 +186,6 @@ int word_789_8476;
 int word_789_8478;
 boolean bool_789_847A;
 type847C type847C_789_847C[128];
-int word_789_848E_TODO;
 int word_789_9480;
 int word_789_9482;
 boolean bool_789_9490;

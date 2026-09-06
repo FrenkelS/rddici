@@ -128,7 +128,6 @@ EXTRN word_789_4A2:WORD
 EXTRN word_789_4A4:WORD
 EXTRN word_789_8478:WORD
 EXTRN type847C_789_847C:type847C
-EXTRN word_789_848E_TODO:WORD
 EXTRN word_789_94A2:WORD
 EXTRN word_789_94CA:WORD
 EXTRN word_789_94D4:WORD
@@ -1288,7 +1287,7 @@ cmp     di, type847C_789_847C[bp].word_789_847C
 jnz     short loc_0_1EED
 call    sub_0_2383
 mov     dl, 20h
-mov     ax, word_789_848E_TODO[bp]
+mov     ax, type847C_789_847C[bp].word_789_848E
 mul     dl
 mov     bp, ax
 mov     ax, word_789_8478
