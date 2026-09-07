@@ -451,10 +451,22 @@ retn
 ENDP
 
 
-sub_0_1F23:
-db 0B8h, 00h, 0B8h, 8Eh, 0C0h, 0A0h, 0D1h, 94h, 0D0h, 0E8h, 24h, 07h, 0B3h
-db 28h, 0F6h, 0E3h, 8Bh, 0C8h, 0D1h, 0E8h, 0D1h, 0E8h, 0D1h, 0E8h, 05h, 00h, 0B8h, 0A3h, 0EAh
-db 10h, 0C3h
+PROC sub_0_1F23_UNUSED
+mov ax, 0B800h
+mov es, ax
+mov al, byte ptr originyglobal+1
+shr al, 1
+and al, 7
+mov bl, 40
+mul bl
+mov cx, ax
+shr ax, 1
+shr ax, 1
+shr ax, 1
+add ax, 0B800h
+mov screenseg, ax
+retn
+ENDP
 
 
 PROC	sub_0_1F42
