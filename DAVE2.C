@@ -1033,23 +1033,32 @@ void sub_0_CBE(void)
 }
 
 
-void sub_0_E52_TODO(int arg_0, int arg_2)
+boolean sub_0_E52_UNUSED(int arg_0, int arg_2)
 {
-asm {
-db 8Bh, 46h, 04h, 99h, 8Bh, 1Eh, 28h, 82h, 01h, 07h, 11h
-db 57h, 02h, 8Bh, 46h, 06h, 99h, 8Bh, 1Eh, 28h, 82h, 01h, 47h, 04h, 11h, 57h, 06h
-db 0E8h, 9Ah, 0FCh, 8Bh, 46h, 04h, 99h, 8Bh, 1Eh, 28h, 82h, 29h, 07h, 19h, 57h, 02h
-db 8Bh, 46h, 06h, 99h, 8Bh, 1Eh, 28h, 82h, 29h, 47h, 04h, 19h, 57h, 06h, 33h, 0C0h
-db 0BAh, 04h, 00h, 50h, 52h, 0FFh, 36h, 0D2h, 94h, 0FFh, 36h, 0D0h, 94h, 0E8h, 0D3h, 65h
-db 50h, 0A1h, 2Ah, 1Dh, 52h, 99h, 5Bh, 59h, 2Bh, 0C1h, 1Bh, 0D3h, 0Bh, 0D2h, 7Fh, 16h
-db 7Ch, 05h, 3Dh, 10h, 00h, 73h, 0Fh, 8Bh, 1Eh, 28h, 82h, 83h, 7Fh, 14h, 00h, 7Fh
-db 05h, 0B8h, 01h, 00h, 0EBh, 51h, 33h, 0C0h, 0BAh, 04h, 00h, 50h, 52h, 0FFh, 36h, 0D2h
-db 94h, 0FFh, 36h, 0D0h, 94h, 0E8h, 9Bh, 65h, 50h, 0A1h, 2Ah, 1Dh, 52h, 99h, 5Bh, 59h
-db 2Bh, 0C1h, 1Bh, 0D3h, 0Bh, 0D2h, 7Ch, 16h, 7Fh, 05h, 3Dh, 0ACh, 00h, 76h, 0Fh, 8Bh
-db 1Eh, 28h, 82h, 83h, 7Fh, 14h, 00h, 7Ch, 05h, 0B8h, 01h, 00h, 0EBh, 19h, 83h, 3Eh
-db 34h, 1Dh, 06h, 7Ch, 08h, 81h, 3Eh, 28h, 1Dh, 2Fh, 01h, 7Eh, 05h, 0B8h, 01h, 00h
-db 0EBh, 05h, 0E8h, 33h, 0FDh, 0EBh, 00h
-}
+	word_789_8228->dword_789_94D6 += arg_0;
+	word_789_8228->dword_789_94DA += arg_2;
+
+	sub_0_B0D();
+
+	word_789_8228->dword_789_94D6 -= arg_0;
+	word_789_8228->dword_789_94DA -= arg_2;
+
+	if (word_789_1D2A - originyglobal / 4 < 16)
+	{
+		if (word_789_8228->word_789_94EA <= 0)
+			return true;
+	}
+
+	if (word_789_1D2A - originyglobal / 4 > 172)
+	{
+		if (word_789_8228->word_789_94EA >= 0)
+			return true;
+	}
+
+	if (word_789_1D34 < 6 || word_789_1D28 > 303)
+		return true;
+
+	return sub_0_C48();
 }
 
 
