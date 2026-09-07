@@ -132,6 +132,7 @@ blockheight	dw	0
 _three		dw	0	; is written to but never used for anything
 
 
+EXTRN word_789_8220:WORD
 EXTRN type847C_789_847C:type847C
 EXTRN word_789_94A2:WORD
 EXTRN word_789_94CA:WORD
@@ -256,9 +257,9 @@ EXTRN	_quit:NEAR
 ;End;
 ;
 ;
-byte_0_10AC dw 0
-byte_0_10AE dw 0
-byte_0_10B0 dw 0
+word_0_19AC dw 0
+word_0_19AE dw 0
+word_0_19B0 dw 0
 word_0_19B2 dw 0
 
 CGAylookup_0 dw    0,8192,  80,8272, 160,8352, 240,8432, 320,8512, 400,8592, 480,8672
@@ -322,22 +323,122 @@ PROC	RF_ForceRefresh
 ENDP
 
 
-sub_0_1D6E:
-db 56h, 57h
-db 55h, 2Eh, 0FFh, 16h, 0ACh, 19h, 0E8h, 0DDh, 37h, 0BAh, 0D4h, 03h, 0B0h, 0Ch, 0EEh, 42h
-db 8Ah, 0C5h, 0EEh, 4Ah, 0B0h, 0Dh, 0EEh, 42h, 8Ah, 0C1h, 0EEh, 8Bh, 0Eh, 20h, 82h, 0BAh
-db 0DAh, 03h, 0ECh, 0A8h, 01h, 74h, 0FBh, 0ECh, 0A8h, 01h, 75h, 0FBh, 0E2h, 0F4h, 0FCh, 33h
-db 0FFh, 89h, 3Eh, 0A2h, 04h, 89h, 3Eh, 0A4h, 04h, 0B2h, 20h, 0A1h, 0D4h, 94h, 0F6h, 0E2h
-db 8Bh, 0E8h, 0A1h, 0D1h, 94h, 0D1h, 0E8h, 0D1h, 0E8h, 0D1h, 0E8h, 0D1h, 0E8h, 0BBh, 28h, 00h
-db 0F7h, 0E3h, 8Bh, 0D8h, 03h, 1Eh, 86h, 94h, 0B9h, 14h, 00h, 8Bh, 31h, 0A1h, 54h, 15h
-db 0Bh, 0C0h, 75h, 0Dh, 3Bh, 0B5h, 2Ah, 82h, 74h, 1Ah, 89h, 0B5h, 2Ah, 82h, 0EBh, 0Bh
-db 90h, 3Bh, 0B5h, 0D2h, 7Fh, 74h, 0Dh, 89h, 0B5h, 0D2h, 7Fh, 0FFh, 06h, 0A2h, 04h, 2Eh
-db 0FFh, 16h, 0AEh, 19h, 3Bh, 0BEh, 7Ch, 84h, 75h, 18h, 2Eh, 0FFh, 16h, 0B0h, 19h, 0B2h
-db 20h, 8Bh, 86h, 8Eh, 84h, 0F6h, 0E2h, 8Bh, 0E8h, 0A1h, 78h, 84h, 01h, 06h, 0A2h, 04h
-db 0EBh, 0E2h, 47h, 47h, 0E2h, 0B5h, 8Bh, 0CBh, 0A1h, 0A2h, 04h, 8Bh, 1Eh, 0A4h, 04h, 3Bh
-db 87h, 0A2h, 94h, 8Bh, 0D9h, 73h, 0Bh, 2Eh, 0FFh, 16h, 0B2h, 19h, 0FFh, 06h, 0A2h, 04h
-db 0EBh, 0E4h, 0A1h, 0A4h, 04h, 05h, 02h, 00h, 0A3h, 0A4h, 04h, 3Dh, 18h, 00h, 74h, 02h
-db 0EBh, 86h, 5Dh, 5Fh, 5Eh, 0C3h
+PROC sub_0_1D6E_UNUSED
+push si
+push di
+push bp
+call cs:word_0_19AC
+call WaitVBL
+mov dx, 3D4h
+mov al, 0Ch
+out dx, al
+inc dx
+mov al, ch
+out dx, al
+dec dx
+mov al, 0Dh
+out dx, al
+inc dx
+mov al, cl
+out dx, al
+mov cx, word_789_8220
+mov dx, 3DAh
+
+loc_0_1D92:
+in al, dx
+test al, 1
+jz short loc_0_1D92
+
+loc_0_1D97:
+in al, dx
+test al, 1
+jnz short loc_0_1D97
+
+loop loc_0_1D92
+
+cld
+xor di, di
+mov word_789_4A2, di
+mov word_789_4A4, di
+mov dl, 32
+mov ax, word_789_94D4
+mul dl
+mov bp, ax
+mov ax, word ptr originyglobal+1
+shr ax, 1
+shr ax, 1
+shr ax, 1
+shr ax, 1
+mov bx, 40
+mul bx
+mov bx, ax
+add bx, mapplane
+
+loc_0_1DC8:
+mov cx, 20
+
+loc_0_1DCB:
+mov si, [bx+di]
+mov ax, drawpage
+or ax, ax
+jnz short loc_0_1DE1
+cmp si, drawoffs0[di]
+jz short loc_0_1DF4
+mov drawoffs0[di], si
+jmp short loc_0_1DEB
+nop
+
+loc_0_1DE1:
+cmp si, drawoffs1[di]
+jz short loc_0_1DF4
+mov drawoffs1[di], si
+
+loc_0_1DEB:
+inc word_789_4A2
+call cs:word_0_19AE
+
+loc_0_1DF4:
+cmp di, type847C_789_847C[bp].word_789_847C
+jnz short loc_0_1E12
+call cs:word_0_19B0
+mov dl, 32
+mov ax, type847C_789_847C[bp].word_789_848E
+mul dl
+mov bp, ax
+mov ax, word_789_8478
+add word_789_4A2, ax
+jmp short loc_0_1DF4
+
+loc_0_1E12:
+inc di
+inc di
+loop loc_0_1DCB
+
+loc_0_1E16:
+mov cx, bx
+mov ax, word_789_4A2
+mov bx, word_789_4A4
+cmp ax, word_789_94A2[bx]
+mov bx, cx
+jnb short loc_0_1E32
+call cs:word_0_19B2
+inc word_789_4A2
+jmp short loc_0_1E16
+
+loc_0_1E32:
+mov ax, word_789_4A4
+add ax, 2
+mov word_789_4A4, ax
+cmp ax, 24
+jz short loc_0_1E42
+jmp short loc_0_1DC8
+
+loc_0_1E42:
+pop bp
+pop di
+pop si
+retn
+ENDP
 
 
 PROC	sub_0_1E46
