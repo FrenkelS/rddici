@@ -400,7 +400,7 @@ void sub_0_290(void)
 }
 
 
-void sub_0_31E(void)
+void sub_0_31E_UNUSED(void)
 {
   xormask = 0xffff;
   bar(0, 0, 39, 24, 32);
@@ -835,13 +835,13 @@ boolean RF_PlaceSprite(void) // sub_0_80D
 }
 
 
-void BadThink(void) // sub_0_AA7
+void BadThink_UNUSED(void) // sub_0_AA7
 {
   _quit("badTHINK!");
 }
 
 
-void FindFreeObj (void) // sub_0_AB4
+void FindFreeObj_UNUSED (void) // sub_0_AB4
 {
   int i = 1;
   new = &objlist[1];
@@ -857,7 +857,7 @@ void FindFreeObj (void) // sub_0_AB4
 
   new->x1 = new->y1 = new->y2 = new->x2 = 0;
 
-  new->think = BadThink;
+  new->think = BadThink_UNUSED;
 }
 
 
