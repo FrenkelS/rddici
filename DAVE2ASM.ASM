@@ -822,17 +822,71 @@ retn
 ENDP
 
 
-sub_0_20FC:
-db 57h, 0D1h, 0E6h, 0BEh
-db 00h, 00h, 0BFh, 80h, 25h, 0A1h, 98h, 0AEh, 8Eh, 0D8h, 0A4h, 0A4h, 83h, 0C7h, 00h, 0A4h
-db 0A4h, 83h, 0C7h, 00h, 0A4h, 0A4h, 83h, 0C7h, 00h, 0A4h, 0A4h, 83h, 0C7h, 00h, 0A4h, 0A4h
-db 83h, 0C7h, 00h, 0A4h, 0A4h, 83h, 0C7h, 00h, 0A4h, 0A4h, 83h, 0C7h, 00h, 0A4h, 0A4h, 83h
-db 0C7h, 00h, 0A4h, 0A4h, 83h, 0C7h, 00h, 0A4h, 0A4h, 83h, 0C7h, 00h, 0A4h, 0A4h, 83h, 0C7h
-db 00h, 0A4h, 0A4h, 83h, 0C7h, 00h, 0A4h, 0A4h, 83h, 0C7h, 00h, 0A4h, 0A4h, 83h, 0C7h, 00h
-db 0A4h, 0A4h, 83h, 0C7h, 00h, 0A4h, 0A4h, 8Ch, 0D0h, 8Eh, 0D8h, 5Fh, 0C3h
+PROC sub_0_20FC_UNUSED
+push di
+shl si, 1
+mov si, 0
+mov di, 2580h
+mov ax, word ptr tileptr+2
+mov ds, ax
+movsb
+movsb
+add di, 0
+movsb
+movsb
+add di, 0
+movsb
+movsb
+add di, 0
+movsb
+movsb
+add di, 0
+movsb
+movsb
+add di, 0
+movsb
+movsb
+add di, 0
+movsb
+movsb
+add di, 0
+movsb
+movsb
+add di, 0
+movsb
+movsb
+add di, 0
+movsb
+movsb
+add di, 0
+movsb
+movsb
+add di, 0
+movsb
+movsb
+add di, 0
+movsb
+movsb
+add di, 0
+movsb
+movsb
+add di, 0
+movsb
+movsb
+add di, 0
+movsb
+movsb
+mov ax, ss
+mov ds, ax
+pop di
+retn
+ENDP
 
-sub_0_215D:
-db 0C3h
+
+PROC sub_0_215D_UNUSED
+retn
+ENDP
+
 
 sub_0_215E:
 db 55h, 57h
