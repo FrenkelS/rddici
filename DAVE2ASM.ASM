@@ -125,11 +125,17 @@ pel			dw	0
 screenstart	dw	0
 
 
+CGAdraws	dw	0,CGAone,CGAtwo,CGAthree,CGAfour,CGAfive,CGAsix
+		dw	CGAseven,CGAeight,CGAnine
+
 EGAdraws	dw	0,EGAone,EGAtwo,EGAthree,EGAfour,EGAfive,EGAsix
 
 spriteroutine 	dw 	0
 
 blockheight	dw	0
+blocksource	dw	0
+blockmask	dw	0
+blockdest	dw	0
 _three		dw	0	; is written to but never used for anything
 
 
@@ -152,10 +158,6 @@ word_789_238 dw 0,1,2,3,4,5,6,7,8,9
 
 word_789_4A2 dw 0
 word_789_4A4 dw 0
-
-
-word_789_4A6 dw 0, loc_0_2193, loc_0_21B5, loc_0_21D9, loc_0_2209
-	dw loc_0_2239, loc_0_2273, loc_0_22AD, loc_0_22F1, loc_0_2335
 
 
 word_789_4C8 dw 0, 40h, 80h, 0C0h, 100h, 140h, 180h, 1C0h
@@ -192,9 +194,6 @@ word_789_4C8 dw 0, 40h, 80h, 0C0h, 100h, 140h, 180h, 1C0h
 	dw 3E00h, 3E40h, 3E80h, 3EC0h, 3F00h, 3F40h, 3F80h, 3FC0h
 
 
-word_789_BFC dw 0
-word_789_BFE dw 0
-word_789_C00 dw 0
 word_789_8478 dw 0
 
 
@@ -217,7 +216,8 @@ LABEL word_789_6C8 WORD
 	dw 0F00h, 0F20h, 0F40h, 0F60h, 0F80h, 0FA0h, 0FC0h, 0FE0h
 
 
-word_789_7C8 dw 0, 4, 8, 0Ch, 10h, 14h, 18h, 1Ch
+LABEL CGAtileloc WORD
+	dw 0, 4, 8, 0Ch, 10h, 14h, 18h, 1Ch
 	dw 20h, 24h, 28h, 2Ch, 30h, 34h, 38h, 3Ch
 	dw 40h, 44h, 48h, 4Ch, 280h, 284h, 288h, 28Ch
 	dw 290h, 294h, 298h, 29Ch, 2A0h, 2A4h, 2A8h, 2ACh
@@ -369,7 +369,7 @@ PROC	RF_ForceRefresh
 ENDP
 
 
-PROC sub_0_1D6E_UNUSED
+PROC VidRefresh_CGA_UNUSED ; sub_0_1D6E
 push si
 push di
 push bp
@@ -487,12 +487,12 @@ retn
 ENDP
 
 
-PROC	sub_0_1E46
-	PUBLIC	sub_0_1E46
+PROC	VidRefresh ; sub_0_1E46
+	PUBLIC	VidRefresh
 
 mov     bl, byte ptr pel
 push    bx
-call    sub_0_1F42
+call    VidInitDraw
 call    WaitVBL
 mov     dx, 3DAh
 in      al, dx
@@ -598,7 +598,7 @@ retn
 ENDP
 
 
-PROC sub_0_1F23_UNUSED
+PROC VidInitDraw_CGA_UNUSED ; sub_0_1F23
 mov ax, 0B800h
 mov es, ax
 mov al, byte ptr originyglobal+1
@@ -616,7 +616,7 @@ retn
 ENDP
 
 
-PROC	sub_0_1F42
+PROC	VidInitDraw ; sub_0_1F42
 cli
 mov     cx, screenstart
 mov     dx, 3D4h
@@ -680,11 +680,11 @@ retn
 ENDP
 
 
-PROC sub_0_1FBD_UNUSED
+PROC DrawTile16_CGA_UNUSED ; sub_0_1FBD
 push di
 shl si, 1
 mov si, word_789_4C8[si]
-mov di, word_789_7C8[di]
+mov di, CGAtileloc[di]
 mov ax, word ptr tileptr+2
 mov ds, ax
 movsw
@@ -893,7 +893,7 @@ retn
 ENDP
 
 
-PROC sub_0_215E_UNUSED
+PROC DrawSprite_CGA_UNUSED ; sub_0_215E
 push bp
 push di
 push bx
@@ -903,7 +903,7 @@ mov dx, type847C_789_847C[bp].px
 mov cx, type847C_789_847C[bp].imageheight
 mov di, type847C_789_847C[bp].imagewidth
 shl di, 1
-mov di, word_789_4A6[di]
+mov di, CGAdraws[di]
 mov bx, type847C_789_847C[bp].py
 and bx, 0FFFEh
 shl bx, 1
@@ -915,7 +915,7 @@ mov ds, ax
 mov ss, ax
 jmp di
 
-loc_0_2193:
+CGAone:
 mov di, cs:[bx]
 add bx, 2
 add di, dx
@@ -925,7 +925,7 @@ or al, [si]
 stosb
 inc si
 inc bp
-loop loc_0_2193
+loop CGAone
 mov ax, @data
 mov ds, ax
 mov ss, ax
@@ -936,7 +936,7 @@ pop di
 pop bp
 retn
 
-loc_0_21B5:
+CGAtwo:
 mov di, cs:[bx]
 add bx, 2
 add di, dx
@@ -948,7 +948,7 @@ inc si
 inc si
 inc bp
 inc bp
-loop loc_0_21B5
+loop CGAtwo
 mov ax, @data
 mov ds, ax
 mov ss, ax
@@ -959,7 +959,7 @@ pop di
 pop bp
 retn
 
-loc_0_21D9:
+CGAthree:
 mov di, cs:[bx]
 add bx, 2
 add di, dx
@@ -973,7 +973,7 @@ or al, [si+2]
 stosb
 add si, 3
 add bp, 3
-loop loc_0_21D9
+loop CGAthree
 mov ax, @data
 mov ds, ax
 mov ss, ax
@@ -984,7 +984,7 @@ pop di
 pop bp
 retn
 
-loc_0_2209:
+CGAfour:
 mov di, cs:[bx]
 add bx, 2
 add di, dx
@@ -998,7 +998,7 @@ or ax, [si+2]
 stosw
 add si, 4
 add bp, 4
-loop loc_0_2209
+loop CGAfour
 mov ax, @data
 mov ds, ax
 mov ss, ax
@@ -1009,7 +1009,7 @@ pop di
 pop bp
 retn
 
-loc_0_2239:
+CGAfive:
 mov di, cs:[bx]
 add bx, 2
 add di, dx
@@ -1027,7 +1027,7 @@ or al, [si+4]
 stosb
 add si, 5
 add bp, 5
-loop loc_0_2239
+loop CGAfive
 mov ax, @data
 mov ds, ax
 mov ss, ax
@@ -1038,7 +1038,7 @@ pop di
 pop bp
 retn
 
-loc_0_2273:
+CGAsix:
 mov di, cs:[bx]
 add bx, 2
 add di, dx
@@ -1056,7 +1056,7 @@ or ax, [si+4]
 stosw
 add si, 6
 add bp, 6
-loop loc_0_2273
+loop CGAsix
 mov ax, @data
 mov ds, ax
 mov ss, ax
@@ -1067,7 +1067,7 @@ pop di
 pop bp
 retn
 
-loc_0_22AD:
+CGAseven:
 mov di, cs:[bx]
 add bx, 2
 add di, dx
@@ -1089,7 +1089,7 @@ or al, [si+6]
 stosb
 add si, 7
 add bp, 7
-loop loc_0_22AD
+loop CGAseven
 mov ax, @data
 mov ds, ax
 mov ss, ax
@@ -1100,7 +1100,7 @@ pop di
 pop bp
 retn
 
-loc_0_22F1:
+CGAeight:
 mov di, cs:[bx]
 add bx, 2
 add di, dx
@@ -1122,7 +1122,7 @@ or ax, [si+6]
 stosw
 add si, 8
 add bp, 8
-loop loc_0_22F1
+loop CGAeight
 mov ax, @data
 mov ds, ax
 mov ss, ax
@@ -1133,7 +1133,7 @@ pop di
 pop bp
 retn
 
-loc_0_2335:
+CGAnine:
 mov di, cs:[bx]
 add bx, 2
 add di, dx
@@ -1159,7 +1159,7 @@ or al, [si+8]
 stosb
 add si, 9
 add bp, 9
-loop loc_0_2335
+loop CGAnine
 mov ax, @data
 mov ds, ax
 mov ss, ax
@@ -1186,9 +1186,9 @@ mov _three, ax
 mov ax, type847C_789_847C[bp].imageheight
 mov blockheight, ax
 mov ax, word ptr type847C_789_847C[bp].shapeptr
-mov word_789_BFC, ax
+mov blocksource, ax
 mov ax, word ptr type847C_789_847C[bp].maskptr
-mov word_789_BFE, ax
+mov blockmask, ax
 mov bx, type847C_789_847C[bp].imagewidth
 shl bx, 1
 mov ax, EGAdraws[bx]
@@ -1197,7 +1197,7 @@ mov bx, type847C_789_847C[bp].py
 shl bx, 1
 mov ax, cs:EGAylookup_0[bx]
 add ax, type847C_789_847C[bp].px
-mov word_789_C00, ax
+mov blockdest, ax
 
 mov dx, 3CEh
 mov ax, 4
@@ -1205,10 +1205,10 @@ out dx, ax
 mov dx, 3C4h
 mov ax, 102h
 out dx, ax
-mov di, word_789_C00
+mov di, blockdest
 mov cx, blockheight
-mov si, word_789_BFC
-mov bp, word_789_BFE
+mov si, blocksource
+mov bp, blockmask
 mov ax, word ptr egaspriteptr[0 * 4] + 2
 mov ds, ax
 call ss:spriteroutine
@@ -1219,10 +1219,10 @@ out dx, ax
 mov dx, 3C4h
 mov ax, 202h
 out dx, ax
-mov di, ds:word_789_C00
+mov di, ds:blockdest
 mov cx, ds:blockheight
-mov si, ds:word_789_BFC
-mov bp, ds:word_789_BFE
+mov si, ds:blocksource
+mov bp, ds:blockmask
 mov ax, word ptr ds:egaspriteptr[1 * 4] + 2
 mov ds, ax
 call ss:spriteroutine
@@ -1233,10 +1233,10 @@ out dx, ax
 mov dx, 3C4h
 mov ax, 402h
 out dx, ax
-mov di, ds:word_789_C00
+mov di, ds:blockdest
 mov cx, ds:blockheight
-mov si, ds:word_789_BFC
-mov bp, ds:word_789_BFE
+mov si, ds:blocksource
+mov bp, ds:blockmask
 mov ax, word ptr ds:egaspriteptr[2 * 4] + 2
 mov ds, ax
 call ss:spriteroutine
@@ -1247,10 +1247,10 @@ out dx, ax
 mov dx, 3C4h
 mov ax, 802h
 out dx, ax
-mov di, word_789_C00
+mov di, blockdest
 mov cx, blockheight
-mov si, word_789_BFC
-mov bp, word_789_BFE
+mov si, blocksource
+mov bp, blockmask
 mov ax, word ptr ds:egaspriteptr[3 * 4] + 2
 mov ds, ax
 call ss:spriteroutine

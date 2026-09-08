@@ -321,14 +321,7 @@ int tile_block[100] =
 //
 //////////////////////////////////
 
-//void extern drawobj (void);
 void extern RF_ForceRefresh (void);
-//void extern eraseobj (void);
-//void extern doall (void);
-//void extern egamove (void);
-//void extern cgarefresh (void);
-//void extern egarefresh (void);
-void extern sub_0_1E46 (void);
 void sub_0_290 (void);
 void RF_Refresh (void);
 void dofkeys (void);
@@ -707,8 +700,9 @@ void gameover (void) // sub_0_71E
 void RF_Refresh(void) // sub_0_7B3
 {
 	int si;
+	void VidRefresh(void);
 
-	sub_0_1E46();
+	VidRefresh();
 
 	word_789_94CA++;
 
