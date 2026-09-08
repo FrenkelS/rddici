@@ -758,14 +758,69 @@ ENDM
 ENDP
 
 
-sub_0_2092:
-db 57h, 0D1h, 0E6h, 8Bh, 0B4h, 0C8h, 04h, 0D1h, 0E6h, 0BEh, 00h, 00h, 0BFh, 00h
-db 1Eh, 0A1h, 98h, 0AEh, 8Eh, 0D8h, 0A5h, 0A5h, 83h, 0C7h, 00h, 0A5h, 0A5h, 83h, 0C7h, 00h
-db 0A5h, 0A5h, 83h, 0C7h, 00h, 0A5h, 0A5h, 83h, 0C7h, 00h, 0A5h, 0A5h, 83h, 0C7h, 00h, 0A5h
-db 0A5h, 83h, 0C7h, 00h, 0A5h, 0A5h, 83h, 0C7h, 00h, 0A5h, 0A5h, 83h, 0C7h, 00h, 0A5h, 0A5h
-db 83h, 0C7h, 00h, 0A5h, 0A5h, 83h, 0C7h, 00h, 0A5h, 0A5h, 83h, 0C7h, 00h, 0A5h, 0A5h, 83h
-db 0C7h, 00h, 0A5h, 0A5h, 83h, 0C7h, 00h, 0A5h, 0A5h, 83h, 0C7h, 00h, 0A5h, 0A5h, 83h, 0C7h
-db 00h, 0A5h, 0A5h, 83h, 0C7h, 00h, 5Fh, 8Ch, 0D0h, 8Eh, 0D8h, 0C3h
+PROC sub_0_2092_UNUSED
+push di
+shl si, 1
+mov si, word_789_4C8[si]
+shl si, 1
+mov si, 0
+mov di, 1E00h
+mov ax, word ptr tileptr+2
+mov ds, ax
+movsw
+movsw
+add di, 0
+movsw
+movsw
+add di, 0
+movsw
+movsw
+add di, 0
+movsw
+movsw
+add di, 0
+movsw
+movsw
+add di, 0
+movsw
+movsw
+add di, 0
+movsw
+movsw
+add di, 0
+movsw
+movsw
+add di, 0
+movsw
+movsw
+add di, 0
+movsw
+movsw
+add di, 0
+movsw
+movsw
+add di, 0
+movsw
+movsw
+add di, 0
+movsw
+movsw
+add di, 0
+movsw
+movsw
+add di, 0
+movsw
+movsw
+add di, 0
+movsw
+movsw
+add di, 0
+pop di
+mov ax, ss
+mov ds, ax
+retn
+ENDP
+
 
 sub_0_20FC:
 db 57h, 0D1h, 0E6h, 0BEh
