@@ -67,6 +67,7 @@ EXTRN drawpage:WORD
 
 EXTRN screenseg:WORD
 
+EXTRN spriteptr:DWORD
 EXTRN tileptr:DWORD
 EXTRN egaspriteptr:DWORD
 
@@ -151,6 +152,10 @@ word_789_238 dw 0,1,2,3,4,5,6,7,8,9
 
 word_789_4A2 dw 0
 word_789_4A4 dw 0
+
+
+word_789_4A6 dw 0, loc_0_2193, loc_0_21B5, loc_0_21D9, loc_0_2209
+	dw loc_0_2239, loc_0_2273, loc_0_22AD, loc_0_22F1, loc_0_2335
 
 
 word_789_4C8 dw 0, 40h, 80h, 0C0h, 100h, 140h, 180h, 1C0h
@@ -888,63 +893,283 @@ retn
 ENDP
 
 
-sub_0_215E:
-db 55h, 57h
-db 53h, 51h, 52h, 8Bh, 96h, 7Eh, 84h, 8Bh, 8Eh, 84h, 84h, 8Bh, 0BEh, 82h, 84h, 0D1h
-db 0E7h, 8Bh, 0BDh, 0A6h, 04h, 8Bh, 9Eh, 80h, 84h, 83h, 0E3h, 0FEh, 0D1h, 0E3h, 81h, 0C3h
-db 0B4h, 19h, 8Bh, 0B6h, 86h, 84h, 8Bh, 0AEh, 8Ah, 84h, 0A1h, 82h, 0AEh, 8Eh, 0D8h, 8Eh
-db 0D0h, 0FFh, 0E7h
+PROC sub_0_215E_UNUSED
+push bp
+push di
+push bx
+push cx
+push dx
+mov dx, type847C_789_847C[bp].px
+mov cx, type847C_789_847C[bp].imageheight
+mov di, type847C_789_847C[bp].imagewidth
+shl di, 1
+mov di, word_789_4A6[di]
+mov bx, type847C_789_847C[bp].py
+and bx, 0FFFEh
+shl bx, 1
+add bx, offset CGAylookup_0
+mov si, word ptr type847C_789_847C[bp].shapeptr
+mov bp, word ptr type847C_789_847C[bp].maskptr
+mov ax, word ptr spriteptr+2
+mov ds, ax
+mov ss, ax
+jmp di
 
 loc_0_2193:
-db 2Eh, 8Bh, 3Fh, 83h, 0C3h, 02h, 03h, 0FAh, 26h, 8Ah, 05h, 22h, 46h
-db 00h, 0Ah, 04h, 0AAh, 46h, 45h, 0E2h, 0EBh
+mov di, cs:[bx]
+add bx, 2
+add di, dx
+mov al, es:[di]
+and al, [bp+0]
+or al, [si]
+stosb
+inc si
+inc bp
+loop loc_0_2193
 mov ax, @data
-db 8Eh, 0D8h, 8Eh, 0D0h, 5Ah
-db 59h, 5Bh, 5Fh, 5Dh, 0C3h, 2Eh, 8Bh, 3Fh, 83h, 0C3h, 02h, 03h, 0FAh, 26h, 8Bh, 05h
-db 23h, 46h, 00h, 0Bh, 04h, 0ABh, 46h, 46h, 45h, 45h, 0E2h, 0E9h
+mov ds, ax
+mov ss, ax
+pop dx
+pop cx
+pop bx
+pop di
+pop bp
+retn
+
+loc_0_21B5:
+mov di, cs:[bx]
+add bx, 2
+add di, dx
+mov ax, es:[di]
+and ax, [bp+0]
+or ax, [si]
+stosw
+inc si
+inc si
+inc bp
+inc bp
+loop loc_0_21B5
 mov ax, @data
-db 8Eh
-db 0D8h, 8Eh, 0D0h, 5Ah, 59h, 5Bh, 5Fh, 5Dh, 0C3h, 2Eh, 8Bh, 3Fh, 83h, 0C3h, 02h, 03h
-db 0FAh, 26h, 8Bh, 05h, 23h, 46h, 00h, 0Bh, 04h, 0ABh, 26h, 8Ah, 05h, 22h, 46h, 02h
-db 0Ah, 44h, 02h, 0AAh, 83h, 0C6h, 03h, 83h, 0C5h, 03h, 0E2h, 0DDh
+mov ds, ax
+mov ss, ax
+pop dx
+pop cx
+pop bx
+pop di
+pop bp
+retn
+
+loc_0_21D9:
+mov di, cs:[bx]
+add bx, 2
+add di, dx
+mov ax, es:[di]
+and ax, [bp+0]
+or ax, [si]
+stosw
+mov al, es:[di]
+and al, [bp+2]
+or al, [si+2]
+stosb
+add si, 3
+add bp, 3
+loop loc_0_21D9
 mov ax, @data
-db 8Eh
-db 0D8h, 8Eh, 0D0h, 5Ah, 59h, 5Bh, 5Fh, 5Dh, 0C3h, 2Eh, 8Bh, 3Fh, 83h, 0C3h, 02h, 03h
-db 0FAh, 26h, 8Bh, 05h, 23h, 46h, 00h, 0Bh, 04h, 0ABh, 26h, 8Bh, 05h, 23h, 46h, 02h
-db 0Bh, 44h, 02h, 0ABh, 83h, 0C6h, 04h, 83h, 0C5h, 04h, 0E2h, 0DDh
+mov ds, ax
+mov ss, ax
+pop dx
+pop cx
+pop bx
+pop di
+pop bp
+retn
+
+loc_0_2209:
+mov di, cs:[bx]
+add bx, 2
+add di, dx
+mov ax, es:[di]
+and ax, [bp+0]
+or ax, [si]
+stosw
+mov ax, es:[di]
+and ax, [bp+2]
+or ax, [si+2]
+stosw
+add si, 4
+add bp, 4
+loop loc_0_2209
 mov ax, @data
-db 8Eh
-db 0D8h, 8Eh, 0D0h, 5Ah, 59h, 5Bh, 5Fh, 5Dh, 0C3h, 2Eh, 8Bh, 3Fh, 83h, 0C3h, 02h, 03h
-db 0FAh, 26h, 8Bh, 05h, 23h, 46h, 00h, 0Bh, 04h, 0ABh, 26h, 8Bh, 05h, 23h, 46h, 02h
-db 0Bh, 44h, 02h, 0ABh, 26h, 8Ah, 05h, 22h, 46h, 04h, 0Ah, 44h, 04h, 0AAh, 83h, 0C6h
-db 05h, 83h, 0C5h, 05h, 0E2h, 0D3h
+mov ds, ax
+mov ss, ax
+pop dx
+pop cx
+pop bx
+pop di
+pop bp
+retn
+
+loc_0_2239:
+mov di, cs:[bx]
+add bx, 2
+add di, dx
+mov ax, es:[di]
+and ax, [bp+0]
+or ax, [si]
+stosw
+mov ax, es:[di]
+and ax, [bp+2]
+or ax, [si+2]
+stosw
+mov al, es:[di]
+and al, [bp+4]
+or al, [si+4]
+stosb
+add si, 5
+add bp, 5
+loop loc_0_2239
 mov ax, @data
-db 8Eh, 0D8h, 8Eh, 0D0h, 5Ah, 59h, 5Bh
-db 5Fh, 5Dh, 0C3h, 2Eh, 8Bh, 3Fh, 83h, 0C3h, 02h, 03h, 0FAh, 26h, 8Bh, 05h, 23h, 46h
-db 00h, 0Bh, 04h, 0ABh, 26h, 8Bh, 05h, 23h, 46h, 02h, 0Bh, 44h, 02h, 0ABh, 26h, 8Bh
-db 05h, 23h, 46h, 04h, 0Bh, 44h, 04h, 0ABh, 83h, 0C6h, 06h, 83h, 0C5h, 06h, 0E2h, 0D3h
+mov ds, ax
+mov ss, ax
+pop dx
+pop cx
+pop bx
+pop di
+pop bp
+retn
+
+loc_0_2273:
+mov di, cs:[bx]
+add bx, 2
+add di, dx
+mov ax, es:[di]
+and ax, [bp+0]
+or ax, [si]
+stosw
+mov ax, es:[di]
+and ax, [bp+2]
+or ax, [si+2]
+stosw
+mov ax, es:[di]
+and ax, [bp+4]
+or ax, [si+4]
+stosw
+add si, 6
+add bp, 6
+loop loc_0_2273
 mov ax, @data
-db 8Eh, 0D8h, 8Eh, 0D0h, 5Ah, 59h, 5Bh, 5Fh, 5Dh, 0C3h, 2Eh, 8Bh, 3Fh
-db 83h, 0C3h, 02h, 03h, 0FAh, 26h, 8Bh, 05h, 23h, 46h, 00h, 0Bh, 04h, 0ABh, 26h, 8Bh
-db 05h, 23h, 46h, 02h, 0Bh, 44h, 02h, 0ABh, 26h, 8Bh, 05h, 23h, 46h, 04h, 0Bh, 44h
-db 04h, 0ABh, 26h, 8Ah, 05h, 22h, 46h, 06h, 0Ah, 44h, 06h, 0AAh, 83h, 0C6h, 07h, 83h
-db 0C5h, 07h, 0E2h, 0C9h
+mov ds, ax
+mov ss, ax
+pop dx
+pop cx
+pop bx
+pop di
+pop bp
+retn
+
+loc_0_22AD:
+mov di, cs:[bx]
+add bx, 2
+add di, dx
+mov ax, es:[di]
+and ax, [bp+0]
+or ax, [si]
+stosw
+mov ax, es:[di]
+and ax, [bp+2]
+or ax, [si+2]
+stosw
+mov ax, es:[di]
+and ax, [bp+4]
+or ax, [si+4]
+stosw
+mov al, es:[di]
+and al, [bp+6]
+or al, [si+6]
+stosb
+add si, 7
+add bp, 7
+loop loc_0_22AD
 mov ax, @data
-db 8Eh, 0D8h, 8Eh, 0D0h, 5Ah, 59h, 5Bh, 5Fh, 5Dh
-db 0C3h, 2Eh, 8Bh, 3Fh, 83h, 0C3h, 02h, 03h, 0FAh, 26h, 8Bh, 05h, 23h, 46h, 00h, 0Bh
-db 04h, 0ABh, 26h, 8Bh, 05h, 23h, 46h, 02h, 0Bh, 44h, 02h, 0ABh, 26h, 8Bh, 05h, 23h
-db 46h, 04h, 0Bh, 44h, 04h, 0ABh, 26h, 8Bh, 05h, 23h, 46h, 06h, 0Bh, 44h, 06h, 0ABh
-db 83h, 0C6h, 08h, 83h, 0C5h, 08h, 0E2h, 0C9h
+mov ds, ax
+mov ss, ax
+pop dx
+pop cx
+pop bx
+pop di
+pop bp
+retn
+
+loc_0_22F1:
+mov di, cs:[bx]
+add bx, 2
+add di, dx
+mov ax, es:[di]
+and ax, [bp+0]
+or ax, [si]
+stosw
+mov ax, es:[di]
+and ax, [bp+2]
+or ax, [si+2]
+stosw
+mov ax, es:[di]
+and ax, [bp+4]
+or ax, [si+4]
+stosw
+mov ax, es:[di]
+and ax, [bp+6]
+or ax, [si+6]
+stosw
+add si, 8
+add bp, 8
+loop loc_0_22F1
 mov ax, @data
-db 8Eh, 0D8h, 8Eh, 0D0h, 5Ah
-db 59h, 5Bh, 5Fh, 5Dh, 0C3h, 2Eh, 8Bh, 3Fh, 83h, 0C3h, 02h, 03h, 0FAh, 26h, 8Bh, 05h
-db 23h, 46h, 00h, 0Bh, 04h, 0ABh, 26h, 8Bh, 05h, 23h, 46h, 02h, 0Bh, 44h, 02h, 0ABh
-db 26h, 8Bh, 05h, 23h, 46h, 04h, 0Bh, 44h, 04h, 0ABh, 26h, 8Bh, 05h, 23h, 46h, 06h
-db 0Bh, 44h, 06h, 0ABh, 26h, 8Ah, 05h, 22h, 46h, 08h, 0Ah, 44h, 08h, 0AAh, 83h, 0C6h
-db 09h, 83h, 0C5h, 09h, 0E2h, 0BFh
+mov ds, ax
+mov ss, ax
+pop dx
+pop cx
+pop bx
+pop di
+pop bp
+retn
+
+loc_0_2335:
+mov di, cs:[bx]
+add bx, 2
+add di, dx
+mov ax, es:[di]
+and ax, [bp+0]
+or ax, [si]
+stosw
+mov ax, es:[di]
+and ax, [bp+2]
+or ax, [si+2]
+stosw
+mov ax, es:[di]
+and ax, [bp+4]
+or ax, [si+4]
+stosw
+mov ax, es:[di]
+and ax, [bp+6]
+or ax, [si+6]
+stosw
+mov al, es:[di]
+and al, [bp+8]
+or al, [si+8]
+stosb
+add si, 9
+add bp, 9
+loop loc_0_2335
 mov ax, @data
-db 8Eh, 0D8h, 8Eh, 0D0h, 5Ah, 59h, 5Bh
-db 5Fh, 5Dh, 0C3h
+mov ds, ax
+mov ss, ax
+pop dx
+pop cx
+pop bx
+pop di
+pop bp
+retn
+ENDP
 
 
 PROC	DrawSprite ; sub_0_2383
