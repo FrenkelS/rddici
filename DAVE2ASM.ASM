@@ -148,8 +148,45 @@ word_789_238 dw 0,1,2,3,4,5,6,7,8,9
 	dw 30h,31h,32h,33h,34h,35h,36h,37h,38h,39h,3Ah,3Bh,3Dh,3Eh,3Fh,3Ch
 	dw 41h,42h,43h,40h,44h,45h,46h,47h,48h,49h,4Ah,4Bh,4Ch,4Dh
 
+
 word_789_4A2 dw 0
 word_789_4A4 dw 0
+
+
+word_789_4C8 dw 0, 40h, 80h, 0C0h, 100h, 140h, 180h, 1C0h
+	dw 200h, 240h, 280h, 2C0h, 300h, 340h, 380h, 3C0h
+	dw 400h, 440h, 480h, 4C0h, 500h, 540h, 580h, 5C0h
+	dw 600h, 640h, 680h, 6C0h, 700h, 740h, 780h, 7C0h
+	dw 800h, 840h, 880h, 8C0h, 900h, 940h, 980h, 9C0h
+	dw 0A00h, 0A40h, 0A80h, 0AC0h, 0B00h, 0B40h, 0B80h, 0BC0h
+	dw 0C00h, 0C40h, 0C80h, 0CC0h, 0D00h, 0D40h, 0D80h, 0DC0h
+	dw 0E00h, 0E40h, 0E80h, 0EC0h, 0F00h, 0F40h, 0F80h, 0FC0h
+	dw 1000h, 1040h, 1080h, 10C0h, 1100h, 1140h, 1180h, 11C0h
+	dw 1200h, 1240h, 1280h, 12C0h, 1300h, 1340h, 1380h, 13C0h
+	dw 1400h, 1440h, 1480h, 14C0h, 1500h, 1540h, 1580h, 15C0h
+	dw 1600h, 1640h, 1680h, 16C0h, 1700h, 1740h, 1780h, 17C0h
+	dw 1800h, 1840h, 1880h, 18C0h, 1900h, 1940h, 1980h, 19C0h
+	dw 1A00h, 1A40h, 1A80h, 1AC0h, 1B00h, 1B40h, 1B80h, 1BC0h
+	dw 1C00h, 1C40h, 1C80h, 1CC0h, 1D00h, 1D40h, 1D80h, 1DC0h
+	dw 1E00h, 1E40h, 1E80h, 1EC0h, 1F00h, 1F40h, 1F80h, 1FC0h
+	dw 2000h, 2040h, 2080h, 20C0h, 2100h, 2140h, 2180h, 21C0h
+	dw 2200h, 2240h, 2280h, 22C0h, 2300h, 2340h, 2380h, 23C0h
+	dw 2400h, 2440h, 2480h, 24C0h, 2500h, 2540h, 2580h, 25C0h
+	dw 2600h, 2640h, 2680h, 26C0h, 2700h, 2740h, 2780h, 27C0h
+	dw 2800h, 2840h, 2880h, 28C0h, 2900h, 2940h, 2980h, 29C0h
+	dw 2A00h, 2A40h, 2A80h, 2AC0h, 2B00h, 2B40h, 2B80h, 2BC0h
+	dw 2C00h, 2C40h, 2C80h, 2CC0h, 2D00h, 2D40h, 2D80h, 2DC0h
+	dw 2E00h, 2E40h, 2E80h, 2EC0h, 2F00h, 2F40h, 2F80h, 2FC0h
+	dw 3000h, 3040h, 3080h, 30C0h, 3100h, 3140h, 3180h, 31C0h
+	dw 3200h, 3240h, 3280h, 32C0h, 3300h, 3340h, 3380h, 33C0h
+	dw 3400h, 3440h, 3480h, 34C0h, 3500h, 3540h, 3580h, 35C0h
+	dw 3600h, 3640h, 3680h, 36C0h, 3700h, 3740h, 3780h, 37C0h
+	dw 3800h, 3840h, 3880h, 38C0h, 3900h, 3940h, 3980h, 39C0h
+	dw 3A00h, 3A40h, 3A80h, 3AC0h, 3B00h, 3B40h, 3B80h, 3BC0h
+	dw 3C00h, 3C40h, 3C80h, 3CC0h, 3D00h, 3D40h, 3D80h, 3DC0h
+	dw 3E00h, 3E40h, 3E80h, 3EC0h, 3F00h, 3F40h, 3F80h, 3FC0h
+
+
 word_789_BFC dw 0
 word_789_BFE dw 0
 word_789_C00 dw 0
@@ -173,6 +210,38 @@ LABEL word_789_6C8 WORD
 	dw 0D00h, 0D20h, 0D40h, 0D60h, 0D80h, 0DA0h, 0DC0h, 0DE0h
 	dw 0E00h, 0E20h, 0E40h, 0E60h, 0E80h, 0EA0h, 0EC0h, 0EE0h
 	dw 0F00h, 0F20h, 0F40h, 0F60h, 0F80h, 0FA0h, 0FC0h, 0FE0h
+
+
+word_789_7C8 dw 0, 4, 8, 0Ch, 10h, 14h, 18h, 1Ch
+	dw 20h, 24h, 28h, 2Ch, 30h, 34h, 38h, 3Ch
+	dw 40h, 44h, 48h, 4Ch, 280h, 284h, 288h, 28Ch
+	dw 290h, 294h, 298h, 29Ch, 2A0h, 2A4h, 2A8h, 2ACh
+	dw 2B0h, 2B4h, 2B8h, 2BCh, 2C0h, 2C4h, 2C8h, 2CCh
+	dw 500h, 504h, 508h, 50Ch, 510h, 514h, 518h, 51Ch
+	dw 520h, 524h, 528h, 52Ch, 530h, 534h, 538h, 53Ch
+	dw 540h, 544h, 548h, 54Ch, 780h, 784h, 788h, 78Ch
+	dw 790h, 794h, 798h, 79Ch, 7A0h, 7A4h, 7A8h, 7ACh
+	dw 7B0h, 7B4h, 7B8h, 7BCh, 7C0h, 7C4h, 7C8h, 7CCh
+	dw 0A00h, 0A04h, 0A08h, 0A0Ch, 0A10h, 0A14h, 0A18h, 0A1Ch
+	dw 0A20h, 0A24h, 0A28h, 0A2Ch, 0A30h, 0A34h, 0A38h, 0A3Ch
+	dw 0A40h, 0A44h, 0A48h, 0A4Ch, 0C80h, 0C84h, 0C88h, 0C8Ch
+	dw 0C90h, 0C94h, 0C98h, 0C9Ch, 0CA0h, 0CA4h, 0CA8h, 0CACh
+	dw 0CB0h, 0CB4h, 0CB8h, 0CBCh, 0CC0h, 0CC4h, 0CC8h, 0CCCh
+	dw 0F00h, 0F04h, 0F08h, 0F0Ch, 0F10h, 0F14h, 0F18h, 0F1Ch
+	dw 0F20h, 0F24h, 0F28h, 0F2Ch, 0F30h, 0F34h, 0F38h, 0F3Ch
+	dw 0F40h, 0F44h, 0F48h, 0F4Ch, 1180h, 1184h, 1188h, 118Ch
+	dw 1190h, 1194h, 1198h, 119Ch, 11A0h, 11A4h, 11A8h, 11ACh
+	dw 11B0h, 11B4h, 11B8h, 11BCh, 11C0h, 11C4h, 11C8h, 11CCh
+	dw 1400h, 1404h, 1408h, 140Ch, 1410h, 1414h, 1418h, 141Ch
+	dw 1420h, 1424h, 1428h, 142Ch, 1430h, 1434h, 1438h, 143Ch
+	dw 1440h, 1444h, 1448h, 144Ch, 1680h, 1684h, 1688h, 168Ch
+	dw 1690h, 1694h, 1698h, 169Ch, 16A0h, 16A4h, 16A8h, 16ACh
+	dw 16B0h, 16B4h, 16B8h, 16BCh, 16C0h, 16C4h, 16C8h, 16CCh
+	dw 1900h, 1904h, 1908h, 190Ch, 1910h, 1914h, 1918h, 191Ch
+	dw 1920h, 1924h, 1928h, 192Ch, 1930h, 1934h, 1938h, 193Ch
+	dw 1940h, 1944h, 1948h, 194Ch, 1B80h, 1B84h, 1B88h, 1B8Ch
+	dw 1B90h, 1B94h, 1B98h, 1B9Ch, 1BA0h, 1BA4h, 1BA8h, 1BACh
+	dw 1BB0h, 1BB4h, 1BB8h, 1BBCh, 1BC0h, 1BC4h, 1BC8h, 1BCCh
 
 
 LABEL EGAtileloc WORD
@@ -224,39 +293,11 @@ LABEL EGAtileloc WORD
 
 
 EXTRN	WaitVBL:NEAR
-EXTRN	_quit:NEAR
 
 
 ;========================================================================
 
-;{=========================================}
-;{                                         }
-;{ DRAWOBJ                                 }
-;{ Draws the object to TILES in the proper }
-;{ direction and state.                    }
-;{                                         }
-;{=========================================}
-;
-;Procedure DrawObj;
-;var
-;  objpri,bsize,tilenum:integer;
-;Begin
-;  tilenum:=obj.firstchar + obj.size * obj.size
-;  *((integer(obj.dir) and obj.dirmask) * obj.stages + obj.stage);
-;  obj.oldtile:= tilenum;
-;  obj.oldx:=obj.x;
-;  obj.oldy:=obj.y;
-;  objpri:=priority[tilenum];
-;  For y:=obj.y to obj.y+obj.size-1 do
-;    for x:=obj.x to obj.x+obj.size-1 do
-;      Begin
-;	if priority[view[y,x]]<=objpri then
-;	  view[y,x]:=tilenum;
-;	inc(tilenum);
-;      end;
-;End;
-;
-;
+
 word_0_19AC dw 0
 word_0_19AE dw 0
 word_0_19B0 dw 0
@@ -571,7 +612,6 @@ ENDP
 
 
 PROC	sub_0_1F42
-
 cli
 mov     cx, screenstart
 mov     dx, 3D4h
@@ -635,15 +675,65 @@ retn
 ENDP
 
 
-sub_0_1FBD:
-db 57h, 0D1h, 0E6h
-db 8Bh, 0B4h, 0C8h, 04h, 8Bh, 0BDh, 0C8h, 07h, 0A1h, 98h, 0AEh, 8Eh, 0D8h, 0A5h, 0A5h, 81h
-db 0C7h, 0FCh, 1Fh, 0A5h, 0A5h, 81h, 0EFh, 0B4h, 1Fh, 0A5h, 0A5h, 81h, 0C7h, 0FCh, 1Fh, 0A5h
-db 0A5h, 81h, 0EFh, 0B4h, 1Fh, 0A5h, 0A5h, 81h, 0C7h, 0FCh, 1Fh, 0A5h, 0A5h, 81h, 0EFh, 0B4h
-db 1Fh, 0A5h, 0A5h, 81h, 0C7h, 0FCh, 1Fh, 0A5h, 0A5h, 81h, 0EFh, 0B4h, 1Fh, 0A5h, 0A5h, 81h
-db 0C7h, 0FCh, 1Fh, 0A5h, 0A5h, 81h, 0EFh, 0B4h, 1Fh, 0A5h, 0A5h, 81h, 0C7h, 0FCh, 1Fh, 0A5h
-db 0A5h, 81h, 0EFh, 0B4h, 1Fh, 0A5h, 0A5h, 81h, 0C7h, 0FCh, 1Fh, 0A5h, 0A5h, 81h, 0EFh, 0B4h
-db 1Fh, 0A5h, 0A5h, 81h, 0C7h, 0FCh, 1Fh, 0A5h, 0A5h, 8Ch, 0D0h, 8Eh, 0D8h, 5Fh, 0C3h
+PROC sub_0_1FBD_UNUSED
+push di
+shl si, 1
+mov si, word_789_4C8[si]
+mov di, word_789_7C8[di]
+mov ax, word ptr tileptr+2
+mov ds, ax
+movsw
+movsw
+add di, 8188
+movsw
+movsw
+sub di, 8116
+movsw
+movsw
+add di, 8188
+movsw
+movsw
+sub di, 8116
+movsw
+movsw
+add di, 8188
+movsw
+movsw
+sub di, 8116
+movsw
+movsw
+add di, 8188
+movsw
+movsw
+sub di, 8116
+movsw
+movsw
+add di, 8188
+movsw
+movsw
+sub di, 8116
+movsw
+movsw
+add di, 8188
+movsw
+movsw
+sub di, 8116
+movsw
+movsw
+add di, 8188
+movsw
+movsw
+sub di, 8116
+movsw
+movsw
+add di, 8188
+movsw
+movsw
+mov ax, ss
+mov ds, ax
+pop di
+retn
+ENDP
 
 
 PROC	DrawTile16 ; sub_0_202F
