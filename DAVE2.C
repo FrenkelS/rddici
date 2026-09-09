@@ -123,8 +123,8 @@ typedef struct {
 
 
 typedef struct {
-  long      dword_789_94D6; /* +00 */
-  long      dword_789_94DA; /* +04 */
+  long      x;              /* +00 */
+  long      y;              /* +04 */
   int       word_789_94DE;  /* +08 */
   int       word_789_94E0;  /* +0A */
   int       word_789_94E2;  /* +0C */
@@ -856,8 +856,8 @@ void FindFreeObj_UNUSED (void) // sub_0_AB4
 
 void sub_0_B0D(void)
 {
-	px = word_789_8228->dword_789_94D6 / 256;
-	py = word_789_8228->dword_789_94DA / 256;
+	px = word_789_8228->x / 256;
+	py = word_789_8228->y / 256;
 
 	if (grmode == CGAgr)
 		word_789_8226 = word_789_94A0 * 2 + ((px / 2) % 2);
@@ -1028,13 +1028,13 @@ void sub_0_CBE(void)
 
 boolean sub_0_E52_UNUSED(int arg_0, int arg_2)
 {
-	word_789_8228->dword_789_94D6 += arg_0;
-	word_789_8228->dword_789_94DA += arg_2;
+	word_789_8228->x += arg_0;
+	word_789_8228->y += arg_2;
 
 	sub_0_B0D();
 
-	word_789_8228->dword_789_94D6 -= arg_0;
-	word_789_8228->dword_789_94DA -= arg_2;
+	word_789_8228->x -= arg_0;
+	word_789_8228->y -= arg_2;
 
 	if (word_789_1D2A - originyglobal / 4 < 16)
 	{
@@ -1075,13 +1075,13 @@ void sub_0_F19(void)
 	int xmove = 0;
 	int ymove = 0;
 
-	if (word_789_8228->dword_789_94D6 < 0x00001000)
-		word_789_8228->dword_789_94D6 = 0x00001000;
+	if (word_789_8228->x < 0x00001000)
+		word_789_8228->x = 0x00001000;
 
-	if ((long)(((LevelDef *)bigbuffer)->width - 1) << 8 << 4 < word_789_8228->dword_789_94D6)
-		word_789_8228->dword_789_94D6 = (long)(((LevelDef *)bigbuffer)->width - 1) << 8 << 4;
+	if ((long)(((LevelDef *)bigbuffer)->width - 1) << 8 << 4 < word_789_8228->x)
+		word_789_8228->x = (long)(((LevelDef *)bigbuffer)->width - 1) << 8 << 4;
 
-	if ((long)((LevelDef *)bigbuffer)->height << 8 << 4 < word_789_8228->dword_789_94DA)
+	if ((long)((LevelDef *)bigbuffer)->height << 8 << 4 < word_789_8228->y)
 	{
 		word_789_8228->gamexit = 0;
 		PlaySound(PLUMMETSND);
@@ -1212,12 +1212,12 @@ void sub_0_F19(void)
 	xmove = word_789_8228->xmove;
 	ymove = word_789_8228->ymove;
 
-	word_789_8228->dword_789_94D6 += xmove;
-	word_789_8228->dword_789_94DA += ymove;
+	word_789_8228->x += xmove;
+	word_789_8228->y += ymove;
 
 	if (xmove > 0)
 	{
-		if (word_789_8228->dword_789_94D6 - originxglobal > 0xB400L)
+		if (word_789_8228->x - originxglobal > 0xB400L)
 		{
 			originxglobal += xmove;
 			if (originxglobal > originxmax)
@@ -1226,7 +1226,7 @@ void sub_0_F19(void)
 	}
 	else if (xmove < 0)
 	{
-		if (word_789_8228->dword_789_94D6 - originxglobal < 0x8C00L)
+		if (word_789_8228->x - originxglobal < 0x8C00L)
 		{
 			originxglobal += xmove;
 			if (originxglobal < originxmin)
@@ -1236,7 +1236,7 @@ void sub_0_F19(void)
 
 	if (ymove > 0)
 	{
-		if (word_789_8228->dword_789_94DA - originyglobal > 0xA000L)
+		if (word_789_8228->y - originyglobal > 0xA000L)
 		{
 			originyglobal += ymove;
 			if (originyglobal > originymax)
@@ -1245,7 +1245,7 @@ void sub_0_F19(void)
 	}
 	else if (ymove < 0)
 	{
-		if (word_789_8228->dword_789_94DA - originyglobal < 0x2800L)
+		if (word_789_8228->y - originyglobal < 0x2800L)
 		{
 			originyglobal += ymove;
 			if (originyglobal < originymin)
@@ -1475,8 +1475,8 @@ void playloop(void) // sub_0_162C
 			}
 		}
 
-		type94D6_789_94D6.dword_789_94DA = originyglobal + 0x9600;
-		type94D6_789_94D6.dword_789_94D6 = 0x00009600;
+		type94D6_789_94D6.y = originyglobal + 0x9600;
+		type94D6_789_94D6.x = 0x00009600;
 		type94D6_789_94D6.ymove = 0;
 		type94D6_789_94D6.xmove = 0;
 		type94D6_789_94D6.gamexit = 1;
