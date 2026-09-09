@@ -155,8 +155,6 @@ typedef struct {
 /*		    */
 /*==================*/
 
-long dword_789_154C;
-long dword_789_1550;
 int word_789_1D28;
 int word_789_1D2A;
 int word_789_1D30;
@@ -260,6 +258,7 @@ int drawoffs1[BIGPORTSIZE], drawoffs0[BIGPORTSIZE];
 unsigned int *mapplane[4];		// points into map
 int mapbwide,mapwwide,mapbytesextra;
 long originxglobal, originyglobal;
+long originxmin, originymin;
 long originxmax, originymax;
 unsigned int drawpage;
 
@@ -1230,8 +1229,8 @@ void sub_0_F19(void)
 		if (word_789_8228->dword_789_94D6 - originxglobal < 0x8C00L)
 		{
 			originxglobal += di;
-			if (originxglobal < dword_789_154C)
-				originxglobal = dword_789_154C;
+			if (originxglobal < originxmin)
+				originxglobal = originxmin;
 		}
 	}
 
@@ -1249,8 +1248,8 @@ void sub_0_F19(void)
 		if (word_789_8228->dword_789_94DA - originyglobal < 0x2800L)
 		{
 			originyglobal += si;
-			if (originyglobal < dword_789_1550)
-				originyglobal = dword_789_1550;
+			if (originyglobal < originymin)
+				originyglobal = originymin;
 		}
 	}
 
@@ -1419,8 +1418,8 @@ void playloop(void) // sub_0_162C
 			mapwwide = ((LevelDef *)bigbuffer)->width;
 			mapbwide = mapwwide * 2;
 			mapbytesextra = mapbwide + -(2 * PORTTILESWIDE);
-			dword_789_154C = 0;
-			dword_789_1550 = 0;
+			originxmin = 0;
+			originymin = 0;
 
 			originxmax = ((long)(((LevelDef *)bigbuffer)->width  + -(PORTTILESWIDE - 1))) << 12;
 			originymax = ((long)(((LevelDef *)bigbuffer)->height + -(PORTTILESHIGH - 1))) << 12;
