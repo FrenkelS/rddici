@@ -1072,8 +1072,8 @@ void sub_0_F19(void)
 	int var_22;
 	int var_24;
 
-	int di = 0;
-	int si = 0;
+	int xmove = 0;
+	int ymove = 0;
 
 	if (word_789_8228->dword_789_94D6 < 0x00001000)
 		word_789_8228->dword_789_94D6 = 0x00001000;
@@ -1095,7 +1095,7 @@ void sub_0_F19(void)
 		if (!bool_789_94C4 && !bool_789_9490)
 		{
 			PlaySound(JUMPSND);
-			si = -word_789_1D32;
+			ymove = -word_789_1D32;
 			bool_789_94C4 = true;
 			bool_789_9490 = true;
 			word_789_8476 = word_789_9482;
@@ -1103,7 +1103,7 @@ void sub_0_F19(void)
 
 		if (bool_789_9490 && word_789_8476 > 0)
 		{
-			si -= word_789_8476;
+			ymove -= word_789_8476;
 			word_789_8476 -= 7;
 		}
 	}
@@ -1126,19 +1126,19 @@ void sub_0_F19(void)
 		case northeast:
 		case east:
 		case southeast:
-			di = word_789_9480 * var_4;
+			xmove = word_789_9480 * var_4;
 			bool_789_847A = false;
 			break;
 
 		case southwest:
 		case west:
 		case northwest:
-			di = -word_789_9480 * var_4;
+			xmove = -word_789_9480 * var_4;
 			bool_789_847A = true;
 			break;
 	}
 
-	si += word_789_1D30;
+	ymove += word_789_1D30;
 
 	if (bool_789_94C4)
 	{
@@ -1157,7 +1157,7 @@ void sub_0_F19(void)
 				word_789_8228->word_789_94E0 = 0;
 		}
 
-		if (di == 0)
+		if (xmove == 0)
 		{
 			word_789_8228->word_789_94E0 = 1;
 			word_789_8228->word_789_94E4 = word_789_8228->word_789_94E6;
@@ -1190,17 +1190,17 @@ void sub_0_F19(void)
 		var_A = tile_block[var_8];
 	}
 
-	word_789_8228->word_789_94E8 += di;
-	word_789_8228->word_789_94EA += si;
+	word_789_8228->word_789_94E8 += xmove;
+	word_789_8228->word_789_94EA += ymove;
 
 	word_789_8228->word_789_94E8 = (long)word_789_8228->word_789_94E8 * var_A / 256;
 	word_789_8228->word_789_94EA = word_789_8228->word_789_94EA * 9 / 10;
 
-	si = word_789_8228->word_789_94EA;
+	ymove = word_789_8228->word_789_94EA;
 
 	sub_0_CBE();
 
-	if (word_789_8228->word_789_94EA == 0 && si < 0)
+	if (word_789_8228->word_789_94EA == 0 && ymove < 0)
 		PlaySound(BUMPSND);
 
 	if (word_789_8228->word_789_94EA != 0)
@@ -1209,45 +1209,45 @@ void sub_0_F19(void)
 	if (word_789_8228->word_789_94EA >= 0)
 		word_789_8476 = 0;
 
-	di = word_789_8228->word_789_94E8;
-	si = word_789_8228->word_789_94EA;
+	xmove = word_789_8228->word_789_94E8;
+	ymove = word_789_8228->word_789_94EA;
 
-	word_789_8228->dword_789_94D6 += di;
-	word_789_8228->dword_789_94DA += si;
+	word_789_8228->dword_789_94D6 += xmove;
+	word_789_8228->dword_789_94DA += ymove;
 
-	if (di > 0)
+	if (xmove > 0)
 	{
 		if (word_789_8228->dword_789_94D6 - originxglobal > 0xB400L)
 		{
-			originxglobal += di;
+			originxglobal += xmove;
 			if (originxglobal > originxmax)
 				originxglobal = originxmax;
 		}
 	}
-	else if (di < 0)
+	else if (xmove < 0)
 	{
 		if (word_789_8228->dword_789_94D6 - originxglobal < 0x8C00L)
 		{
-			originxglobal += di;
+			originxglobal += xmove;
 			if (originxglobal < originxmin)
 				originxglobal = originxmin;
 		}
 	}
 
-	if (si > 0)
+	if (ymove > 0)
 	{
 		if (word_789_8228->dword_789_94DA - originyglobal > 0xA000L)
 		{
-			originyglobal += si;
+			originyglobal += ymove;
 			if (originyglobal > originymax)
 				originyglobal = originymax;
 		}
 	}
-	else if (si < 0)
+	else if (ymove < 0)
 	{
 		if (word_789_8228->dword_789_94DA - originyglobal < 0x2800L)
 		{
-			originyglobal += si;
+			originyglobal += ymove;
 			if (originyglobal < originymin)
 				originyglobal = originymin;
 		}
