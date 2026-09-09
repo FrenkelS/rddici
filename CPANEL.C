@@ -94,7 +94,7 @@ void controlpanel (void);
 //
 ////////////////
 
-void calibratejoy (int joynum) // sub_0_3E97
+void calibratejoy (int joynum)
 {
   int stage,dx,dy,xl,yl,xh,yh;
   ControlStruct ctr;
@@ -171,7 +171,7 @@ done:
 // calibratemouse
 //
 ////////////////////////////
-void calibratemouse (void) //sub_0_407E
+void calibratemouse (void)
 {
   char ch;
 
@@ -203,7 +203,7 @@ void calibratemouse (void) //sub_0_407E
 // print a representation of the scan code key
 //
 ////////////////////////////
-void printscan (int sc) // sub_0_4100
+void printscan (int sc)
 {
  char static chartable[128] =
  {'?','?','1','2','3','4','5','6','7','8','9','0','-','+','?','?',
@@ -275,7 +275,7 @@ void printscan (int sc) // sub_0_4100
 // calibratekeys
 //
 ////////////////////////////
-void calibratekeys (void) // sub_0_42A8
+void calibratekeys (void)
 {
   char ch;
   int hx,hy,i,select,new;
@@ -354,7 +354,7 @@ void calibratekeys (void) // sub_0_42A8
 //
 ////////////////////
 
-void getconfig (void) // sub_0_4461
+void getconfig (void)
 {
   int x,y;
   int far *vect;
@@ -409,7 +409,7 @@ void getconfig (void) // sub_0_4461
 //
 ////////////////
 
-void drawpanel (void) // sub_0_4547
+void drawpanel (void)
 {
   leftedge=1;
 
@@ -477,7 +477,7 @@ void drawpanel (void) // sub_0_4547
 //
 ////////////////
 
-void controlpanel (void) // sub_0_47FC
+void controlpanel (void)
 {
   int chf;
   char chl,chh;
@@ -630,7 +630,7 @@ void far *lastgrpic;
 
 int numchars,numtiles,numpics,numsprites;
 
-void installgrfile (char *filename, int unpack) // sub_0_4AD6
+void installgrfile (char *filename, int unpack)
 {
   int i;
   unsigned long a,b,c,d;
@@ -718,7 +718,7 @@ void installgrfile (char *filename, int unpack) // sub_0_4AD6
 // needs to be called after each setgrmode to ega to refill memory
 //
 //////////////////////////
-void moveega (void) // sub_0_4CEF
+void moveega (void)
 {
   int plane;
 

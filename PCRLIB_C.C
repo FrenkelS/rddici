@@ -20,9 +20,6 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-//#define CATALOG
-
-
 #include "pcrlib.h"
 #include <conio.h>
 
@@ -44,8 +41,6 @@ void interrupt (*oldint9) ()=NULL;
 
 char	demobuffer[5000];
 char	*demoptr;
-//int	democount;
-//int	lastdemoval;		// so demo can be RLE compressed
 enum demoenum indemo;
 
 /*=======================================================================*/
@@ -60,7 +55,7 @@ enum demoenum indemo;
 =======================
 */
 
-void SetupKBD () // sub_0_256A
+void SetupKBD ()
 {
  void far *vect = getvect (9);
  int i;
@@ -88,7 +83,7 @@ void SetupKBD () // sub_0_256A
 =========================
 */
 
-void interrupt Int9ISR () // sub_0_25D8
+void interrupt Int9ISR ()
 {
  int key = inportb (0x60);		/* get the key pressed */
 
@@ -132,7 +127,7 @@ asm {
 ===========================
 */
 
-void ShutdownKBD () // sub_0_2653
+void ShutdownKBD ()
 {
  if (oldint9 != NULL)
    setvect (9,oldint9);
@@ -147,7 +142,7 @@ void ShutdownKBD () // sub_0_2653
 ===========================
 */
 
-ControlStruct ControlKBD () // sub_0_2673
+ControlStruct ControlKBD ()
 {
  int xmove=0,
      ymove=0;
@@ -211,7 +206,7 @@ ControlStruct ControlKBD () // sub_0_2673
 ============================
 */
 
-ControlStruct ControlMouse () // sub_0_27C0
+ControlStruct ControlMouse ()
 {
  int newx,newy,		/* mickeys the mouse has moved */
      xmove = 0,
@@ -277,7 +272,7 @@ ControlStruct ControlMouse () // sub_0_27C0
 ===============================
 */
 
-void ReadJoystick (int joynum,int *xcount,int *ycount) // sub_0_28FD
+void ReadJoystick (int joynum,int *xcount,int *ycount)
 {
  int portval,a1,a2,xbit,ybit;
 
@@ -320,7 +315,7 @@ void ReadJoystick (int joynum,int *xcount,int *ycount) // sub_0_28FD
 =============================
 */
 
-ControlStruct ControlJoystick (int joynum) // sub_0_2998
+ControlStruct ControlJoystick (int joynum)
 {
  int joyx = 0,joyy = 0,		/* resistance in joystick */
      xmove = 0,
@@ -382,7 +377,7 @@ ControlStruct ControlJoystick (int joynum) // sub_0_2998
 =============================
 */
 
-ControlStruct ControlPlayer (int player) // sub_0_2B28
+ControlStruct ControlPlayer (int player)
 {
  ControlStruct ret;
  int val;
@@ -433,7 +428,7 @@ ControlStruct ControlPlayer (int player) // sub_0_2B28
 //
 ////////////////////////
 
-void RecordDemo (void) // sub_0_2C4A
+void RecordDemo (void)
 {
   demobuffer[0]=level;
   demoptr = &demobuffer[1];
@@ -449,7 +444,7 @@ void RecordDemo (void) // sub_0_2C4A
 //
 ////////////////////////
 
-void LoadDemo (int demonum) // sub_0_2C61
+void LoadDemo (int demonum)
 {
   char st2[5];
 
@@ -465,7 +460,7 @@ void LoadDemo (int demonum) // sub_0_2C61
   indemo = demoplay;
 }
 
-void SaveDemo (int demonum) // sub_0_2CD2
+void SaveDemo (int demonum)
 {
   char st2[5];
 
@@ -501,7 +496,7 @@ void SaveDemo (int demonum) // sub_0_2CD2
 //
 ///////////////////////////////
 
-void clearkeys (void) // sub_0_2D3F
+void clearkeys (void)
 {
   int i;
   while (bioskey (1))
@@ -522,7 +517,7 @@ void clearkeys (void) // sub_0_2D3F
 void far *lastparalloc;	// global variable of the EXACT (not paralign)
 				// last block, so it can be freed right
 
-void huge *paralloc (long size) // sub_0_2D70
+void huge *paralloc (long size)
 {
  void huge *temp;
  word seg,ofs;
@@ -559,7 +554,7 @@ void huge *paralloc (long size) // sub_0_2D70
 ==============================================
 */
 
-unsigned long LoadFile(char *filename,char huge *buffer) // sub_0_2DD7
+unsigned long LoadFile(char *filename,char huge *buffer)
 {
  unsigned int handle,flength1=0,flength2=0,buf1,buf2,foff1,foff2;
 
@@ -650,7 +645,7 @@ return (flength2*0x10000+flength1);
 ==============================================
 */
 
-void SaveFile(char *filename,char huge *buffer, long size) // sub_0_2E84
+void SaveFile(char *filename,char huge *buffer, long size)
 {
  unsigned int handle,buf1,buf2,foff1,foff2;
 
@@ -724,7 +719,7 @@ asm		int	21h
 ====================================
 */
 
-void huge *bloadin (char *filename) // sub_0_2F05
+void huge *bloadin (char *filename)
 {
  int handle;
  long length;
@@ -743,7 +738,7 @@ void huge *bloadin (char *filename) // sub_0_2F05
 }
 
 
-void huge *bloadinRLE (char *filename) // sub_0_2F64
+void huge *bloadinRLE (char *filename)
 {
  int handle;
  long length;
@@ -799,7 +794,7 @@ int sx,sy,leftedge;
 ========================
 */
 
-void setscreenmode (grtype mode) // sub_0_302F
+void setscreenmode (grtype mode)
 {
   char extern VGAPAL;			// deluxepaint vga pallet .OBJ file
   void far *vgapal = &VGAPAL;
@@ -843,7 +838,7 @@ void setscreenmode (grtype mode) // sub_0_302F
 ========================
 */
 
-void egasplitscreen (int linenum) // sub_0_30A5
+void egasplitscreen (int linenum)
 {
   WaitVBL ();
   if (_videocard==VGAcard)
@@ -868,7 +863,7 @@ void egasplitscreen (int linenum) // sub_0_30A5
 ========================
 */
 
-void crtcstart (unsigned start) // sub_0_312F
+void crtcstart (unsigned start)
 {
   WaitVBL ();
   outportb (crtcaddr,CRTCSTARTL);
@@ -889,7 +884,7 @@ int screencenterx = 19,screencentery = 11;
 //
 //////////////////////////
 
-void drawwindow (int xl, int yl, int xh, int yh) // sub_0_3171
+void drawwindow (int xl, int yl, int xh, int yh)
 {
  int x,y;
  win_xl=xl;
@@ -924,7 +919,7 @@ void drawwindow (int xl, int yl, int xh, int yh) // sub_0_3171
 //
 ///////////////////////////
 
-void bar (int xl, int yl, int xh, int yh, int ch) // sub_0_325F
+void bar (int xl, int yl, int xh, int yh, int ch)
 {
   int x,y;
 
@@ -934,7 +929,7 @@ void bar (int xl, int yl, int xh, int yh, int ch) // sub_0_325F
 }
 
 
-void erasewindow (void) // sub_0_3289
+void erasewindow (void)
 {
   bar (win_xl,win_yl,win_xh,win_yh,' ');
 }
@@ -946,7 +941,7 @@ void erasewindow (void) // sub_0_3289
 //
 /////////////////////////////
 
-void centerwindow (int width, int height) // sub_0_32A8
+void centerwindow (int width, int height)
 {
   int xl = screencenterx-width/2;
   int yl = screencentery-height/2;
@@ -960,7 +955,7 @@ void centerwindow (int width, int height) // sub_0_32A8
 // Grows the window outward
 //
 ///////////////////////////////
-void expwin (int width, int height) // sub_0_32E9
+void expwin (int width, int height)
 {
   if (width > 2)
   {
@@ -977,7 +972,7 @@ void expwin (int width, int height) // sub_0_32E9
   centerwindow (width,height);
 }
 
-void expwinh (int width, int height) // sub_0_333E
+void expwinh (int width, int height)
 {
   if (width > 2)
     expwinh (width-2,height);
@@ -986,7 +981,7 @@ void expwinh (int width, int height) // sub_0_333E
   centerwindow (width,height);
 }
 
-void expwinv (int width, int height) // sub_0_3367
+void expwinv (int width, int height)
 {
   if (height >2)
     expwinv (width,height-2);
@@ -1003,7 +998,7 @@ void expwinv (int width, int height) // sub_0_3367
 //
 /////////////////////////
 
-int get (void) // sub_0_3390
+int get (void)
 {
  int cycle,key;
 
@@ -1032,7 +1027,7 @@ int get (void) // sub_0_3390
 //
 /////////////////////////
 
-void print (const char *str) // sub_0_33F1
+void print (const char *str)
 {
   char ch;
 
@@ -1056,13 +1051,13 @@ void print (const char *str) // sub_0_33F1
 //
 ///////////////////////////
 
-void printint (int val) // sub_0_3442
+void printint (int val)
 {
   itoa(val,str,10);
   print (str);
 }
 
-void printlong (long val) // sub_0_3460
+void printlong (long val)
 {
   ltoa(val,str,10);
   print (str);
@@ -1077,7 +1072,7 @@ int _MouseStatus;
 // Mouse Routines
 //
 ////////////////////////////////////////////////////////////////////
-int _MouseInit(void) // sub_0_3481
+int _MouseInit(void)
 {
  union REGS regs;
  unsigned char far *vector;
@@ -1094,7 +1089,7 @@ int _MouseInit(void) // sub_0_3481
 
 
 
-void _MouseHide(void) // sub_0_34C6
+void _MouseHide(void)
 {
  if (!_MouseStatus) return;
 
@@ -1104,7 +1099,7 @@ void _MouseHide(void) // sub_0_34C6
 
 
 
-void _MouseShow(void) // sub_0_34D9
+void _MouseShow(void)
 {
  if (!_MouseStatus) return;
 
@@ -1114,7 +1109,7 @@ void _MouseShow(void) // sub_0_34D9
 
 
 
-int _MouseButton(void) // sub_0_34EC
+int _MouseButton(void)
 {
  union REGS regs;
 
@@ -1127,7 +1122,7 @@ int _MouseButton(void) // sub_0_34EC
 
 
 
-void _MouseCoords(int *x,int *y) // sub_0_351D
+void _MouseCoords(int *x,int *y)
 {
  union REGS regs;
 
@@ -1149,7 +1144,7 @@ void _MouseCoords(int *x,int *y) // sub_0_351D
 // Verify a file's existence
 //
 ////////////////////////////////////////////////////////////////////
-long _Verify(char *filename) // sub_0_3563
+long _Verify(char *filename)
 {
  int handle;
  long size;
@@ -1169,7 +1164,7 @@ long _Verify(char *filename) // sub_0_3563
 // print hex byte
 //
 ////////////////////////////////////////////////////////////////////
-void _printhexb(unsigned char value) // sub_0_35A0
+void _printhexb(unsigned char value)
 {
  int loop;
  char hexstr[16]="0123456789ABCDEF",str[2]="";
@@ -1189,7 +1184,7 @@ void _printhexb(unsigned char value) // sub_0_35A0
 // print hex
 //
 ////////////////////////////////////////////////////////////////////
-void _printhex(unsigned value) // sub_0_3603
+void _printhex(unsigned value)
 {
  print("$");
  _printhexb(value>>8);
@@ -1204,7 +1199,7 @@ void _printhex(unsigned value) // sub_0_3603
 // print bin
 //
 ////////////////////////////////////////////////////////////////////
-void _printbin(unsigned value) // sub_0_3626
+void _printbin(unsigned value)
 {
  int loop;
 
@@ -1221,7 +1216,7 @@ void _printbin(unsigned value) // sub_0_3626
 // center print
 //
 ////////////////////////////////////////////////////////////////////
-void _printc(char *string) // sub_0_3668
+void _printc(char *string)
 {
  sx=1+screencenterx-((int)strlen(string)/2);
  print(string);
@@ -1235,7 +1230,7 @@ void _printc(char *string) // sub_0_3668
 // input unsigned
 //
 ////////////////////////////////////////////////////////////////////
-unsigned _inputint(void) // sub_0_368C
+unsigned _inputint(void)
 {
  char string[18]="",digit,hexstr[16]="0123456789ABCDEF";
  unsigned value,loop,loop1;
@@ -1284,7 +1279,7 @@ unsigned _inputint(void) // sub_0_368C
 // line input routine
 //
 ////////////////////////////////////////////////////////////////////
-int _input(char *string,int max) // sub_0_37B1
+int _input(char *string,int max)
 {
  char key;
  int count=0,loop;
@@ -1335,7 +1330,7 @@ boolean	_cgaok, _egaok, _vgaok;
 //
 ////////////////////////
 
-void _loadctrls (void) // sub_0_3851
+void _loadctrls (void)
 {
   int handle;
 
@@ -1386,7 +1381,7 @@ void _loadctrls (void) // sub_0_3851
   }
 }
 
-void _savectrls (void) // sub_0_39AF
+void _savectrls (void)
 {
   int handle;
 
@@ -1419,7 +1414,7 @@ void _savectrls (void) // sub_0_39AF
 // creates a default if not present
 //
 ////////////////////////
-void _loadhighscores (void) // sub_0_3A96
+void _loadhighscores (void)
 {
   int i;
 
@@ -1434,7 +1429,7 @@ void _loadhighscores (void) // sub_0_3A96
     }
 }
 
-void _savehighscores (void) // sub_0_3B0C
+void _savehighscores (void)
 {
   strcpy (str,"SCORES.");
   strcat (str,_extension);
@@ -1448,7 +1443,7 @@ void _savehighscores (void) // sub_0_3B0C
 // Brings up a dialog box with the high score lists and returns immediately
 //
 ////////////////////////
-void _showhighscores (void) // sub_0_3B41
+void _showhighscores (void)
 {
   int i;
   long h;
@@ -1495,7 +1490,7 @@ void _showhighscores (void) // sub_0_3B41
 // calls showhighscores in any case
 //
 //////////////////////////
-void _checkhighscore (void) // sub_0_3C83
+void _checkhighscore (void)
 {
   int i,j,k;
 
@@ -1552,7 +1547,7 @@ void _checkhighscore (void) // sub_0_3C83
 //
 ////////////////////
 
-void _setupgame (void) // sub_0_3DBA
+void _setupgame (void)
 {
 //
 // set up game's library routines
@@ -1603,7 +1598,7 @@ void _setupgame (void) // sub_0_3DBA
 //
 ////////////////////
 
-void _quit (char *error) // sub_0_3E65
+void _quit (char *error)
 {
   setscreenmode (text);
   if (!(*error))
