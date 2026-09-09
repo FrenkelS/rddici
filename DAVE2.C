@@ -130,8 +130,8 @@ typedef struct {
   int       word_789_94E2;  /* +0C */
   int       word_789_94E4;  /* +0E */
   int       word_789_94E6;  /* +10 */
-  int       word_789_94E8;  /* +12 */
-  int       word_789_94EA;  /* +14 */
+  int       xmove;          /* +12 */
+  int       ymove;          /* +14 */
   int       gamexit;        /* +16 */ /* enum {quited,killed,reseted,victorious} */ /*determines what to do after playloop*/
   int       word_789_94EE;  /* +18 */
   int       word_789_94F0;  /* +1A */
@@ -932,97 +932,97 @@ boolean sub_0_C48(void)
 
 void sub_0_CBE(void)
 {
-	int di;
-	int si;
+	int xmove;
+	int ymove;
 	boolean var_2;
 	boolean var_4;
 
-	di = word_789_8228->word_789_94E8;
-	si = word_789_8228->word_789_94EA;
+	xmove = word_789_8228->xmove;
+	ymove = word_789_8228->ymove;
 
 	sub_0_B0D();
 
-	if (di < 0)
-		di = (di - 255) / 256;
-	else if (di > 0)
-		di = (di + 255) / 256;
+	if (xmove < 0)
+		xmove = (xmove - 255) / 256;
+	else if (xmove > 0)
+		xmove = (xmove + 255) / 256;
 
-	if (si < 0)
-		si = (si - 255) / 256;
-	else if (si > 0)
-		si = (si + 255) / 256;
+	if (ymove < 0)
+		ymove = (ymove - 255) / 256;
+	else if (ymove > 0)
+		ymove = (ymove + 255) / 256;
 
-	word_789_1D36 += si;
-	word_789_1D2A += si;
-	word_789_1D34 += di;
-	word_789_1D28 += di;
+	word_789_1D36 += ymove;
+	word_789_1D2A += ymove;
+	word_789_1D34 += xmove;
+	word_789_1D28 += xmove;
 
 	var_2 = sub_0_C48();
 
-	word_789_1D36 -= si;
-	word_789_1D2A -= si;
-	word_789_1D34 -= di;
-	word_789_1D28 -= di;
+	word_789_1D36 -= ymove;
+	word_789_1D2A -= ymove;
+	word_789_1D34 -= xmove;
+	word_789_1D28 -= xmove;
 
 	if (!var_2)
 		return;
 
-	if (di < 0)
+	if (xmove < 0)
 	{
-		word_789_1D34 += di;
-		word_789_1D28 += di;
+		word_789_1D34 += xmove;
+		word_789_1D28 += xmove;
 
 		var_2 = sub_0_C48();
 
-		word_789_1D34 -= di;
-		word_789_1D28 -= di;
+		word_789_1D34 -= xmove;
+		word_789_1D28 -= xmove;
 
 		if (var_2 == true)
-			word_789_8228->word_789_94E8 = (-word_789_1D34 % 16) << 8;
+			word_789_8228->xmove = (-word_789_1D34 % 16) << 8;
 	}
-	else if (di > 0)
+	else if (xmove > 0)
 	{
-		word_789_1D34 += di;
-		word_789_1D28 += di;
+		word_789_1D34 += xmove;
+		word_789_1D28 += xmove;
 
 		var_2 = sub_0_C48();
 
-		word_789_1D34 -= di;
-		word_789_1D28 -= di;
+		word_789_1D34 -= xmove;
+		word_789_1D28 -= xmove;
 
 		if (var_2 == true)
-			word_789_8228->word_789_94E8 = (15 - (word_789_1D28 % 16)) << 8;
+			word_789_8228->xmove = (15 - (word_789_1D28 % 16)) << 8;
 	}
 
-	if (si < 0)
+	if (ymove < 0)
 	{
-		word_789_1D36 += si;
-		word_789_1D2A += si;
+		word_789_1D36 += ymove;
+		word_789_1D2A += ymove;
 
 		var_4 = sub_0_C48();
 
-		word_789_1D36 -= si;
-		word_789_1D2A -= si;
+		word_789_1D36 -= ymove;
+		word_789_1D2A -= ymove;
 
 		if (var_4 == true)
-			word_789_8228->word_789_94EA = (-word_789_1D36 % 16) << 8;
+			word_789_8228->ymove = (-word_789_1D36 % 16) << 8;
 	}
-	else if (si > 0)
+	else if (ymove > 0)
 	{
-		word_789_1D36 += si;
-		word_789_1D2A += si;
+		word_789_1D36 += ymove;
+		word_789_1D2A += ymove;
 
 		var_4 = sub_0_C48();
 
-		word_789_1D36 -= si;
-		word_789_1D2A -= si;
+		word_789_1D36 -= ymove;
+		word_789_1D2A -= ymove;
 
 		if (var_4 == true)
-			word_789_8228->word_789_94EA = (15 - (word_789_1D2A % 16)) << 8;
+			word_789_8228->ymove = (15 - (word_789_1D2A % 16)) << 8;
 	}
 
 	if (!var_2 && !var_4)
-		word_789_8228->word_789_94E8 = word_789_8228->word_789_94EA = 0;
+		word_789_8228->xmove = word_789_8228->ymove = 0;
 }
 
 
@@ -1038,13 +1038,13 @@ boolean sub_0_E52_UNUSED(int arg_0, int arg_2)
 
 	if (word_789_1D2A - originyglobal / 4 < 16)
 	{
-		if (word_789_8228->word_789_94EA <= 0)
+		if (word_789_8228->ymove <= 0)
 			return true;
 	}
 
 	if (word_789_1D2A - originyglobal / 4 > 172)
 	{
-		if (word_789_8228->word_789_94EA >= 0)
+		if (word_789_8228->ymove >= 0)
 			return true;
 	}
 
@@ -1190,27 +1190,27 @@ void sub_0_F19(void)
 		var_A = tile_block[var_8];
 	}
 
-	word_789_8228->word_789_94E8 += xmove;
-	word_789_8228->word_789_94EA += ymove;
+	word_789_8228->xmove += xmove;
+	word_789_8228->ymove += ymove;
 
-	word_789_8228->word_789_94E8 = (long)word_789_8228->word_789_94E8 * var_A / 256;
-	word_789_8228->word_789_94EA = word_789_8228->word_789_94EA * 9 / 10;
+	word_789_8228->xmove = (long)word_789_8228->xmove * var_A / 256;
+	word_789_8228->ymove = word_789_8228->ymove * 9 / 10;
 
-	ymove = word_789_8228->word_789_94EA;
+	ymove = word_789_8228->ymove;
 
 	sub_0_CBE();
 
-	if (word_789_8228->word_789_94EA == 0 && ymove < 0)
+	if (word_789_8228->ymove == 0 && ymove < 0)
 		PlaySound(BUMPSND);
 
-	if (word_789_8228->word_789_94EA != 0)
+	if (word_789_8228->ymove != 0)
 		bool_789_94C4 = true;
 
-	if (word_789_8228->word_789_94EA >= 0)
+	if (word_789_8228->ymove >= 0)
 		word_789_8476 = 0;
 
-	xmove = word_789_8228->word_789_94E8;
-	ymove = word_789_8228->word_789_94EA;
+	xmove = word_789_8228->xmove;
+	ymove = word_789_8228->ymove;
 
 	word_789_8228->dword_789_94D6 += xmove;
 	word_789_8228->dword_789_94DA += ymove;
@@ -1477,8 +1477,8 @@ void playloop(void) // sub_0_162C
 
 		type94D6_789_94D6.dword_789_94DA = originyglobal + 0x9600;
 		type94D6_789_94D6.dword_789_94D6 = 0x00009600;
-		type94D6_789_94D6.word_789_94EA = 0;
-		type94D6_789_94D6.word_789_94E8 = 0;
+		type94D6_789_94D6.ymove = 0;
+		type94D6_789_94D6.xmove = 0;
 		type94D6_789_94D6.gamexit = 1;
 		type94D6_789_94D6.word_789_94E0 = 2;
 		type94D6_789_94D6.word_789_94E6 = type94D6_789_94D6.word_789_94E4 = 5;
