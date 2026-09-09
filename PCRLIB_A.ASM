@@ -2330,4 +2330,6 @@ FoundDevice	PROC	near	; Caller:    AH = display #
 
 FoundDevice	ENDP
 
+RLECompress db 55h
+
 	END

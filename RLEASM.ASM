@@ -73,6 +73,75 @@ EndByte	dw	?
 ;
 	CODESEG
 ;
+;====================================================
+;
+;	C interface to compress file
+;
+;====================================================
+
+	PUBLIC	RLECompress
+
+PROC	RLECompress
+
+	mov bp, sp
+
+	mov	AX,[bp+4]
+	mov	[ss:SrcIdx],AX
+	mov	AX,[bp+6]
+	mov	[ss:SrcSeg],AX	;set source buffer
+
+	mov	AX,[bp+0Ch]
+	mov	[ss:RLEIdx],AX
+	mov	AX,[bp+0Eh]
+	mov	[ss:RLESeg],AX	; & destination buffer
+
+	mov	AX,[bp+8]
+	mov	[ss:SrcLen],AX	;save length
+	mov	AX,[bp+0Ah]
+	mov	[ss:SrcLen+2],AX
+
+	call	Compress	;do the compression
+
+	mov	AX,[ss:RLELen]	;return length of compressed file
+	mov	DX,[ss:RLELen+2]
+
+	pop bp
+	ret
+
+	ENDP
+
+;====================================================
+;
+;	C interface to expand file
+;
+;====================================================
+
+	PUBLIC	RLEExpand
+
+PROC	RLEExpand NEAR Source:DWORD,Destination:DWORD,_Length:DWORD
+
+	mov	AX,[WORD Source]
+	mov	[ss:RLEIdx],AX
+	mov	AX,[WORD Source+2]
+	mov	[ss:RLESeg],AX	;set source buffer
+
+	mov	AX,[WORD Destination]
+	mov	[ss:SrcIdx],AX
+	mov	AX,[WORD Destination+2]
+	mov	[ss:SrcSeg],AX	; & destination buffer
+
+	mov	AX,[WORD _Length]
+	mov	[ss:SrcLen],AX	;save length
+	mov	AX,[WORD _Length+2]
+	mov	[ss:SrcLen+2],AX
+
+	call	Expand	;do the expansion
+
+	ret
+
+	ENDP
+
+
 ;==========================================================
 ;
 ;	Initialize our variables & buffers
