@@ -2332,6 +2332,6 @@ FoundDevice	ENDP
 
 ;============================================================================
 
-RLECompress db 55h
+RLECompress db 55h ; TODO RLECompress in RLEASM.ASM should start at an odd address
 
 	END

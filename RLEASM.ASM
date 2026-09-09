@@ -83,6 +83,7 @@ EndByte	dw	?
 
 PROC	RLECompress
 
+	; TODO push bp
 	mov bp, sp
 
 	mov	AX,[bp+4]
@@ -148,7 +149,7 @@ PROC	RLEExpand NEAR Source:DWORD,Destination:DWORD,_Length:DWORD
 ;
 ;==========================================================
 
-PROC	InitRLE ; sub_0_5D34		;internal
+PROC	InitRLE		;internal
 
 	mov	[ss:ByteCnt],0
 	mov	[ss:DifCnt],1
@@ -168,7 +169,7 @@ ENDP
 ;==========================================================
 
 
-PROC	OutputRep ; sub_0_5D5B
+PROC	OutputRep
 
 	push	SI
 	push	ES	;save needed registers
@@ -211,7 +212,7 @@ PROC	OutputRep ; sub_0_5D5B
 ;==========================================================
 
 
-PROC	OutputDif ; sub_0_5D96
+PROC	OutputDif
 
 	push	ES	;save important registers
 	push	AX
@@ -255,7 +256,7 @@ PROC	OutputDif ; sub_0_5D96
 
 
 	PUBLIC	Expand
-PROC	Expand ; sub_0_5DD6
+PROC	Expand
 
 	call	InitRLE	;init our vars & buffers
 
@@ -323,7 +324,7 @@ PROC	Expand ; sub_0_5DD6
 ;==========================================================
 
 	PUBLIC	Compress
-PROC	Compress ; sub_0_5E43
+PROC	Compress
 
 	call	InitRLE	;init vars
 @@bank:
@@ -476,7 +477,7 @@ timees		dw	?
 ;=============
 
 	EXTRN	stopsound:NEAR
-PROC	timesub	ticks:WORD ; sub_0_5F5B
+PROC	timesub	ticks:WORD
 	USES	si,di,bp
 	PUBLIC	timesub
 
