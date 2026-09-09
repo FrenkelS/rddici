@@ -97,15 +97,15 @@ typedef enum {ingame,intitle,in_TODO,inscores} statetype;
 
 
 typedef struct {
-  char      unk0[0x16];
-  classtype class;
-  char      unk18[0x04];
-  int       x1;
-  int       y1;
-  int       x2;
-  int       y2;
-  char      unk24[0x0C];
-  void      (*think)();
+  char      unk0[0x16];  /* +00 */
+  classtype class;       /* +16 */
+  char      unk18[0x04]; /* +18 */
+  int       x1;          /* +1C */
+  int       y1;          /* +1E */
+  int       x2;          /* +20 */
+  int       y2;          /* +22 */
+  char      unk24[0x0C]; /* +24 */
+  void      (*think)();  /* +30 */
 } objtype;
 
 
