@@ -2685,8 +2685,7 @@ PROC	Compress
 @@same:
 	mov	[ss:DifCnt],0	;force even if not output!
 	cmp	[ss:ByteCnt],MaxCnt
-	;TODO jb	@@get	;have we gotten too big?
-	db 72h, 10h ;TODO
+	jb	@@gget	;have we gotten too big?
 
 	call	OutputRep	; yes, save string & continue
 
