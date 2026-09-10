@@ -53,7 +53,7 @@ typedef enum {nothing,player,goblin,skeleton,ogre,gargoyle,dragon,turbogre,
     wallhit,shot,bigshot,rock,dead1,dead2,dead3,dead4,dead5,dead6,teleporter,
     torch,secretgate,gune,guns,lastclass} classtype;
 
-typedef enum {ingame,intitle,in_TODO,inscores} statetype;
+typedef enum {ingame,intitle,inend,inscores} statetype;
 
 
 //typedef struct {
@@ -352,7 +352,7 @@ void sub_0_239(void)
   if (gamestate == intitle)
     drawpic (0,0,TITLEPIC);
 
-  if (gamestate == in_TODO)
+  if (gamestate == inend)
     drawpic (0,0,15);
 
   if (gamestate == inscores)
@@ -565,7 +565,7 @@ void doendpage (void) // sub_0_548
 {
   int i;
   setscreenmode (grmode);
-  gamestate = in_TODO;
+  gamestate = inend;
   sx = 0;
   sy = 0;
   print ("Dave 2 title screen");
@@ -1507,7 +1507,7 @@ void playloop(void) // sub_0_162C
 			if (level > _numlevels)
 			{
 				lives = 0;
-				gamestate = in_TODO;
+				gamestate = inend;
 			}
 		}
 	} while (lives != 0);
@@ -1547,7 +1547,7 @@ void main (void) // sub_0_1953
 		dodemo();
 		WaitEndSound();
 		playloop();
-		if (gamestate == in_TODO)
+		if (gamestate == inend)
 		{
 			doendpage ();		// finished all levels
 		}
