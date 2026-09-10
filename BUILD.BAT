@@ -7,9 +7,8 @@ tcc -IX:\INCLUDE -LX:\LIB -c cpanel.c
 
 tasm /MX /ZI /O dave2asm.asm
 tasm /MX /ZI /O pcrlib_a.asm
-tasm /MX /ZI /O rleasm.asm
 
-tlink /x /c X:\LIB\c0s.obj dave2.obj dave2asm.obj pcrlib_c.obj cpanel.obj pcrlib_a.obj rleasm.obj, rddici,, X:\LIB\cs.lib
+tlink /x /c X:\LIB\c0s.obj dave2.obj dave2asm.obj pcrlib_c.obj cpanel.obj pcrlib_a.obj, rddici,, X:\LIB\cs.lib
 
 lzexe rddici.exe
 unlzexe rddici.exe
