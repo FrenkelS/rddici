@@ -317,8 +317,9 @@ void loadgrfiles () // sub_0_352
   else
   {
     installgrfile ("EGAPICS.DD2",0);
-    drawpage ^= 1;
-    asm nop; // TODO
+    // drawpage ^= 1 generates code with 1 as a byte instead of a word
+    asm db 81h, 36h
+    asm dw drawpage, 1
   }
 }
 
@@ -622,8 +623,9 @@ void RF_Refresh(void) // sub_0_7B3
 
 	if (grmode == EGAgr)
 	{
-		drawpage ^= 1;
-		asm nop; // TODO
+		// drawpage ^= 1 generates code with 1 as a byte instead of a word
+		asm db 81h, 36h
+		asm dw drawpage, 1
 	}
 }
 
@@ -764,8 +766,9 @@ void sub_0_B0D(void)
 	else
 	{
 		word_789_8226 = word_789_94A0 * 4 + ((px / 2) % 4);
-		px &= ~6;
-		asm nop; // TODO
+		// px &= ~6 generates code with ~6 as a byte instead of a word
+		asm db 81h, 26h
+		asm dw px, 0fff9h
 	}
 
 	word_789_8228->word_789_94EE = word_789_8226;
