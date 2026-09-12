@@ -641,7 +641,7 @@ void dodemo (void) // sub_0_5F9
 
     gamestate=inscores;
     _showhighscores ();
-    for (i=0;i<500;i++)
+    for (i=0;i<300;i++)
     {
       WaitVBL ();
       indemo = notdemo;
@@ -688,7 +688,7 @@ void gameover (void) // sub_0_71E
   gamestate=inscores;
   _checkhighscore ();
 
-  for (i=0;i<500;i++)
+  for (i=0;i<300;i++)
   {
 	 WaitVBL ();
 	 ctrl = ControlPlayer (1);

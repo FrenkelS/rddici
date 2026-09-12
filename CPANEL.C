@@ -431,9 +431,9 @@ void drawpanel (void)
     drawpic (collumnx[1]*8,rowy[0]*8,3);
 
   if (_vgaok)
-    drawpic (collumnx[2]*8,rowy[0]*8,1);
+    drawpic (collumnx[2]*8,rowy[0]*8,2);
   else
-    drawpic (collumnx[2]*8,rowy[0]*8,3);
+    drawpic (collumnx[2]*8,rowy[0]*8,4);
 
   sy=rowy[1]+2;
   sx=2;

@@ -1449,7 +1449,7 @@ void _showhighscores (void)
   long h;
   char st2[10];
 
-  centerwindow (17,17);
+  centerwindow (17,15);
   print ("\n   HIGH SCORES\n\n");
   print (" #  SCORE LV  BY\n");
   print (" - ------ -- ---\n");
