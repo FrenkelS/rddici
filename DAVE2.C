@@ -1057,20 +1057,13 @@ boolean sub_0_E52_UNUSED(int arg_0, int arg_2)
 
 void sub_0_F19(void)
 {
-	// TODO order of variables
 	int var_2;
 	int var_4;
 	int var_6;
 	int var_8;
-	ControlStruct c;
 	int var_A;
-	int var_18;
-	int var_1A;
-	int var_1C;
-	int var_1E;
-	int var_20;
-	int var_22;
-	int var_24;
+
+	ControlStruct c;
 
 	int xmove = 0;
 	int ymove = 0;
@@ -1256,24 +1249,29 @@ void sub_0_F19(void)
 	sub_0_B0D();
 	RF_PlaceSprite();
 
-	var_1C = word_789_1D34 / 16;
-	var_1E = word_789_1D36 / 16;
-	var_20 = word_789_1D28 / 16;
-	var_22 = word_789_1D2A / 16;
-
-	for (var_1A = var_1E; var_1A <= var_22; var_1A++)
 	{
-		for (var_18 = var_1C; var_18 <= var_20; var_18++)
-		{
-			var_24 = mapplane[0][var_1A * mapwwide + var_18];
+		int var_18;
+		int var_1A;
 
-			switch (tile_behavior[var_24])
+		int var_1C = word_789_1D34 / 16;
+		int var_1E = word_789_1D36 / 16;
+		int var_20 = word_789_1D28 / 16;
+		int var_22 = word_789_1D2A / 16;
+
+		for (var_1A = var_1E; var_1A <= var_22; var_1A++)
+		{
+			for (var_18 = var_1C; var_18 <= var_20; var_18++)
 			{
-				case 1:
-					PlaySound(GRABCOINSND);
-					AddScore(100);
-					mapplane[0][var_1A * mapwwide + var_18] = 0;
-					break;
+				int var_24 = mapplane[0][var_1A * mapwwide + var_18];
+
+				switch (tile_behavior[var_24])
+				{
+					case 1:
+						PlaySound(GRABCOINSND);
+						AddScore(100);
+						mapplane[0][var_1A * mapwwide + var_18] = 0;
+						break;
+				}
 			}
 		}
 	}
