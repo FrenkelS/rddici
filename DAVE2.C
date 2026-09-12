@@ -30,70 +30,12 @@
 
 #define NUMDEMOS 1
 
-//#define maxpics 2047
-//#define numtiles 24*24   /*number of tiles displayed on screen*/
-//#define numlevels 1
-//#define maxobj 200           /*maximum possible active objects*/
-//#define solidwall 129
-//#define blankfloor 128
-//#define leftoff 11
-//#define topoff 11
-//#define tile2s 256          /*tile number where the 2*2 pictures start*/
-//#define tile3s tile2s+67*4
-//#define tile4s tile3s+35*9
-//#define tile5s tile4s+19*16
-//#define lasttile tile5s+19*25
-
-//typedef enum {playercmd,gargcmd,dragoncmd,ramstraight,ramdiag,straight,idle,
-//    fade,explode,gunthinke,gunthinks} thinktype;
-
-//typedef enum {benign,monster,pshot,mshot,nukeshot} tagtype;
 
 typedef enum {nothing,player,goblin,skeleton,ogre,gargoyle,dragon,turbogre,
     wallhit,shot,bigshot,rock,dead1,dead2,dead3,dead4,dead5,dead6,teleporter,
     torch,secretgate,gune,guns,lastclass} classtype;
 
 typedef enum {ingame,intitle,inend,inscores} statetype;
-
-
-//typedef struct {
-//  boolean active;	/*if false, the object has not seen the player yet*/
-//  classtype  class;
-//  byte  x,y,		/*location of upper left corner in world*/
-//    stage,		/*animation frame being drawn*/
-//    delay;		/*number of frames to pause without doing anything*/
-//  dirtype  dir;		/*direction facing*/
-//  char hp;		/*hit points*/
-//  byte oldx,oldy;	/*position where it was last drawn*/
-//  int oldtile;		/*origin tile when last drawn*/
-//  char filler[1];	/*pad to 16 bytes*/
-//   } activeobj;
-
-//typedef struct {	/*holds a copy of activeobj, and its class info*/
-//  boolean  active;	/*if false, the object has not seen the player yet*/
-//  classtype  class;
-//  byte  x,y,		/*location of upper left corner in world*/
-//    stage,		/*animation frame being drawn*/
-//    delay;		/*number of frames to pause without doing anything*/
-//  dirtype  dir;		/*direction facing*/
-//  char hp;		/*hit points*/
-//  byte oldx,oldy;		/*position where it was last drawn*/
-//  int oldtile;		/*origin tile when last drawn*/
-//  char filler[1];	/*pad to 16 bytes*/
-//
-//  byte think;
-//  byte contact;
-//  byte solid;
-//  word  firstchar;
-//  byte  size;
-//  byte  stages;
-//  byte  dirmask;
-//  word  speed;
-//  byte  hitpoints;
-//  byte  damage;
-//  word  points;
-//  char filler2[2];	/*pad to 32 bytes*/
-//  } objdesc;
 
 
 typedef struct {
@@ -122,23 +64,23 @@ typedef struct {
   void far    *shapeptr;      /* +0A */
   void far    *maskptr;       /* +0E */
   int          word_789_848E; /* +12 */
-  char         unk12[12];     /* +14 */
+  char         unk14[12];     /* +14 */
 } type847C;
 
 
 typedef struct {
   long      x;              /* +00 */
   long      y;              /* +04 */
-  int       word_789_94DE;  /* +08 */
+  char      unk8[2];        /* +08 */
   int       word_789_94E0;  /* +0A */
-  int       word_789_94E2;  /* +0C */
+  char      unkC[2];        /* +0C */
   int       word_789_94E4;  /* +0E */
   int       word_789_94E6;  /* +10 */
   int       xmove;          /* +12 */
   int       ymove;          /* +14 */
   int       gamexit;        /* +16 */ /* enum {quited,killed,reseted,victorious} */ /*determines what to do after playloop*/
   int       word_789_94EE;  /* +18 */
-  int       word_789_94F0;  /* +1A */
+  char      unk1A[2];       /* +1A */
   int       word_789_94F2;  /* +1C */
   int       word_789_94F4;  /* +1E */
   int       word_789_94F6;  /* +20 */
@@ -191,50 +133,8 @@ int word_789_9500;
 void (*func_789_9506)();
 
 
-//  int oldtiles [numtiles];		/*tile displayed last refresh*/
-//  int background[87][86];		/*base map*/
-//  int view[87][86];			/*base map with objects drawn in*/
-//  int originx, originy;			/*current world location of ul corn*/
-//  byte priority [maxpics+1];		/*tile draw overlap priorities*/
-
-//  int items[6],saveitems[6];
-//  int shotpower;			/*0-13 characters in power meter*/
-//  int side;	                        /*which side shots come from*/
-//  int boltsleft;			/*number of shots left in a bolt*/
-
-//  activeobj o[maxobj+1],saveo[1];	/*everything that moves is here*/
-//  objdesc obj , altobj;			/*total info about objecton and alt*/
-//  int altnum;				/*o[#] of altobj*/
-//  int numobj,objecton;			/*number of objects in o now*/
-
-//  struct {
-//    byte think;			/*some of these sizes are for the*/
-//    byte contact;			/*convenience of the assembly routines*/
-//    byte solid;
-//    word firstchar;
-//    byte size;
-//    byte stages;
-//    byte dirmask;
-//    word speed;
-//    byte hitpoints;
-//    byte damage;
-//    word points;
-//    byte filler[2];
-//  } objdef [lastclass];
-
-
-//  int i,j,k,x,y,z;
   int lives;
   boolean leveldone;
-
-//  boolean tempb;
-//  char far *tempp;
-
-//  int chkx,chky,chkspot;		/*spot being checked by walk*/
-
-//  word frameon;
-//  char far *grmem;
-//  classtype clvar;
 
   int VGAPAL;				// just to make pcrlib happy
 
@@ -242,10 +142,6 @@ void (*func_789_9506)();
   statetype gamestate;
 
   ControlStruct ctrl;
-
-//  char far *pics, far *picsexact;
-
-//  long savescore;
 
 
 objtype *new;
