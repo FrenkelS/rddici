@@ -50,12 +50,6 @@ PORTTILECOUNT	=	(PORTTILESWIDE*PORTTILESHIGH)
 
 	.DATA
 
-	EXTRN	xormask:WORD
-	EXTRN	oldtiles, view, background, originx, originy: WORD
-	EXTRN	priority: BYTE
-	EXTRN	obj, altobj: objtype
-	EXTRN	pics:WORD
-
 EXTRN drawoffs1:WORD
 EXTRN drawoffs0:WORD
 EXTRN originxglobal:DWORD
@@ -70,37 +64,6 @@ EXTRN screenseg:WORD
 EXTRN spriteptr:DWORD
 EXTRN tileptr:DWORD
 EXTRN egaspriteptr:DWORD
-
-
-objtype	STRUC
-
-active	dw	?
-class 	dw	?
-x	db	?
-y	db	?
-stage	db	?
-delay	db	?
-dir	dw	?
-hp	db	?
-oldx	db	?
-oldy	db	?
-oldtile dw	?
-filler1	db	?
-
-think 	db	?
-contact db	?
-solid	db	?
-firstchar dw	?
-psize	db	?
-stages	db	?
-dirmask db	?
-speed 	dw	?
-hitpoints db	?
-damage 	db	?
-points 	dw	?
-filler2	db	?,?
-
-objtype	ENDS
 
 
 type847C STRUC

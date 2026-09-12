@@ -97,15 +97,19 @@ typedef enum {ingame,intitle,inend,inscores} statetype;
 
 
 typedef struct {
-  char      unk0[0x16];  /* +00 */
-  classtype class;       /* +16 */
-  char      unk18[0x04]; /* +18 */
-  int       x1;          /* +1C */
-  int       y1;          /* +1E */
-  int       x2;          /* +20 */
-  int       y2;          /* +22 */
-  char      unk24[0x0C]; /* +24 */
-  void      (*think)();  /* +30 */
+  char      unk0[0x16];   /* +00 */
+  classtype class;        /* +16 */
+  char      unk18[0x04];  /* +18 */
+  int       x1;           /* +1C */
+  int       y1;           /* +1E */
+  int       x2;           /* +20 */
+  int       y2;           /* +22 */
+  char      unk24[0x04];  /* +24 */
+  boolean   bool28;       /* +28 */
+  char      unk2A[0x02];  /* +2A */
+  void      (*func2C)();  /* +2C */
+  char      unk2E[0x02];  /* +2E */
+  void      (*think)();   /* +30 */
 } objtype;
 
 
@@ -1278,10 +1282,10 @@ void sub_0_F19(void)
 
 	for (objptr_789_7FD0 = objlist,	var_2 = 1; var_2 < lastobj; var_2++, objptr_789_7FD0++)
 	{
-		if (objptr_789_7FD0->think != NULL)
+		if (objptr_789_7FD0->bool28)
 		{
 			if (sub_0_BCF())
-				objptr_789_7FD0->think();
+				objptr_789_7FD0->func2C();
 		}
 	}
 }
