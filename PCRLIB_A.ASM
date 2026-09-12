@@ -2345,7 +2345,7 @@ FoundDevice	ENDP
 	IDEAL
 
 	MODEL	small,C
-	STACK	0200
+	STACK	0128
 
 
 ;==========================================================
