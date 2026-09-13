@@ -791,7 +791,7 @@ boolean ObjectsCollide(void) // sub_0_BCF
 }
 
 
-int sub_0_C1D(int arg_0, int arg_2)
+int GetTile(int arg_0, int arg_2) // sub_0_C1D
 {
 	return mapplane[0][(arg_2 / 16) * mapwwide + (arg_0 / 16)];
 }
@@ -1058,8 +1058,8 @@ void sub_0_F19(void)
 
 	sub_0_B0D();
 
-	var_6 = sub_0_C1D(p_left,  p_bottom + 1);
-	var_8 = sub_0_C1D(p_right, p_bottom + 1);
+	var_6 = GetTile(p_left,  p_bottom + 1);
+	var_8 = GetTile(p_right, p_bottom + 1);
 
 	if (tile_789_300[var_6])
 	{
