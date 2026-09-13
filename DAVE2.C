@@ -31,9 +31,7 @@
 #define NUMDEMOS 1
 
 
-typedef enum {nothing,player,goblin,skeleton,ogre,gargoyle,dragon,turbogre,
-    wallhit,shot,bigshot,rock,dead1,dead2,dead3,dead4,dead5,dead6,teleporter,
-    torch,secretgate,gune,guns,lastclass} classtype;
+typedef enum {nothing,player} classtype;
 
 typedef enum {ingame,intitle,inend,inscores} statetype;
 
@@ -42,14 +40,14 @@ typedef struct {
   char      unk0[0x16];   /* +00 */
   classtype class;        /* +16 */
   char      unk18[0x04];  /* +18 */
-  int       x1;           /* +1C */
-  int       y1;           /* +1E */
-  int       x2;           /* +20 */
-  int       y2;           /* +22 */
+  int       left;         /* +1C */ // hit rectangle
+  int       top;          /* +1E */
+  int       right;        /* +20 */
+  int       bottom;       /* +22 */
   char      unk24[0x04];  /* +24 */
-  boolean   bool28;       /* +28 */
+  boolean   active;       /* +28 */
   char      unk2A[0x02];  /* +2A */
-  void      (*func2C)();  /* +2C */
+  void      (*contact)(); /* +2C */
   char      unk2E[0x02];  /* +2E */
   void      (*think)();   /* +30 */
 } objtype;
@@ -109,7 +107,6 @@ int word_789_1D34;
 int word_789_1D36;
 char unk_789_1D40[15890];
 int word_789_7B20[600];
-objtype *objptr_789_7FD0;
 int word_789_8220;
 int word_789_8226;
 type94D6 *word_789_8228;
@@ -144,10 +141,6 @@ void (*func_789_9506)();
   ControlStruct ctrl;
 
 
-objtype *new;
-int lastobj;
-
-
 #define PORTTILESWIDE 21
 #define PORTTILESHIGH 14
 #define BIGPORTSIZE (PORTTILESHIGH*PORTTILESWIDE)
@@ -170,7 +163,8 @@ long lastExtraScore;
 
 
 #define MAXOBJECTS	60
-objtype objlist[MAXOBJECTS];
+objtype objlist[MAXOBJECTS],*new,*ob;
+int lastobj;
 
 
 int tile_numframes[100] =
@@ -750,7 +744,7 @@ void FindFreeObj_UNUSED (void) // sub_0_AB4
   if (i >= lastobj)
     lastobj++;
 
-  new->x1 = new->y1 = new->y2 = new->x2 = 0;
+  new->left = new->top = new->bottom = new->right = 0;
 
   new->think = BadThink_UNUSED;
 }
@@ -782,18 +776,18 @@ void sub_0_B0D(void)
 }
 
 
-boolean sub_0_BCF(void)
+boolean ObjectsCollide(void) // sub_0_BCF
 {
-  if (objptr_789_7FD0->x1 > word_789_1D28)
+  if (ob->left > word_789_1D28)
     return false;
 
-  if (objptr_789_7FD0->y1 > word_789_1D2A)
+  if (ob->top > word_789_1D2A)
     return false;
 
-  if (objptr_789_7FD0->x2 < word_789_1D34)
+  if (ob->right < word_789_1D34)
     return false;
 
-  if (objptr_789_7FD0->y2 < word_789_1D36)
+  if (ob->bottom < word_789_1D36)
     return false;
 
   return true;
@@ -1179,13 +1173,10 @@ void sub_0_F19(void)
 		}
 	}
 
-	for (objptr_789_7FD0 = objlist,	var_2 = 1; var_2 < lastobj; var_2++, objptr_789_7FD0++)
+	for (ob = &objlist[0], var_2 = 1; var_2 < lastobj; var_2++, ob++)
 	{
-		if (objptr_789_7FD0->bool28)
-		{
-			if (sub_0_BCF())
-				objptr_789_7FD0->func2C();
-		}
+		if (ob->active && ObjectsCollide())
+			ob->contact();
 	}
 }
 
