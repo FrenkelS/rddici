@@ -167,16 +167,12 @@ objtype objlist[MAXOBJECTS],*new,*ob;
 int lastobj;
 
 
-int tile_numframes[100] =
+int tile_block[100] =
 {
-0,0,0,0,0,0,0,0,0,0,0,0,0,
-1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-0,0,
-1,1,1,1,1,1,1,1,1,1,1,1,
-0,0,0,0,0,0,
-1,1,1,
-0,0,0,0,
-1,1,1,1,1,
+0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,
+1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,
+1,1,1,0,0,0,0,1,1,1,1,1,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 };
 
@@ -185,12 +181,13 @@ int tile_behavior[100] =
 {
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-1,1,1,1,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+1,1,1,1, // Coin
+0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 };
 
 
-int tile_block[100] =
+int tile_789_300[100] =
 {
 0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,
 0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,
@@ -818,7 +815,7 @@ boolean sub_0_C48(void)
 	{
 		for (di = var_2; di <= var_6; di++)
 		{
-			if (tile_numframes[mapplane[0][si * mapwwide + di]])
+			if (tile_block[mapplane[0][si * mapwwide + di]])
 				return true;
 		}
 	}
@@ -1064,20 +1061,20 @@ void sub_0_F19(void)
 	var_6 = sub_0_C1D(word_789_1D34, word_789_1D2A + 1);
 	var_8 = sub_0_C1D(word_789_1D28, word_789_1D2A + 1);
 
-	if (tile_block[var_6])
+	if (tile_789_300[var_6])
 	{
-		if (word_789_8476 == 0 && tile_numframes[var_6])
+		if (word_789_8476 == 0 && tile_block[var_6])
 			bool_789_94C4 = false;
 
-		var_A = tile_block[var_6];
+		var_A = tile_789_300[var_6];
 	}
 
-	if (tile_block[var_8])
+	if (tile_789_300[var_8])
 	{
-		if (word_789_8476 == 0 && tile_numframes[var_8])
+		if (word_789_8476 == 0 && tile_block[var_8])
 			bool_789_94C4 = false;
 
-		var_A = tile_block[var_8];
+		var_A = tile_789_300[var_8];
 	}
 
 	word_789_8228->xmove += xmove;
