@@ -99,12 +99,8 @@ typedef struct {
 /*		    */
 /*==================*/
 
-int word_789_1D28;
-int word_789_1D2A;
 int word_789_1D30;
 int word_789_1D32;
-int word_789_1D34;
-int word_789_1D36;
 char unk_789_1D40[15890];
 int word_789_7B20[600];
 int word_789_8220;
@@ -155,7 +151,11 @@ long originxmin, originymin;
 long originxmax, originymax;
 unsigned int drawpage;
 
+int p_right;
+int p_bottom;
 int px, py;
+int p_left;
+int p_top;
 
 char *bigbuffer;
 
@@ -693,10 +693,10 @@ boolean RF_PlaceSprite(void) // sub_0_80D
 	word_789_94C6->maskptr       = image.maskptr;
 	word_789_94C6->word_789_848E = 0;
 
-	word_789_8228->word_789_94F2 = word_789_1D34;
-	word_789_8228->word_789_94F6 = word_789_1D28;
-	word_789_8228->word_789_94F4 = word_789_1D36;
-	word_789_8228->word_789_94F8 = word_789_1D2A;
+	word_789_8228->word_789_94F2 = p_left;
+	word_789_8228->word_789_94F6 = p_right;
+	word_789_8228->word_789_94F4 = p_top;
+	word_789_8228->word_789_94F8 = p_bottom;
 
 	if (type847C_789_847C[word_789_94D4].word_789_847C >= var_2)
 	{
@@ -766,25 +766,25 @@ void sub_0_B0D(void)
 
 	image = spritetable[word_789_8226];
 
-	word_789_1D34 = px + image.xl;
-	word_789_1D28 = px + image.xh;
-	word_789_1D36 = py + image.yl;
-	word_789_1D2A = py + image.yh;
+	p_left  = px + image.xl;
+	p_right = px + image.xh;
+	p_top    = py + image.yl;
+	p_bottom = py + image.yh;
 }
 
 
 boolean ObjectsCollide(void) // sub_0_BCF
 {
-  if (ob->left > word_789_1D28)
+  if (ob->left > p_right)
     return false;
 
-  if (ob->top > word_789_1D2A)
+  if (ob->top > p_bottom)
     return false;
 
-  if (ob->right < word_789_1D34)
+  if (ob->right < p_left)
     return false;
 
-  if (ob->bottom < word_789_1D36)
+  if (ob->bottom < p_top)
     return false;
 
   return true;
@@ -806,10 +806,10 @@ boolean sub_0_C48(void)
 	int di;
 	int si;
 
-	var_2 = word_789_1D34 / 16;
-	var_4 = word_789_1D36 / 16;
-	var_6 = word_789_1D28 / 16;
-	cx = word_789_1D2A / 16;
+	var_2 = p_left   / 16;
+	var_4 = p_top    / 16;
+	var_6 = p_right  / 16;
+	cx    = p_bottom / 16;
 
 	for (si = var_4; si <= cx; si++)
 	{
@@ -846,73 +846,73 @@ void sub_0_CBE(void)
 	else if (ymove > 0)
 		ymove = (ymove + 255) / 256;
 
-	word_789_1D36 += ymove;
-	word_789_1D2A += ymove;
-	word_789_1D34 += xmove;
-	word_789_1D28 += xmove;
+	p_top    += ymove;
+	p_bottom += ymove;
+	p_left  += xmove;
+	p_right += xmove;
 
 	var_2 = sub_0_C48();
 
-	word_789_1D36 -= ymove;
-	word_789_1D2A -= ymove;
-	word_789_1D34 -= xmove;
-	word_789_1D28 -= xmove;
+	p_top    -= ymove;
+	p_bottom -= ymove;
+	p_left  -= xmove;
+	p_right -= xmove;
 
 	if (!var_2)
 		return;
 
 	if (xmove < 0)
 	{
-		word_789_1D34 += xmove;
-		word_789_1D28 += xmove;
+		p_left  += xmove;
+		p_right += xmove;
 
 		var_2 = sub_0_C48();
 
-		word_789_1D34 -= xmove;
-		word_789_1D28 -= xmove;
+		p_left  -= xmove;
+		p_right -= xmove;
 
 		if (var_2 == true)
-			word_789_8228->xmove = (-word_789_1D34 % 16) << 8;
+			word_789_8228->xmove = (-p_left % 16) << 8;
 	}
 	else if (xmove > 0)
 	{
-		word_789_1D34 += xmove;
-		word_789_1D28 += xmove;
+		p_left  += xmove;
+		p_right += xmove;
 
 		var_2 = sub_0_C48();
 
-		word_789_1D34 -= xmove;
-		word_789_1D28 -= xmove;
+		p_left  -= xmove;
+		p_right -= xmove;
 
 		if (var_2 == true)
-			word_789_8228->xmove = (15 - (word_789_1D28 % 16)) << 8;
+			word_789_8228->xmove = (15 - (p_right % 16)) << 8;
 	}
 
 	if (ymove < 0)
 	{
-		word_789_1D36 += ymove;
-		word_789_1D2A += ymove;
+		p_top    += ymove;
+		p_bottom += ymove;
 
 		var_4 = sub_0_C48();
 
-		word_789_1D36 -= ymove;
-		word_789_1D2A -= ymove;
+		p_top    -= ymove;
+		p_bottom -= ymove;
 
 		if (var_4 == true)
-			word_789_8228->ymove = (-word_789_1D36 % 16) << 8;
+			word_789_8228->ymove = (-p_top % 16) << 8;
 	}
 	else if (ymove > 0)
 	{
-		word_789_1D36 += ymove;
-		word_789_1D2A += ymove;
+		p_top    += ymove;
+		p_bottom += ymove;
 
 		var_4 = sub_0_C48();
 
-		word_789_1D36 -= ymove;
-		word_789_1D2A -= ymove;
+		p_top    -= ymove;
+		p_bottom -= ymove;
 
 		if (var_4 == true)
-			word_789_8228->ymove = (15 - (word_789_1D2A % 16)) << 8;
+			word_789_8228->ymove = (15 - (p_bottom % 16)) << 8;
 	}
 
 	if (!var_2 && !var_4)
@@ -930,19 +930,19 @@ boolean sub_0_E52_UNUSED(int arg_0, int arg_2)
 	word_789_8228->x -= arg_0;
 	word_789_8228->y -= arg_2;
 
-	if (word_789_1D2A - originyglobal / 4 < 16)
+	if (p_bottom - originyglobal / 4 < 16)
 	{
 		if (word_789_8228->ymove <= 0)
 			return true;
 	}
 
-	if (word_789_1D2A - originyglobal / 4 > 172)
+	if (p_bottom - originyglobal / 4 > 172)
 	{
 		if (word_789_8228->ymove >= 0)
 			return true;
 	}
 
-	if (word_789_1D34 < 6 || word_789_1D28 > 303)
+	if (p_left < 6 || p_right > 303)
 		return true;
 
 	return sub_0_C48();
@@ -1058,8 +1058,8 @@ void sub_0_F19(void)
 
 	sub_0_B0D();
 
-	var_6 = sub_0_C1D(word_789_1D34, word_789_1D2A + 1);
-	var_8 = sub_0_C1D(word_789_1D28, word_789_1D2A + 1);
+	var_6 = sub_0_C1D(p_left,  p_bottom + 1);
+	var_8 = sub_0_C1D(p_right, p_bottom + 1);
 
 	if (tile_789_300[var_6])
 	{
@@ -1147,10 +1147,10 @@ void sub_0_F19(void)
 		int var_18;
 		int var_1A;
 
-		int var_1C = word_789_1D34 / 16;
-		int var_1E = word_789_1D36 / 16;
-		int var_20 = word_789_1D28 / 16;
-		int var_22 = word_789_1D2A / 16;
+		int var_1C = p_left   / 16;
+		int var_1E = p_top    / 16;
+		int var_20 = p_right  / 16;
+		int var_22 = p_bottom / 16;
 
 		for (var_1A = var_1E; var_1A <= var_22; var_1A++)
 		{
