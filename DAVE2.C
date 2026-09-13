@@ -31,25 +31,32 @@
 #define NUMDEMOS 1
 
 
-typedef enum {nothing,player} classtype;
-
 typedef enum {ingame,intitle,inend,inscores} statetype;
 
 
 typedef struct {
-  char      unk0[0x16];   /* +00 */
-  classtype class;        /* +16 */
-  char      unk18[0x04];  /* +18 */
-  int       left;         /* +1C */ // hit rectangle
-  int       top;          /* +1E */
-  int       right;        /* +20 */
-  int       bottom;       /* +22 */
-  char      unk24[0x04];  /* +24 */
-  boolean   active;       /* +28 */
-  char      unk2A[0x02];  /* +2A */
-  void      (*contact)(); /* +2C */
-  char      unk2E[0x02];  /* +2E */
-  void      (*think)();   /* +30 */
+  long      x;             /* +00 */
+  long      y;             /* +04 */
+  int       unk8;          /* +08 */
+  int       word_789_94E0; /* +0A */
+  int       unkC;          /* +0C */
+  int       word_789_94E4; /* +0E */
+  int       word_789_94E6; /* +10 */
+  int       xmove;         /* +12 */
+  int       ymove;         /* +14 */
+  int       gamexit;       /* +16 */
+  int       word_789_94EE; /* +18 */
+  int       unk1A;         /* +1A */
+  int       left;          /* +1C */ // hit rectangle
+  int       top;           /* +1E */
+  int       right;         /* +20 */
+  int       bottom;        /* +22 */
+  long      unk24;         /* +24 */
+  boolean   active;        /* +28 */
+  int       word_789_9500; /* +2A */
+  void      (*contact)();  /* +2C */
+  int       unk2E;         /* +2E */
+  void      (*think)();    /* +30 */
 } objtype;
 
 
@@ -64,26 +71,6 @@ typedef struct {
   int          word_789_848E; /* +12 */
   char         unk14[12];     /* +14 */
 } type847C;
-
-
-typedef struct {
-  long      x;              /* +00 */
-  long      y;              /* +04 */
-  char      unk8[2];        /* +08 */
-  int       word_789_94E0;  /* +0A */
-  char      unkC[2];        /* +0C */
-  int       word_789_94E4;  /* +0E */
-  int       word_789_94E6;  /* +10 */
-  int       xmove;          /* +12 */
-  int       ymove;          /* +14 */
-  int       gamexit;        /* +16 */ /* enum {quited,killed,reseted,victorious} */ /*determines what to do after playloop*/
-  int       word_789_94EE;  /* +18 */
-  char      unk1A[2];       /* +1A */
-  int       word_789_94F2;  /* +1C */
-  int       word_789_94F4;  /* +1E */
-  int       word_789_94F6;  /* +20 */
-  int       word_789_94F8;  /* +22 */
-} type94D6;
 
 
 /*=================*/
@@ -104,7 +91,6 @@ int word_789_1D32;
 char unk_789_1D40[15890];
 int word_789_8220;
 int word_789_8226;
-type94D6 *word_789_8228;
 int word_789_8476;
 boolean bool_789_847A;
 type847C type847C_789_847C[128];
@@ -118,10 +104,6 @@ boolean bool_789_94C4;
 type847C *word_789_94C6;
 int word_789_94CA;
 int word_789_94D4;
-type94D6 type94D6_789_94D6;
-int word_789_94FE;
-int word_789_9500;
-void (*func_789_9506)();
 
 
   int lives;
@@ -165,7 +147,7 @@ long lastExtraScore;
 
 
 #define MAXOBJECTS	60
-objtype objlist[MAXOBJECTS],*new,*ob;
+objtype objlist[MAXOBJECTS],*new,*ob,obj,*objptr;
 int lastobj;
 
 
@@ -367,7 +349,7 @@ void dofkeys (void) // sub_0_399
       ch=toupper(get());
       if (ch=='Y')
       {
-        type94D6_789_94D6.gamexit = 0;
+        obj.gamexit = 0;
         lives = 1;
       }
       break;
@@ -695,10 +677,10 @@ boolean RF_PlaceSprite(void) // sub_0_80D
 	word_789_94C6->maskptr       = image.maskptr;
 	word_789_94C6->word_789_848E = 0;
 
-	word_789_8228->word_789_94F2 = p_left;
-	word_789_8228->word_789_94F6 = p_right;
-	word_789_8228->word_789_94F4 = p_top;
-	word_789_8228->word_789_94F8 = p_bottom;
+	objptr->left   = p_left;
+	objptr->right  = p_right;
+	objptr->top    = p_top;
+	objptr->bottom = p_bottom;
 
 	if (type847C_789_847C[word_789_94D4].word_789_847C >= var_2)
 	{
@@ -734,7 +716,7 @@ void FindFreeObj_UNUSED (void) // sub_0_AB4
   int i = 1;
   new = &objlist[1];
 
-  while (new->class != nothing && i < lastobj)
+  while (new->gamexit != 0 && i < lastobj)
   {
     i++;
     new++;
@@ -751,8 +733,8 @@ void FindFreeObj_UNUSED (void) // sub_0_AB4
 
 void sub_0_B0D(void)
 {
-	px = word_789_8228->x / 256;
-	py = word_789_8228->y / 256;
+	px = objptr->x / 256;
+	py = objptr->y / 256;
 
 	if (grmode == CGAgr)
 		word_789_8226 = word_789_94A0 * 2 + ((px / 2) % 2);
@@ -764,7 +746,7 @@ void sub_0_B0D(void)
 		asm dw px, 0fff9h
 	}
 
-	word_789_8228->word_789_94EE = word_789_8226;
+	objptr->word_789_94EE = word_789_8226;
 
 	image = spritetable[word_789_8226];
 
@@ -833,8 +815,8 @@ void sub_0_CBE(void)
 	boolean var_2;
 	boolean var_4;
 
-	xmove = word_789_8228->xmove;
-	ymove = word_789_8228->ymove;
+	xmove = objptr->xmove;
+	ymove = objptr->ymove;
 
 	sub_0_B0D();
 
@@ -874,7 +856,7 @@ void sub_0_CBE(void)
 		p_right -= xmove;
 
 		if (var_2 == true)
-			word_789_8228->xmove = (-p_left % 16) << 8;
+			objptr->xmove = (-p_left % 16) << 8;
 	}
 	else if (xmove > 0)
 	{
@@ -887,7 +869,7 @@ void sub_0_CBE(void)
 		p_right -= xmove;
 
 		if (var_2 == true)
-			word_789_8228->xmove = (15 - (p_right % 16)) << 8;
+			objptr->xmove = (15 - (p_right % 16)) << 8;
 	}
 
 	if (ymove < 0)
@@ -901,7 +883,7 @@ void sub_0_CBE(void)
 		p_bottom -= ymove;
 
 		if (var_4 == true)
-			word_789_8228->ymove = (-p_top % 16) << 8;
+			objptr->ymove = (-p_top % 16) << 8;
 	}
 	else if (ymove > 0)
 	{
@@ -914,33 +896,33 @@ void sub_0_CBE(void)
 		p_bottom -= ymove;
 
 		if (var_4 == true)
-			word_789_8228->ymove = (15 - (p_bottom % 16)) << 8;
+			objptr->ymove = (15 - (p_bottom % 16)) << 8;
 	}
 
 	if (!var_2 && !var_4)
-		word_789_8228->xmove = word_789_8228->ymove = 0;
+		objptr->xmove = objptr->ymove = 0;
 }
 
 
 boolean sub_0_E52_UNUSED(int arg_0, int arg_2)
 {
-	word_789_8228->x += arg_0;
-	word_789_8228->y += arg_2;
+	objptr->x += arg_0;
+	objptr->y += arg_2;
 
 	sub_0_B0D();
 
-	word_789_8228->x -= arg_0;
-	word_789_8228->y -= arg_2;
+	objptr->x -= arg_0;
+	objptr->y -= arg_2;
 
 	if (p_bottom - originyglobal / 4 < 16)
 	{
-		if (word_789_8228->ymove <= 0)
+		if (objptr->ymove <= 0)
 			return true;
 	}
 
 	if (p_bottom - originyglobal / 4 > 172)
 	{
-		if (word_789_8228->ymove >= 0)
+		if (objptr->ymove >= 0)
 			return true;
 	}
 
@@ -964,15 +946,15 @@ void sub_0_F19(void)
 	int xmove = 0;
 	int ymove = 0;
 
-	if (word_789_8228->x < 0x00001000)
-		word_789_8228->x = 0x00001000;
+	if (objptr->x < 0x00001000)
+		objptr->x = 0x00001000;
 
-	if ((long)(((LevelDef *)bigbuffer)->width - 1) << 8 << 4 < word_789_8228->x)
-		word_789_8228->x = (long)(((LevelDef *)bigbuffer)->width - 1) << 8 << 4;
+	if ((long)(((LevelDef *)bigbuffer)->width - 1) << 8 << 4 < objptr->x)
+		objptr->x = (long)(((LevelDef *)bigbuffer)->width - 1) << 8 << 4;
 
-	if ((long)((LevelDef *)bigbuffer)->height << 8 << 4 < word_789_8228->y)
+	if ((long)((LevelDef *)bigbuffer)->height << 8 << 4 < objptr->y)
 	{
-		word_789_8228->gamexit = 0;
+		objptr->gamexit = 0;
 		PlaySound(PLUMMETSND);
 		WaitEndSound();
 		return;
@@ -1038,24 +1020,24 @@ void sub_0_F19(void)
 	}
 	else
 	{
-		if (word_789_8228->word_789_94E4-- == 0)
+		if (objptr->word_789_94E4-- == 0)
 		{
-			word_789_8228->word_789_94E4 = word_789_8228->word_789_94E6;
+			objptr->word_789_94E4 = objptr->word_789_94E6;
 
-			if (++word_789_8228->word_789_94E0 == 4)
-				word_789_8228->word_789_94E0 = 0;
+			if (++objptr->word_789_94E0 == 4)
+				objptr->word_789_94E0 = 0;
 		}
 
 		if (xmove == 0)
 		{
-			word_789_8228->word_789_94E0 = 1;
-			word_789_8228->word_789_94E4 = word_789_8228->word_789_94E6;
+			objptr->word_789_94E0 = 1;
+			objptr->word_789_94E4 = objptr->word_789_94E6;
 		}
 
 		if (bool_789_847A)
-			word_789_94A0 = word_789_8228->word_789_94E0 + 5;
+			word_789_94A0 = objptr->word_789_94E0 + 5;
 		else
-			word_789_94A0 = word_789_8228->word_789_94E0;
+			word_789_94A0 = objptr->word_789_94E0;
 	}
 
 	sub_0_B0D();
@@ -1079,34 +1061,34 @@ void sub_0_F19(void)
 		var_A = tile_789_300[var_8];
 	}
 
-	word_789_8228->xmove += xmove;
-	word_789_8228->ymove += ymove;
+	objptr->xmove += xmove;
+	objptr->ymove += ymove;
 
-	word_789_8228->xmove = (long)word_789_8228->xmove * var_A / 256;
-	word_789_8228->ymove = word_789_8228->ymove * 9 / 10;
+	objptr->xmove = (long)objptr->xmove * var_A / 256;
+	objptr->ymove = objptr->ymove * 9 / 10;
 
-	ymove = word_789_8228->ymove;
+	ymove = objptr->ymove;
 
 	sub_0_CBE();
 
-	if (word_789_8228->ymove == 0 && ymove < 0)
+	if (objptr->ymove == 0 && ymove < 0)
 		PlaySound(BUMPSND);
 
-	if (word_789_8228->ymove != 0)
+	if (objptr->ymove != 0)
 		bool_789_94C4 = true;
 
-	if (word_789_8228->ymove >= 0)
+	if (objptr->ymove >= 0)
 		word_789_8476 = 0;
 
-	xmove = word_789_8228->xmove;
-	ymove = word_789_8228->ymove;
+	xmove = objptr->xmove;
+	ymove = objptr->ymove;
 
-	word_789_8228->x += xmove;
-	word_789_8228->y += ymove;
+	objptr->x += xmove;
+	objptr->y += ymove;
 
 	if (xmove > 0)
 	{
-		if (word_789_8228->x - originxglobal > 0xB400L)
+		if (objptr->x - originxglobal > 0xB400L)
 		{
 			originxglobal += xmove;
 			if (originxglobal > originxmax)
@@ -1115,7 +1097,7 @@ void sub_0_F19(void)
 	}
 	else if (xmove < 0)
 	{
-		if (word_789_8228->x - originxglobal < 0x8C00L)
+		if (objptr->x - originxglobal < 0x8C00L)
 		{
 			originxglobal += xmove;
 			if (originxglobal < originxmin)
@@ -1125,7 +1107,7 @@ void sub_0_F19(void)
 
 	if (ymove > 0)
 	{
-		if (word_789_8228->y - originyglobal > 0xA000L)
+		if (objptr->y - originyglobal > 0xA000L)
 		{
 			originyglobal += ymove;
 			if (originyglobal > originymax)
@@ -1134,7 +1116,7 @@ void sub_0_F19(void)
 	}
 	else if (ymove < 0)
 	{
-		if (word_789_8228->y - originyglobal < 0x2800L)
+		if (objptr->y - originyglobal < 0x2800L)
 		{
 			originyglobal += ymove;
 			if (originyglobal < originymin)
@@ -1201,7 +1183,7 @@ void sub_0_14CD(void)
     word_789_94A2[13] = eraselistindex = word_789_94D4 = 0;
     word_789_94C6 = &type847C_789_847C[0];
     WaitVBL();
-    word_789_8228 = &type94D6_789_94D6;
+    objptr = &obj;
     sub_0_F19();
     RF_Refresh();
     dofkeys();
@@ -1227,7 +1209,7 @@ void sub_0_14CD(void)
         break;
 
       case recording:
-          if (!type94D6_789_94D6.gamexit || (keydown[0x42] && keydown[0x20]))
+          if (!obj.gamexit || (keydown[0x42] && keydown[0x20]))
           {
             clearkeys();
             centerwindow(15, 1);
@@ -1256,8 +1238,7 @@ void sub_0_14CD(void)
           indemo = 1;
         break;
     }
-
-  } while (!leveldone && type94D6_789_94D6.gamexit);
+  } while (!leveldone && obj.gamexit);
 }
 
 
@@ -1366,25 +1347,29 @@ void playloop(void) // sub_0_162C
 			}
 		}
 
-		type94D6_789_94D6.y = originyglobal + 0x9600;
-		type94D6_789_94D6.x = 0x00009600;
-		type94D6_789_94D6.ymove = 0;
-		type94D6_789_94D6.xmove = 0;
-		type94D6_789_94D6.gamexit = 1;
-		type94D6_789_94D6.word_789_94E0 = 2;
-		type94D6_789_94D6.word_789_94E6 = type94D6_789_94D6.word_789_94E4 = 5;
-		word_789_94FE = 0;
-		word_789_9500 = 0;
-		func_789_9506 = sub_0_F19;
+		obj.y = originyglobal + 0x9600;
+		obj.x = 0x00009600;
+		obj.ymove = 0;
+		obj.xmove = 0;
+		obj.gamexit = 1;
+		obj.word_789_94E0 = 2;
+		obj.word_789_94E6 = obj.word_789_94E4 = 5;
+		obj.active = false;
+		obj.word_789_9500 = 0;
+		obj.think = sub_0_F19;
+
 		ctrl_789_9492.button1 = 0;
 		ctrl_789_9492.button1 = 0;
+
 		word_789_8476 = 0;
 		bool_789_94C4 = true;
 		bool_789_9490 = false;
 		bool_789_847A = false;
 		originyglobal = originymax;
 		originxglobal = 0;
+
 		sub_0_14CD();
+
 		if (indemo != 0)
 			return;
 
