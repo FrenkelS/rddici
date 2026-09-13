@@ -86,16 +86,16 @@ typedef struct {
 /*		    */
 /*==================*/
 
-int word_789_1D30;
-int word_789_1D32;
+int word_789_1D30_160;
+int word_789_1D32_750;
 char unk_789_1D40[15890];
 int word_789_8220;
 int word_789_8226;
 int word_789_8476;
 boolean bool_789_847A;
 type847C type847C_789_847C[128];
-int word_789_9480;
-int word_789_9482;
+int word_789_9480_80;
+int word_789_9482_300;
 boolean bool_789_9490;
 ControlStruct ctrl_789_9492;
 int word_789_94A0;
@@ -914,17 +914,11 @@ boolean sub_0_E52_UNUSED(int arg_0, int arg_2)
 	objptr->x -= arg_0;
 	objptr->y -= arg_2;
 
-	if (p_bottom - originyglobal / 4 < 16)
-	{
-		if (objptr->ymove <= 0)
-			return true;
-	}
+	if (p_bottom - originyglobal / 4 < 16  && objptr->ymove <= 0)
+		return true;
 
-	if (p_bottom - originyglobal / 4 > 172)
-	{
-		if (objptr->ymove >= 0)
-			return true;
-	}
+	if (p_bottom - originyglobal / 4 > 172 && objptr->ymove >= 0)
+		return true;
 
 	if (p_left < 6 || p_right > 303)
 		return true;
@@ -966,10 +960,10 @@ void sub_0_F19(void)
 		if (!bool_789_94C4 && !bool_789_9490)
 		{
 			PlaySound(JUMPSND);
-			ymove = -word_789_1D32;
+			ymove = -word_789_1D32_750;
 			bool_789_94C4 = true;
 			bool_789_9490 = true;
-			word_789_8476 = word_789_9482;
+			word_789_8476 = word_789_9482_300;
 		}
 
 		if (bool_789_9490 && word_789_8476 > 0)
@@ -997,19 +991,19 @@ void sub_0_F19(void)
 		case northeast:
 		case east:
 		case southeast:
-			xmove = word_789_9480 * var_4;
+			xmove = word_789_9480_80 * var_4;
 			bool_789_847A = false;
 			break;
 
 		case southwest:
 		case west:
 		case northwest:
-			xmove = -word_789_9480 * var_4;
+			xmove = -word_789_9480_80 * var_4;
 			bool_789_847A = true;
 			break;
 	}
 
-	ymove += word_789_1D30;
+	ymove += word_789_1D30_160;
 
 	if (bool_789_94C4)
 	{
@@ -1298,10 +1292,10 @@ void playloop(void) // sub_0_162C
 
 			originyglobal = originymax;
 			originxglobal = 0;
-			word_789_1D30 = 160;
-			word_789_9480 = 80;
-			word_789_9482 = 300;
-			word_789_1D32 = 750;
+			word_789_1D30_160 = 160;
+			word_789_9480_80  =  80;
+			word_789_9482_300 = 300;
+			word_789_1D32_750 = 750;
 			RF_Refresh();
 			sub_0_290();
 			RF_Refresh();
