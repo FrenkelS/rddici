@@ -81,9 +81,6 @@ unk12			db	12 dup (?)
 type847C ENDS
 
 
-obp	dw	?		;temporary for turbo's BP
-
-
 pel			dw	0
 screenstart	dw	0
 
@@ -267,10 +264,10 @@ EXTRN	WaitVBL:NEAR
 ;========================================================================
 
 
-word_0_19AC dw 0
-word_0_19AE dw 0
-word_0_19B0 dw 0
-word_0_19B2 dw 0
+func_0_19AC dw 0
+func_0_19AE dw 0
+func_0_19B0 dw 0
+func_0_19B2 dw 0
 
 CGAylookup_0 dw    0,8192,  80,8272, 160,8352, 240,8432, 320,8512, 400,8592, 480,8672
     dw  560,8752, 640,8832, 720,8912, 800,8992, 880,9072, 960,9152,1040,9232
@@ -337,7 +334,7 @@ PROC VidRefresh_CGA_UNUSED ; sub_0_1D6E
 push si
 push di
 push bp
-call cs:word_0_19AC
+call cs:func_0_19AC
 call WaitVBL
 mov dx, 3D4h
 mov al, 0Ch
@@ -405,12 +402,12 @@ mov drawoffs1[di], si
 
 loc_0_1DEB:
 inc word_789_4A2
-call cs:word_0_19AE
+call cs:func_0_19AE
 
 loc_0_1DF4:
 cmp di, type847C_789_847C[bp].word_789_847C
 jnz short loc_0_1E12
-call cs:word_0_19B0
+call cs:func_0_19B0
 mov dl, 32
 mov ax, type847C_789_847C[bp].word_789_848E
 mul dl
@@ -431,7 +428,7 @@ mov bx, word_789_4A4
 cmp ax, word_789_94A2[bx]
 mov bx, cx
 jnb short loc_0_1E32
-call cs:word_0_19B2
+call cs:func_0_19B2
 inc word_789_4A2
 jmp short loc_0_1E16
 
@@ -544,7 +541,7 @@ mov     bx, word_789_4A4
 cmp     ax, word_789_94A2[bx]
 mov     bx, cx
 jnb     short loc_0_1F0D
-call    cs:word_0_19B2
+call    cs:func_0_19B2
 inc     word_789_4A2
 jmp     short loc_0_1EF1
 
