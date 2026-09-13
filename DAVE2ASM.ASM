@@ -651,6 +651,7 @@ mov si, word_789_4C8[si]
 mov di, CGAtileloc[di]
 mov ax, word ptr tileptr+2
 mov ds, ax
+
 movsw
 movsw
 add di, 8188
@@ -698,6 +699,7 @@ movsw
 add di, 8188
 movsw
 movsw
+
 mov ax, ss
 mov ds, ax
 pop di
@@ -736,54 +738,13 @@ mov si, 0
 mov di, 1E00h
 mov ax, word ptr tileptr+2
 mov ds, ax
+
+REPT 16
 movsw
 movsw
 add di, 0
-movsw
-movsw
-add di, 0
-movsw
-movsw
-add di, 0
-movsw
-movsw
-add di, 0
-movsw
-movsw
-add di, 0
-movsw
-movsw
-add di, 0
-movsw
-movsw
-add di, 0
-movsw
-movsw
-add di, 0
-movsw
-movsw
-add di, 0
-movsw
-movsw
-add di, 0
-movsw
-movsw
-add di, 0
-movsw
-movsw
-add di, 0
-movsw
-movsw
-add di, 0
-movsw
-movsw
-add di, 0
-movsw
-movsw
-add di, 0
-movsw
-movsw
-add di, 0
+ENDM
+
 pop di
 mov ax, ss
 mov ds, ax
@@ -798,53 +759,16 @@ mov si, 0
 mov di, 2580h
 mov ax, word ptr tileptr+2
 mov ds, ax
+
 movsb
 movsb
+
+REPT 15
 add di, 0
 movsb
 movsb
-add di, 0
-movsb
-movsb
-add di, 0
-movsb
-movsb
-add di, 0
-movsb
-movsb
-add di, 0
-movsb
-movsb
-add di, 0
-movsb
-movsb
-add di, 0
-movsb
-movsb
-add di, 0
-movsb
-movsb
-add di, 0
-movsb
-movsb
-add di, 0
-movsb
-movsb
-add di, 0
-movsb
-movsb
-add di, 0
-movsb
-movsb
-add di, 0
-movsb
-movsb
-add di, 0
-movsb
-movsb
-add di, 0
-movsb
-movsb
+ENDM
+
 mov ax, ss
 mov ds, ax
 pop di
