@@ -151,6 +151,9 @@ objtype objlist[MAXOBJECTS],*new,*ob,obj,*objptr;
 int lastobj;
 
 
+char unused_buffer[13360];
+
+
 int tile_block[100] =
 {
 0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,
