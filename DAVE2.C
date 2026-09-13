@@ -931,8 +931,8 @@ void sub_0_F19(void)
 {
 	int var_2;
 	int var_4;
-	int var_6;
-	int var_8;
+	int tile_left;
+	int tile_right;
 	int var_A;
 
 	ControlStruct c;
@@ -1036,23 +1036,23 @@ void sub_0_F19(void)
 
 	sub_0_B0D();
 
-	var_6 = GetTile(p_left,  p_bottom + 1);
-	var_8 = GetTile(p_right, p_bottom + 1);
+	tile_left  = GetTile(p_left,  p_bottom + 1);
+	tile_right = GetTile(p_right, p_bottom + 1);
 
-	if (tile_789_300[var_6])
+	if (tile_789_300[tile_left])
 	{
-		if (word_789_8476 == 0 && tile_block[var_6])
+		if (word_789_8476 == 0 && tile_block[tile_left])
 			bool_789_94C4 = false;
 
-		var_A = tile_789_300[var_6];
+		var_A = tile_789_300[tile_left];
 	}
 
-	if (tile_789_300[var_8])
+	if (tile_789_300[tile_right])
 	{
-		if (word_789_8476 == 0 && tile_block[var_8])
+		if (word_789_8476 == 0 && tile_block[tile_right])
 			bool_789_94C4 = false;
 
-		var_A = tile_789_300[var_8];
+		var_A = tile_789_300[tile_right];
 	}
 
 	objptr->xmove += xmove;
