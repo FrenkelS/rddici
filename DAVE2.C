@@ -102,7 +102,6 @@ typedef struct {
 int word_789_1D30;
 int word_789_1D32;
 char unk_789_1D40[15890];
-int word_789_7B20[600];
 int word_789_8220;
 int word_789_8226;
 type94D6 *word_789_8228;
@@ -113,7 +112,6 @@ int word_789_9480;
 int word_789_9482;
 boolean bool_789_9490;
 ControlStruct ctrl_789_9492;
-int word_789_949E;
 int word_789_94A0;
 int word_789_94A2[14];
 boolean bool_789_94C4;
@@ -135,6 +133,10 @@ void (*func_789_9506)();
   statetype gamestate;
 
   ControlStruct ctrl;
+
+
+int eraselist[600];
+int eraselistindex;
 
 
 #define PORTTILESWIDE 21
@@ -599,16 +601,16 @@ void RF_Refresh(void) // sub_0_7B3
 
 	if (drawpage)
 	{
-		for (si = 0; si < word_789_949E; si++)
+		for (si = 0; si < eraselistindex; si++)
 		{
-			drawoffs1[word_789_7B20[si]] = -1;
+			drawoffs1[eraselist[si]] = -1;
 		}
 	}
 	else
 	{
-		for (si = 0; si < word_789_949E; si++)
+		for (si = 0; si < eraselistindex; si++)
 		{
-			drawoffs0[word_789_7B20[si]] = -1;
+			drawoffs0[eraselist[si]] = -1;
 		}
 	}
 
@@ -676,8 +678,8 @@ boolean RF_PlaceSprite(void) // sub_0_80D
 	{
 		for (tx = tx_min; tx <= tx_max; tx++)
 		{
-			word_789_7B20[word_789_949E] = ty * PORTTILESWIDE + tx;
-			word_789_949E++;
+			eraselist[eraselistindex] = ty * PORTTILESWIDE + tx;
+			eraselistindex++;
 		}
 	}
 
@@ -1196,7 +1198,7 @@ void sub_0_14CD(void)
   RF_ForceRefresh();
   do
   {
-    word_789_94A2[13] = word_789_949E = word_789_94D4 = 0;
+    word_789_94A2[13] = eraselistindex = word_789_94D4 = 0;
     word_789_94C6 = &type847C_789_847C[0];
     WaitVBL();
     word_789_8228 = &type94D6_789_94D6;
@@ -1288,7 +1290,7 @@ void playloop(void) // sub_0_162C
 			type847C_789_847C[0].word_789_847C = 0xffff;
 			word_789_94C6 = &type847C_789_847C[0];
 			word_789_94A2[13] = 0;
-			word_789_949E = 0;
+			eraselistindex = 0;
 			word_789_94D4 = 0;
 
 			strcpy(str, "LEVEL0");
