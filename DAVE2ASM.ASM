@@ -491,7 +491,7 @@ add     bx, ax
 add     bx, mapplane
 
 loc_0_1E97:
-mov     cx, 21
+mov     cx, PORTTILESWIDE
 
 loc_0_1E9A:
 mov     si, [bx+di]
@@ -619,7 +619,7 @@ mov     cx, 0A300h
 mov     es, cx
 mov     al, byte ptr originyglobal+1
 and     al, 0Fh
-mov     bl, 48
+mov     bl, SCREENWIDTH
 mul     bl
 add     ax, 3600h
 add     screenstart, ax
@@ -631,7 +631,7 @@ mov     cx, 0A000h
 mov     es, cx
 mov     al, byte ptr originyglobal+1
 and     al, 0Fh
-mov     bl, 48
+mov     bl, SCREENWIDTH
 mul     bl
 add     ax, 600h
 add     screenstart, ax
