@@ -367,7 +367,7 @@ cld
 xor di, di
 mov word_789_4A2, di
 mov word_789_4A4, di
-mov dl, 32
+mov dl, SIZE type847C
 mov ax, word_789_94D4
 mul dl
 mov bp, ax
@@ -408,7 +408,7 @@ loc_0_1DF4:
 cmp di, type847C_789_847C[bp].word_789_847C
 jnz short loc_0_1E12
 call cs:func_0_19B0
-mov dl, 32
+mov dl, SIZE type847C
 mov ax, type847C_789_847C[bp].word_789_848E
 mul dl
 mov bp, ax
@@ -466,7 +466,7 @@ cld
 xor     di, di
 mov     word_789_4A2, di
 mov     word_789_4A4, di
-mov     dl, 20h
+mov     dl, SIZE type847C
 mov     ax, word_789_94D4
 mul     dl
 mov     bp, ax
@@ -521,7 +521,7 @@ loc_0_1ED1:
 cmp     di, type847C_789_847C[bp].word_789_847C
 jnz     short loc_0_1EED
 call    DrawSprite
-mov     dl, 20h
+mov     dl, SIZE type847C
 mov     ax, type847C_789_847C[bp].word_789_848E
 mul     dl
 mov     bp, ax
