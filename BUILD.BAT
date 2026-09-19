@@ -1,9 +1,9 @@
 del *.obj
 del rddici.exe
 
-tcc -IX:\INCLUDE -LX:\LIB -c dave2.c
-tcc -IX:\INCLUDE -LX:\LIB -c pcrlib_c.c
-tcc -IX:\INCLUDE -LX:\LIB -c cpanel.c
+tcc -IX:\INCLUDE -c dave2.c
+tcc -IX:\INCLUDE -c pcrlib_c.c
+tcc -IX:\INCLUDE -c cpanel.c
 
 tasm /MX /ZI /O dave2asm.asm
 tasm /MX /ZI /O pcrlib_a.asm
