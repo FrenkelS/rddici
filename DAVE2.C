@@ -92,7 +92,6 @@ char unk_789_1D40[15890];
 int word_789_8220;
 int word_789_8226;
 int word_789_8476;
-boolean bool_789_847A;
 type847C type847C_789_847C[128];
 int word_789_9480_80;
 int word_789_9482_300;
@@ -149,6 +148,9 @@ long lastExtraScore;
 #define MAXOBJECTS	60
 objtype objlist[MAXOBJECTS],*new,*ob,obj,*objptr;
 int lastobj;
+
+
+boolean facingleft;
 
 
 char unused_buffer[13360];
@@ -995,14 +997,14 @@ void sub_0_F19(void)
 		case east:
 		case southeast:
 			xmove = word_789_9480_80 * var_4;
-			bool_789_847A = false;
+			facingleft = false;
 			break;
 
 		case southwest:
 		case west:
 		case northwest:
 			xmove = -word_789_9480_80 * var_4;
-			bool_789_847A = true;
+			facingleft = true;
 			break;
 	}
 
@@ -1010,7 +1012,7 @@ void sub_0_F19(void)
 
 	if (bool_789_94C4)
 	{
-		if (bool_789_847A)
+		if (facingleft)
 			word_789_94A0 = 10;
 		else
 			word_789_94A0 = 9;
@@ -1031,7 +1033,7 @@ void sub_0_F19(void)
 			objptr->word_789_94E4 = objptr->word_789_94E6;
 		}
 
-		if (bool_789_847A)
+		if (facingleft)
 			word_789_94A0 = objptr->word_789_94E0 + 5;
 		else
 			word_789_94A0 = objptr->word_789_94E0;
@@ -1361,7 +1363,7 @@ void playloop(void) // sub_0_162C
 		word_789_8476 = 0;
 		bool_789_94C4 = true;
 		bool_789_9490 = false;
-		bool_789_847A = false;
+		facingleft = false;
 		originyglobal = originymax;
 		originxglobal = 0;
 
