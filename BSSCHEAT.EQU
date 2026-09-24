@@ -1,0 +1,28 @@
+;===============================================================================
+; BSS LAYOUT RECREATION CHEAT -- ASSEMBLY EQUATES
+; Make sure these names match the ones used in BSSCHEAT.H!
+;===============================================================================
+
+EGApage        equ __jo4
+mapwidthextra  equ _X8PZ
+
+oldtiles       equ _e5D0
+
+extrahbls      equ _Q7FD
+
+oldtiles2      equ _LakO
+
+spritecost     equ _X3mz
+
+spritelist     equ _x_oS
+mapbwide       equ _EKPx
+
+mapplane       equ _fV5x
+
+mindrawcalls   equ _U3aV
+
+refreshcount   equ _uoiD
+originx        equ _jEJj
+originy        equ _bUKD
+firstsprite    equ _mQll
+
