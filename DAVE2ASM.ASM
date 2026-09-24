@@ -1,6 +1,8 @@
 ; Reconstructed Dangerous Dave in Copyright Infringement Source Code
 ; Copyright (C) 2026 Frenkel Smeijers
 ;
+; Heavily modified by K1n9_Duk3 to produce a 100% identical EXE (2026-09-22)
+;
 ; The code in this file is primarily based on:
 ;  Reconstructed Commander Keen 1-3 Source Code
 ;   Copyright (C) 2021-2025 K1n9_Duk3
@@ -23,10 +25,10 @@
 ; with this program; if not, write to the Free Software Foundation, Inc.,
 ; 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-	MASM
-
-	locals
-	.MODEL	SMALL,C
+	IDEAL
+	MODEL	SMALL,C
+	
+INCLUDE "BSSCHEAT.EQU"
 
 ;============================================================================
 ;
@@ -48,16 +50,16 @@ PORTTILESWIDE	equ	21
 PORTTILESHIGH	equ	14
 PORTTILECOUNT	=	(PORTTILESWIDE*PORTTILESHIGH)
 
-	.DATA
+	DATASEG
 
-EXTRN drawoffs1:WORD
-EXTRN drawoffs0:WORD
-EXTRN originxglobal:DWORD
-EXTRN originyglobal:DWORD
+EXTRN oldtiles:WORD
+EXTRN oldtiles2:WORD
+EXTRN originx:DWORD
+EXTRN originy:DWORD
 EXTRN mapplane:WORD
 EXTRN mapbwide:WORD
-EXTRN mapbytesextra:WORD
-EXTRN drawpage:WORD
+EXTRN mapwidthextra:WORD
+EXTRN EGApage:WORD
 
 EXTRN screenseg:WORD
 
@@ -66,23 +68,26 @@ EXTRN tileptr:DWORD
 EXTRN egaspriteptr:DWORD
 
 
-type847C STRUC
+STRUC	drawtype
 
-word_789_847C	dw	?
-px				dw	?
-py				dw	?
-imagewidth		dw	?
-imageheight		dw	?
-shapeptr		dd	?
-maskptr			dd	?
-word_789_848E	dw	?
-unk12			db	12 dup (?)
+screenindex	dw	?
+px		dw	?
+py		dw	?
+imagewidth	dw	?
+imageheight	dw	?
+shapeptr	dd	?
+maskptr		dd	?
+next		dw	?
+unk12		db	12 dup (?)
 
-type847C ENDS
+ENDS
 
 
-pel			dw	0
-screenstart	dw	0
+; K1n9_Duk3 mod: moved some variables around and moved spritecost and
+; animtable out of this file and into DAVE2.C instead.
+
+drawcount dw 0
+screen_y2 dw 0
 
 
 CGAdraws	dw	0,CGAone,CGAtwo,CGAthree,CGAfour,CGAfive,CGAsix
@@ -90,38 +95,22 @@ CGAdraws	dw	0,CGAone,CGAtwo,CGAthree,CGAfour,CGAfive,CGAsix
 
 EGAdraws	dw	0,EGAone,EGAtwo,EGAthree,EGAfour,EGAfive,EGAsix
 
-spriteroutine 	dw 	0
-
-blockheight	dw	0
-blocksource	dw	0
-blockmask	dw	0
-blockdest	dw	0
-_three		dw	0	; is written to but never used for anything
 
 
-EXTRN word_789_8220:WORD
-EXTRN type847C_789_847C:type847C
-EXTRN word_789_94A2:WORD
-EXTRN word_789_94CA:WORD
-EXTRN word_789_94D4:WORD
+EXTRN extrahbls:WORD
+EXTRN spritecost:WORD
+EXTRN spritelist:drawtype
+EXTRN mindrawcalls:WORD
+EXTRN refreshcount:WORD
+EXTRN firstsprite:WORD
 
+EXTRN animtable:WORD
 
-animtable dw 0,1,2,3,4,5,6,7,8,9,0Ah,0Bh,0Ch
-	dw 0Eh,0Fh,10h,0Dh ; ? Block
-	dw 11h,12h,13h,14h,15h,16h,17h,18h,19h,1Ah,1Bh,1Ch,1Dh,1Eh,1Fh
-	dw 20h,21h,22h,23h,24h,25h,26h,27h,28h,29h,2Ah,2Bh,2Ch,2Dh,2Eh,2Fh
-	dw 30h,31h,32h,33h,34h,35h,36h,37h,38h,39h,3Ah,3Bh
-	dw 3Dh,3Eh,3Fh,3Ch ; Coin
-	dw 41h,42h,43h,40h ; Brick Block
-	dw 44h,45h,46h,47h,48h,49h,4Ah,4Bh,4Ch,4Dh
-	dw 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+; The following ?GAtilelookup tables map tile numbers to their offset relative
+; to the start of the tile image data in memory. CGA tiles are 40h bytes each,
+; EGA tiles are 20h bytes (for each color plane).
 
-
-word_789_4A2 dw 0
-word_789_4A4 dw 0
-
-
-word_789_4C8 dw 0, 40h, 80h, 0C0h, 100h, 140h, 180h, 1C0h
+CGAtilelookup dw 0, 40h, 80h, 0C0h, 100h, 140h, 180h, 1C0h
 	dw 200h, 240h, 280h, 2C0h, 300h, 340h, 380h, 3C0h
 	dw 400h, 440h, 480h, 4C0h, 500h, 540h, 580h, 5C0h
 	dw 600h, 640h, 680h, 6C0h, 700h, 740h, 780h, 7C0h
@@ -155,10 +144,7 @@ word_789_4C8 dw 0, 40h, 80h, 0C0h, 100h, 140h, 180h, 1C0h
 	dw 3E00h, 3E40h, 3E80h, 3EC0h, 3F00h, 3F40h, 3F80h, 3FC0h
 
 
-word_789_8478 dw 0
-
-
-LABEL word_789_6C8 WORD
+LABEL EGAtilelookup WORD
 	dw    0h,   20h,   40h,   60h,   80h,  0A0h,  0C0h,  0E0h
 	dw  100h,  120h,  140h,  160h,  180h,  1A0h,  1C0h,  1E0h
 	dw  200h,  220h,  240h,  260h,  280h,  2A0h,  2C0h,  2E0h
@@ -176,6 +162,9 @@ LABEL word_789_6C8 WORD
 	dw 0E00h, 0E20h, 0E40h, 0E60h, 0E80h, 0EA0h, 0EC0h, 0EE0h
 	dw 0F00h, 0F20h, 0F40h, 0F60h, 0F80h, 0FA0h, 0FC0h, 0FE0h
 
+
+; The following ?GAtileloc tables store the video memory offset for each tile
+; in the viewport.
 
 LABEL CGAtileloc WORD
 	dw 0, 4, 8, 0Ch, 10h, 14h, 18h, 1Ch
@@ -254,8 +243,17 @@ LABEL EGAtileloc WORD
 	dw  2D12h, 2D14h, 2D16h, 2D18h, 2D1Ah, 2D1Ch, 2D1Eh
 	dw  2D20h, 2D22h, 2D24h, 2D26h, 2D28h, 2D2Ah, 2D2Ch
 
+pel		dw	0
+screenstart	dw	0
+spriteroutine 	dw 	0
 
-	.CODE
+blockheight	dw	0
+blocksource	dw	0
+blockmask	dw	0
+blockdest	dw	0
+_three		dw	0	; is written to but never used for anything
+
+	CODESEG
 
 
 EXTRN	WaitVBL:NEAR
@@ -264,10 +262,10 @@ EXTRN	WaitVBL:NEAR
 ;========================================================================
 
 
-func_0_19AC dw 0
-func_0_19AE dw 0
-func_0_19B0 dw 0
-func_0_19B2 dw 0
+beforefunc	dw 0
+drawtilefunc	dw 0
+drawspritefunc	dw 0
+endlinefunc	dw 0
 
 CGAylookup_0 dw    0,8192,  80,8272, 160,8352, 240,8432, 320,8512, 400,8592, 480,8672
     dw  560,8752, 640,8832, 720,8912, 800,8992, 880,9072, 960,9152,1040,9232
@@ -320,387 +318,384 @@ PROC	RF_ForceRefresh
 	mov	cx, PORTTILECOUNT
 	mov	ax, ds
 	mov	es, ax
-	mov	di, offset drawoffs1
+	mov	di, offset oldtiles
 	mov	ax, -1
 	rep stosw
 	mov	cx, PORTTILECOUNT
-	mov	di, offset drawoffs0
+	mov	di, offset oldtiles2
 	rep stosw
 	ret
 ENDP
 
 
 PROC VidRefresh_CGA_UNUSED ; sub_0_1D6E
-push si
-push di
-push bp
-call cs:func_0_19AC
-call WaitVBL
-mov dx, 3D4h
-mov al, 0Ch
-out dx, al
-inc dx
-mov al, ch
-out dx, al
-dec dx
-mov al, 0Dh
-out dx, al
-inc dx
-mov al, cl
-out dx, al
-mov cx, word_789_8220
-mov dx, 3DAh
+	push	si
+	push	di
+	push	bp
+	call	[cs:beforefunc]
+	call	WaitVBL
+	mov	dx, 3D4h
+	mov	al, 0Ch
+	out	dx, al
+	inc	dx
+	mov	al, ch
+	out	dx, al
+	dec	dx
+	mov	al, 0Dh
+	out	dx, al
+	inc	dx
+	mov	al, cl
+	out	dx, al
+	mov	cx, [extrahbls]
+	mov	dx, 3DAh
 
-loc_0_1D92:
-in al, dx
-test al, 1
-jz short loc_0_1D92
+@@waitactive:
+	in	al, dx
+	test	al, 1
+	jz	@@waitactive
 
-loc_0_1D97:
-in al, dx
-test al, 1
-jnz short loc_0_1D97
+@@waitinactive:
+	in	al, dx
+	test	al, 1
+	jnz	@@waitinactive
 
-loop loc_0_1D92
+	loop	@@waitactive
 
-cld
-xor di, di
-mov word_789_4A2, di
-mov word_789_4A4, di
-mov dl, SIZE type847C
-mov ax, word_789_94D4
-mul dl
-mov bp, ax
-mov ax, word ptr originyglobal+1
-shr ax, 1
-shr ax, 1
-shr ax, 1
-shr ax, 1
-mov bx, 40
-mul bx
-mov bx, ax
-add bx, mapplane
+	cld
+	xor	di, di
+	mov	[drawcount], di
+	mov	[screen_y2], di
+	mov	dl, SIZE drawtype
+	mov	ax, [firstsprite]
+	mul	dl
+	mov	bp, ax
+	mov	ax, [WORD originy+1]
+	shr	ax, 1
+	shr	ax, 1
+	shr	ax, 1
+	shr	ax, 1
+	mov	bx, 40
+	mul	bx
+	mov	bx, ax
+	add	bx, [mapplane]
 
-loc_0_1DC8:
-mov cx, 20
+@@yloop:
+	mov	cx, 20
 
-loc_0_1DCB:
-mov si, [bx+di]
-mov ax, drawpage
-or ax, ax
-jnz short loc_0_1DE1
-cmp si, drawoffs0[di]
-jz short loc_0_1DF4
-mov drawoffs0[di], si
-jmp short loc_0_1DEB
-nop
+@@xloop:
+	mov	si, [bx+di]
+	mov	ax, [EGApage]
+	or	ax, ax
+	jnz	@@page1
+	cmp	si, [oldtiles2+di]
+	jz	@@checksprite
+	mov	[oldtiles2+di], si
+	jmp	@@drawtile
 
-loc_0_1DE1:
-cmp si, drawoffs1[di]
-jz short loc_0_1DF4
-mov drawoffs1[di], si
+@@page1:
+	cmp	si, [oldtiles+di]
+	jz	@@checksprite
+	mov	[oldtiles+di], si
 
-loc_0_1DEB:
-inc word_789_4A2
-call cs:func_0_19AE
+@@drawtile:
+	inc	[drawcount]
+	call	[cs:drawtilefunc]
 
-loc_0_1DF4:
-cmp di, type847C_789_847C[bp].word_789_847C
-jnz short loc_0_1E12
-call cs:func_0_19B0
-mov dl, SIZE type847C
-mov ax, type847C_789_847C[bp].word_789_848E
-mul dl
-mov bp, ax
-mov ax, word_789_8478
-add word_789_4A2, ax
-jmp short loc_0_1DF4
+@@checksprite:
+	cmp	di, [bp+spritelist.screenindex]
+	jnz	@@spritedone
+	call	[cs:drawspritefunc]
+	mov	dl, SIZE drawtype
+	mov	ax, [bp+spritelist.next]
+	mul	dl
+	mov	bp, ax
+	mov	ax, [spritecost]
+	add	[drawcount], ax
+	jmp	@@checksprite
 
-loc_0_1E12:
-inc di
-inc di
-loop loc_0_1DCB
+@@spritedone:
+	inc	di
+	inc	di
+	loop	@@xloop
 
-loc_0_1E16:
-mov cx, bx
-mov ax, word_789_4A2
-mov bx, word_789_4A4
-cmp ax, word_789_94A2[bx]
-mov bx, cx
-jnb short loc_0_1E32
-call cs:func_0_19B2
-inc word_789_4A2
-jmp short loc_0_1E16
+@@callbackloop:
+	mov	cx, bx
+	mov	ax, [drawcount]
+	mov	bx, [screen_y2]
+	cmp	ax, [mindrawcalls+bx]
+	mov	bx, cx
+	jnb	@@nextrow
+	call	[cs:endlinefunc]
+	inc	[drawcount]
+	jmp	@@callbackloop
 
-loc_0_1E32:
-mov ax, word_789_4A4
-add ax, 2
-mov word_789_4A4, ax
-cmp ax, 24
-jz short loc_0_1E42
-jmp short loc_0_1DC8
+@@nextrow:
+	mov	ax, [screen_y2]
+	add	ax, 2
+	mov	[screen_y2], ax
+	cmp	ax, 24
+	jz	@@done
+	jmp	@@yloop
 
-loc_0_1E42:
-pop bp
-pop di
-pop si
-retn
+@@done:
+	pop	bp
+	pop	di
+	pop	si
+	retn
 ENDP
 
 
 PROC	VidRefresh ; sub_0_1E46
 	PUBLIC	VidRefresh
 
-mov     bl, byte ptr pel
-push    bx
-call    VidInitDraw
-call    WaitVBL
-mov     dx, 3DAh
-in      al, dx
-mov     dx, 3C0h
-mov     al, 33h
-out     dx, al
-pop     ax
-out     dx, al
-cld
-xor     di, di
-mov     word_789_4A2, di
-mov     word_789_4A4, di
-mov     dl, SIZE type847C
-mov     ax, word_789_94D4
-mul     dl
-mov     bp, ax
-mov     ax, word ptr originyglobal+1
-shr     ax, 1
-shr     ax, 1
-shr     ax, 1
-shr     ax, 1
-mov     bx, mapbwide
-mul     bx
-mov     bx, ax
-mov     ax, word ptr originxglobal+1
-shr     ax, 1
-shr     ax, 1
-shr     ax, 1
-shr     ax, 1
-shl     ax, 1
-add     bx, ax
-add     bx, mapplane
+	mov     bl, [byte pel]
+	push    bx
+	call    VidInitDraw
+	call    WaitVBL
+	mov     dx, 3DAh
+	in      al, dx
+	mov     dx, 3C0h
+	mov     al, 33h
+	out     dx, al
+	pop     ax
+	out     dx, al
+	cld
+	xor     di, di
+	mov     [drawcount], di
+	mov     [screen_y2], di
+	mov     dl, SIZE drawtype
+	mov     ax, [firstsprite]
+	mul     dl
+	mov     bp, ax
+	mov     ax, [word originy+1]
+	shr     ax, 1
+	shr     ax, 1
+	shr     ax, 1
+	shr     ax, 1
+	mov     bx, [mapbwide]
+	mul     bx
+	mov     bx, ax
+	mov     ax, [word originx+1]
+	shr     ax, 1
+	shr     ax, 1
+	shr     ax, 1
+	shr     ax, 1
+	shl     ax, 1
+	add     bx, ax
+	add     bx, [mapplane]
 
-loc_0_1E97:
-mov     cx, PORTTILESWIDE
+@@yloop:
+	mov     cx, PORTTILESWIDE
 
-loc_0_1E9A:
-mov     si, [bx+di]
-test    word_789_94CA, 3
-jnz     short loc_0_1EAC
-shl     si, 1
-mov     si, animtable[si]
-mov     [bx+di], si
+@@xloop:
+	mov     si, [bx+di]
+	test    [refreshcount], 3
+	jnz     @@animdone
+	shl     si, 1
+	mov     si, [animtable+si]
+	mov     [bx+di], si
 
-loc_0_1EAC:
-mov     ax, drawpage
-or      ax, ax
-jnz     short loc_0_1EC0
-cmp     si, drawoffs0[di]
-jz      short loc_0_1ED1
-mov     drawoffs0[di], si
-jmp     short loc_0_1ECA
-nop
+@@animdone:
+	mov     ax, [EGApage]
+	or      ax, ax
+	jnz     @@page1
+	cmp     si, [oldtiles2+di]
+	jz      @@checksprite
+	mov     [oldtiles2+di], si
+	jmp     @@drawtile
 
-loc_0_1EC0:
-cmp     si, drawoffs1[di]
-jz      short loc_0_1ED1
-mov     drawoffs1[di], si
+@@page1:
+	cmp     si, [oldtiles+di]
+	jz      @@checksprite
+	mov     [oldtiles+di], si
 
-loc_0_1ECA:
-inc     word_789_4A2
-call    DrawTile16
+@@drawtile:
+	inc     [drawcount]
+	call    DrawTile16
 
-loc_0_1ED1:
-cmp     di, type847C_789_847C[bp].word_789_847C
-jnz     short loc_0_1EED
-call    DrawSprite
-mov     dl, SIZE type847C
-mov     ax, type847C_789_847C[bp].word_789_848E
-mul     dl
-mov     bp, ax
-mov     ax, word_789_8478
-add     word_789_4A2, ax
-jmp     short loc_0_1ED1
+@@checksprite:
+	cmp     di, [bp+spritelist.screenindex]
+	jnz     @@spritedone
+	call    DrawSprite
+	mov     dl, SIZE drawtype
+	mov     ax, [bp+spritelist.next]
+	mul     dl
+	mov     bp, ax
+	mov     ax, [spritecost]
+	add     [drawcount], ax
+	jmp     @@checksprite
 
-loc_0_1EED:
-inc     di
-inc     di
-loop    loc_0_1E9A
+@@spritedone:
+	inc     di
+	inc     di
+	loop    @@xloop
 
-loc_0_1EF1:
-mov     cx, bx
-mov     ax, word_789_4A2
-mov     bx, word_789_4A4
-cmp     ax, word_789_94A2[bx]
-mov     bx, cx
-jnb     short loc_0_1F0D
-call    cs:func_0_19B2
-inc     word_789_4A2
-jmp     short loc_0_1EF1
+@@callbackloop:
+	mov     cx, bx
+	mov     ax, [drawcount]
+	mov     bx, [screen_y2]
+	cmp     ax, [mindrawcalls+bx]
+	mov     bx, cx
+	jnb     @@nextrow
+	call    [cs:endlinefunc]
+	inc     [drawcount]
+	jmp     @@callbackloop
 
-loc_0_1F0D:
-add     bx, mapbytesextra
-mov     ax, word_789_4A4
-add     ax, 2
-mov     word_789_4A4, ax
-cmp     ax, 1Ch
-jz      short locret_0_1F22
-jmp     loc_0_1E97
+@@nextrow:
+	add     bx, [mapwidthextra]
+	mov     ax, [screen_y2]
+	add     ax, 2
+	mov     [screen_y2], ax
+	cmp     ax, PORTTILESHIGH*2
+	jz      @@done
+	jmp     @@yloop
 
-locret_0_1F22:
-retn
+@@done:
+	retn
 ENDP
 
 
 PROC VidInitDraw_CGA_UNUSED ; sub_0_1F23
-mov ax, 0B800h
-mov es, ax
-mov al, byte ptr originyglobal+1
-shr al, 1
-and al, 7
-mov bl, 40
-mul bl
-mov cx, ax
-shr ax, 1
-shr ax, 1
-shr ax, 1
-add ax, 0B800h
-mov screenseg, ax
-retn
+	mov	ax, 0B800h
+	mov	es, ax
+	mov	al, [byte originy+1]
+	shr	al, 1
+	and	al, 7
+	mov	bl, 40
+	mul	bl
+	mov	cx, ax
+	shr	ax, 1
+	shr	ax, 1
+	shr	ax, 1
+	add	ax, 0B800h
+	mov	[screenseg], ax
+	retn
 ENDP
 
 
 PROC	VidInitDraw ; sub_0_1F42
-cli
-mov     cx, screenstart
-mov     dx, 3D4h
-mov     al, 0Ch
-out     dx, al
-inc     dx
-mov     al, ch
-out     dx, al
-dec     dx
-mov     al, 0Dh
-out     dx, al
-inc     dx
-mov     al, cl
-out     dx, al
-sti
-mov     ax, screenstart
-shr     ax, 1
-shr     ax, 1
-shr     ax, 1
-shr     ax, 1
-add     ax, 0A000h
-mov     screenseg, ax
-mov     screenstart, 4
-mov     al, byte ptr originxglobal+1
-test    al, 8
-jz      short loc_0_1F7C
-inc     screenstart
+	cli
+	mov     cx, [screenstart]
+	mov     dx, 3D4h
+	mov     al, 0Ch
+	out     dx, al
+	inc     dx
+	mov     al, ch
+	out     dx, al
+	dec     dx
+	mov     al, 0Dh
+	out     dx, al
+	inc     dx
+	mov     al, cl
+	out     dx, al
+	sti
+	mov     ax, [screenstart]
+	shr     ax, 1
+	shr     ax, 1
+	shr     ax, 1
+	shr     ax, 1
+	add     ax, 0A000h
+	mov     [screenseg], ax
+	mov     [screenstart], 4
+	mov     al, [byte originx+1]
+	test    al, 8
+	jz      @@l1
+	inc     [screenstart]
 
-loc_0_1F7C:
-and     al, 7
-mov     pel, ax
-mov     ax, drawpage
-or      ax, ax
-jnz     short loc_0_1FA0
-mov     cx, 0A300h
-mov     es, cx
-mov     al, byte ptr originyglobal+1
-and     al, 0Fh
-mov     bl, SCREENWIDTH
-mul     bl
-add     ax, 3600h
-add     screenstart, ax
-jmp     short loc_0_1FB5
-nop
+@@l1:
+	and     al, 7
+	mov     [pel], ax
+	mov     ax, [EGApage]
+	or      ax, ax
+	jnz     @@page1
+	mov     cx, 0A300h
+	mov     es, cx
+	mov     al, [byte originy+1]
+	and     al, 0Fh
+	mov     bl, SCREENWIDTH
+	mul     bl
+	add     ax, 3600h
+	add     [screenstart], ax
+	jmp     @@l2
 
-loc_0_1FA0:
-mov     cx, 0A000h
-mov     es, cx
-mov     al, byte ptr originyglobal+1
-and     al, 0Fh
-mov     bl, SCREENWIDTH
-mul     bl
-add     ax, 600h
-add     screenstart, ax
+@@page1:
+	mov     cx, 0A000h
+	mov     es, cx
+	mov     al, [byte originy+1]
+	and     al, 0Fh
+	mov     bl, SCREENWIDTH
+	mul     bl
+	add     ax, 600h
+	add     [screenstart], ax
 
-loc_0_1FB5:
-mov     ax, 105h
-mov     dx, 3CEh
-out     dx, ax
-retn
+@@l2:
+	mov     ax, 105h
+	mov     dx, 3CEh
+	out     dx, ax
+	retn
 ENDP
 
 
 PROC DrawTile16_CGA_UNUSED ; sub_0_1FBD
-push di
-shl si, 1
-mov si, word_789_4C8[si]
-mov di, CGAtileloc[di]
-mov ax, word ptr tileptr+2
-mov ds, ax
+	push	di
+	shl	si, 1
+	mov	si, [CGAtilelookup+si]
+	mov	di, [CGAtileloc+di]
+	mov	ax, [word tileptr+2]
+	mov	ds, ax
 
-movsw
-movsw
-add di, 8188
-movsw
-movsw
-sub di, 8116
-movsw
-movsw
-add di, 8188
-movsw
-movsw
-sub di, 8116
-movsw
-movsw
-add di, 8188
-movsw
-movsw
-sub di, 8116
-movsw
-movsw
-add di, 8188
-movsw
-movsw
-sub di, 8116
-movsw
-movsw
-add di, 8188
-movsw
-movsw
-sub di, 8116
-movsw
-movsw
-add di, 8188
-movsw
-movsw
-sub di, 8116
-movsw
-movsw
-add di, 8188
-movsw
-movsw
-sub di, 8116
-movsw
-movsw
-add di, 8188
-movsw
-movsw
+	movsw
+	movsw
+	add	di, 8188
+	movsw
+	movsw
+	sub	di, 8116
+	movsw
+	movsw
+	add	di, 8188
+	movsw
+	movsw
+	sub	di, 8116
+	movsw
+	movsw
+	add	di, 8188
+	movsw
+	movsw
+	sub	di, 8116
+	movsw
+	movsw
+	add	di, 8188
+	movsw
+	movsw
+	sub	di, 8116
+	movsw
+	movsw
+	add	di, 8188
+	movsw
+	movsw
+	sub	di, 8116
+	movsw
+	movsw
+	add	di, 8188
+	movsw
+	movsw
+	sub	di, 8116
+	movsw
+	movsw
+	add	di, 8188
+	movsw
+	movsw
+	sub	di, 8116
+	movsw
+	movsw
+	add	di, 8188
+	movsw
+	movsw
 
-mov ax, ss
-mov ds, ax
-pop di
-retn
+	mov ax, ss
+	mov ds, ax
+	pop di
+	retn
 ENDP
 
 
@@ -708,9 +703,9 @@ PROC	DrawTile16 ; sub_0_202F
 	push    di
 
 	shl     si, 1
-	mov     si, word_789_6C8[si]
-	mov     di, EGAtileloc[di]
-	mov     ax, word ptr tileptr+2
+	mov     si, [EGAtilelookup+si]
+	mov     di, [EGAtileloc+di]
+	mov     ax, [word tileptr+2]
 	mov     ds, ax
 	movsb
 	movsb
@@ -727,432 +722,433 @@ ENDP
 
 
 PROC sub_0_2092_UNUSED
-push di
-shl si, 1
-mov si, word_789_4C8[si]
-shl si, 1
-mov si, 0
-mov di, 1E00h
-mov ax, word ptr tileptr+2
-mov ds, ax
+	push	di
+	shl	si, 1
+	mov	si, [CGAtilelookup+si]
+	shl	si, 1
+	mov	si, 0
+	mov	di, 1E00h
+	mov	ax, [word tileptr+2]
+	mov	ds, ax
 
 REPT 16
-movsw
-movsw
-add di, 0
+	movsw
+	movsw
+	add	di, 0
 ENDM
 
-pop di
-mov ax, ss
-mov ds, ax
-retn
+	pop	di
+	mov	ax, ss
+	mov	ds, ax
+	retn
 ENDP
 
 
 PROC sub_0_20FC_UNUSED
-push di
-shl si, 1
-mov si, 0
-mov di, 2580h
-mov ax, word ptr tileptr+2
-mov ds, ax
+	push	di
+	shl	si, 1
+	mov	si, 0
+	mov	di, 2580h
+	mov	ax, [word tileptr+2]
+	mov	ds, ax
 
-movsb
-movsb
+	movsb
+	movsb
 
 REPT 15
-add di, 0
-movsb
-movsb
+	add	di, 0
+	movsb
+	movsb
 ENDM
 
-mov ax, ss
-mov ds, ax
-pop di
-retn
+	mov	ax, ss
+	mov	ds, ax
+	pop	di
+	retn
 ENDP
 
 
 PROC sub_0_215D_UNUSED
-retn
+	retn
 ENDP
 
 
 PROC DrawSprite_CGA_UNUSED ; sub_0_215E
-push bp
-push di
-push bx
-push cx
-push dx
-mov dx, type847C_789_847C[bp].px
-mov cx, type847C_789_847C[bp].imageheight
-mov di, type847C_789_847C[bp].imagewidth
-shl di, 1
-mov di, CGAdraws[di]
-mov bx, type847C_789_847C[bp].py
-and bx, 0FFFEh
-shl bx, 1
-add bx, offset CGAylookup_0
-mov si, word ptr type847C_789_847C[bp].shapeptr
-mov bp, word ptr type847C_789_847C[bp].maskptr
-mov ax, word ptr spriteptr+2
-mov ds, ax
-mov ss, ax
-jmp di
+	push	bp
+	push	di
+	push	bx
+	push	cx
+	push	dx
+	mov	dx, [bp+spritelist.px]
+	mov	cx, [bp+spritelist.imageheight]
+	mov	di, [bp+spritelist.imagewidth]
+	shl	di, 1
+	mov	di, [CGAdraws+di]
+	mov	bx, [bp+spritelist.py]
+	and	bx, not 1
+	shl	bx, 1
+	add	bx, offset CGAylookup_0
+	mov	si, [word bp+spritelist.shapeptr]
+	mov	bp, [word bp+spritelist.maskptr]
+	mov	ax, [word spriteptr+2]
+	mov	ds, ax
+	mov	ss, ax
+	jmp	di
 
 CGAone:
-mov di, cs:[bx]
-add bx, 2
-add di, dx
-mov al, es:[di]
-and al, [bp+0]
-or al, [si]
-stosb
-inc si
-inc bp
-loop CGAone
-mov ax, @data
-mov ds, ax
-mov ss, ax
-pop dx
-pop cx
-pop bx
-pop di
-pop bp
-retn
+	mov	di, [cs:bx]
+	add	bx, 2
+	add	di, dx
+	mov	al, [es:di]
+	and	al, [bp+0]
+	or	al, [si]
+	stosb
+	inc	si
+	inc	bp
+	loop	CGAone
+	mov	ax, @data
+	mov	ds, ax
+	mov	ss, ax
+	pop	dx
+	pop	cx
+	pop	bx
+	pop	di
+	pop	bp
+	retn
 
 CGAtwo:
-mov di, cs:[bx]
-add bx, 2
-add di, dx
-mov ax, es:[di]
-and ax, [bp+0]
-or ax, [si]
-stosw
-inc si
-inc si
-inc bp
-inc bp
-loop CGAtwo
-mov ax, @data
-mov ds, ax
-mov ss, ax
-pop dx
-pop cx
-pop bx
-pop di
-pop bp
-retn
+	mov	di, [cs:bx]
+	add	bx, 2
+	add	di, dx
+	mov	ax, [es:di]
+	and	ax, [bp+0]
+	or	ax, [si]
+	stosw
+	inc	si
+	inc	si
+	inc	bp
+	inc	bp
+	loop	CGAtwo
+	mov	ax, @data
+	mov	ds, ax
+	mov	ss, ax
+	pop	dx
+	pop	cx
+	pop	bx
+	pop	di
+	pop	bp
+	retn
 
 CGAthree:
-mov di, cs:[bx]
-add bx, 2
-add di, dx
-mov ax, es:[di]
-and ax, [bp+0]
-or ax, [si]
-stosw
-mov al, es:[di]
-and al, [bp+2]
-or al, [si+2]
-stosb
-add si, 3
-add bp, 3
-loop CGAthree
-mov ax, @data
-mov ds, ax
-mov ss, ax
-pop dx
-pop cx
-pop bx
-pop di
-pop bp
-retn
+	mov	di, [cs:bx]
+	add	bx, 2
+	add	di, dx
+	mov	ax, [es:di]
+	and	ax, [bp+0]
+	or	ax, [si]
+	stosw
+	mov	al, [es:di]
+	and	al, [bp+2]
+	or	al, [si+2]
+	stosb
+	add	si, 3
+	add	bp, 3
+	loop	CGAthree
+	mov	ax, @data
+	mov	ds, ax
+	mov	ss, ax
+	pop	dx
+	pop	cx
+	pop	bx
+	pop	di
+	pop	bp
+	retn
 
 CGAfour:
-mov di, cs:[bx]
-add bx, 2
-add di, dx
-mov ax, es:[di]
-and ax, [bp+0]
-or ax, [si]
-stosw
-mov ax, es:[di]
-and ax, [bp+2]
-or ax, [si+2]
-stosw
-add si, 4
-add bp, 4
-loop CGAfour
-mov ax, @data
-mov ds, ax
-mov ss, ax
-pop dx
-pop cx
-pop bx
-pop di
-pop bp
-retn
+	mov	di, [cs:bx]
+	add	bx, 2
+	add	di, dx
+	mov	ax, [es:di]
+	and	ax, [bp+0]
+	or	ax, [si]
+	stosw
+	mov	ax, [es:di]
+	and	ax, [bp+2]
+	or	ax, [si+2]
+	stosw
+	add	si, 4
+	add	bp, 4
+	loop	CGAfour
+	mov	ax, @data
+	mov	ds, ax
+	mov	ss, ax
+	pop	dx
+	pop	cx
+	pop	bx
+	pop	di
+	pop	bp
+	retn
 
 CGAfive:
-mov di, cs:[bx]
-add bx, 2
-add di, dx
-mov ax, es:[di]
-and ax, [bp+0]
-or ax, [si]
-stosw
-mov ax, es:[di]
-and ax, [bp+2]
-or ax, [si+2]
-stosw
-mov al, es:[di]
-and al, [bp+4]
-or al, [si+4]
-stosb
-add si, 5
-add bp, 5
-loop CGAfive
-mov ax, @data
-mov ds, ax
-mov ss, ax
-pop dx
-pop cx
-pop bx
-pop di
-pop bp
-retn
+	mov	di, [cs:bx]
+	add	bx, 2
+	add	di, dx
+	mov	ax, [es:di]
+	and	ax, [bp+0]
+	or	ax, [si]
+	stosw
+	mov	ax, [es:di]
+	and	ax, [bp+2]
+	or	ax, [si+2]
+	stosw
+	mov	al, [es:di]
+	and	al, [bp+4]
+	or	al, [si+4]
+	stosb
+	add	si, 5
+	add	bp, 5
+	loop	CGAfive
+	mov	ax, @data
+	mov	ds, ax
+	mov	ss, ax
+	pop	dx
+	pop	cx
+	pop	bx
+	pop	di
+	pop	bp
+	retn
 
 CGAsix:
-mov di, cs:[bx]
-add bx, 2
-add di, dx
-mov ax, es:[di]
-and ax, [bp+0]
-or ax, [si]
-stosw
-mov ax, es:[di]
-and ax, [bp+2]
-or ax, [si+2]
-stosw
-mov ax, es:[di]
-and ax, [bp+4]
-or ax, [si+4]
-stosw
-add si, 6
-add bp, 6
-loop CGAsix
-mov ax, @data
-mov ds, ax
-mov ss, ax
-pop dx
-pop cx
-pop bx
-pop di
-pop bp
-retn
+	mov	di, [cs:bx]
+	add	bx, 2
+	add	di, dx
+	mov	ax, [es:di]
+	and	ax, [bp+0]
+	or	ax, [si]
+	stosw
+	mov	ax, [es:di]
+	and	ax, [bp+2]
+	or	ax, [si+2]
+	stosw
+	mov	ax, [es:di]
+	and	ax, [bp+4]
+	or	ax, [si+4]
+	stosw
+	add	si, 6
+	add	bp, 6
+	loop	CGAsix
+	mov	ax, @data
+	mov	ds, ax
+	mov	ss, ax
+	pop	dx
+	pop	cx
+	pop	bx
+	pop	di
+	pop	bp
+	retn
 
 CGAseven:
-mov di, cs:[bx]
-add bx, 2
-add di, dx
-mov ax, es:[di]
-and ax, [bp+0]
-or ax, [si]
-stosw
-mov ax, es:[di]
-and ax, [bp+2]
-or ax, [si+2]
-stosw
-mov ax, es:[di]
-and ax, [bp+4]
-or ax, [si+4]
-stosw
-mov al, es:[di]
-and al, [bp+6]
-or al, [si+6]
-stosb
-add si, 7
-add bp, 7
-loop CGAseven
-mov ax, @data
-mov ds, ax
-mov ss, ax
-pop dx
-pop cx
-pop bx
-pop di
-pop bp
-retn
+	mov	di, [cs:bx]
+	add	bx, 2
+	add	di, dx
+	mov	ax, [es:di]
+	and	ax, [bp+0]
+	or	ax, [si]
+	stosw
+	mov	ax, [es:di]
+	and	ax, [bp+2]
+	or	ax, [si+2]
+	stosw
+	mov	ax, [es:di]
+	and	ax, [bp+4]
+	or	ax, [si+4]
+	stosw
+	mov	al, [es:di]
+	and	al, [bp+6]
+	or	al, [si+6]
+	stosb
+	add	si, 7
+	add	bp, 7
+	loop	CGAseven
+	mov	ax, @data
+	mov	ds, ax
+	mov	ss, ax
+	pop	dx
+	pop	cx
+	pop	bx
+	pop	di
+	pop	bp
+	retn
 
 CGAeight:
-mov di, cs:[bx]
-add bx, 2
-add di, dx
-mov ax, es:[di]
-and ax, [bp+0]
-or ax, [si]
-stosw
-mov ax, es:[di]
-and ax, [bp+2]
-or ax, [si+2]
-stosw
-mov ax, es:[di]
-and ax, [bp+4]
-or ax, [si+4]
-stosw
-mov ax, es:[di]
-and ax, [bp+6]
-or ax, [si+6]
-stosw
-add si, 8
-add bp, 8
-loop CGAeight
-mov ax, @data
-mov ds, ax
-mov ss, ax
-pop dx
-pop cx
-pop bx
-pop di
-pop bp
-retn
+	mov	di, [cs:bx]
+	add	bx, 2
+	add	di, dx
+	mov	ax, [es:di]
+	and	ax, [bp+0]
+	or	ax, [si]
+	stosw
+	mov	ax, [es:di]
+	and	ax, [bp+2]
+	or	ax, [si+2]
+	stosw
+	mov	ax, [es:di]
+	and	ax, [bp+4]
+	or	ax, [si+4]
+	stosw
+	mov	ax, [es:di]
+	and	ax, [bp+6]
+	or	ax, [si+6]
+	stosw
+	add	si, 8
+	add	bp, 8
+	loop	CGAeight
+	mov	ax, @data
+	mov	ds, ax
+	mov	ss, ax
+	pop	dx
+	pop	cx
+	pop	bx
+	pop	di
+	pop	bp
+	retn
 
 CGAnine:
-mov di, cs:[bx]
-add bx, 2
-add di, dx
-mov ax, es:[di]
-and ax, [bp+0]
-or ax, [si]
-stosw
-mov ax, es:[di]
-and ax, [bp+2]
-or ax, [si+2]
-stosw
-mov ax, es:[di]
-and ax, [bp+4]
-or ax, [si+4]
-stosw
-mov ax, es:[di]
-and ax, [bp+6]
-or ax, [si+6]
-stosw
-mov al, es:[di]
-and al, [bp+8]
-or al, [si+8]
-stosb
-add si, 9
-add bp, 9
-loop CGAnine
-mov ax, @data
-mov ds, ax
-mov ss, ax
-pop dx
-pop cx
-pop bx
-pop di
-pop bp
-retn
+	mov	di, [cs:bx]
+	add	bx, 2
+	add	di, dx
+	mov	ax, [es:di]
+	and	ax, [bp+0]
+	or	ax, [si]
+	stosw
+	mov	ax, [es:di]
+	and	ax, [bp+2]
+	or	ax, [si+2]
+	stosw
+	mov	ax, [es:di]
+	and	ax, [bp+4]
+	or	ax, [si+4]
+	stosw
+	mov	ax, [es:di]
+	and	ax, [bp+6]
+	or	ax, [si+6]
+	stosw
+	mov	al, [es:di]
+	and	al, [bp+8]
+	or	al, [si+8]
+	stosb
+	add	si, 9
+	add	bp, 9
+	loop	CGAnine
+	mov	ax, @data
+	mov	ds, ax
+	mov	ss, ax
+	pop	dx
+	pop	cx
+	pop	bx
+	pop	di
+	pop	bp
+	retn
 ENDP
 
 
 PROC	DrawSprite ; sub_0_2383
-push bp
-push di
-push bx
-push cx
-push dx
-mov dx, 3CEh
-mov ax, 5
-out dx, ax
-mov ax, 3
-mov _three, ax
-mov ax, type847C_789_847C[bp].imageheight
-mov blockheight, ax
-mov ax, word ptr type847C_789_847C[bp].shapeptr
-mov blocksource, ax
-mov ax, word ptr type847C_789_847C[bp].maskptr
-mov blockmask, ax
-mov bx, type847C_789_847C[bp].imagewidth
-shl bx, 1
-mov ax, EGAdraws[bx]
-mov spriteroutine, ax
-mov bx, type847C_789_847C[bp].py
-shl bx, 1
-mov ax, cs:EGAylookup_0[bx]
-add ax, type847C_789_847C[bp].px
-mov blockdest, ax
+	push	bp
+	push	di
+	push	bx
+	push	cx
+	push	dx
+	mov	dx, 3CEh
+	mov	ax, 5
+	out	dx, ax
+	mov	ax, 3
+	mov	[_three], ax
+	mov	ax, [bp+spritelist.imageheight]
+	mov	[blockheight], ax
+	mov	ax, [word bp+spritelist.shapeptr]
+	mov	[blocksource], ax
+	mov	ax, [word bp+spritelist.maskptr]
+	mov	[blockmask], ax
+	mov	bx, [bp+spritelist.imagewidth]
+	shl	bx, 1
+	mov	ax, [EGAdraws+bx]
+	mov	[spriteroutine], ax
+	mov	bx, [bp+spritelist.py]
+	shl	bx, 1
+	mov	ax, [cs:EGAylookup_0+bx]
+	add	ax, [bp+spritelist.px]
+	mov	[blockdest], ax
 
-mov dx, 3CEh
-mov ax, 4
-out dx, ax
-mov dx, 3C4h
-mov ax, 102h
-out dx, ax
-mov di, blockdest
-mov cx, blockheight
-mov si, blocksource
-mov bp, blockmask
-mov ax, word ptr egaspriteptr[0 * 4] + 2
-mov ds, ax
-call ss:spriteroutine
+	mov	dx, 3CEh
+	mov	ax, 4
+	out	dx, ax
+	mov	dx, 3C4h
+	mov	ax, 102h
+	out	dx, ax
+	mov	di, [blockdest]
+	mov	cx, [blockheight]
+	mov	si, [blocksource]
+	mov	bp, [blockmask]
+	mov	ax, [word egaspriteptr+(0 * 4) + 2]
+	mov	ds, ax
+	call	[ss:spriteroutine]
 
-mov dx, 3CEh
-mov ax, 104h
-out dx, ax
-mov dx, 3C4h
-mov ax, 202h
-out dx, ax
-mov di, ds:blockdest
-mov cx, ds:blockheight
-mov si, ds:blocksource
-mov bp, ds:blockmask
-mov ax, word ptr ds:egaspriteptr[1 * 4] + 2
-mov ds, ax
-call ss:spriteroutine
+	mov	dx, 3CEh
+	mov	ax, 104h
+	out	dx, ax
+	mov	dx, 3C4h
+	mov	ax, 202h
+	out	dx, ax
+	mov	di, [blockdest]
+	mov	cx, [blockheight]
+	mov	si, [blocksource]
+	mov	bp, [blockmask]
+	mov	ax, [word egaspriteptr+(1 * 4) + 2]
+	mov	ds, ax
+	call	[ss:spriteroutine]
 
-mov dx, 3CEh
-mov ax, 204h
-out dx, ax
-mov dx, 3C4h
-mov ax, 402h
-out dx, ax
-mov di, ds:blockdest
-mov cx, ds:blockheight
-mov si, ds:blocksource
-mov bp, ds:blockmask
-mov ax, word ptr ds:egaspriteptr[2 * 4] + 2
-mov ds, ax
-call ss:spriteroutine
+	mov	dx, 3CEh
+	mov	ax, 204h
+	out	dx, ax
+	mov	dx, 3C4h
+	mov	ax, 402h
+	out	dx, ax
+	mov	di, [blockdest]
+	mov	cx, [blockheight]
+	mov	si, [blocksource]
+	mov	bp, [blockmask]
+	mov	ax, [word egaspriteptr+(2 * 4) + 2]
+	mov	ds, ax
+	call	[ss:spriteroutine]
 
-mov dx, 3CEh
-mov ax, 304h
-out dx, ax
-mov dx, 3C4h
-mov ax, 802h
-out dx, ax
-mov di, blockdest
-mov cx, blockheight
-mov si, blocksource
-mov bp, blockmask
-mov ax, word ptr ds:egaspriteptr[3 * 4] + 2
-mov ds, ax
-call ss:spriteroutine
+	mov	dx, 3CEh
+	mov	ax, 304h
+	out	dx, ax
+	mov	dx, 3C4h
+	mov	ax, 802h
+	out	dx, ax
+	mov	di, [blockdest]
+	mov	cx, [blockheight]
+	mov	si, [blocksource]
+	mov	bp, [blockmask]
+	mov	ax, [word egaspriteptr+(3 * 4) + 2]
+	mov	ds, ax
+	call	[ss:spriteroutine]
 
-mov ax, 105h
-mov dx, 3CEh
-out dx, ax
-mov dx, 3C4h
-mov al, 2
-mov ah, 0Fh
-out dx, ax
-pop dx
-pop cx
-pop bx
-pop di
-pop bp
-retn
+	mov	ax, 105h
+	mov	dx, 3CEh
+	out	dx, ax
+	mov	dx, 3C4h
+	mov	al, 2
+	mov	ah, 0Fh
+	out	dx, ax
+	
+	pop	dx
+	pop	cx
+	pop	bx
+	pop	di
+	pop	bp
+	retn
 ENDP
 
 
@@ -1169,9 +1165,9 @@ PROC EGAone ; sub_0_247E
 	and	al,[bp+0]
 	or	al,[si]
 	stosb
-	inc si
-	inc bp
-	add di, SCREENWIDTH-1
+	inc	si
+	inc	bp
+	add	di, SCREENWIDTH-1
 	loop	@@lineloop
 
 	mov	ax,@Data
@@ -1190,7 +1186,7 @@ PROC EGAtwo ; sub_0_2498
 	or	ax,[si]
 	stosw
 	add	si,2
-	add bp,2
+	add	bp,2
 	add	di,SCREENWIDTH-2
 	loop	@@lineloop
 
@@ -1214,7 +1210,7 @@ PROC EGAthree ; sub_0_24B6
 	or	al,[si+2]
 	stosb
 	add	si,3
-	add bp,3
+	add	bp,3
 	add	di,SCREENWIDTH-3
 	loop	@@lineloop
 
@@ -1238,7 +1234,7 @@ PROC EGAfour ; sub_0_24DE
 	or	ax,[si+2]
 	stosw
 	add	si,4
-	add bp,4
+	add	bp,4
 	add	di,SCREENWIDTH-4
 	loop	@@lineloop
 
@@ -1266,7 +1262,7 @@ PROC EGAfive ; sub_0_2506
 	or	al,[si+4]
 	stosb
 	add	si,5
-	add bp,5
+	add	bp,5
 	add	di,SCREENWIDTH-5
 	loop	@@lineloop
 
@@ -1294,7 +1290,7 @@ PROC EGAsix ; sub_0_2538
 	or	ax,[si+4]
 	stosw
 	add	si,6
-	add bp,6
+	add	bp,6
 	add	di,SCREENWIDTH-6
 	loop	@@lineloop
 

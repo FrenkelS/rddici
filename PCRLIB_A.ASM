@@ -1,6 +1,8 @@
 ; Reconstructed Dangerous Dave in Copyright Infringement Source Code
 ; Copyright (C) 2026 Frenkel Smeijers
 ;
+; Modified by K1n9_Duk3 (2026-09-21)
+;
 ; The code in this file is primarily based on:
 ; The Catacomb Source Code
 ; Copyright (C) 1993-2014 Flat Rock Software
@@ -2345,7 +2347,7 @@ FoundDevice	ENDP
 	IDEAL
 
 	MODEL	small,C
-	STACK	0128
+	;STACK	0128	; K1n9_Duk3 mod: disabled the extra stack for DDICI
 
 
 ;==========================================================
@@ -2355,13 +2357,7 @@ MaxCnt	=	127+MinCnt	;max count (128+ = non repeat string)
 
 	DATASEG
 
-handle		dw	?	;file i/o requirements are here!
-flength1	dw	?
-flength2	dw	?
-buf1		dw	?
-buf2		dw	?
-foff1		dw	?
-foff2		dw	?
+; K1n9_Duk3 mod: removed the file i/o variables for DDICI
 
 ; We store our memory allocation results here
 

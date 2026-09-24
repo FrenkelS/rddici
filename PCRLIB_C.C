@@ -1,6 +1,8 @@
 /* Reconstructed Dangerous Dave in Copyright Infringement Source Code
  * Copyright (C) 2026 Frenkel Smeijers
  *
+ * Modified by K1n9_Duk3 (2026-09-22)
+ *
  * The code in this file is primarily based on:
  * The Catacomb Source Code
  * Copyright (C) 1993-2014 Flat Rock Software
@@ -20,8 +22,29 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+#include "BSSCHEAT.H"	// K1n9_Duk3 addition (VGAPAL was renamed)
 #include "pcrlib.h"
 #include <conio.h>
+
+/*========================================================================*/
+
+// K1n9_Duk3's HACKS:
+// We need a dummy variable whose name hash fits in between 'highscores' and
+// 'indemo'. The name 'highscoret' seems to work for now. The variable must be
+// 4 bytes, so let's make it a long integer.
+
+long highscoret;	// dummy, never used
+
+// Also, the original code called the actual 'atoi' function (which then calls
+// 'atol'), not the macro that redirects the call directly to 'atol' and casts
+// the result to int, so we need to undefine that macro.
+#undef atoi
+// This indicates that the original code's PCRLIB.H probably did NOT include
+// <stdlib.h> to begin with (the PCRLIB.H from The Catacomb also didn't include
+// that header file). The missing prototype for 'atoi' does not cause a warning
+// in Turbo C++ 1.00, which might explain why the file wasn't included.
+
+/*========================================================================*/
 
 char	ch,str[80];	// scratch space
 
@@ -813,7 +836,7 @@ void setscreenmode (grtype mode)
 		geninterrupt (0x10);
 		screenseg=0xa000;
 		moveega ();
-		sub_0_290 ();
+		virtualscreen ();
 		break;
     case VGAgr: _AX = 0x13;
 		geninterrupt (0x10);
@@ -1388,7 +1411,8 @@ void _savectrls (void)
   strcpy (str,"CTLPANEL.");
   strcat (str,_extension);
 
-  if ((handle = open(str, O_WRONLY | O_BINARY | O_CREAT | O_TRUNC, S_IREAD | S_IWRITE)) == -1)
+  // K1n9_Duk3 mod: DDICI doesn't use O_BINARY here (but it really should)
+  if ((handle = open(str, O_WRONLY | /*O_BINARY |*/ O_CREAT | O_TRUNC, S_IREAD | S_IWRITE)) == -1)
     return;
 
   write(handle, &grmode, sizeof(grmode));
@@ -1449,7 +1473,7 @@ void _showhighscores (void)
   long h;
   char st2[10];
 
-  centerwindow (17,15);
+  expwin (17,15);	// K1n9_Duk3 mod: must use expwin here, not centerwindow
   print ("\n   HIGH SCORES\n\n");
   print (" #  SCORE LV  BY\n");
   print (" - ------ -- ---\n");

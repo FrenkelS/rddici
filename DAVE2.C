@@ -1,6 +1,8 @@
 /* Reconstructed Dangerous Dave in Copyright Infringement Source Code
  * Copyright (C) 2026 Frenkel Smeijers
  *
+ * Heavily modified by K1n9_Duk3 to produce a 100% identical EXE (2026-09-22)
+ *
  * The code in this file is primarily based on:
  * The Catacomb Source Code
  * Copyright (C) 1993-2014 Flat Rock Software
@@ -24,136 +26,81 @@
 ** Dangerous Dave in Copyright Infringement
 */
 
+#include "BSSCHEAT.H"
+
 #include "pcrlib.h"
 #include "NGRABDD2.H"
 #include "SOUNDS.H"
 
 #define NUMDEMOS 1
 
-
 typedef enum {ingame,intitle,inend,inscores} statetype;
 
+typedef enum {nothing,playerobj} classtype;
 
 typedef struct {
-  long      x;             /* +00 */
-  long      y;             /* +04 */
-  int       unk8;          /* +08 */
-  int       word_789_94E0; /* +0A */
-  int       unkC;          /* +0C */
-  int       word_789_94E4; /* +0E */
-  int       word_789_94E6; /* +10 */
-  int       xmove;         /* +12 */
-  int       ymove;         /* +14 */
-  int       gamexit;       /* +16 */
-  int       word_789_94EE; /* +18 */
-  int       unk1A;         /* +1A */
-  int       left;          /* +1C */ // hit rectangle
-  int       top;           /* +1E */
-  int       right;         /* +20 */
-  int       bottom;        /* +22 */
-  long      unk24;         /* +24 */
-  boolean   active;        /* +28 */
-  int       word_789_9500; /* +2A */
-  void      (*contact)();  /* +2C */
-  int       unk2E;         /* +2E */
-  void      (*think)();    /* +30 */
+	long      x;             /* +00 */
+	long      y;             /* +04 */
+	int       unk8;          /* +08 */
+	int       walkframe;     /* +0A */
+	int       unkC;          /* +0C */
+	int       walktick;      /* +0E */
+	int       walkticks;     /* +10 */
+	int       xmove;         /* +12 */
+	int       ymove;         /* +14 */
+	classtype obclass;       /* +16 */
+	int       shapenum;      /* +18 */
+	int       unk1A;         /* +1A */
+	int       left;          /* +1C */ // hit rectangle
+	int       top;           /* +1E */
+	int       right;         /* +20 */
+	int       bottom;        /* +22 */
+	long      unk24;         /* +24 */
+	boolean   active;        /* +28 */
+	int       word_789_9500; /* +2A */
+	void      (*contact)();  /* +2C */
+	int       unk2E;         /* +2E */
+	void      (*think)();    /* +30 */
 } objtype;
 
 
 typedef struct {
-  unsigned int word_789_847C; /* +00 */
-  int          px;            /* +02 */
-  int          py;            /* +04 */
-  int          imagewidth;    /* +06 */
-  int          imageheight;   /* +08 */
-  void far    *shapeptr;      /* +0A */
-  void far    *maskptr;       /* +0E */
-  int          word_789_848E; /* +12 */
-  char         unk14[12];     /* +14 */
-} type847C;
+	unsigned int screenindex;   /* +00 */
+	int          px;            /* +02 */
+	int          py;            /* +04 */
+	int          imagewidth;    /* +06 */
+	int          imageheight;   /* +08 */
+	void far    *shapeptr;      /* +0A */
+	void far    *maskptr;       /* +0E */
+	int          next;          /* +12 */
+	char         unk14[12];     /* +14 */
+} drawtype;
 
+// sprite names taken from EGAPICS.DD2
+typedef enum
+{
+	DAVER1SPR,
+	DAVER2SPR,
+	DAVER3SPR,
+	DAVER4SPR,
+	DAVESPR,
+	DAVEL1SPR,
+	DAVEL2SPR,
+	DAVEL3SPR,
+	DAVEL4SPR,
+	DAVEJRSPR,
+	DAVEJLSPR,
+	DAVEC1SPR,
+	DAVEC2SPR,
+	DAVEC3SPR,
+	DAVEC4SPR,
+} spritenames;
 
 /*=================*/
 /*		   */
 /* typed constants */
 /*     		   */
 /*=================*/
-
-
-/*==================*/
-/*		    */
-/* global variables */
-/*		    */
-/*==================*/
-
-int word_789_1D30_160;
-int word_789_1D32_750;
-char unk_789_1D40[15890];
-int word_789_8220;
-int word_789_8226;
-int word_789_8476;
-type847C type847C_789_847C[128];
-int word_789_9480_80;
-int word_789_9482_300;
-boolean bool_789_9490;
-ControlStruct ctrl_789_9492;
-int word_789_94A0;
-int word_789_94A2[14];
-boolean bool_789_94C4;
-type847C *word_789_94C6;
-int word_789_94CA;
-int word_789_94D4;
-
-
-  int lives;
-  boolean leveldone;
-
-  int VGAPAL;				// just to make pcrlib happy
-
-  boolean exitdemo,resetgame;
-  statetype gamestate;
-
-  ControlStruct ctrl;
-
-
-int eraselist[600];
-int eraselistindex;
-
-
-#define PORTTILESWIDE 21
-#define PORTTILESHIGH 14
-#define BIGPORTSIZE (PORTTILESHIGH*PORTTILESWIDE)
-
-int drawoffs1[BIGPORTSIZE], drawoffs0[BIGPORTSIZE];
-
-
-unsigned int *mapplane[4];		// points into map
-int mapbwide,mapwwide,mapbytesextra;
-long originxglobal, originyglobal;
-long originxmin, originymin;
-long originxmax, originymax;
-unsigned int drawpage;
-
-int p_right;
-int p_bottom;
-int px, py;
-int p_left;
-int p_top;
-
-char *bigbuffer;
-
-long lastExtraScore;
-
-
-#define MAXOBJECTS	60
-objtype objlist[MAXOBJECTS],*new,*ob,obj,*objptr;
-int lastobj;
-
-
-boolean facingleft;
-
-
-char unused_buffer[13360];
 
 
 int tile_block[100] =
@@ -176,7 +123,21 @@ int tile_behavior[100] =
 };
 
 
-int tile_789_300[100] =
+int animtable[100] =
+{
+0,1,2,3,4,5,6,7,8,9,10,11,12,
+14,15,16,13, // ? Block
+17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,
+32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,
+48,49,50,51,52,53,54,55,56,57,58,59,
+61,62,63,60, // Coin
+65,66,67,64, // Brick Block
+68,69,70,71,72,73,74,75,76,77,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+};
+
+
+int tile_xfactor[100] =
 {
 0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,
 0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,0xD7,
@@ -192,6 +153,86 @@ int tile_789_300[100] =
 };
 
 
+/*==================*/
+/*		    */
+/* global variables */
+/*		    */
+/*==================*/
+
+int basegravity;
+int basejumpmove;
+char mapbuffer[24032];	// 24000 bytes for map planes + 32 bytes for map header
+// (not sure how big this really is, but it must be at least 9184 bytes!)
+
+int extrahbls;
+int tmp_spritenum;
+int jumpspeed;
+int spritecost;
+boolean faceleft;
+drawtype spritelist[128];
+int basewalkspeed;
+int basejumpspeed;
+boolean jumpheld;
+ControlStruct lastctrl;
+int tmp_baseshape;
+int mindrawcalls[12];
+int playernum;
+int spritesshown;
+boolean jumping;
+drawtype *spritelistptr;
+int refreshcount;
+int firstsprite;
+
+int davesleft;
+boolean leveldone;
+
+int VGAPAL;				// just to make pcrlib happy
+
+boolean exitdemo;
+statetype gamestate;
+
+ControlStruct ctrl;
+
+
+int coverlist[600];
+int coverlistindex;
+
+
+#define PORTTILESWIDE 21
+#define PORTTILESHIGH 14
+#define BIGPORTSIZE (PORTTILESHIGH*PORTTILESWIDE)
+
+int oldtiles[BIGPORTSIZE], oldtiles2[BIGPORTSIZE];
+
+
+unsigned int EGApage;
+unsigned int *mapplane[4];		// points into map
+int mapbwide,mapwwide,mapwidthextra;
+long originx, originy;
+long originxmin, originymin;
+long originxmax, originymax;
+
+// These variables store the current object's position in pixel units.
+int p_right;
+int p_bottom;
+int px, py;
+int p_left;
+int p_top;
+
+LevelDef *levelheader;
+
+long lastextra;
+
+
+#define MAXOBJECTS	128
+objtype objlist[MAXOBJECTS],*newob,*hit,*obj;
+int numobj;
+
+
+char unused_buffer[2000];	// byte_789_1558
+
+char _dummy_[6];
+
 /****************************************************************************/
 
 //////////////////////////////////
@@ -201,7 +242,7 @@ int tile_789_300[100] =
 //////////////////////////////////
 
 void extern RF_ForceRefresh (void);
-void sub_0_290 (void);
+void virtualscreen (void);
 void RF_Refresh (void);
 void dofkeys (void);
 void help (void);
@@ -219,65 +260,79 @@ void playloop(void);
 /*			        */
 /*==============================*/
 
-void sub_0_239(void)
+void drawscreen(void)
 {
-  RF_ForceRefresh();
-  if (gamestate == ingame || gamestate == inscores)
-  {
-    RF_Refresh();
-    sub_0_290();
-    RF_Refresh();
-  }
+	RF_ForceRefresh();
+	if (gamestate == ingame || gamestate == inscores)
+	{
+		RF_Refresh();
+		virtualscreen();
+		RF_Refresh();
+	}
 
-  if (gamestate == intitle)
-    drawpic (0,0,TITLEPIC);
+	if (gamestate == intitle)
+		drawpic (0,0,TITLEPIC);
 
-  if (gamestate == inend)
-    drawpic (0,0,15);
+	if (gamestate == inend)
+		drawpic (0,0,15);
 
-  if (gamestate == inscores)
-    _showhighscores();
+	if (gamestate == inscores)
+		_showhighscores();
 }
 
 
-void sub_0_290(void)
+void virtualscreen(void)
 {
-  if (grmode == CGAgr)
-  {
-    if (_videocard == EGAcard)
-    {
-      outportb(0x3d4, 0x12);
-      outportb(0x3d5, 0xb0);
-    }
-    else if (_videocard == VGAcard)
-    {
-      outportb(0x3d4, 0x12);
-      outportb(0x3d5, 0x60);
-    }
-    else
-    {
-      outportb(0x3d4, 0x06);
-      outportb(0x3d5, 0x58);
-    }
-  }
-  if (grmode == EGAgr)
-  {
-    outportb(crtcaddr, 0x13);
-    outportb(crtcaddr + 1, 0x18);
-	_AH = 0x10;
-    _AL = 1;
-    _BH = 5;
-    geninterrupt(0x10);
-  }
+	if (grmode == CGAgr)
+	{
+		// This is for smooth vertical scrolling in CGA. Must be from an early
+		// incarnation of what would become "Slordax - The Unknown Enemy".
+		// This limits the number of pixel rows displayed on the screen to 176
+		// (instead of 200), which allows the system to pan the screen up and down
+		// by adjusting the CRTC start address. CGA cards have barely enough video
+		// memory for a single 4-color screen at 320x200 pixels, so reducing the
+		// number of lines actually displayed is the only way to make room for the
+		// extra data necessary for panning up and down.
+		if (_videocard == EGAcard)
+		{
+			outportb(0x3d4, 0x12);	// CRTC vertical display end
+			outportb(0x3d5, 0xb0);	// 0xB0 == 176 pixels
+		}
+		else if (_videocard == VGAcard)
+		{
+			outportb(0x3d4, 0x12);	// CRTC vertical display end
+			outportb(0x3d5, 0x60);	// 0x60 == 176 pixels
+			// VGA cards use line-doubling, meaning the default 200 lines are
+			// displayed as 400 lines on the CRT screen. The vertical display end
+			// must be set to 352 for 176 pixels, which is 0x160 in hex. The
+			// highest bit is stored in a separate "overflow" register, which is
+			// why writing the value 0x60 will suffice. The overflow bit doesn't
+			//	change when switching from 400 (== 0x190) to 352 (== 0x160).
+		}
+		else
+		{
+			outportb(0x3d4, 0x06);	// CRTC vertical total
+			outportb(0x3d5, 0x58);	// 0x58 == 176 pixels
+		}
+	}
+	if (grmode == EGAgr)
+	{
+		outportb(crtcaddr, 0x13);	// CRTC row offset register (logical screen line width)
+		outportb(crtcaddr + 1, 0x18);	// 0x18 == 0x30 bytes == 384 pixels
+		_AH = 0x10;
+		_AL = 1;
+		_BH = 5;
+		geninterrupt(0x10);	// set border color to 5 (magenta)
+	}
 }
 
 
-void sub_0_31E_UNUSED(void)
+void clearscreen(void)
 {
-  xormask = 0xffff;
-  bar(0, 0, 39, 24, 32);
-  xormask = 0;
-  sx = sy = leftedge = 0;
+	xormask = 0xffff;
+	bar(0, 0, 39, 24, 32);
+	xormask = 0;
+	sx = sy = leftedge = 0;
 }
 
 /*
@@ -290,31 +345,29 @@ void sub_0_31E_UNUSED(void)
 ===================
 */
 
-void loadgrfiles () // sub_0_352
+void loadgrfiles(void)
 {
-  if (grmode == CGAgr)
-    installgrfile ("CGAPICS.DD2",0);
-  else
-  {
-    installgrfile ("EGAPICS.DD2",0);
-    // drawpage ^= 1 generates code with 1 as a byte instead of a word
-    asm db 81h, 36h
-    asm dw drawpage, 1
-  }
+	if (grmode == CGAgr)
+		installgrfile ("CGAPICS.DD2",0);
+	else
+	{
+		installgrfile ("EGAPICS.DD2",0);
+		EGApage ^= 1;
+	}
 }
 
 
-void sub_0_37E(void)
+void _setupgrmode(void)
 {
-  setscreenmode(grmode);
-  sub_0_290();
+	setscreenmode(grmode);
+	virtualscreen();
 }
 
 
-void repaintscreen () // sub_0_38E
+void repaintscreen(void)
 {
-  sub_0_37E();
-  sub_0_239();
+	_setupgrmode();
+	drawscreen();
 }
 
 
@@ -328,67 +381,66 @@ void repaintscreen () // sub_0_38E
 =============
 */
 
-void dofkeys (void) // sub_0_399
+void dofkeys (void)
 {
-  int i,handle;
-  char st2[10];
-  int key=bioskey(1)/256;
-  if (key==0)
-    return;
+	int i,handle;
+	char st2[10];
+	int key=bioskey(1)/256;
+	if (key==0)
+		return;
 
-  switch (key)
-  {
-    case 0x3b:			// F1
-      clearkeys ();
-      help ();
-      break;
-    case 0x3c:          	// F2
-      clearkeys ();
-      controlpanel ();
-      sub_0_290 ();
-      break;
-    case 0x3d:			// F3
-      clearkeys ();
-      expwin (18,1);
-      print ("RESET GAME (Y/N)?");
-      ch=toupper(get());
-      if (ch=='Y')
-      {
-        obj.gamexit = 0;
-        lives = 1;
-      }
-      break;
+	switch (key)
+	{
+		case 0x3b:			// F1
+			clearkeys ();
+			help ();
+			break;
+		case 0x3c:			// F2
+			clearkeys ();
+			controlpanel ();
+			virtualscreen ();
+			break;
+		case 0x3d:			// F3
+			clearkeys ();
+			expwin (18,1);
+			print ("RESET GAME (Y/N)?");
+			ch=toupper(get());
+			if (ch=='Y')
+			{
+				objlist[0].obclass = nothing;
+				davesleft = 1;
+			}
+			break;
 
-    case 0x43:			// F9
-      clearkeys ();
-      expwin (7,1);
-      print ("PAUSED");
-      get ();
-      break;
-	case 0x01:			// ESC
-	case 0x44:			// F10
-      clearkeys ();
-      expwin (12,1);
-      print ("QUIT (Y/N)?");
-      ch=toupper(get());
-      if (ch=='Y')
+		case 0x43:			// F9
+			clearkeys ();
+			expwin (7,1);
+			print ("PAUSED");
+			get ();
+			break;
+		case 0x01:			// ESC
+		case 0x44:			// F10
+			clearkeys ();
+			expwin (12,1);
+			print ("QUIT (Y/N)?");
+			ch=toupper(get());
+			if (ch=='Y')
+				_quit ("");
+			break;
 
-	_quit ("");
-      break;
+		default:
+			return;
+	}
 
-    default:
-      return;
-  }
-
-  sub_0_239 ();
+	drawscreen ();
 }
 
 
-void help (void) // sub_0_48C
+void help (void)
 {
-  expwin (36,21);
-  print ("dave2 help screen");
-  get ();
+	expwin (36,21);
+	print ("dave2 help screen");
+	get ();
 }
 
 
@@ -403,32 +455,32 @@ void help (void) // sub_0_48C
 =============
 */
 
-void dotitlepage (void) // sub_0_4A9
+void dotitlepage (void)
 {
-  int i;
-  setscreenmode (grmode);
+	int i;
+	setscreenmode (grmode);
 
-  if (grmode == EGAgr)
-    sub_0_290();
+	if (grmode == EGAgr)
+		virtualscreen();
 
-  drawpic (0,0,TITLEPIC);
+	drawpic (0,0,TITLEPIC);
 
-  gamestate=intitle;
-  for (i=0;i<300;i++)
-  {
-    WaitVBL ();
-    indemo = notdemo;
-    ctrl = ControlPlayer (1);
-    if (ctrl.button1 || ctrl.button2 || keydown[0x39])
-    {
-      exitdemo = true;
-      break;
-    }
-    indemo = demoplay;
-    if (bioskey (1))
-      dofkeys ();
-  }
-  gamestate=ingame;
+	gamestate=intitle;
+	for (i=0;i<300;i++)
+	{
+		WaitVBL ();
+		indemo = notdemo;
+		ctrl = ControlPlayer (1);
+		if (ctrl.button1 || ctrl.button2 || keydown[0x39])	// SPACEBAR
+		{
+			exitdemo = true;
+			break;
+		}
+		indemo = demoplay;
+		if (bioskey (1))
+			dofkeys ();
+	}
+	gamestate=ingame;
 }
 
 
@@ -442,36 +494,36 @@ void dotitlepage (void) // sub_0_4A9
 =============
 */
 
-void doendpage (void) // sub_0_548
+void doendpage (void)
 {
-  int i;
-  setscreenmode (grmode);
-  gamestate = inend;
-  sx = 0;
-  sy = 0;
-  print ("Dave 2 title screen");
+	int i;
+	setscreenmode (grmode);
+	gamestate = inend;
+	sx = 0;
+	sy = 0;
+	print ("Dave 2 title screen");
 
-  for (i=0;i<300;i++)
-  {
-    WaitVBL ();
-    indemo = 0;
-    ctrl = ControlPlayer (1);
-    if (ctrl.button1 || ctrl.button2 || keydown[0x39])
-    {
-      exitdemo = true;
-      break;
-    }
-    indemo = 1;
-    if (bioskey (1))
-      dofkeys ();
-  }
+	for (i=0;i<300;i++)
+	{
+		WaitVBL ();
+		indemo = notdemo;
+		ctrl = ControlPlayer (1);
+		if (ctrl.button1 || ctrl.button2 || keydown[0x39])	// SPACEBAR
+		{
+			exitdemo = true;
+			break;
+		}
+		indemo = demoplay;
+		if (bioskey (1))
+			dofkeys ();
+	}
 
-  clearkeys ();
-  sx = 20;
-  sy = 24;
-  get ();
-  indemo = 1;
-  gamestate = ingame;
+	clearkeys ();
+	sx = 20;
+	sy = 24;
+	get ();
+	indemo = demoplay;
+	gamestate = ingame;
 }
 
 
@@ -488,56 +540,56 @@ void doendpage (void) // sub_0_548
 =============
 */
 
-void dodemo (void) // sub_0_5F9
+void dodemo (void)
 {
-  int i;
+	int i;
 
-  exitdemo = false;
-  indemo = 0;
+	exitdemo = false;
+	indemo = notdemo;
 
-  ctrl = ControlPlayer (1);
-  if (ctrl.button1 || ctrl.button2 || keydown[0x39])
-    exitdemo = true;
+	ctrl = ControlPlayer (1);
+	if (ctrl.button1 || ctrl.button2 || keydown[0x39])	// SPACEBAR
+		exitdemo = true;
 
-  if (bioskey (1))
-    dofkeys ();
+	if (bioskey (1))
+		dofkeys ();
 
-  while (!exitdemo)
-  {
-    dotitlepage ();
+	while (!exitdemo)
+	{
+		dotitlepage ();
 
-    if (exitdemo)
-      break;
+		if (exitdemo)
+			break;
 
-    i=random(NUMDEMOS)+1;
-    LoadDemo (i);
-    leveldone=true;
-    playloop ();
-    if (exitdemo)
-      break;
+		i=random(NUMDEMOS)+1;
+		LoadDemo (i);
+		leveldone=true;
+		playloop ();
+		if (exitdemo)
+			break;
 
-    gamestate=inscores;
-    _showhighscores ();
-    for (i=0;i<300;i++)
-    {
-      WaitVBL ();
-      indemo = notdemo;
-      ctrl = ControlPlayer (1);
-      if (ctrl.button1 || ctrl.button2 || keydown[0x39])
-      {
-	exitdemo = true;
-	break;
-      }
-      indemo = 1;
-      if (bioskey (1))
-	dofkeys ();
-    }
+		gamestate=inscores;
+		_showhighscores ();
+		for (i=0;i<300;i++)
+		{
+			WaitVBL ();
+			indemo = notdemo;
+			ctrl = ControlPlayer (1);
+			if (ctrl.button1 || ctrl.button2 || keydown[0x39])	// SPACEBAR
+			{
+				exitdemo = true;
+				break;
+			}
+			indemo = demoplay;
+			if (bioskey (1))
+				dofkeys ();
+		}
 
-  }
+	}
 
-  level = 1;
-  leveldone = true;
-  indemo = 0;
+	level = 1;
+	leveldone = true;
+	indemo = notdemo;
 }
 
 /*=========================================================================*/
@@ -552,69 +604,67 @@ void dodemo (void) // sub_0_5F9
 ============
 */
 
-void gameover (void) // sub_0_71E
+void gameover (void)
 {
-  int i;
+	int i;
 
-  expwin (11,4);
-  print ("\n GAME OVER\n     ");
-  PlaySound (GAMEOVERSND);
-  WaitEndSound ();
-  for (i=0;i<120;i++)
-    WaitVBL ();
-  gamestate=inscores;
-  _checkhighscore ();
+	expwin (11,4);
+	print ("\n GAME OVER\n     ");
+	PlaySound (GAMEOVERSND);
+	WaitEndSound ();
+	for (i=0;i<120;i++)
+		WaitVBL ();
+	gamestate=inscores;
+	_checkhighscore ();
 
-  for (i=0;i<300;i++)
-  {
-	 WaitVBL ();
-	 ctrl = ControlPlayer (1);
-	 if (ctrl.button1 || ctrl.button2 || keydown[0x39])
-		break;
-	 if (bioskey (1))
-		dofkeys ();
-  }
+	for (i=0;i<300;i++)
+	{
+		WaitVBL ();
+		ctrl = ControlPlayer (1);
+		if (ctrl.button1 || ctrl.button2 || keydown[0x39])	// SPACEBAR
+			break;
+		if (bioskey (1))
+			dofkeys ();
+	}
 }
 
 
-void RF_Refresh(void) // sub_0_7B3
+void RF_Refresh(void)
 {
-	int si;
+	int i;
 	void VidRefresh(void);
 
 	VidRefresh();
 
-	word_789_94CA++;
+	refreshcount++;
 
-	if (drawpage)
+	if (EGApage)
 	{
-		for (si = 0; si < eraselistindex; si++)
+		for (i = 0; i < coverlistindex; i++)
 		{
-			drawoffs1[eraselist[si]] = -1;
+			oldtiles[coverlist[i]] = -1;
 		}
 	}
 	else
 	{
-		for (si = 0; si < eraselistindex; si++)
+		for (i = 0; i < coverlistindex; i++)
 		{
-			drawoffs0[eraselist[si]] = -1;
+			oldtiles2[coverlist[i]] = -1;
 		}
 	}
 
 	if (grmode == EGAgr)
 	{
-		// drawpage ^= 1 generates code with 1 as a byte instead of a word
-		asm db 81h, 36h
-		asm dw drawpage, 1
+		EGApage ^= 1;
 	}
 }
 
 
-boolean RF_PlaceSprite(void) // sub_0_80D
+boolean RF_PlaceSprite(void)
 {
-	unsigned int var_2;
-	int var_4;
-	int var_6;
+	unsigned int screenindex;
+	int i;
+	int prev;
 	int tx;
 	int ty;
 	int tx_min;
@@ -622,13 +672,13 @@ boolean RF_PlaceSprite(void) // sub_0_80D
 	int tx_max;
 	int ty_max;
 
-	py -= originyglobal / 256;
-	px -= originxglobal / 256;
+	py -= originy / 256;
+	px -= originx / 256;
 
 	if (grmode == EGAgr)
 	{
-		py += (originyglobal / 256) % 16;
-		px += (originxglobal / 256) % 16;
+		py += (originy / 256) % 16;
+		px += (originx / 256) % 16;
 
 		py += 32;
 
@@ -658,153 +708,151 @@ boolean RF_PlaceSprite(void) // sub_0_80D
 
 		px = (px >> 3) + 4;
 
-		var_2 = (ty_max * PORTTILESWIDE + tx_max) * 2;
+		screenindex = (ty_max * PORTTILESWIDE + tx_max) * 2;
 	}
 
 	for (ty = ty_min; ty <= ty_max; ty++)
 	{
 		for (tx = tx_min; tx <= tx_max; tx++)
 		{
-			eraselist[eraselistindex] = ty * PORTTILESWIDE + tx;
-			eraselistindex++;
+			coverlist[coverlistindex] = ty * PORTTILESWIDE + tx;
+			coverlistindex++;
 		}
 	}
 
-	word_789_94A2[13]++;
-	word_789_94C6++;
+	spritesshown++;
+	spritelistptr++;
 
-	word_789_94C6->word_789_847C = var_2;
-	word_789_94C6->px            = px;
-	word_789_94C6->py            = py;
-	word_789_94C6->imagewidth    = image.width;
-	word_789_94C6->imageheight   = image.height;
-	word_789_94C6->shapeptr      = image.shapeptr;
-	word_789_94C6->maskptr       = image.maskptr;
-	word_789_94C6->word_789_848E = 0;
+	spritelistptr->screenindex   = screenindex;
+	spritelistptr->px            = px;
+	spritelistptr->py            = py;
+	spritelistptr->imagewidth    = image.width;
+	spritelistptr->imageheight   = image.height;
+	spritelistptr->shapeptr      = image.shapeptr;
+	spritelistptr->maskptr       = image.maskptr;
+	spritelistptr->next          = 0;
 
-	objptr->left   = p_left;
-	objptr->right  = p_right;
-	objptr->top    = p_top;
-	objptr->bottom = p_bottom;
+	obj->left   = p_left;
+	obj->right  = p_right;
+	obj->top    = p_top;
+	obj->bottom = p_bottom;
 
-	if (type847C_789_847C[word_789_94D4].word_789_847C >= var_2)
+	if (spritelist[firstsprite].screenindex >= screenindex)
 	{
-		type847C_789_847C[word_789_94A2[13]].word_789_848E = word_789_94D4;
-		word_789_94D4 = word_789_94A2[13];
+		spritelist[spritesshown].next = firstsprite;
+		firstsprite = spritesshown;
 	}
 	else
 	{
-		var_4 = word_789_94D4;
+		i = firstsprite;
 
-		while (type847C_789_847C[var_4].word_789_847C < var_2)
+		while (spritelist[i].screenindex < screenindex)
 		{
-			var_6 = var_4;
-			var_4 = type847C_789_847C[var_4].word_789_848E;
+			prev = i;
+			i = spritelist[i].next;
 		}
 
-		type847C_789_847C[var_6            ].word_789_848E = word_789_94A2[13];
-		type847C_789_847C[word_789_94A2[13]].word_789_848E = var_4;
+		spritelist[prev        ].next = spritesshown;
+		spritelist[spritesshown].next = i;
 	}
 
 	return true;
 }
 
 
-void BadThink_UNUSED(void) // sub_0_AA7
+void BadThink(void)
 {
-  _quit("badTHINK!");
+	_quit("badTHINK!");
 }
 
 
-void FindFreeObj_UNUSED (void) // sub_0_AB4
+void FindFreeObj (void)
 {
-  int i = 1;
-  new = &objlist[1];
+	int i = 1;
+	newob = &objlist[1];
 
-  while (new->gamexit != 0 && i < lastobj)
-  {
-    i++;
-    new++;
-  }
-
-  if (i >= lastobj)
-    lastobj++;
-
-  new->left = new->top = new->bottom = new->right = 0;
-
-  new->think = BadThink_UNUSED;
-}
-
-
-void sub_0_B0D(void)
-{
-	px = objptr->x / 256;
-	py = objptr->y / 256;
-
-	if (grmode == CGAgr)
-		word_789_8226 = word_789_94A0 * 2 + ((px / 2) % 2);
-	else
+	while (newob->obclass != nothing && i < numobj)
 	{
-		word_789_8226 = word_789_94A0 * 4 + ((px / 2) % 4);
-		// px &= ~6 generates code with ~6 as a byte instead of a word
-		asm db 81h, 26h
-		asm dw px, 0fff9h
+		i++;
+		newob++;
 	}
 
-	objptr->word_789_94EE = word_789_8226;
+	if (i >= numobj)
+		numobj++;
 
-	image = spritetable[word_789_8226];
+	newob->left = newob->top = newob->bottom = newob->right = 0;
 
-	p_left  = px + image.xl;
-	p_right = px + image.xh;
+	newob->think = BadThink;
+}
+
+
+void GetHitbox(void)
+{
+	px = obj->x / 256;
+	py = obj->y / 256;
+
+	if (grmode == CGAgr)
+		tmp_spritenum = tmp_baseshape * 2 + ((px / 2) % 2);
+	else
+	{
+		tmp_spritenum = tmp_baseshape * 4 + ((px / 2) % 4);
+		px &= ~6;
+	}
+
+	obj->shapenum = tmp_spritenum;
+
+	image = spritetable[tmp_spritenum];
+
+	p_left   = px + image.xl;
+	p_right  = px + image.xh;
 	p_top    = py + image.yl;
 	p_bottom = py + image.yh;
 }
 
 
-boolean ObjectsCollide(void) // sub_0_BCF
+boolean ObjectsCollide(void)
 {
-  if (ob->left > p_right)
-    return false;
+	if (hit->left > p_right)
+		return false;
 
-  if (ob->top > p_bottom)
-    return false;
+	if (hit->top > p_bottom)
+		return false;
 
-  if (ob->right < p_left)
-    return false;
+	if (hit->right < p_left)
+		return false;
 
-  if (ob->bottom < p_top)
-    return false;
+	if (hit->bottom < p_top)
+		return false;
 
-  return true;
+	return true;
 }
 
 
-int GetTile(int arg_0, int arg_2) // sub_0_C1D
+int GetTile(int pixx, int pixy)
 {
-	return mapplane[0][(arg_2 / 16) * mapwwide + (arg_0 / 16)];
+	return mapplane[0][(pixy / 16) * mapwwide + (pixx / 16)];
 }
 
 
-boolean sub_0_C48(void)
+boolean ObjBlocked(void)
 {
-	int var_2;
-	int var_4;
-	int var_6;
-	int cx;
-	int di;
-	int si;
+	int tx1;
+	int ty1;
+	int tx2;
+	int ty2;
+	int tx;
+	int ty;
 
-	var_2 = p_left   / 16;
-	var_4 = p_top    / 16;
-	var_6 = p_right  / 16;
-	cx    = p_bottom / 16;
+	tx1 = p_left   / 16;
+	ty1 = p_top    / 16;
+	tx2 = p_right  / 16;
+	ty2 = p_bottom / 16;
 
-	for (si = var_4; si <= cx; si++)
+	for (ty = ty1; ty <= ty2; ty++)
 	{
-		for (di = var_2; di <= var_6; di++)
+		for (tx = tx1; tx <= tx2; tx++)
 		{
-			if (tile_block[mapplane[0][si * mapwwide + di]])
+			if (tile_block[mapplane[0][ty * mapwwide + tx]])
 				return true;
 		}
 	}
@@ -813,17 +861,17 @@ boolean sub_0_C48(void)
 }
 
 
-void sub_0_CBE(void)
+void MoveObj(void)
 {
 	int xmove;
 	int ymove;
-	boolean var_2;
-	boolean var_4;
+	boolean blocked;
+	boolean blocked2;
 
-	xmove = objptr->xmove;
-	ymove = objptr->ymove;
+	xmove = obj->xmove;
+	ymove = obj->ymove;
 
-	sub_0_B0D();
+	GetHitbox();
 
 	if (xmove < 0)
 		xmove = (xmove - 255) / 256;
@@ -840,14 +888,14 @@ void sub_0_CBE(void)
 	p_left  += xmove;
 	p_right += xmove;
 
-	var_2 = sub_0_C48();
+	blocked = ObjBlocked();
 
 	p_top    -= ymove;
 	p_bottom -= ymove;
 	p_left  -= xmove;
 	p_right -= xmove;
 
-	if (!var_2)
+	if (!blocked)
 		return;
 
 	if (xmove < 0)
@@ -855,26 +903,26 @@ void sub_0_CBE(void)
 		p_left  += xmove;
 		p_right += xmove;
 
-		var_2 = sub_0_C48();
+		blocked = ObjBlocked();
 
 		p_left  -= xmove;
 		p_right -= xmove;
 
-		if (var_2 == true)
-			objptr->xmove = (-p_left % 16) << 8;
+		if (blocked == true)
+			obj->xmove = (-p_left % 16) << 8;
 	}
 	else if (xmove > 0)
 	{
 		p_left  += xmove;
 		p_right += xmove;
 
-		var_2 = sub_0_C48();
+		blocked = ObjBlocked();
 
 		p_left  -= xmove;
 		p_right -= xmove;
 
-		if (var_2 == true)
-			objptr->xmove = (15 - (p_right % 16)) << 8;
+		if (blocked == true)
+			obj->xmove = (15 - (p_right % 16)) << 8;
 	}
 
 	if (ymove < 0)
@@ -882,362 +930,350 @@ void sub_0_CBE(void)
 		p_top    += ymove;
 		p_bottom += ymove;
 
-		var_4 = sub_0_C48();
+		blocked2 = ObjBlocked();
 
 		p_top    -= ymove;
 		p_bottom -= ymove;
 
-		if (var_4 == true)
-			objptr->ymove = (-p_top % 16) << 8;
+		if (blocked2 == true)
+			obj->ymove = (-p_top % 16) << 8;
 	}
 	else if (ymove > 0)
 	{
 		p_top    += ymove;
 		p_bottom += ymove;
 
-		var_4 = sub_0_C48();
+		blocked2 = ObjBlocked();
 
 		p_top    -= ymove;
 		p_bottom -= ymove;
 
-		if (var_4 == true)
-			objptr->ymove = (15 - (p_bottom % 16)) << 8;
+		if (blocked2 == true)
+			obj->ymove = (15 - (p_bottom % 16)) << 8;
 	}
 
-	if (!var_2 && !var_4)
-		objptr->xmove = objptr->ymove = 0;
+	if (!blocked && !blocked2)
+		obj->xmove = obj->ymove = 0;
 }
 
 
-boolean sub_0_E52_UNUSED(int arg_0, int arg_2)
+boolean MoveIsBlocked(int xmove, int ymove)
 {
-	objptr->x += arg_0;
-	objptr->y += arg_2;
+	obj->x += xmove;
+	obj->y += ymove;
 
-	sub_0_B0D();
+	GetHitbox();
 
-	objptr->x -= arg_0;
-	objptr->y -= arg_2;
+	obj->x -= xmove;
+	obj->y -= ymove;
 
-	if (p_bottom - originyglobal / 4 < 16  && objptr->ymove <= 0)
+	if (p_bottom - originy / 4 < 16  && obj->ymove <= 0)
 		return true;
 
-	if (p_bottom - originyglobal / 4 > 172 && objptr->ymove >= 0)
+	if (p_bottom - originy / 4 > 172 && obj->ymove >= 0)
 		return true;
 
 	if (p_left < 6 || p_right > 303)
 		return true;
 
-	return sub_0_C48();
+	return ObjBlocked();
 }
 
 
-void sub_0_F19(void)
+void ControlDave(void)
 {
-	int var_2;
-	int var_4;
+	int i;
+	int multiplier;
 	int tile_left;
 	int tile_right;
-	int var_A;
+	int xfactor;
 
 	ControlStruct c;
 
 	int xmove = 0;
 	int ymove = 0;
 
-	if (objptr->x < 0x00001000)
-		objptr->x = 0x00001000;
+	if (obj->x < 0x00001000)
+		obj->x = 0x00001000;
 
-	if ((long)(((LevelDef *)bigbuffer)->width - 1) << 8 << 4 < objptr->x)
-		objptr->x = (long)(((LevelDef *)bigbuffer)->width - 1) << 8 << 4;
+	if ((long)(levelheader->width - 1) << 8 << 4 < obj->x)
+		obj->x = (long)(levelheader->width - 1) << 8 << 4;
 
-	if ((long)((LevelDef *)bigbuffer)->height << 8 << 4 < objptr->y)
+	if ((long)levelheader->height << 8 << 4 < obj->y)
 	{
-		objptr->gamexit = 0;
+		obj->obclass = nothing;
 		PlaySound(PLUMMETSND);
 		WaitEndSound();
 		return;
 	}
 
-	c = ControlPlayer (word_789_94A2[12] + 1);
+	c = ControlPlayer (playernum + 1);
 	if (c.button1)
 	{
-		if (!bool_789_94C4 && !bool_789_9490)
+		if (!jumping && !jumpheld)
 		{
 			PlaySound(JUMPSND);
-			ymove = -word_789_1D32_750;
-			bool_789_94C4 = true;
-			bool_789_9490 = true;
-			word_789_8476 = word_789_9482_300;
+			ymove = -basejumpmove;
+			jumping = true;
+			jumpheld = true;
+			jumpspeed = basejumpspeed;
 		}
 
-		if (bool_789_9490 && word_789_8476 > 0)
+		if (jumpheld && jumpspeed > 0)
 		{
-			ymove -= word_789_8476;
-			word_789_8476 -= 7;
+			ymove -= jumpspeed;
+			jumpspeed -= 7;
 		}
 	}
 	else
 	{
-		word_789_8476 = 0;
-		if (!bool_789_94C4)
-			bool_789_9490 = false;
+		jumpspeed = 0;
+		if (!jumping)
+			jumpheld = false;
 	}
 
 	if (c.button2)
-		var_4 = 3;
+		multiplier = 3;
 	else
-		var_4 = 2;
+		multiplier = 2;
 
-	ctrl_789_9492 = c;
+	lastctrl = c;
 
 	switch (c.dir)
 	{
 		case northeast:
 		case east:
 		case southeast:
-			xmove = word_789_9480_80 * var_4;
-			facingleft = false;
+			xmove = basewalkspeed * multiplier;
+			faceleft = false;
 			break;
 
 		case southwest:
 		case west:
 		case northwest:
-			xmove = -word_789_9480_80 * var_4;
-			facingleft = true;
+			xmove = -basewalkspeed * multiplier;
+			faceleft = true;
 			break;
 	}
 
-	ymove += word_789_1D30_160;
+	ymove += basegravity;
 
-	if (bool_789_94C4)
+	if (jumping)
 	{
-		if (facingleft)
-			word_789_94A0 = 10;
+		if (faceleft)
+			tmp_baseshape = DAVEJLSPR;
 		else
-			word_789_94A0 = 9;
+			tmp_baseshape = DAVEJRSPR;
 	}
 	else
 	{
-		if (objptr->word_789_94E4-- == 0)
+		if (obj->walktick-- == 0)
 		{
-			objptr->word_789_94E4 = objptr->word_789_94E6;
+			obj->walktick = obj->walkticks;
 
-			if (++objptr->word_789_94E0 == 4)
-				objptr->word_789_94E0 = 0;
+			if (++obj->walkframe == 4)
+				obj->walkframe = 0;
 		}
 
 		if (xmove == 0)
 		{
-			objptr->word_789_94E0 = 1;
-			objptr->word_789_94E4 = objptr->word_789_94E6;
+			obj->walkframe = 1;
+			obj->walktick = obj->walkticks;
 		}
 
-		if (facingleft)
-			word_789_94A0 = objptr->word_789_94E0 + 5;
+		if (faceleft)
+			tmp_baseshape = obj->walkframe + DAVEL1SPR;
 		else
-			word_789_94A0 = objptr->word_789_94E0;
+			tmp_baseshape = obj->walkframe + DAVER1SPR;
 	}
 
-	sub_0_B0D();
+	GetHitbox();
 
 	tile_left  = GetTile(p_left,  p_bottom + 1);
 	tile_right = GetTile(p_right, p_bottom + 1);
 
-	if (tile_789_300[tile_left])
+	if (tile_xfactor[tile_left])
 	{
-		if (word_789_8476 == 0 && tile_block[tile_left])
-			bool_789_94C4 = false;
+		if (jumpspeed == 0 && tile_block[tile_left])
+			jumping = false;
 
-		var_A = tile_789_300[tile_left];
+		xfactor = tile_xfactor[tile_left];
 	}
 
-	if (tile_789_300[tile_right])
+	if (tile_xfactor[tile_right])
 	{
-		if (word_789_8476 == 0 && tile_block[tile_right])
-			bool_789_94C4 = false;
+		if (jumpspeed == 0 && tile_block[tile_right])
+			jumping = false;
 
-		var_A = tile_789_300[tile_right];
+		xfactor = tile_xfactor[tile_right];
 	}
 
-	objptr->xmove += xmove;
-	objptr->ymove += ymove;
+	obj->xmove += xmove;
+	obj->ymove += ymove;
 
-	objptr->xmove = (long)objptr->xmove * var_A / 256;
-	objptr->ymove = objptr->ymove * 9 / 10;
+	obj->xmove = (long)obj->xmove * xfactor / 256;
+	obj->ymove = obj->ymove * 9 / 10;
 
-	ymove = objptr->ymove;
+	ymove = obj->ymove;
 
-	sub_0_CBE();
+	MoveObj();
 
-	if (objptr->ymove == 0 && ymove < 0)
+	if (obj->ymove == 0 && ymove < 0)
 		PlaySound(BUMPSND);
 
-	if (objptr->ymove != 0)
-		bool_789_94C4 = true;
+	if (obj->ymove != 0)
+		jumping = true;
 
-	if (objptr->ymove >= 0)
-		word_789_8476 = 0;
+	if (obj->ymove >= 0)
+		jumpspeed = 0;
 
-	xmove = objptr->xmove;
-	ymove = objptr->ymove;
+	xmove = obj->xmove;
+	ymove = obj->ymove;
 
-	objptr->x += xmove;
-	objptr->y += ymove;
+	obj->x += xmove;
+	obj->y += ymove;
 
-	if (xmove > 0)
+	if (xmove > 0 && obj->x - originx > 0xB400L)
 	{
-		if (objptr->x - originxglobal > 0xB400L)
-		{
-			originxglobal += xmove;
-			if (originxglobal > originxmax)
-				originxglobal = originxmax;
-		}
+		originx += xmove;
+		if (originx > originxmax)
+			originx = originxmax;
 	}
-	else if (xmove < 0)
+	else if (xmove < 0 && obj->x - originx < 0x8C00L)
 	{
-		if (objptr->x - originxglobal < 0x8C00L)
-		{
-			originxglobal += xmove;
-			if (originxglobal < originxmin)
-				originxglobal = originxmin;
-		}
+		originx += xmove;
+		if (originx < originxmin)
+			originx = originxmin;
 	}
 
-	if (ymove > 0)
+	if (ymove > 0 && obj->y - originy > 0xA000L)
 	{
-		if (objptr->y - originyglobal > 0xA000L)
-		{
-			originyglobal += ymove;
-			if (originyglobal > originymax)
-				originyglobal = originymax;
-		}
+		originy += ymove;
+		if (originy > originymax)
+			originy = originymax;
 	}
-	else if (ymove < 0)
+	else if (ymove < 0 && obj->y - originy < 0x2800L)
 	{
-		if (objptr->y - originyglobal < 0x2800L)
-		{
-			originyglobal += ymove;
-			if (originyglobal < originymin)
-				originyglobal = originymin;
-		}
+		originy += ymove;
+		if (originy < originymin)
+			originy = originymin;
 	}
 
-	sub_0_B0D();
+	GetHitbox();
 	RF_PlaceSprite();
 
 	{
-		int var_18;
-		int var_1A;
+		int tx;
+		int ty;
 
-		int var_1C = p_left   / 16;
-		int var_1E = p_top    / 16;
-		int var_20 = p_right  / 16;
-		int var_22 = p_bottom / 16;
+		int tx1 = p_left   / 16;
+		int ty1 = p_top    / 16;
+		int tx2 = p_right  / 16;
+		int ty2 = p_bottom / 16;
 
-		for (var_1A = var_1E; var_1A <= var_22; var_1A++)
+		for (ty = ty1; ty <= ty2; ty++)
 		{
-			for (var_18 = var_1C; var_18 <= var_20; var_18++)
+			for (tx = tx1; tx <= tx2; tx++)
 			{
-				int var_24 = mapplane[0][var_1A * mapwwide + var_18];
+				int tilenum = mapplane[0][ty * mapwwide + tx];
 
-				switch (tile_behavior[var_24])
+				switch (tile_behavior[tilenum])
 				{
 					case 1:
 						PlaySound(GRABCOINSND);
 						AddScore(100);
-						mapplane[0][var_1A * mapwwide + var_18] = 0;
+						mapplane[0][ty * mapwwide + tx] = 0;
 						break;
 				}
 			}
 		}
 	}
 
-	for (ob = &objlist[0], var_2 = 1; var_2 < lastobj; var_2++, ob++)
+	for (hit = &objlist[1], i = 1; i < numobj; i++, hit++)
 	{
-		if (ob->active && ObjectsCollide())
-			ob->contact();
+		if (hit->active && ObjectsCollide())
+			hit->contact();
 	}
 }
 
 
 #define EXTRASCORE 10000
 
-void AddScore(int toadd) // sub_0_1491
+void AddScore(int toadd)
 {
 	score += toadd;
-	if (score - EXTRASCORE >= lastExtraScore)
+	if (score - EXTRASCORE >= lastextra)
 	{
-		lastExtraScore += EXTRASCORE;
-		lives++;
+		lastextra += EXTRASCORE;
+		davesleft++;
 	}
 }
 
 
-void sub_0_14CD(void)
+void levelloop(void)
 {
-  RF_ForceRefresh();
-  do
-  {
-    word_789_94A2[13] = eraselistindex = word_789_94D4 = 0;
-    word_789_94C6 = &type847C_789_847C[0];
-    WaitVBL();
-    objptr = &obj;
-    sub_0_F19();
-    RF_Refresh();
-    dofkeys();
+	RF_ForceRefresh();
+	do
+	{
+		spritesshown = coverlistindex = firstsprite = 0;
+		spritelistptr = &spritelist[0];
+		WaitVBL();
+		obj = &objlist[0];
+		ControlDave();
+		RF_Refresh();
+		dofkeys();
 
-    switch (indemo)
-    {
-      case notdemo:
-          if (keydown[0x2e] && keydown[0x14] && keydown[0x39])
-          {
-            clearkeys();
-            centerwindow(15, 1);
-            print("Warp to level:");
-            ch = get();
-            if (ch > '0' && ch <= '9')
-            {
-              level = ch - '1';
-              leveldone = true;
-            }
-            RF_ForceRefresh();
-            RF_Refresh();
-            RF_Refresh();
-          }
-        break;
+		switch (indemo)
+		{
+		case notdemo:
+			if (keydown[0x2e] && keydown[0x14] && keydown[0x39])	// C-T-SPACEBAR
+			{
+				clearkeys();
+				centerwindow(15, 1);
+				print("Warp to level:");
+				ch = get();
+				if (ch > '0' && ch <= '9')
+				{
+					level = ch - '1';
+					leveldone = true;
+				}
+				RF_ForceRefresh();
+				RF_Refresh();
+				RF_Refresh();
+			}
+			break;
 
-      case recording:
-          if (!obj.gamexit || (keydown[0x42] && keydown[0x20]))
-          {
-            clearkeys();
-            centerwindow(15, 1);
-            print("SAVE AS DEMO#:");
-            ch = get ();
-            if (ch<='0' || ch<='9')
-            {
-            }
-            SaveDemo(ch-'0');
-            RF_ForceRefresh();
-            RF_Refresh();
-            RF_Refresh();
-            return;
-          }
-        break;
+		case recording:
+			if (objlist[0].obclass == nothing || (keydown[0x42] && keydown[0x20]))	// F8-D
+			{
+				clearkeys();
+				centerwindow(15, 1);
+				print("SAVE AS DEMO#:");
+				ch = get ();
+				if (ch<='0' || ch<='9')
+				{
+				}
+				SaveDemo(ch-'0');
+				RF_ForceRefresh();
+				RF_Refresh();
+				RF_Refresh();
+				return;
+			}
+			break;
 
-      case demoplay:
-          indemo = 0;
-          ctrl = ControlPlayer (1);
-          if (ctrl.button1 || ctrl.button2 || keydown[0x39])
-          {
-            indemo = 1;
-            exitdemo = true;
-            break;
-          }
-          indemo = 1;
-        break;
-    }
-  } while (!leveldone && obj.gamexit);
+		case demoplay:
+			indemo = notdemo;
+			ctrl = ControlPlayer (1);
+			if (ctrl.button1 || ctrl.button2 || keydown[0x39])	// SPACEBAR
+			{
+				indemo = demoplay;
+				exitdemo = true;
+				return;
+			}
+			indemo = demoplay;
+			break;
+		}
+	} while (!leveldone && objlist[0].obclass != nothing);
 }
 
 
@@ -1248,30 +1284,30 @@ void sub_0_14CD(void)
 /*				      */
 /*======================================*/
 
-void playloop(void) // sub_0_162C
+void playloop(void)
 {
 	char st[6];
 	int i;
 
-	drawpage = 0;
-	lives = 4;
-	lastExtraScore = 0;
+	EGApage = 0;
+	davesleft = 4;
+	lastextra = 0;
 	score = 0;
 	leveldone = true;
 
 	RF_ForceRefresh();
 
-	word_789_94CA = 0;
+	refreshcount = 0;
 
 	do
 	{
 		if (leveldone)
 		{
-			type847C_789_847C[0].word_789_847C = 0xffff;
-			word_789_94C6 = &type847C_789_847C[0];
-			word_789_94A2[13] = 0;
-			eraselistindex = 0;
-			word_789_94D4 = 0;
+			spritelist[0].screenindex = 0xffff;
+			spritelistptr = &spritelist[0];
+			spritesshown = 0;
+			coverlistindex = 0;
+			firstsprite = 0;
 
 			strcpy(str, "LEVEL0");
 			itoa(level, st, 10);
@@ -1279,43 +1315,43 @@ void playloop(void) // sub_0_162C
 			strcat(str, ".");
 			strcat(str, _extension);
 
-			LoadFile(str, bigbuffer);
+			LoadFile(str, (char *)levelheader);
 
-			for (i = 0; i < ((LevelDef *)bigbuffer)->planes; i++) {
-				mapplane[i] = (unsigned int *)(bigbuffer + i * ((LevelDef *)bigbuffer)->planesize + 32);
+			for (i = 0; i < levelheader->planes; i++) {
+				mapplane[i] = (unsigned int *)((char *)levelheader + i * levelheader->planesize + 32);
 			}
 
-			lastobj = 1;
-			mapwwide = ((LevelDef *)bigbuffer)->width;
+			numobj = 1;
+			mapwwide = ((LevelDef *)levelheader)->width;
 			mapbwide = mapwwide * 2;
-			mapbytesextra = mapbwide + -(2 * PORTTILESWIDE);
+			mapwidthextra = mapbwide + -(2 * PORTTILESWIDE);
 			originxmin = 0;
 			originymin = 0;
 
-			originxmax = ((long)(((LevelDef *)bigbuffer)->width  + -(PORTTILESWIDE - 1))) << 12;
-			originymax = ((long)(((LevelDef *)bigbuffer)->height + -(PORTTILESHIGH - 1))) << 12;
+			originxmax = ((long)(levelheader->width  + -(PORTTILESWIDE - 1))) << 12;
+			originymax = ((long)(levelheader->height + -(PORTTILESHIGH - 1))) << 12;
 
-			originyglobal = originymax;
-			originxglobal = 0;
-			word_789_1D30_160 = 160;
-			word_789_9480_80  =  80;
-			word_789_9482_300 = 300;
-			word_789_1D32_750 = 750;
+			originy = originymax;
+			originx = 0;
+			basegravity = 160;
+			basewalkspeed  =  80;
+			basejumpspeed = 300;
+			basejumpmove = 750;
 			RF_Refresh();
-			sub_0_290();
+			virtualscreen();
 			RF_Refresh();
 			leveldone = false;
 		}
 
-		if (indemo != 0)
+		if (indemo != notdemo)
 		{
 			initrndt(false);
 		}
 		else
 		{
 			initrndt(true);
-			originyglobal = originymax;
-			originxglobal = 0;
+			originy = originymax;
+			originx = 0;
 			RF_ForceRefresh();
 			RF_Refresh();
 			RF_Refresh();
@@ -1325,7 +1361,7 @@ void playloop(void) // sub_0_162C
 			print("\n\n WORLD:");
 			printint(level);
 			print("\n\n DAVES LEFT:");
-			printint(lives);
+			printint(davesleft);
 			PlaySound(STARTSOUNDSND);
 			WaitEndSound();
 			if (keydown[0x41] && keydown[0x20]) // 'D+F7' to record a demo
@@ -1346,46 +1382,46 @@ void playloop(void) // sub_0_162C
 			}
 		}
 
-		obj.y = originyglobal + 0x9600;
-		obj.x = 0x00009600;
-		obj.ymove = 0;
-		obj.xmove = 0;
-		obj.gamexit = 1;
-		obj.word_789_94E0 = 2;
-		obj.word_789_94E6 = obj.word_789_94E4 = 5;
-		obj.active = false;
-		obj.word_789_9500 = 0;
-		obj.think = sub_0_F19;
+		objlist[0].y = originy + 0x9600;
+		objlist[0].x = 0x00009600;
+		objlist[0].ymove = 0;
+		objlist[0].xmove = 0;
+		objlist[0].obclass = playerobj;
+		objlist[0].walkframe = 2;
+		objlist[0].walkticks = objlist[0].walktick = 5;
+		objlist[0].active = false;
+		objlist[0].word_789_9500 = 0;	// is set here but never used
+		objlist[0].think = ControlDave;
 
-		ctrl_789_9492.button1 = 0;
-		ctrl_789_9492.button1 = 0;
+		lastctrl.button1 = 0;
+		lastctrl.button1 = 0;
 
-		word_789_8476 = 0;
-		bool_789_94C4 = true;
-		bool_789_9490 = false;
-		facingleft = false;
-		originyglobal = originymax;
-		originxglobal = 0;
+		jumpspeed = 0;
+		jumping = true;
+		jumpheld = false;
+		faceleft = false;
+		originy = originymax;
+		originx = 0;
 
-		sub_0_14CD();
+		levelloop();
 
-		if (indemo != 0)
+		if (indemo != notdemo)
 			return;
 
 		if (!leveldone)
 		{
-			lives--;
+			davesleft--;
 		}
 		else
 		{
 			level++;
 			if (level > _numlevels)
 			{
-				lives = 0;
+				davesleft = 0;
 				gamestate = inend;
 			}
 		}
-	} while (lives != 0);
+	} while (davesleft != 0);
 }
 
 /***************************************************************************/
@@ -1397,7 +1433,7 @@ void playloop(void) // sub_0_162C
 /*			   */
 /*=========================*/
 
-void main (void) // sub_0_1953
+void main (void)
 {
 	_numlevels = 1;
 	_maxplayers = 1;
@@ -1411,11 +1447,11 @@ void main (void) // sub_0_1953
 	_setupgame();
 
 	screencenterx = 25;
-	word_789_8220 = 32;
+	extrahbls = 32;	// not used for EGA refresh
 
-	sub_0_37E();
+	_setupgrmode();
 
-	bigbuffer = unk_789_1D40;
+	levelheader = (LevelDef *)mapbuffer;
 
 	while (1)			// go until quit () is called
 	{
